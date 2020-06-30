@@ -45,7 +45,7 @@ span.glyphicon.glyphicon-shopping-cart.my-cart-icon.my-cart-icon-affix {
     text-align: center;
 }
 .my-cart-icon-affix i {
-    background: #fe9126 !important;
+    background: #FFD100 !important;
 }
 .agile_top_brand_left_grid {
     position: relative;
@@ -85,7 +85,7 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
     color: #fff;
 }
 .w3l_offers p a {
-    color: #fe9126;
+    color: #FFD100;
     text-decoration: none;
 }
 .w3l_search {
@@ -97,7 +97,7 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
     width: 83%;
     padding:10px;
     font-size: 14px;
-    color: #999;
+    color: #FFD100;
     outline: none;
     border: 1px solid #cccccc;
     background: none;
@@ -189,8 +189,8 @@ button.w3view-cart:focus{
     width: 33.33%;
 }
 .w3ls_logo_products_left h1 a{
-	font-size: 40px;
-    color: #fe9126;
+	font-size: 50px;
+    color: #FFD100;
     text-decoration: none;
     text-transform: uppercase;
     display: block;
@@ -207,9 +207,9 @@ button.w3view-cart:focus{
 }
 /*-- //header --*/
 .navbar-default .navbar-nav > li > a {
-    color: #fff;
+    color: #fff;    
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
 }
 .logo-nav-left1 ul li.active a.act{
 	color:#fff !important;
@@ -242,7 +242,7 @@ button.w3view-cart:focus{
 }
 ul.multi-column-dropdown h6 {
     font-size: 20px;
-    color:#fe9126;
+    color:#FFD100;
     margin: 0 0 0em;
     padding-bottom: 1em;
     border-bottom: 1px solid #E4E4E4;
@@ -282,7 +282,7 @@ ul.multi-column-dropdown h6 {
     width: 100%;
 }
 .navigation-agileits {
-    background: #fe9126;
+    background: #FFCC00;
 }
 .navbar-nav > li {
     float: left;
@@ -337,7 +337,7 @@ ul.multi-column-dropdown h6 {
 }
 .top-brands h2:after,.newproducts-w3agile h3:after,.login h2:after,.register h2:after,.faq-w3agile h3:after,.brands h3:after{
 	content: '';
-    background: #3399cc;
+    background: #FFCD00;
     height: 2px;
     width: 15%;
     position: absolute;
@@ -396,9 +396,10 @@ ul.multi-column-dropdown h6 {
     outline: none;
 }
 .snipcart-details input.button {
+	font-weight: 600;
     font-size: 14px;
     color: #fff;
-    background: #3399cc;
+    background: #3FBF1A;
     text-decoration: none;
     position: relative;
     border: none;
@@ -409,7 +410,7 @@ ul.multi-column-dropdown h6 {
     outline: none;
 }
 .agile_top_brand_left_grid:hover .snipcart-details input.button,.snipcart-details input.button:hover{
-    background: #fe9126;
+    background: #FFD100;
 }
 .product_list_header input.button {
     color: #fff;
@@ -417,7 +418,7 @@ ul.multi-column-dropdown h6 {
     outline: none;
     text-transform: capitalize;
     padding: .5em 2.5em .5em 1em;
-    border: 1px solid #fe9126;
+    border: 1px solid #FFD100;
     margin: .35em 0 0;
     background: url(../images/cart.png) no-repeat 116px 9px;
 }
@@ -452,7 +453,7 @@ ul.multi-column-dropdown h6 {
     display: none;
 }
 #PPMiniCart .minicart-submit:hover{
-	background:#fe9126 !important;
+	background:#FFD100 !important;
 	border-color: #5b951a !important;
 }
 #PPMiniCart .minicart-subtotal {
@@ -531,17 +532,17 @@ div#myTabContent {
 	font-weight: 600;
 	border: 0px solid transparent;
 	border-radius: 0px 0px 0 0;
-	color: #016773;
+	color: #0B6A31;
 }
 .nav-tabs>li>a:hover, .nav>li>a:focus {
 	text-decoration: none;
-	background: #fe9126;
+	background: #FFD100;
 	color: #FFF;
 	border:  0px solid transparent;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
     color: #FFF;
-    background: #fe9126;
+    background: #FFD100;
 	border:  0px solid transparent;
 }
 .nav-tabs {
@@ -778,8 +779,8 @@ i.gray-star {
     font-size: 14px;
 }
 .w3_footer_grid ul.address li i {
-    color:#fe9126;
-    border: 1px solid #fe9126;
+    color:#FFD100;
+    border: 1px solid #FFD100;
     padding: .5em;
     margin-right: 1em;
 }
@@ -792,7 +793,7 @@ i.gray-star {
     text-decoration: none;
 }
 .w3_footer_grid ul li a:hover {
-	color:#fe9126;
+	color:#FFD100;
 }
 .w3_footer_grid h4{
 	margin:2em 0 1em;
@@ -800,7 +801,7 @@ i.gray-star {
 	color:#ff9b05;
 }
 i.fa.fa-arrow-right {
-    color: #fe9126;
+    color: #FFD100;
     margin-right: 10px;
 }
 .footer-copy1{
@@ -829,7 +830,7 @@ i.fa.fa-arrow-right {
 	line-height:1.8em;
 }
 .footer-copy p a{
-	color:#ff9b05;
+	color:#FFD100;
 	text-decoration:none;
 }
 .footer-copy p a:hover{
@@ -936,7 +937,7 @@ a.w3_agile_vimeo:hover{
     margin: 1.5em 0 0;
 }
 .login-form-grids input[type="submit"]:hover{
-	background:#fe9126;
+	background:#FFD100;
 }
 .login-form-grids ::-webkit-input-placeholder{
 	color:#999;
@@ -964,7 +965,7 @@ a.w3_agile_vimeo:hover{
 	text-align:center;
 }
 .login p a{
-	color:#fe9126;
+	color:#FFD100;
 	text-decoration:none;
 	font-size: 1.2em;
 	padding: 0 .5em;
@@ -1064,7 +1065,7 @@ a.w3_agile_vimeo:hover{
 	text-decoration:none;
 }
 .register-home a:hover{
-	background:#fe9126;
+	background:#FFD100;
 }
 /*-- //register --*/
 /*-- checkout --*/
@@ -1085,11 +1086,11 @@ table.timetable_sub {
     background: #004284;
 }
 .timetable_sub th {
-    background: #fe9126;
+    background: #FFD100;
     color: #fff !important;
     text-transform: capitalize;
     font-size: 13px;
-    border-right: 1px solid #fe9126;
+    border-right: 1px solid #FFD100;
 }
 .timetable_sub th, .timetable_sub td {
     text-align: center;
@@ -1229,7 +1230,7 @@ td.invert-image a img {
 	text-decoration:none;
 }
 .checkout-right-basket a:hover{
-	background:#fe9126;
+	background:#FFD100;
 }
 .checkout-right-basket a span {
     left: -.5em;
@@ -1357,7 +1358,7 @@ ul.faq {
 /*-- //single --*/
 .brands {
     padding: 5em 0;
-    background: #eed3b6;
+    background: #FFFBC7;
 }
 .brands-w3l {
     text-align: center;
@@ -1367,7 +1368,7 @@ ul.faq {
     font-size: 17px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #39c;
+    color: #FCB804;
 	background: #fff;
     padding: 16px;
 	display: block;
@@ -1534,7 +1535,7 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
 }
 .time-top {
     padding: 1em;
-    background-color: #fe9126;
+    background-color: #FFD100;
 }
 .time-top h4 {
     font-size: 1.7em;
@@ -2331,7 +2332,7 @@ h4.m-sing {
 }
 h3.icon-subheading {
     font-size: 28px;
-    color: #fe9126 !important;
+    color: #FFD100 !important;
     margin: 30px 0 15px;
     font-weight: 600;
     letter-spacing: 2px;
