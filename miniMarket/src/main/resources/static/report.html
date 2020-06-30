@@ -229,27 +229,146 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3>' '게시글을 신고하는 이유를 선택해주세요</h3>
 								<br><br>
-								<form method="post" class="" id="memberByMemberItemReportForm">
-									<div id="title">
-										<button type="button" id="mBymItemReportTitle1" value="판매금지 품목이에요" name="title">판매금지 품목이에요</button>
-										<button type="button" id="mBymItemReportTitle2" value="중고거래 게시글이 아니에요" name="title">중고거래 게시글이 아니에요</button>
-										<button type="button" id="mBymItemReportTitle3" value="전문 판매업자 같아요" name="title">전문 판매업자 같아요</button>
-										<button type="button" id="mBymItemReportTitle4" value="기타 사유 선택" name="title">기타 사유 선택</button>
-									</div>
-									<div id="content1">
-										<button type="button" id="mBymItemReportContent11" value="재난지원금 / 쌀 꾸러미 거래" name="content">재난지원금 / 쌀 꾸러미 거래</button>
-										<button type="button" id="mBymItemReportContent12" value="반려동물 거래" name="content">반려동물 거래</button>
-										<button type="button" id="mBymItemReportContent13" value="주류 / 담배 판매" name="content">주류 / 담배 판매</button>
-										<button type="button" id="mBymItemReportContent14" value="상업적인 핸드메이드 판매" name="content">상업적인 핸드메이드 판매</button>
-										<button type="button" id="mBymItemReportContent15" value="화장품 샘플 판매" name="content">화장품 샘플 판매</button>
-										<button type="button" id="mBymItemReportContent16" value="청소년 유해물 / 음란물 판매" name="content">청소년 유해물 / 음란물 판매</button>
-										<button type="button" id="mBymItemReportContent17" value="가품 / 이미테이션 판매" name="content">가품 / 이미테이션 판매래</button>
-										<button type="button" id="mBymItemReportContent18" value="의약품 / 의료기기 판매" name="content">의약품 / 의료기기 판매</button>
-										<button type="button" id="mBymItemReportContent19" value="콘택트 렌즈 / 도수 있는 안경 판매" name="content">콘택트 렌즈 / 도수 있는 안경 판매</button>
-										<button type="button" id="mBymItemReportContent110" value="수제 음식 / 미인증 건강기능식품 판매" name="content">수제 음식 / 미인증 건강기능식품 판매</button>
-										<button type="button" id="mBymItemReportContent111" value="조건부 무료나눔" name="content">조건부 무료나눔</button>
-										<button type="button" id="mBymItemReportContent112" value="기타 물품" name="content">기타 물품</button>
-									</div>
+							<form method="post" action="/report" id="memberByMemberItemReportForm">
+							<div id="title">
+                              <div id="title1">
+                                 <button type="button" class="titlebtn" id="mBymItemReportTitle1" value="판매금지 품목이에요" name="reportTitle">판매금지 품목이에요</button>
+                              </div>
+                              <div id="title2">
+                                 <button type="button" class="titlebtn" id="mBymItemReportTitle2" value="중고거래 게시글이 아니에요" name="reportTitle">중고거래 게시글이 아니에요</button>
+                              </div>
+                              <div id="title3">
+                                 <button type="button" class="titlebtn" id="mBymItemReportTitle3" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
+                              </div>
+                              <div id="title4">
+                                 <button type="button" class="titlebtn" id="mBymItemReportTitle4" value="기타 사유 선택" name="reportTitle">기타 사유 선택</button>
+                              </div>
+                              <input type="hidden" id="reportTitle" name="reportTitle">
+                           </div>
+                           		<div id="content1">
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent11" value="재난지원금 / 쌀 꾸러미 거래" name="reportContent">재난지원금 / 쌀 꾸러미 거래</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent12" value="반려동물 거래" name="reportContent">반려동물 거래</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent13" value="주류 / 담배 판매" name="reportContent">주류 / 담배 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent14" value="상업적인 핸드메이드 판매" name="reportContent">상업적인 핸드메이드 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent15" value="화장품 샘플 판매" name="reportContent">화장품 샘플 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent16" value="청소년 유해물 / 음란물 판매" name="reportContent">청소년 유해물 / 음란물 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent17" value="가품 / 이미테이션 판매" name="reportContent">가품 / 이미테이션 판매래</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent18" value="의약품 / 의료기기 판매" name="reportContent">의약품 / 의료기기 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent19" value="콘택트 렌즈 / 도수 있는 안경 판매" name="reportContent">콘택트 렌즈 / 도수 있는 안경 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent110" value="수제 음식 / 미인증 건강기능식품 판매" name="reportContent">수제 음식 / 미인증 건강기능식품 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent111" value="조건부 무료나눔" name="reportContent">조건부 무료나눔</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent112" value="기타 물품" name="reportContent">기타 물품</button>
+	                              </div>
+	                              <input type="hidden" id="reportContent" name="reportContent">
+	                           </div>
+	                           <div id="content2">
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent21" value="지역업체 소개 / 광고" name="reportContent">지역업체 소개 / 광고</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent22" value="부동산 거래" name="reportContent">부동산 거래</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent23" value="중고차 / 오토바이 판매" name="reportContent">중고차 / 오토바이 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent24" value="농수산물 판매" name="reportContent">농수산물 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent25" value="구인구직" name="reportContent">구인구직</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent26" value="과외 / 클래스 모집" name="reportContent">과외 / 클래스 모집</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent27" value="전시 / 공연 / 행사" name="reportContent">전시 / 공연 / 행사</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent28" value="일반 게시글(잡담, 질문 등)" name="reportContent">일반 게시글(잡담, 질문 등)</button>
+	                              </div>
+	                              <input type="hidden" id="reportContent" name="reportContent">
+	                           </div>
+	                           <div id="content3">
+	                              <div>   
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent31" value="매장이 있는 판매업자" name="reportContent">매장이 있는 판매업자</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent32" value="인터넷 쇼핑몰 판매업자" name="reportContent">인터넷 쇼핑몰 판매업자</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent33" value="대량 주문 판매" name="reportContent">대량 주문 판매</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent34" value="점포 재고 정리" name="reportContent">점포 재고 정리</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent35" value="해외 구매 대행" name="reportContent">해외 구매 대행</button>
+	                              </div>
+	                              <div>
+	                                 <button type="button" class="btnContent" id="mBymItemReportContent36" value="기타" name="reportContent">기타</button>
+	                              </div>
+	                              <input type="hidden" id="reportContent" name="reportContent">
+                           </div>
+                           <div id="content4">
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="판매 가치가 없는 상품" name="reportContent">판매 가치가 없는 상품</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="중복 게시글" name="reportContent">중복 게시글</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="잘못된 카테고리" name="reportContent">잘못된 카테고리</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="상품 설명 부족" name="reportContent">상품 설명 부족</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="마스크 판매 정책 위반" name="reportContent">마스크 판매 정책 위반</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="당근마켓에서 구매 후 비싸게 재판매" name="reportContent">당근마켓에서 구매 후 비싸게 재판매</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="거래 / 환불 분쟁" name="reportContent">거래 / 환불 분쟁</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="사기 신고" name="reportContent">사기 신고</button>
+                              </div>
+                              <div>
+                                 <button type="button" class="btnContent" id="mBymItemReportContent41" value="신고 항목 제안" name="reportContent">신고 항목 제안</button>
+                              </div>
+                              <input type="hidden" id="reportContent" name="reportContent">
+                             
+                           </div>
+                           		 <div id="desc">
+                           			<h3>신고 항목 제안</h3>
+                           			<label>앞의 신고 항목에서 적당한 사유를 찾지 못하셨나요?<br>원하시는 신고항목이 없는 경우 신고항목을 제안해주세요.<br>(내부적으로 검토하여 신고 항목 개선에 활용됩니다.)</label>
+                           		</div>
+                           		<div id="memoId">	
+                           		</div>
 									<div>
 										<button type="button" id="preBtn">이전</button>
 										<button type="button" id="submitBtn">전송</button>
@@ -341,28 +460,94 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-<script src="../jQuery/jquery-1.3.2-vsdoc2.js" type="text/javascript"></script>
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
-
+		//title 값을 저장할 변수
+		let title = "";
+		//content 값을 저장할 변수
+		let content = "";
+		// textarea를 불러올 변수
+		let memo = '<textarea rows="10" cols="70" name="reportMemo" placeholder="신고 항목 제안 내용을 입력해주세요.." id="reportMemo"></textarea>';
+		// textarea의 value값을 저장할 변수
+		let memoVal = "";
         $(document).ready(function() {
-            //[1] 기본값 설정
+            //title의 메뉴만 보여주고 나머지는 다 숨김
             $("#title").show();
             $("#content1").hide();
+            $("#content2").hide();
+            $("#content3").hide();
+            $("#content4").hide();
+            $("#memo").hide();
             $("#preBtn").hide();
             $("#submitBtn").hide();
-            $("#mBymItemReportTitle1").click(function(){
+            $("#desc").hide();
+            //title 메뉴 버튼 값 선택시
+            $(".titlebtn").click(function(){
+            	//title 변수에 #title의 value값을 저장해줌
+            	let title = $(this).val();
+            	console.log(title);
             	$("#title").hide();
-            	$("#content1").show();
+            	//title 버튼 선택에 따라 그에 맞는 content 메뉴를 보여줌
+            	if(title == "판매금지 품목이에요"){
+            		$("#content1").show();
+            	}else if(title == "중고거래 게시글이 아니에요"){
+            		$("#content2").show();
+            	}else if(title == "전문 판매업자 같아요"){
+            		$("#content3").show();
+            	}else if(title == "기타 사유 선택"){
+            		$("#content4").show();
+            	}
+            	//이전 버튼 보여줌
             	$("#preBtn").show();
+            	//이전 버튼 클릭시
             	$("#preBtn").click(function(){
             		$("#title").show();
                     $("#content1").hide();
+                    $("#content2").hide();
+                    $("#content3").hide();
+                    $("#content4").hide();
                     $("#preBtn").hide();
+                    $("#desc").hide();
                     $("#submitBtn").hide();
             	});
+            	  //content 메뉴 버튼 클릭 시
+            	  $(".btnContent").click(function(){
+            		  //content 메뉴 값 저장
+                  	let content = $(this).val();
+                  	console.log(content);
+                  	//만약에 신고 항목 제안 버튼 클릭시 textarea와 제목을 띄워줌
+                  	if(content == "신고 항목 제안"){
+                  		//설명 
+                  		$("#desc").show();
+                  		//전송 버튼 보여줌
+                  		 $("#submitBtn").show();
+                  		$("#content4").hide();
+                  		//textarea를 보여줌
+                  		$("#memoId").prepend(memo);
+                  		// 전송버튼 클릭 이벤트
+                  		$("#submitBtn").click(function(){
+                  			//textarea의 value값을 변수에 저장
+                  			let memoVal = $("#reportMemo").val();
+                  			console.log(memoVal)
+                  			//title , content, memo 값을 컨트롤러로 전송
+                  			$("#reportMemo").val(memoVal);
+                  			$("#reportTitle").val(title);
+    	                  	$("#reportContent").val(content);
+                  			$("#memberByMemberItemReportForm").submit();
+                  		});
+                  		//memo값이 없을 시 이벤트
+                  	}else{
+                  		$("#reportTitle").val(title);
+	                  	$("#reportContent").val(content);
+	                  	console.log($("#reportTitle").val());
+	                  	console.log($("#reportContent").val());
+	                	$("#memberByMemberItemReportForm").submit()
+                  	}
+                  });
+            	  
             });
+          
         });
 
     </script>
