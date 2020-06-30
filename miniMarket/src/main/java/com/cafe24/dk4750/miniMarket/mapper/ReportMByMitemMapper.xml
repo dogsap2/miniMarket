@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ReportMByMitemMapper">
+	
+	<!-- 신고 취소 페이징 -->
+	<select id="getStateCancel" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM mini_market_report_m_by_mitem
+		WHERE report_state = 신고취소
+	</select>
+	<!-- 신고 상태별 List(신고 취소) -->
+	<select id="selectReportMByMitemStateCancel" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByMitem">
+		SELECT
+			report_no as reportNo,
+			member_id as memberId,
+			report_title as reportTitle,
+			report_state as reportState,
+			report_date as reportDate
+		FROM mini_market_report_m_by_mitem
+		WHERE report_state = 신고취소
+		ORDER BY reprot_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!-- 신고 확인 페이징 -->
+	<select id="getStateConfirm" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM mini_market_report_m_by_mitem
+		WHERE report_state = 신고확인
+	</select>
+	<!-- 신고 상태별 List(신고 확인) -->
+	<select id="selectReportMByMitemStateConfirm" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByMitem">
+		SELECT
+			report_no as reportNo,
+			member_id as memberId,
+			report_title as reportTitle,
+			report_state as reportState,
+			report_date as reportDate
+		FROM mini_market_report_m_by_mitem
+		WHERE report_state = 신고확인
+		ORDER BY reprot_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!-- 신고중 페이징 -->
+	<select id="getStateIng" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM mini_market_report_m_by_mitem
+		WHERE report_state = 신고중
+	</select>
+	<!-- 신고 상태별 List(신고중) -->
+	<select id="selectReportMByMitemStateIng" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByMitem">
+		SELECT
+			report_no as reportNo,
+			member_id as memberId,
+			report_title as reportTitle,
+			report_state as reportState,
+			report_date as reportDate
+		FROM mini_market_report_m_by_mitem
+		WHERE report_state = 신고중
+		ORDER BY reprot_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!-- totalList Count -->
+	<select id="getTotalRow" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM mini_market_report_m_by_mitem
+	</select>
+	<!-- 신고 totalList -->
+	<select id="selectReportMByMitemAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByMitem">
+		SELECT
+			report_no as reportNo,
+			member_id as memberId,
+			report_title as reportTitle,
+			report_state as reportState,
+			report_date as reportDate
+		FROM mini_market_report_m_by_mitem
+		ORDER BY reprot_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!-- 신고 상세페이지 -->
+	<select id="selectReportMByMitemOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByMitem">
+		SELECT
+			report_no as reportNo,
+			report_title as reportTitle,
+			report_content as reportContent,
+			report_memo as reportMemo,
+			member_id as memberId,
+			member_item_no as memberItemNo,
+			report_state as reportState,
+			report_date as reportDate
+		FROM mini_market_report_m_by_mitem
+		WHERE report_no = #{reportNo}
+	</select>
+	<!-- 신고 하기 접수 -->
+	<insert id="insertReportMByMitem" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMByMitem">
+		INSERT INTO mini_market_report_m_by_mitem(
+			report_title,
+			report_content,
+			report_memo,
+			member_id,
+			member_item_no,
+			report_date
+		) VALUES (
+			#{reportTitle},
+			#{reportContent},
+			#{memberId},
+			#{memberItemNo},
+			now()
+		)
+	</insert>
+</mapper>
