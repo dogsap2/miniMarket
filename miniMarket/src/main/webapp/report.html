@@ -5,15 +5,16 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
-<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Contact :: w3layouts</title>
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -70,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>이슬민,엄미선,한윤아,서일태,정유석,김동희 Order online or call us : (+0123) 234 567</li>
 					
 				</ul>
 			</div>
@@ -181,8 +182,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<li><a href="packagedfoods.html">Chocolates & Sweets</a></li>
 													</ul>
 												</div>
-												
-											
 											</div>
 										</ul>
 									</li>
@@ -213,68 +212,62 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</nav>
 			</div>
 		</div>
-		
 <!-- //navigation -->
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
+	<!-- //top-header and slider -->
+	<!-- top-brands -->
+	<div class="top-brands">
 		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Contact</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
-<!-- contact -->
-	<div class="about">
-		<div class="w3_agileits_contact_grids">
-			<div class="col-md-6 w3_agileits_contact_grid_left">
-				<div class="agile_map">
-					<iframe src="https://www.google.com/maps/embed?pb=" style="border:0"></iframe>
-				</div>
-				<div class="agileits_w3layouts_map_pos">
-					<div class="agileits_w3layouts_map_pos1">
-						<h3>Contact Info</h3>
-						<p>1234k Avenue, 4th block, New York City.</p>
-						<ul class="wthree_contact_info_address">
-							<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-							<li><i class="fa fa-phone" aria-hidden="true"></i>+(0123) 232 232</li>
-						</ul>
-						<div class="w3_agile_social_icons w3_agile_social_icons_contact">
-							<ul>
-								<li><a href="#" class="icon icon-cube agile_facebook"></a></li>
-								<li><a href="#" class="icon icon-cube agile_rss"></a></li>
-								<li><a href="#" class="icon icon-cube agile_t"></a></li>
-							</ul>
+		<h2>신고하기</h2>
+			<div class="grid_3 grid_5">
+				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+					<ul id="myTab" class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">게시물 신고</a></li>
+						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">멤버 신고</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+							<div align="center">
+								<h3>' '게시글을 신고하는 이유를 선택해주세요</h3>
+								<br><br>
+								<form method="post" class="" id="memberByMemberItemReportForm">
+									<div id="title">
+										<button type="button" id="mBymItemReportTitle1" value="판매금지 품목이에요" name="title">판매금지 품목이에요</button>
+										<button type="button" id="mBymItemReportTitle2" value="중고거래 게시글이 아니에요" name="title">중고거래 게시글이 아니에요</button>
+										<button type="button" id="mBymItemReportTitle3" value="전문 판매업자 같아요" name="title">전문 판매업자 같아요</button>
+										<button type="button" id="mBymItemReportTitle4" value="기타 사유 선택" name="title">기타 사유 선택</button>
+									</div>
+									<div id="content1">
+										<button type="button" id="mBymItemReportContent11" value="재난지원금 / 쌀 꾸러미 거래" name="content">재난지원금 / 쌀 꾸러미 거래</button>
+										<button type="button" id="mBymItemReportContent12" value="반려동물 거래" name="content">반려동물 거래</button>
+										<button type="button" id="mBymItemReportContent13" value="주류 / 담배 판매" name="content">주류 / 담배 판매</button>
+										<button type="button" id="mBymItemReportContent14" value="상업적인 핸드메이드 판매" name="content">상업적인 핸드메이드 판매</button>
+										<button type="button" id="mBymItemReportContent15" value="화장품 샘플 판매" name="content">화장품 샘플 판매</button>
+										<button type="button" id="mBymItemReportContent16" value="청소년 유해물 / 음란물 판매" name="content">청소년 유해물 / 음란물 판매</button>
+										<button type="button" id="mBymItemReportContent17" value="가품 / 이미테이션 판매" name="content">가품 / 이미테이션 판매래</button>
+										<button type="button" id="mBymItemReportContent18" value="의약품 / 의료기기 판매" name="content">의약품 / 의료기기 판매</button>
+										<button type="button" id="mBymItemReportContent19" value="콘택트 렌즈 / 도수 있는 안경 판매" name="content">콘택트 렌즈 / 도수 있는 안경 판매</button>
+										<button type="button" id="mBymItemReportContent110" value="수제 음식 / 미인증 건강기능식품 판매" name="content">수제 음식 / 미인증 건강기능식품 판매</button>
+										<button type="button" id="mBymItemReportContent111" value="조건부 무료나눔" name="content">조건부 무료나눔</button>
+										<button type="button" id="mBymItemReportContent112" value="기타 물품" name="content">기타 물품</button>
+									</div>
+									<div>
+										<button type="button" id="preBtn">이전</button>
+										<button type="button" id="submitBtn">전송</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
+							<div align="center">
+								정유석
+							</div>
 						</div>
 					</div>
-				</div>
+				</div>			
 			</div>
-			<div class="col-md-6 w3_agileits_contact_grid_right">
-				<h2 class="w3_agile_header">Leave a<span> Message</span></h2>
-
-				<form action="#" method="post">
-					<span class="input input--ichiro">
-						<input class="input__field input__field--ichiro" type="text" id="input-25" name="Name" placeholder=" " required="" />
-						<label class="input__label input__label--ichiro" for="input-25">
-							<span class="input__label-content input__label-content--ichiro">Your Name</span>
-						</label>
-					</span>
-					<span class="input input--ichiro">
-						<input class="input__field input__field--ichiro" type="email" id="input-26" name="Email" placeholder=" " required="" />
-						<label class="input__label input__label--ichiro" for="input-26">
-							<span class="input__label-content input__label-content--ichiro">Your Email</span>
-						</label>
-					</span>
-					<textarea name="Message" placeholder="Your message here..." required=""></textarea>
-					<input type="submit" value="Submit">
-				</form>
-			</div>
-			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- contact -->
-
+<!-- //top-brands -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
@@ -316,8 +309,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
-					
-					
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -350,8 +341,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script src="../jQuery/jquery-1.3.2-vsdoc2.js" type="text/javascript"></script>
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
+	<script type="text/javascript">
+
+        $(document).ready(function() {
+            //[1] 기본값 설정
+            $("#title").show();
+            $("#content1").hide();
+            $("#preBtn").hide();
+            $("#submitBtn").hide();
+            $("#mBymItemReportTitle1").click(function(){
+            	$("#title").hide();
+            	$("#content1").show();
+            	$("#preBtn").show();
+            	$("#preBtn").click(function(){
+            		$("#title").show();
+                    $("#content1").hide();
+                    $("#preBtn").hide();
+                    $("#submitBtn").hide();
+            	});
+            });
+        });
+
+    </script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			/*
@@ -393,6 +407,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 </script>	
 <!-- //main slider-banner --> 
-
 </body>
 </html>
