@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>modify member item</title>
+</head>
+<body>
+	<form method="post" th:action="@{/modifyMemberItem}">
+		<table>
+			<tr>
+				<th>제목</th>
+				<th>카테고리 이름</th>
+				<th>가격</th>
+				<th>내용</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="memberItemTitle" id="memberItemTitle" th:value="${memberItem.memberItemTitle}">
+				</td>
+				<td>
+					<input type="text" name="categoryName" id="categoryName" th:value="${memberItem.categoryName}">
+				</td>
+				<td>
+					<input type="text" name="memberItemPrice" id="memberItemPrice" th:value="${memberItem.memberItemPrice}">
+				</td>
+				<td>
+					<textarea rows="5" cols="10" name="memberItemContent" id="memberItemContent" th:text="${memberItem.memberItemContent}"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button type="submit">수정</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

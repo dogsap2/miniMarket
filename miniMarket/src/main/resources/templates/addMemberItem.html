@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>add member item</title>
+</head>
+<body>
+	<form method="post" th:action="@{/addMemberItem}">
+		<table>
+			<tr>
+				<th>멤버 고유번호</th>
+				<th>제목</th>
+				<th>카테고리 이름</th>
+				<th>가격</th>
+				<th>내용</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="memberUniqueNo" id="memberUniqueNo" th:value="test2">
+				</td>
+				<td>
+					<input type="text" name="memberItemTitle" id="memberItemTitle">
+				</td>
+				<td>
+					<input type="text" name="categoryName" id="categoryName" th:value="노트북">
+				</td>
+				<td>
+					<input type="text" name="memberItemPrice" id="memberItemPrice">
+				</td>
+				<td>
+					<textarea rows="5" cols="10" name="memberItemContent" id="memberItemContent"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button type="submit">추가</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
