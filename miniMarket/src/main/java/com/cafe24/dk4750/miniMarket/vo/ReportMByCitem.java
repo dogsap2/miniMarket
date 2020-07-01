@@ -4,7 +4,6 @@ public class ReportMByCitem {
 	private int reportNo;
 	private String reportTitle;
 	private String reportContent;
-	private String reportMemo;
 	private String memberId;
 	private int companyItemNo;
 	private String reportState;
@@ -28,12 +27,6 @@ public class ReportMByCitem {
 	}
 	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
-	}
-	public String getReportMemo() {
-		return reportMemo;
-	}
-	public void setReportMemo(String reportMemo) {
-		this.reportMemo = reportMemo;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -59,12 +52,11 @@ public class ReportMByCitem {
 	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
 	}
-	
 	// toString
 	@Override
 	public String toString() {
 		return "ReportMByCitem [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent="
-				+ reportContent + ", reportMemo=" + reportMemo + ", memberId=" + memberId + ", companyItemNo="
-				+ companyItemNo + ", reportState=" + reportState + ", reportDate=" + reportDate + "]";
+				+ reportContent + ", memberId=" + memberId + ", companyItemNo=" + companyItemNo + ", reportState="
+				+ reportState + ", reportDate=" + reportDate + "]";
 	}
 }

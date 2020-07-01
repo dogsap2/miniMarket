@@ -17,16 +17,8 @@ public interface ReportMByMitemMapper {
 	public int getTotalRow();
 	// 신고 내용 상세보기
 	public ReportMByMitem selectReportMByMitemOne(int reportNo);
-	// 신고 상태별 리스트(신고중)
-	public List<ReportMByMitem> selectReportMByMitemStateIng(Map<String, Object> map);
-	// (신고중) 페이징
-	public int getStateIng();
-	// 신고 상태별 리스트(신고확인)
-	public List<ReportMByMitem> selectReportMByMitemStateConfirm(Map<String, Object> map);
-	// (신고확인) 페이징
-	public int getStateConfirm();
-	// 신고 상태별 리스트(신고취소)
-	public List<ReportMByMitem> selectReportMByMitemStateCancel(Map<String, Object> map);
-	// (신고취소) 페이징
-	public int getStateCancel();
+	// 신고 상태별 리스트
+	public List<ReportMByMitem> selectReportMByMitemStateList(Map<String, Object> map, String reportState);
+	// 신고 상태별 페이징
+	public int getStateTotalRow(String reportState);
 }

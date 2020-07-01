@@ -8,16 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cafe24.dk4750.miniMarket.mapper.ReportMByMitemMapper;
-import com.cafe24.dk4750.miniMarket.vo.ReportMByMitem;
+import com.cafe24.dk4750.miniMarket.mapper.ReportMByCitemMapper;
+import com.cafe24.dk4750.miniMarket.vo.ReportMByCitem;
 
 @Service
 @Transactional
-public class ReportMByMitemService {
+public class ReportMByCitemService {
 	@Autowired
-	private ReportMByMitemMapper reportMByMitemMapper;
+	private ReportMByCitemMapper reportMByCitemMapper;
+	
 	// 상태별 신고리스트(패이징)
-	public Map<String, Object> getReportMByMitemStateList(int currentPage, String reportState) {
+	public Map<String, Object> getReportMByCitemStateList(int currentPage, String reportState) {
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> map = new HashMap<>();
@@ -25,13 +26,13 @@ public class ReportMByMitemService {
 		map.put("rowPerPage", rowPerPage);
 		map.put("reportState", reportState);
 		// lastPage
-		int totalRow = reportMByMitemMapper.getStateTotalRow(reportState);
+		int totalRow = reportMByCitemMapper.getStateTotalRow(reportState);
 		int lastPage = totalRow/rowPerPage;
 		if(totalRow%rowPerPage != 0) {
 			lastPage += 1;
 		}
 		// list와 lastPage Map에 담는다
-		List<ReportMByMitem> reportMByMitemIngList = reportMByMitemMapper.selectReportMByMitemStateList(map, reportState);
+		List<ReportMByCitem> reportMByMitemIngList = reportMByCitemMapper.selectReportMByCitemStateList(map, reportState);
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("reportMByMitemIngList", reportMByMitemIngList);
 		map2.put("lastPage", lastPage);
@@ -39,32 +40,32 @@ public class ReportMByMitemService {
 		return map2;
 	}
 	// 신고 total 리스트 (페이징)
-	public Map<String, Object> getReportMByMitemList(int currentPage) {
+	public Map<String, Object> getReportMByCitemList(int currentPage) {
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
 		// lastPage
-		int totalRow = reportMByMitemMapper.getTotalRow();
+		int totalRow = reportMByCitemMapper.getTotalRow();
 		int lastPage = totalRow/rowPerPage;
 		if(totalRow%rowPerPage != 0) {
 			lastPage += 1;
 		}
 		// list와 lastPage Map에 담는다
-		List<ReportMByMitem> reportMByMitemList = reportMByMitemMapper.selectReportMByMitemAll(map);
+		List<ReportMByCitem> reportMByCitemList = reportMByCitemMapper.selectReportMByCitemAll(map);
 		Map<String, Object> map2 = new HashMap<>();
-		map2.put("reportMByMitemList", reportMByMitemList);
+		map2.put("reportMByCitemList", reportMByCitemList);
 		map2.put("lastPage", lastPage);
 		
 		return map2;
 	}
 	// 신고내용 상세보기
-	public ReportMByMitem getReportMByMitemOne(int reportNo) {
-		return reportMByMitemMapper.selectReportMByMitemOne(reportNo);
+	public ReportMByCitem getReportMByCitemOne(int reportNo) {
+		return reportMByCitemMapper.selectReportByCitemOne(reportNo);
 	}
 	// 신고 접수
-	public int addReportMByMitem(ReportMByMitem reportMByMitem) {
-		return reportMByMitemMapper.insertReportMByMitem(reportMByMitem);
+	public int addReportMByCitem(ReportMByCitem reportMByCitem) {
+		return reportMByCitemMapper.insertReportMByCitem(reportMByCitem);
 	}
 }
