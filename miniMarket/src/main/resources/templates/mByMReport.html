@@ -229,7 +229,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3>' '게시글을 신고하는 이유를 선택해주세요</h3>
 								<br><br>
-							<form method="post" action="/report" id="memberByMemberItemReportForm">
+							<form method="post" action="/mByMItemReport" id="memberByMemberItemReportForm">
 							<div id="title">
                               <div id="title1">
                                  <button type="button" class="titlebtn" id="mBymItemReportTitle1" value="판매금지 품목이에요" name="reportTitle">판매금지 품목이에요</button>
@@ -244,7 +244,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                  <button type="button" class="titlebtn" id="mBymItemReportTitle4" value="기타 사유 선택" name="reportTitle">기타 사유 선택</button>
                               </div>
                               <input type="hidden" id="reportTitle" name="reportTitle">
-                           </div>
+                          	 </div>
                            		<div id="content1">
 	                              <div>
 	                                 <button type="button" class="btnContent" id="mBymItemReportContent11" value="재난지원금 / 쌀 꾸러미 거래" name="reportContent">재난지원금 / 쌀 꾸러미 거래</button>
@@ -378,7 +378,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 							<div align="center">
-								정유석
+								<h3>멤버 ' '를 신고하는 이유를 선택해주세요</h3>
+								<br><br>
+								<form method="post" action="/mByMReport" id="memberByMemberReportForm">
+									<div id="merberTitle">
+                              			<div id="merberTitle1">
+                                			<button type="button" class="memberTitlebtn" id="mBymItemReportTitle1" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
+                              			</div>
+                              			<div id="merberTitle2">
+                                			<button type="button" class="memberTitlebtn" id="mBymItemReportTitle2" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button>
+                              			</div>
+                              			<div id="merberTitle3">
+                                			<button type="button" class="memberTitlebtn" id="mBymItemReportTitle3" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+                              			</div>
+                              			<input type="hidden" id="memberHiddenTitle" name="reportTitle">
+                          	 		</div>
+                          	 		<div id="memberNoManner">
+                          	 			<label>불편했던 점을 선택해 주세요.(최대 5개)</label><br>
+                          	 			<input type="checkbox" value="구매 가격보다 비싼 가격으로 판매해요" id="c1" name="reportContent">구매 가격보다 비싼 가격으로 판매해요<br>
+								        <input type="checkbox" value="너무 늦은 시간이나 새벽에 연락해요" id="c2" name="reportContent">너무 늦은 시간이나 새벽에 연락해요<br>
+								        <input type="checkbox" value="구매의사 없이계속 찔러봐요" id="c3" name="reportContent">구매의사 없이계속 찔러봐요<br>
+								        <input type="checkbox" value="질문해도 답이 없어요" id="c4" name="reportContent">질문해도 답이 없어요<br>
+								        <input type="checkbox" value="무조건 택배거래만 하려고 해요" id="c5" name="reportContent"> 무조건 택배거래만 하려고 해요<br>
+								        <input type="checkbox" value="상품 가치없는 물건을 팔아요" id="c6" name="reportContent">상품 가치없는 물건을 팔아요<br>
+								        <input type="checkbox" value="차에서 내리지도 않고 창문만 열고 거래하려고 해요" id="c7" name="reportContent">차에서 내리지도 않고 창문만 열고 거래하려고 해요<br>
+								        <input type="checkbox" value="거래 약속을 하고 다른 사람한테 팔았어요" id="c8" name="reportContent">거래 약속을 하고 다른 사람한테 팔았어요<br>
+								        <input type="checkbox" value="시간약속을 안 지켜요 " id="c9" name="reportContent"> 시간약속을 안 지켜요<br>
+								        <input type="checkbox" value="상품 설명에 중요한 정보가 누락됐어요" id="c10" name="reportContent">상품 설명에 중요한 정보가 누락됐어요<br>
+								        <input type="checkbox" value="상품 상태가 설명과 달라요" id="c11" name="reportContent">상품 상태가 설명과 달라요<br>
+								        <input type="checkbox" value="무리하게 가격을 깎아요" id="c12" name="reportContent">무리하게 가격을 깎아요<br>
+								        <input type="checkbox" value="불친절해요" id="c13" name="reportContent">불친절해요<br>
+								        <input type="checkbox" value="예약만 해놓고 거래 시간을 명확하게 알려주지 않아요" id="c14" name="reportContent">예약만 해놓고 거래 시간을 명확하게 알려주지 않아요<br>
+								        <input type="checkbox" value="거래 시간과 장소를 정한 후 연락이 안돼요" id="c15" name="reportContent">거래 시간과 장소를 정한 후 연락이 안돼요<br>
+								        <input type="checkbox" value="약속 장소에 나타나지 않았어요" id="c16" name="reportContent">약속 장소에 나타나지 않았어요<br>
+								        <input type="checkbox" value="거래 시간과 장소를 정한 후 거래 직전 취소했어요" id="c17" name="reportContent">거래 시간과 장소를 정한 후 거래 직전 취소했어요<br>
+                          	 		</div>
+                          	 		<div id="menuOneDesc">
+                           				<h3>전문 판매업자 같아요</h3>
+                           			</div>
+                           			<div id="menuTwoDesc">
+                           				<h3>욕설을 해요</h3>
+                           			</div>
+                          	 		<div id="memberContent">
+                          	 			
+                          	 		</div>
+                          	 		<div>
+                          	 			<button type="button" id="memSubmitBtn">전송</button>
+                          	 		</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -544,10 +591,82 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	                  	console.log($("#reportContent").val());
 	                	$("#memberByMemberItemReportForm").submit()
                   	}
-                  });
-            	  
+                  });  
             });
-          
+           // 멤버 -> 멤버 신고
+          //title 값을 저장할 변수
+    		let memberTitle = "";
+    		//content 값을 저장할 변수
+    		let memberContent = [];
+    		let memberTextContent = "";
+    		// textarea를 불러올 변수
+    		let memberMemo = '<textarea rows="10" cols="70" name="reportContent" placeholder="신고 항목 내용을 입력해주세요.." id="memReportContent"></textarea>';
+    		$("#merberTitle").show();
+            $("#memberNoManner").hide();
+            $("#menuOneDesc").hide();
+            $("#menuTwoDesc").hide();
+            $("#memSubmitBtn").hide();
+            $(".memberTitlebtn").click(function(){
+            	$("#merberTitle").hide();
+            	//title 변수에 #title의 value값을 저장해줌
+            	let memberTitle = $(this).val();
+            	console.log(memberTitle);
+            	
+            	//전문 판매업자 버튼 클릭시
+            	if(memberTitle == "전문 판매업자 같아요"){
+            		//체크박스 보여줌
+            		$("#memberNoManner").show();
+            		$("#memSubmitBtn").show();
+            		//체크박스 클릭 후 전송 버튼 클릭 시
+            		$("#memSubmitBtn").click(function(){
+            			//체크박스 유효성 검사
+            			if($("input:checked[Name='reportContent']").is(":checked") < 1){
+                			alert("체크박스에 체크해주세요."); 
+                			$("#reportContent").focus();
+                		//체크박스 5개 이상 클릭시
+            			}else if($('input:checkbox[name="reportContent"]:checked').length > 5){
+                			alert("최대 5개까지 선택할 수 있습니다."); 
+                			$("#reportContent").focus();
+                		}
+            			//체크박스 체크한 값을 배열에 저장 후 보내줌
+	            		$("input[name=reportContent]:checked").each(function() {
+	            			memberContent.push($(this).val());
+	            			console.log(memberContent);
+	            			$("#memberHiddenTitle").val(memberTitle);
+	            			$("#memberByMemberReportForm").submit();
+	            		});
+            		});
+				//비매너 사용자 버튼 클릭시
+            	}else if(memberTitle == "비매너 사용자예요"){
+            		$("#menuOneDesc").show();
+            		$("#memberContent").prepend(memberMemo);
+            		$("#memSubmitBtn").show();
+            		$("#memSubmitBtn").click(function(){
+              			//textarea의 value값을 변수에 저장
+              			memberTextContent = $("#memReportContent").val();
+              			console.log(memberTextContent)
+              			//title , content값을 컨트롤러로 전송
+              			$("#reportContent").val(memberTextContent);
+              			$("#memberHiddenTitle").val(memberTitle);
+              			$("#memberByMemberReportForm").submit();
+              		});
+            		//욕설 버튼 클릭시
+            	}else if(memberTitle == "욕설을 해요"){
+            		$("#menuTwoDesc").show();
+            		$("#memberContent").prepend(memberMemo);
+            		$("#memSubmitBtn").show();
+            		$("#memSubmitBtn").click(function(){
+              			//textarea의 value값을 변수에 저장
+              			let memberTextContent = $("#memReportContent").val();
+              			console.log(memberTextContent)
+              			//title , content값을 컨트롤러로 전송
+              			$("#reportContent").val(memberTextContent);
+              			$("#memberHiddenTitle").val(memberTitle);
+              			$("#memberByMemberReportForm").submit();
+              		});
+            	}
+            });
+            
         });
 
     </script>
