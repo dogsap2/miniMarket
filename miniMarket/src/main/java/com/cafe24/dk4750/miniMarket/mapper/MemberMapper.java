@@ -43,7 +43,7 @@ public interface MemberMapper {
 	public String selectMemberId(String checkMemberId); 
 		
 	//회원가입시 멤버 사진 디폴트값 추가 
-	public int insertMemberPic(Member member);	
+	public int insertMemberPic(String memberId);	
 	
 	//멤머 정보 입력, 회원가입  
 	public int insertMember(Member member);

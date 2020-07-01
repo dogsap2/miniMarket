@@ -32,7 +32,7 @@
 	<!-- 이메일 중복확인 -->
 	<select id="selectMemberEmail" parameterType="String" 	resultType="String">
 		SELECT 
-			member_email
+			member_email as memberEmail
 		FROM 
 		 (SELECT member_email FROM mini_market_member
 		  UNION
@@ -51,9 +51,10 @@
       select
       	member_phone
       FROM (
-      SELECT company_phone FROM mini_market_company
-      UNION
-      SELECT member_phone FROM mini_market_member)t
+	      SELECT member_phone FROM mini_market_member
+	      UNION
+	      SELECT company_phone FROM mini_market_company     
+      )t
       where member_phone = #{checkMemberPhone}
 	</select>	
 	
@@ -101,11 +102,13 @@
          #{memberId},
          #{memberSido},
          #{memberSigungu},
-         #{memberBname},         
+         #{memberBname},      
+         <!--1234,  -->   
          PASSWORD(#{memberPw}),
          #{memberNickname},
          #{memberName},
          #{memberEmail},
+         <!--12345678,-->
          #{memberUniqueNo},
          #{memberPhone},
          now()

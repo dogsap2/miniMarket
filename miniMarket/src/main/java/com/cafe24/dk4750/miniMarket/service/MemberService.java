@@ -61,28 +61,15 @@ public class MemberService {
 		return 0;		
 	}
 	
-	//멤버 아이디 중복확인
-	public String selectMemberId(String checkMemberId) {
-		return memberMapper.selectMemberId(checkMemberId);		
-	}
-			
-	//핸드폰 중복확인 
-	public String selectMemberPhone(String checkMemberPhone){
-		return memberMapper.selectMemberPhone(checkMemberPhone);		
-	}
-		
-	//이메일 중복확인 
-	public String selectMemberEmail(String checkMemberEmail) {
-		return memberMapper.selectMemberEmail(checkMemberEmail);
-			
-	}
 	
 	//멤머 정보 입력, 회원가입  
 	public int addMember(Member member) {
 		//사진추가 매퍼 
 		// 유니크 넘버 만들어 줘야됨 	
-		memberMapper.insertMemberPic(member);		
+	
 		int row = memberMapper.insertMember(member);
+		memberMapper.insertMemberPic(member.getMemberId());		
+		
 		return row;		
 	}
 }
