@@ -28,6 +28,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
+
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
@@ -39,6 +40,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- start-smoth-scrolling -->
+<style>
+	.button {
+			  background-color: #FFFFFF;
+			  color: #000000;
+			  float: right;
+			  padding: 10px;
+			  border : 2px solid #FFFF00;
+			}
+</style>
 </head>
 	
 <body>
@@ -383,13 +393,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<form method="post" action="/mByMReport" id="memberByMemberReportForm">
 									<div id="merberTitle">
                               			<div id="merberTitle1">
-                                			<button type="button" class="memberTitlebtn" id="mBymItemReportTitle1" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning " id="mBymItemReportTitle1" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
                               			</div>
                               			<div id="merberTitle2">
-                                			<button type="button" class="memberTitlebtn" id="mBymItemReportTitle2" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle2" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button>
                               			</div>
                               			<div id="merberTitle3">
-                                			<button type="button" class="memberTitlebtn" id="mBymItemReportTitle3" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle3" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+                              			</div>
+                              			<div id="merberTitle4">
+                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle3" value="거래/환불 분쟁 신고" name="reportTitle">거래 /환불 분쟁 신고</button>
+                              			</div>
+                              			<div id="merberTitle5">
+                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle3" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
                               			</div>
                               			<input type="hidden" id="memberHiddenTitle" name="reportTitle">
                           	 		</div>
@@ -419,7 +435,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                            			<div id="menuTwoDesc">
                            				<h3>욕설을 해요</h3>
                            			</div>
+                           			<div id="menuThreeDesc">
+                           				<h3>거래/환불 분쟁 신고</h3>
+                           				<br>
+                           			</div>
+                           			<div id="menuFourDesc">
+                           				<h3>다른 문제가 있어요</h3>
+                           				<br>
+                           			</div>
                           	 		<div id="memberContent">
+                          	 			
+                          	 		</div>
+                          	 		<div id="tradeContent">
                           	 			
                           	 		</div>
                           	 		<div>
@@ -594,17 +621,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   });  
             });
            // 멤버 -> 멤버 신고
-          //title 값을 저장할 변수
+           //title 값을 저장할 변수
     		let memberTitle = "";
-    		//content 값을 저장할 변수
+    		//(check)content 값을 저장할 변수
     		let memberContent = [];
+    		//기타 내용이 들어갈 변수
     		let memberTextContent = "";
+    		// 거래 문제 텍스트값들이 합쳐질 변수
+    		let memberTradeContent = "";
     		// textarea를 불러올 변수
     		let memberMemo = '<textarea rows="10" cols="70" name="reportContent" placeholder="신고 항목 내용을 입력해주세요.." id="memReportContent"></textarea>';
+    		//피해 금액 input
+    		let tradeMemoTitle ='<div><input type="text" placeholder="피해 금액" id="memTradeContentTitle"></div>';
+    		//피해 물품 input
+    		let tradeMemoContent ='<div><input type="text" placeholder="피해 물품" id="memTradeContentTitle2"></div>' ;
+    		//신고 내용 textarea
+    		let tradeMemo = '<textarea rows="10" cols="70" name="reportContent" placeholder="신고 내용을 입력하세요" id="memTradeContent"></textarea>';
     		$("#merberTitle").show();
             $("#memberNoManner").hide();
             $("#menuOneDesc").hide();
             $("#menuTwoDesc").hide();
+            $("#menuThreeDesc").hide();
+            $("#menuFourDesc").hide();
             $("#memSubmitBtn").hide();
             $(".memberTitlebtn").click(function(){
             	$("#merberTitle").hide();
@@ -658,6 +696,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             		$("#memSubmitBtn").click(function(){
               			//textarea의 value값을 변수에 저장
               			let memberTextContent = $("#memReportContent").val();
+              			console.log(memberTextContent)
+              			//title , content값을 컨트롤러로 전송
+              			$("#reportContent").val(memberTextContent);
+              			$("#memberHiddenTitle").val(memberTitle);
+              			$("#memberByMemberReportForm").submit();
+              		});
+            	}else if(memberTitle == "거래/환불 분쟁 신고"){
+            		$("#menuThreeDesc").show();
+            		//피해 금액 input
+            		$("#tradeContent").prepend(tradeMemo);
+            		//피해 물품 input
+            		$("#tradeContent").prepend(tradeMemoTitle);
+            		//피해 내용 textarea
+            		$("#tradeContent").prepend(tradeMemoContent);
+            		
+            		$("#memSubmitBtn").show();
+            		//전송 버튼 클릭 이벤트
+            		$("#memSubmitBtn").click(function(){
+            			
+              			//피해 금액 , 피해 물품 , 피해 내용 값을 다 합친 후 reportContent 에 넣어줌 
+              			let memberTradeContent = "피해 금액 : " + $("#memTradeContentTitle").val()+ "원, " + "피해 물품 : " + $("#memTradeContentTitle2").val()+ " , " + "신고 내용 : " + $("#memTradeContent").val() ;
+              			//디버깅
+              			console.log(memberTradeContent)
+              			//합친 value값을 memTradeContent에넣어줌
+              			$("#memTradeContent").val(memberTradeContent);
+              			//제목 값
+              			$("#memberHiddenTitle").val(memberTitle);
+              			$("#memberByMemberReportForm").submit();
+              		});
+            	}else if(memberTitle == "다른 문제가 있어요"){
+            		$("#menuFourDesc").show();
+            		//다른 문제 사유 textarea 메뉴에 맞게 생성
+            		$("#memberContent").prepend(memberMemo);
+            		$("#memSubmitBtn").show();
+            		//전송 버튼 이벤트
+            		$("#memSubmitBtn").click(function(){
+              			//textarea의 value값을 변수에 저장
+              			let memberTextContent = $("#memReportContent").val();
+              			//디버깅
               			console.log(memberTextContent)
               			//title , content값을 컨트롤러로 전송
               			$("#reportContent").val(memberTextContent);
