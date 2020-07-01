@@ -7,11 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cafe24.dk4750.miniMarket.service.MemberItemService;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMember;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
 @Controller
 public class MemberItemController {
@@ -28,10 +31,16 @@ public class MemberItemController {
 	
 	// 멤버 추가하기 포스트매핑. 액션
 	@PostMapping("/addMemberItem")
-	public String addMemberItem(MemberItem memberItem) {
+	public String addMemberItem(MemberItemForm memberItemForm) {
 		System.out.println("addMemberItem 포스트매핑 시작");
-		System.out.println(memberItem + " <== 멤버 아이템 추가 들어온 값 디버깅");
-		memberItemService.addMemberItem(memberItem);
+		System.out.println(memberItemForm + " <== 멤어 아이템 추가 memberItemForm");
+		System.out.println(memberItemForm.getMemberItemPic1().getOriginalFilename() + " <== pic1");
+		System.out.println(memberItemForm.getMemberItemPic2().getOriginalFilename() + " <== pic2");
+		System.out.println(memberItemForm.getMemberItemPic3().getOriginalFilename() + " <== pic3");
+		System.out.println(memberItemForm.getMemberItemPic4().getOriginalFilename() + " <== pic4");
+		System.out.println(memberItemForm.getMemberItemPic5().getOriginalFilename() + " <== pic5");
+		
+		memberItemService.addMemberItem(memberItemForm);
 		
 		// 리턴
 		return "index";

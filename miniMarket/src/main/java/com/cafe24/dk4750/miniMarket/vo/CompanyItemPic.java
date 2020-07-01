@@ -4,7 +4,6 @@ public class CompanyItemPic {
 	private int picNo;
 	private int companyItemNo;
 	private String companyItemPic;
-	private String companyId;
 	private String picDate;
 	
 	// 겟터 셋터
@@ -26,12 +25,6 @@ public class CompanyItemPic {
 	public void setCompanyItemPic(String companyItemPic) {
 		this.companyItemPic = companyItemPic;
 	}
-	public String getCompanyId() {
-		return companyId;
-	}
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
-	}
 	public String getPicDate() {
 		return picDate;
 	}
@@ -43,6 +36,6 @@ public class CompanyItemPic {
 	@Override
 	public String toString() {
 		return "CompanyItemPic [picNo=" + picNo + ", companyItemNo=" + companyItemNo + ", companyItemPic="
-				+ companyItemPic + ", companyId=" + companyId + ", picDate=" + picDate + "]";
+				+ companyItemPic + ", picDate=" + picDate + "]";
 	}
 }

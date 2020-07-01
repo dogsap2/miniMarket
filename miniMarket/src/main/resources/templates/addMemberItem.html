@@ -5,18 +5,20 @@
 <title>add member item</title>
 </head>
 <body>
-	<form method="post" th:action="@{/addMemberItem}">
-		<table>
+	<form method="post" th:action="@{/addMemberItem}" enctype="multipart/form-data">
+		<table border="1">
+		
 			<tr>
 				<th>멤버 고유번호</th>
 				<th>제목</th>
 				<th>카테고리 이름</th>
 				<th>가격</th>
 				<th>내용</th>
+				<th>사진</th>
 			</tr>
 			<tr>
 				<td>
-					<input type="text" name="memberUniqueNo" id="memberUniqueNo" th:value="test2">
+					<input type="text" name="memberUniqueNo" id="memberUniqueNo" th:value="test1">
 				</td>
 				<td>
 					<input type="text" name="memberItemTitle" id="memberItemTitle">
@@ -29,6 +31,13 @@
 				</td>
 				<td>
 					<textarea rows="5" cols="10" name="memberItemContent" id="memberItemContent"></textarea>
+				</td>
+				<td>
+					<input type="file" name="memberItemPic1" id="memberItemPic1"><br>
+					<input type="file" name="memberItemPic2" id="memberItemPic2"><br>
+					<input type="file" name="memberItemPic3" id="memberItemPic3"><br>
+					<input type="file" name="memberItemPic4" id="memberItemPic4"><br>
+					<input type="file" name="memberItemPic5" id="memberItemPic5">
 				</td>
 			</tr>
 			<tr>
