@@ -48,7 +48,7 @@
          report_title as reportTitle,
          report_content as reportContent,
          member_id as memberId,
-         member_item_no as memberItemNo,
+         member_unique_no as memberUniqueNo,
          report_state as reportState,
          report_date as reportDate
       FROM mini_market_report_m_by_m
@@ -60,13 +60,13 @@
          report_title,
          report_content,
          member_id,
-         member_item_no,
+         member_unique_no,
          report_date
       ) VALUES (
          #{reportTitle},
          #{reportContent},
          #{memberId},
-         #{memberItemNo},
+         #{memberUniqueNo},
          now()
       )
    </insert>

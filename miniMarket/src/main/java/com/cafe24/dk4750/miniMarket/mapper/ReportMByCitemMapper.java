@@ -16,7 +16,7 @@ public interface ReportMByCitemMapper {
 	// 신고 total리스트 페이징
 	public int getTotalRow();
 	// 신고 내용 상세보기
-	public ReportMByCitem selectReportByCitemOne(int reportNo);
+	public ReportMByCitem selectReportMByCitemOne(int reportNo);
 	// 신고 상태별 리스트
 	public List<ReportMByCitem> selectReportMByCitemStateList(Map<String, Object> map, String reportState);
 	// 신고 상태별 페이징

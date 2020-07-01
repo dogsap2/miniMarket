@@ -31,9 +31,9 @@ public class ReportMByMitemService {
 			lastPage += 1;
 		}
 		// list와 lastPage Map에 담는다
-		List<ReportMByMitem> reportMByMitemIngList = reportMByMitemMapper.selectReportMByMitemStateList(map, reportState);
+		List<ReportMByMitem> reportMByMitemStateList = reportMByMitemMapper.selectReportMByMitemStateList(map, reportState);
 		Map<String, Object> map2 = new HashMap<>();
-		map2.put("reportMByMitemIngList", reportMByMitemIngList);
+		map2.put("reportMByMitemStateList", reportMByMitemStateList);
 		map2.put("lastPage", lastPage);
 		
 		return map2;

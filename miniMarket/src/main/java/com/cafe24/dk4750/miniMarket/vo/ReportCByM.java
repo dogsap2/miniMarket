@@ -4,7 +4,6 @@ public class ReportCByM {
 	private int reportNo;
 	private String reportTitle;
 	private String reportContent;
-	private String reportMemo;
 	private String companyId;
 	private String memberUniqueNo;
 	private String reportState;
@@ -28,12 +27,6 @@ public class ReportCByM {
 	}
 	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
-	}
-	public String getReportMemo() {
-		return reportMemo;
-	}
-	public void setReportMemo(String reportMemo) {
-		this.reportMemo = reportMemo;
 	}
 	public String getCompanyId() {
 		return companyId;
@@ -64,7 +57,7 @@ public class ReportCByM {
 	@Override
 	public String toString() {
 		return "ReportCByM [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent=" + reportContent
-				+ ", reportMemo=" + reportMemo + ", companyId=" + companyId + ", memberUniqueNo=" + memberUniqueNo
-				+ ", reportState=" + reportState + ", reportDate=" + reportDate + "]";
+				+ ", companyId=" + companyId + ", memberUniqueNo=" + memberUniqueNo + ", reportState=" + reportState
+				+ ", reportDate=" + reportDate + "]";
 	}
 }

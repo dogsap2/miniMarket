@@ -20,7 +20,7 @@
 			report_date as reportDate
 		FROM mini_market_report_m_by_citem
 		WHERE report_state = #{reportState}
-		ORDER BY reprot_date DESC
+		ORDER BY report_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- totalList Count -->
@@ -38,17 +38,17 @@
 			report_state as reportState,
 			report_date as reportDate
 		FROM mini_market_report_m_by_citem
-		ORDER BY reprot_date DESC
+		ORDER BY report_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 신고 상세페이지 -->
-	<select id="selectReportByCitemOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByCitem">
+	<select id="selectReportMByCitemOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByCitem">
 		SELECT
 			report_no as reportNo,
 			report_title as reportTitle,
 			report_content as reportContent,
 			member_id as memberId,
-			member_item_no as memberItemNo,
+			company_item_no as companyItemNo,
 			report_state as reportState,
 			report_date as reportDate
 		FROM mini_market_report_m_by_citem
@@ -60,13 +60,13 @@
 			report_title,
 			report_content,
 			member_id,
-			member_item_no,
+			company_item_no,
 			report_date
 		) VALUES (
 			#{reportTitle},
 			#{reportContent},
 			#{memberId},
-			#{memberItemNo},
+			#{companyItemNo},
 			now()
 		)
 	</insert>
