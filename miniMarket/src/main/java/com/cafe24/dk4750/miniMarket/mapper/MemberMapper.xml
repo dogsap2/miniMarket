@@ -7,7 +7,7 @@
 	
 
 	
-	<!-- 멤버 아이디 중복확인 -->
+	
 	
 	<!-- 핸드폰 중복확인 -->
 	
@@ -27,6 +27,51 @@
 	
 	<!-- 비번찾기 -->
 	
+
+	
+	<!-- 이메일 중복확인 -->
+	<select id="selectMemberEmail" parameterType="String" 	resultType="String">
+		SELECT 
+			member_email
+		FROM 
+		 (SELECT member_email FROM mini_market_member
+		  UNION
+		  SELECT member_email FROM mini_market_member_backup	
+		  UNION
+		  SELECT company_email FROM mini_market_company
+		  UNION 
+		  SELECT company_email FROM mini_market_company_backup
+		 )m
+		 WHERE member_email =#{checkMemberEmail}
+		 
+	</select>	
+	
+	<!-- 핸드폰 중복확인 -->
+	<select id="selectMemberPhone" parameterType="String" 	resultType="String">		
+      select
+      	member_phone
+      FROM (
+      SELECT company_phone FROM mini_market_company
+      UNION
+      SELECT member_phone FROM mini_market_member)t
+      where member_phone = #{checkMemberPhone}
+	</select>	
+	
+	<!-- 멤버 아이디 중복확인 -->
+	<select id="selectMemberId" parameterType="String" resultType="String">
+		SELECT 
+		   member_id as memberId 
+		FROM 
+		   (SELECT member_id FROM mini_market_member
+		   UNION
+		   SELECT member_id FROM mini_market_member_backup
+		   UNION
+		   SELECT company_id FROM mini_market_company
+		   UNION
+		   SELECT company_id FROM mini_market_company_backup)m
+		WHERE member_id = #{checkMemberId}
+	</select>
+		
 	<!--회원가입 멤버 디폴트 사진추가 -->
 	<insert id="insertMemberPic" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberPic">
 	 INSERT INTO mini_market_member_pic(	 	

@@ -22,24 +22,7 @@ public class MemberService {
 		// 닉네임만 수정하는 메퍼
 		// 사진수정 매퍼  
 		return 0;
-	}
-
-	
-	//멤버 아이디 중복확인
-	public String selectMemberId(String MemberId) {
-		return MemberId;		
-	}
-		
-	//핸드폰 중복확인 
-	public String selectMemberPhone(String memberPhone) {
-		return memberPhone;		
-	}
-	
-	//이메일 중복확인 
-	public String selectMemberEmail(String memberEmail) {
-		return memberEmail;
-		
-	}
+	}	
 	
 	//로그인하기 아이디 비번 일치하는지 확인 
 	public LoginMember selectLoginMember(LoginMember loginMember) {
@@ -78,6 +61,21 @@ public class MemberService {
 		return 0;		
 	}
 	
+	//멤버 아이디 중복확인
+	public String selectMemberId(String checkMemberId) {
+		return memberMapper.selectMemberId(checkMemberId);		
+	}
+			
+	//핸드폰 중복확인 
+	public String selectMemberPhone(String checkMemberPhone){
+		return memberMapper.selectMemberPhone(checkMemberPhone);		
+	}
+		
+	//이메일 중복확인 
+	public String selectMemberEmail(String checkMemberEmail) {
+		return memberMapper.selectMemberEmail(checkMemberEmail);
+			
+	}
 	
 	//멤머 정보 입력, 회원가입  
 	public int addMember(Member member) {

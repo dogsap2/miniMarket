@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Registered :: w3layouts</title>
 <!-- for-mobile-apps -->
@@ -39,7 +39,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+<script>	
+
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -57,11 +58,89 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.sido +" "+ data.sigungu +" "+ data.bname;
                 }
-
                 document.getElementById("address").value = addr;
             }
         }).open();
     }
+   
+    let helperInit = function(){
+    	$('#idHelper').text("");
+    	$('#pwHelper').text("");
+    	$('#nameHelper').text("");
+    	$('#addrHelper').text("");
+    	$('#phoneHelper').text("");
+    	$('#emailHelper').text("");
+    };
+
+
+    $(document).ready(function() { 
+    	$('#btn').click(function() {
+    		if($('#memberId').val().length < 4){	
+    			helperInit();
+    			$('#idHelper').text("id 4자이상");
+    			$('#memberId').focus();
+    			
+    		}else if($('#memberPw').val().length < 4){	
+    			helperInit();
+    			$('#pwHelper').text("pw 4자 이상 입력");
+    			$('#memberPw').focus();			
+    		}else if($('#memberPw').val()!= $('#memberPw2').val()) {
+    			helperInit();
+    			$('#pwHelper').text("pw를 확인하세요");
+    			$('#memberPw').focus();
+    		}else if($('#memberName').val().length === 0){ //0->공백 
+    			helperInit();
+    			$('#nameHelper').text("이름 입력하세요");
+    			$('#memberName').focus();
+    		}else if($('#memberAddr').val().length === 0){
+    			helperInit();
+    			$('#addrHelper').text("주소 입력하세요");
+    			$('#memberAddr').focus();
+    		}else if($('#memberPhone').val().length === 0){ 
+    			helperInit();
+    			$('#phoneHelper').text("전화번호 입력하세요");
+    			$('#memberPhone').focus();			
+    		}else if($('#memberEmail').val().length === 0){ 
+    			helperInit();
+    			$('#emailHelper').text("이메일을  입력하세요");
+    			$('#memberEmail').focus();			
+    		} else{
+    			$('#myform').submit();
+    		} 	
+    	});
+    	
+    	//아이디 중복 체크 
+    	$('#idBtn').click(function () {
+    		if($('#checkMemberId').val().length<4){
+    	         $('#memberIdCheckHelper').text("id 4자이상 입력해주세요.");
+    	         $('#checkMemberId').focus();
+    	         return;
+    	      }
+    		$('#idForm').submit();
+    	});
+    	
+    	//핸드폰 중복 체크 
+    	$('#phoneBtn').click(function () {
+    		if($('#checkMemberPhone').val().length<10){
+    	         $('#memberPhoneCheckHelper').text("전화번호 11자이상 입력해주세요.");
+    	         $('#checkMemberPhone').focus();
+    	         return;
+    	      }
+    		$('#phoneForm').submit();
+    	});
+    	
+    	//Email 중복체크
+    	$('#emailBtn').click(function () {
+    		if($('#checkMemberEmail').val().length<10){
+    	         $('#memberEmailCheckHelper').text(" 이메일을 입력해주세요");
+    	         $('#checkMemberEmail').focus();
+    	         return;
+    	      }
+    		$('#emailForm').submit();
+    	});
+    });
+    
+    
 </script>
 
 
@@ -150,8 +229,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<li><a href="groceries.html"> Mukhwas </a></li>
 														<li><a href="groceries.html">Rice & Rice Products</a></li>
 													</ul>
-												</div>	
-												
+												</div>													
 											</div>
 										</ul>
 									</li>
@@ -259,20 +337,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h2>회원가입</h2>
 			<div class="login-form-grids">
 				<h4>회원가입 기본정보</h4>
-				<form action="" method="post">				
-						<input id="checkMemberId" style="width:310px; display:inline;" type="text" placeholder="ID를 입력하세요"  required=" " >
-						<input style="width:100px; display:inline;" type="submit" value="ID 중복체크">												
+				<!-- 회원가입 아이디 체크 -->
+				<form id="idForm" method="post" th:action="@{/checkMemberId}" enctype="application/x-www-form-urlencoded">				
+						<input id="checkMemberId" name="checkMemberId" style="width:310px; display:inline;" type="text" placeholder="ID를 입력하세요"  required=" " >
+						<button id="idBtn" style="width:100px; display:inline;" type="button">ID중복체크 </button>
+						<span id="memberIdCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 -->
+						<span th:text="${msg1}"> </span>	<!--아이디 중복 될 경우 사용할수 없음, 아이디값 있는경우   -->											
 				</form>	
 				
 				<!-- 연락처 중복 확인 -->	
-				<form>
-					<input id="checkMemberPhone" style="width:270px; display:inline;" type="text" placeholder="연락처를 입력하세요" required=" " >
-					<input style="width:140px; display:inline;" type="submit" value="연락처 중복체크">		
+				<form id="phoneForm"   method="post" th:action="@{/checkMemberPhone}" enctype="application/x-www-form-urlencoded" >
+					<input id="checkMemberPhone"  name="checkMemberPhone" style="width:270px; display:inline;" type="text" placeholder="연락처를 입력하세요" required=" " >
+					<button id="phoneBtn"style="width:140px; display:inline;" type="button" >Phone중복체크</button>
+					<span id="memberPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 -->
+					<span th:text="${msg2}"> </span>	<!--아이디 중복 될 경우 사용할수 없음, 아이디값 있는경우   -->					
 				</form>
 				
-				<form>
-					<input id="checkMemberEmail" style="width:270px; display:inline;" type="text" placeholder="Email을 입력하세요" required=" ">
-					<input style="width:140px; display:inline;" type="submit" value="Email 중복체크">	
+				<!-- 이메일 중복확인 -->
+				<form  id="emailForm"  method="post" th:action="@{/checkMemberEmail}" enctype="application/x-www-form-urlencoded" >
+					<input    id="checkMemberEmail" name="checkMemberEmail" style="width:270px; display:inline;" type="text" placeholder="ex) ㅇㅇㅇ@naver.com" required=" ">
+					
+					<button  id="emailBtn" style="width:140px; display:inline;" type="button" value="Email 중복체크">Email 중복체크</button>
+					<span id="memberEmailCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 -->
+					<span th:text="${msg3}"> </span>	<!--아이디 중복 될 경우 사용할수 없음, 아이디값 있는경우   -->		
 				</form>
 				
 				<h6>Login information</h6>
