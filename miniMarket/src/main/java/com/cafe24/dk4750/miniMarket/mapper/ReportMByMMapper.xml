@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ReportMByMMapper">
+   <!-- 신고 상태별 totalRow -->
+   <select id="getStateTotalRow" parameterType="String" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM mini_market_report_m_by_m
+      WHERE report_state = #{reportState}
+   </select>
+   <!-- 신고 상태별 List -->
+   <select id="selectReportMByMStateList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+      SELECT
+         report_no as reportNo,
+         member_id as memberId,
+         report_title as reportTitle,
+         report_state as reportState,
+         report_date as reportDate
+      FROM mini_market_report_m_by_m
+      WHERE report_state = #{reportState}
+      ORDER BY reprot_date DESC
+      LIMIT #{beginRow}, #{rowPerPage}
+   </select>
+   <!-- totalList Count -->
+   <select id="getTotalRow" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM mini_market_report_m_by_m
+   </select>
+   <!-- 신고 totalList -->
+   <select id="selectReportMByMAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+      SELECT
+         report_no as reportNo,
+         member_id as memberId,
+         report_title as reportTitle,
+         report_state as reportState,
+         report_date as reportDate
+      FROM mini_market_report_m_by_m
+      ORDER BY report_date DESC
+      LIMIT #{beginRow}, #{rowPerPage}
+   </select>
+   <!-- 신고 상세페이지 -->
+   <select id="selectReportMByMOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+      SELECT
+         report_no as reportNo,
+         report_title as reportTitle,
+         report_content as reportContent,
+         member_id as memberId,
+         member_item_no as memberItemNo,
+         report_state as reportState,
+         report_date as reportDate
+      FROM mini_market_report_m_by_m
+      WHERE report_no = #{reportNo}
+   </select>
+   <!-- 신고 하기 접수 -->
+   <insert id="insertReportMByM" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+      INSERT INTO mini_market_report_m_by_m(
+         report_title,
+         report_content,
+         member_id,
+         member_item_no,
+         report_date
+      ) VALUES (
+         #{reportTitle},
+         #{reportContent},
+         #{memberId},
+         #{memberItemNo},
+         now()
+      )
+   </insert>
+</mapper>
