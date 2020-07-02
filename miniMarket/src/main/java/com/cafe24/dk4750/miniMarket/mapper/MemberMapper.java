@@ -10,11 +10,15 @@ import com.cafe24.dk4750.miniMarket.vo.MemberPic;
 @Mapper
 public interface MemberMapper {	
 		
+	
+	//고유번호 가져오기(카운트후  m+1)
+	public String selectMemberUniqueNo();
+	
 	//멤버사진 수정
 	public int updateMemberPic(MemberPic memberPic);
 			
 	//나의 정보보기 
-	public Member selectMemberOne(LoginMember loginMember); 
+	public Member selectMemberOne(LoginMember memberId); 
 	
 	//나의 정보수정
 	public Member updateMemberOne(Member member);

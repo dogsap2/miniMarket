@@ -3,17 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberMapper">
-
-	
-
-	
-	
-
-	
-
-	
-	<!--나의 정보보기 -->
-	
 	<!-- 멤버사진 수정 -->
 	
 	<!-- 탈퇴 -->
@@ -23,6 +12,33 @@
 	<!-- 아이디 찾기  -->
 	
 	<!-- 비번찾기 -->
+	
+	<!-- 고유번호추출 -->
+	<select id="selectMemberUniqueNo" resultType="String">
+	SELECT 
+	CONCAT('m',(SELECT LPAD(COUNT(*)+1,6,'0')
+	FROM mini_market_member))
+	</select>
+	
+	
+	<!--나의 정보보기 -->
+	 <select id="selectMemberOne" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="com.cafe24.dk4750.miniMarket.vo.Member">
+	     SELECT 
+		      member_id as memberId,
+		      member_sido as memberSido,
+		      member_sigungu as memberSigungu,
+		      member_bname as memberBname,
+		      member_nickname as memberNickname,
+		      member_unique_no as memberUniqueNo,
+		      member_name as memberName,
+		      member_phone as memberPhone,
+		      member_email as memberEmail,
+		      member_date as memberDate
+	      FROM 
+	      	mini_market_member
+	      WHERE
+	      	member_id = #{memberId}
+   </select>
 	
 	<!-- 로그인 유효성 검사 -->
 	<select id="selectLoginMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
@@ -51,20 +67,21 @@
 		  UNION 
 		  SELECT company_email FROM mini_market_company_backup
 		 )m
-		 WHERE member_email =#{checkMemberEmail}
+		 WHERE member_email =#{chec
+		 kMemberEmail}
 		 
 	</select>	
 	
 	<!-- 핸드폰 중복확인 -->
 	<select id="selectMemberPhone" parameterType="String" 	resultType="String">		
-      select
+      SELECT 
       	member_phone
       FROM (
 	      SELECT member_phone FROM mini_market_member
 	      UNION
 	      SELECT company_phone FROM mini_market_company     
       )t
-      where member_phone = #{checkMemberPhone}
+      WHERE member_phone = #{checkMemberPhone}
 	</select>	
 	
 	<!-- 멤버 아이디 중복확인 -->
@@ -117,8 +134,7 @@
          #{memberNickname},
          #{memberName},
          #{memberEmail},
-         123459888,
-         <!-- #{memberUniqueNo}, -->
+         #{memberUniqueNo},
          #{memberPhone},
          now()
       )

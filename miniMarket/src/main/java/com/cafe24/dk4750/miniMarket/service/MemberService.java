@@ -35,8 +35,8 @@ public class MemberService {
 	}
 	
 	//나의 정보보기 
-	public Member selectMemberOne(LoginMember loginMember) {
-		return null;		
+	public Member selectMemberOne(LoginMember memberId) {
+		return memberMapper.selectMemberOne(memberId);		
 	}
 	
 	//나의 정보 수정 
@@ -76,6 +76,9 @@ public class MemberService {
 		System.out.println(memberPw +"<--랜덤memberPw  확인");
 		System.out.println(member.getMemberPw()+"<-랜덤 비번getMemberPw 잘 들어갔나 확인");
 		// 유니크 넘버 만들어 줘야됨 	
+		String memberUniqueNo = memberMapper.selectMemberUniqueNo();
+		System.out.println(memberUniqueNo+"<--유니크넘버임");
+		member.setMemberUniqueNo(memberUniqueNo);
 		
 		int row = memberMapper.insertMember(member);
 	

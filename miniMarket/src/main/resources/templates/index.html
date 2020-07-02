@@ -45,13 +45,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>에베벱벱벱벱 <a href="products.html">SHOP NOW</a></p>
+				<p>mini market 작업중 ^_^ <a href="products.html">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
 					<li><a href="registered.html"> Create Account </a></li>
 					<li th:if="${session.loginMember != null}">
 						<a th:href="@{/logoutMember}" >로그아웃</a>
+					</li>
+					<li th:if="${session.loginMember != null}">
+						<a th:href="@{/getMemberOne}" >나의정보</a>
 					</li>
 					<li th:if="${session.loginMember == null}">
 						<a th:href="@{/loginMember}" >로그인</a>

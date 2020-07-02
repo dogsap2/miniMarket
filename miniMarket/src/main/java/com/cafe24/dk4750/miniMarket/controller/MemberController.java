@@ -99,17 +99,26 @@ public class MemberController {
 		return "index";		
 	}
 	
+	//나의 정보보기
+	@GetMapping("/getMemberOne")
+	public String getMemberOne(HttpSession session, Model model) {
+		if(session.getAttribute("loginMember")== null){ //로그인 상태 아니면 홈
+			return "redirect:/index";
+		}
+		
+		Member member = memberService.selectMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		System.out.println(member);
+		model.addAttribute("member",member);
+		return "getMemberOne";
+		
+	}
+	
 	// 멤버 사진추가 
 	
 	//멤버 아이디 중복확인 
 	
-	// 핸드폰 중복확인 
-	
-	//이메일 중복확인
-	
 	// 로그인 유효성 검사
 	
-	//나의 정보보기
 	
 	// 멤버사진 수정 
 	

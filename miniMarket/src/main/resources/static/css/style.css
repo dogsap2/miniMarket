@@ -141,6 +141,22 @@ button.btn.btn-default.search:hover {
     color: #fff;
     text-decoration: none;
 }
+.agile-info {
+    float: left;
+    width: 40%;
+    text-align: center;
+    padding: 9px 0;
+}
+.agile-info ul li {
+    display: inline-block;
+    padding: 0em 1em;
+}
+.agile-info ul li a {
+    font-size: 1em;
+    text-transform: capitalize;
+    color: #fff;
+    text-decoration: none;
+}
 .w3l_search input[type="search"] {
 	margin-top:0px;
 }
@@ -934,6 +950,17 @@ a.w3_agile_vimeo:hover{
     display: block;
     width: 100%;
     background:#3FBF1A;
+    margin: 1.5em 0 0;
+}
+#Form123{
+	outline: none;
+    border: none;
+    padding: 10px 0;
+    font-size: 1em;
+    color: #fff;
+    display: block;
+    width: 100%;
+    background:#FFD100;
     margin: 1.5em 0 0;
 }
 .login-form-grids input[type="submit"]:hover{
@@ -2634,6 +2661,12 @@ ul.phone_email li {
     width: 65%;
 }
 .login h4 {
+    font-size: 1.3em;
+}
+.info-form-grids {
+    width: 65%;
+}
+.info h4 {
     font-size: 1.3em;
 }
 .timetable_sub th, .timetable_sub td {
