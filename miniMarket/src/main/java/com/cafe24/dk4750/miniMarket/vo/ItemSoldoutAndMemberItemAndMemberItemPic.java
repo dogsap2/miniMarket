@@ -15,8 +15,11 @@ public class ItemSoldoutAndMemberItemAndMemberItemPic {
 	private String memberItemState;
 	// memberItemPic 속성
 	private int picNo;
-	private String memberItemPic;
-	private String memberId;
+	private String memberItemPic1;
+	private String memberItemPic2;
+	private String memberItemPic3;
+	private String memberItemPic4;
+	private String memberItemPic5;
 	private String picDate;
 	
 	// 겟터 셋터
@@ -86,17 +89,35 @@ public class ItemSoldoutAndMemberItemAndMemberItemPic {
 	public void setPicNo(int picNo) {
 		this.picNo = picNo;
 	}
-	public String getMemberItemPic() {
-		return memberItemPic;
+	public String getMemberItemPic1() {
+		return memberItemPic1;
 	}
-	public void setMemberItemPic(String memberItemPic) {
-		this.memberItemPic = memberItemPic;
+	public void setMemberItemPic1(String memberItemPic1) {
+		this.memberItemPic1 = memberItemPic1;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getMemberItemPic2() {
+		return memberItemPic2;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberItemPic2(String memberItemPic2) {
+		this.memberItemPic2 = memberItemPic2;
+	}
+	public String getMemberItemPic3() {
+		return memberItemPic3;
+	}
+	public void setMemberItemPic3(String memberItemPic3) {
+		this.memberItemPic3 = memberItemPic3;
+	}
+	public String getMemberItemPic4() {
+		return memberItemPic4;
+	}
+	public void setMemberItemPic4(String memberItemPic4) {
+		this.memberItemPic4 = memberItemPic4;
+	}
+	public String getMemberItemPic5() {
+		return memberItemPic5;
+	}
+	public void setMemberItemPic5(String memberItemPic5) {
+		this.memberItemPic5 = memberItemPic5;
 	}
 	public String getPicDate() {
 		return picDate;
@@ -104,15 +125,16 @@ public class ItemSoldoutAndMemberItemAndMemberItemPic {
 	public void setPicDate(String picDate) {
 		this.picDate = picDate;
 	}
-	
-	// toString
+	//toString
 	@Override
 	public String toString() {
 		return "ItemSoldoutAndMemberItemAndMemberItemPic [soldoutNo=" + soldoutNo + ", memberItemNo=" + memberItemNo
 				+ ", memberUniqueNo=" + memberUniqueNo + ", soldoutDate=" + soldoutDate + ", memberItemTitle="
 				+ memberItemTitle + ", categoryName=" + categoryName + ", memberItemPrice=" + memberItemPrice
 				+ ", memberItemContent=" + memberItemContent + ", memberItemDate=" + memberItemDate
-				+ ", memberItemState=" + memberItemState + ", picNo=" + picNo + ", memberItemPic=" + memberItemPic
-				+ ", memberId=" + memberId + ", picDate=" + picDate + "]";
+				+ ", memberItemState=" + memberItemState + ", picNo=" + picNo + ", memberItemPic1=" + memberItemPic1
+				+ ", memberItemPic2=" + memberItemPic2 + ", memberItemPic3=" + memberItemPic3 + ", memberItemPic4="
+				+ memberItemPic4 + ", memberItemPic5=" + memberItemPic5 + ", picDate=" + picDate + "]";
 	}
+	
 }

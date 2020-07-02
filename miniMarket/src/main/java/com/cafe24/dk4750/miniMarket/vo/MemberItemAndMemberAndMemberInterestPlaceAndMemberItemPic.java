@@ -1,6 +1,6 @@
 package com.cafe24.dk4750.miniMarket.vo;
 
-public class MemberItemAndMemberAndMemberInterestPlace {
+public class MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic {
 	// 멤버 아이템 속성
 	private int memberItemNo;
 	private String memberUniqueNo;
@@ -27,10 +27,17 @@ public class MemberItemAndMemberAndMemberInterestPlace {
 	private String sigungu;
 	private String bname;
 	private String interestPlaceDate;
-	
+	// 멤버 아이템 사진 속성
+	private String memberItemPic1;
 	// 겟터 셋터
 	public int getMemberItemNo() {
 		return memberItemNo;
+	}
+	public String getMemberItemPic1() {
+		return memberItemPic1;
+	}
+	public void setMemberItemPic1(String memberItemPic1) {
+		this.memberItemPic1 = memberItemPic1;
 	}
 	public void setMemberItemNo(int memberItemNo) {
 		this.memberItemNo = memberItemNo;
@@ -171,14 +178,15 @@ public class MemberItemAndMemberAndMemberInterestPlace {
 	// toString
 	@Override
 	public String toString() {
-		return "MemberItemAndMemberAndMemberInterestPlace [memberItemNo=" + memberItemNo + ", memberUniqueNo="
-				+ memberUniqueNo + ", memberItemTitle=" + memberItemTitle + ", categoryName=" + categoryName
-				+ ", memberItemPrice=" + memberItemPrice + ", memberItemContent=" + memberItemContent
+		return "MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic [memberItemNo=" + memberItemNo
+				+ ", memberUniqueNo=" + memberUniqueNo + ", memberItemTitle=" + memberItemTitle + ", categoryName="
+				+ categoryName + ", memberItemPrice=" + memberItemPrice + ", memberItemContent=" + memberItemContent
 				+ ", memberItemDate=" + memberItemDate + ", memberItemState=" + memberItemState + ", memberId="
 				+ memberId + ", memberSido=" + memberSido + ", memberSigungu=" + memberSigungu + ", memberBname="
 				+ memberBname + ", memberPw=" + memberPw + ", memberNickname=" + memberNickname + ", memberName="
 				+ memberName + ", memberEmail=" + memberEmail + ", memberPhone=" + memberPhone + ", memberDate="
 				+ memberDate + ", interestPlaceNo=" + interestPlaceNo + ", sido=" + sido + ", sigungu=" + sigungu
-				+ ", bname=" + bname + ", interestPlaceDate=" + interestPlaceDate + "]";
+				+ ", bname=" + bname + ", interestPlaceDate=" + interestPlaceDate + ", memberItemPic1=" + memberItemPic1
+				+ "]";
 	}
 }

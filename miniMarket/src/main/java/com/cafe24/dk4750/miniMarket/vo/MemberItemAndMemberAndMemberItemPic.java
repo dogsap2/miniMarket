@@ -1,6 +1,6 @@
 package com.cafe24.dk4750.miniMarket.vo;
 
-public class MemberItemAndMember {
+public class MemberItemAndMemberAndMemberItemPic {
 	// 멤버 아이템 속성
 	private int memberItemNo;
 	private String memberUniqueNo;
@@ -21,10 +21,17 @@ public class MemberItemAndMember {
 	private String memberEmail;
 	private String memberPhone;
 	private String memberDate;
-	
+	// 멤버 아이템 사진 속성
+	private String memberItemPic1;
 	// 겟터 셋터
 	public int getMemberItemNo() {
 		return memberItemNo;
+	}
+	public String getMemberItemPic1() {
+		return memberItemPic1;
+	}
+	public void setMemberItemPic1(String memberItemPic1) {
+		this.memberItemPic1 = memberItemPic1;
 	}
 	public void setMemberItemNo(int memberItemNo) {
 		this.memberItemNo = memberItemNo;
@@ -135,12 +142,13 @@ public class MemberItemAndMember {
 	// toString
 	@Override
 	public String toString() {
-		return "MemberItemAndMember [memberItemNo=" + memberItemNo + ", memberUniqueNo=" + memberUniqueNo
-				+ ", memberItemTitle=" + memberItemTitle + ", categoryName=" + categoryName + ", memberItemPrice="
-				+ memberItemPrice + ", memberItemContent=" + memberItemContent + ", memberItemDate=" + memberItemDate
-				+ ", memberItemState=" + memberItemState + ", memberId=" + memberId + ", memberSido=" + memberSido
-				+ ", memberSigungu=" + memberSigungu + ", memberBname=" + memberBname + ", memberPw=" + memberPw
-				+ ", memberNickname=" + memberNickname + ", memberName=" + memberName + ", memberEmail=" + memberEmail
-				+ ", memberPhone=" + memberPhone + ", memberDate=" + memberDate + "]";
+		return "MemberItemAndMemberAndMemberItemPic [memberItemNo=" + memberItemNo + ", memberUniqueNo="
+				+ memberUniqueNo + ", memberItemTitle=" + memberItemTitle + ", categoryName=" + categoryName
+				+ ", memberItemPrice=" + memberItemPrice + ", memberItemContent=" + memberItemContent
+				+ ", memberItemDate=" + memberItemDate + ", memberItemState=" + memberItemState + ", memberId="
+				+ memberId + ", memberSido=" + memberSido + ", memberSigungu=" + memberSigungu + ", memberBname="
+				+ memberBname + ", memberPw=" + memberPw + ", memberNickname=" + memberNickname + ", memberName="
+				+ memberName + ", memberEmail=" + memberEmail + ", memberPhone=" + memberPhone + ", memberDate="
+				+ memberDate + ", memberItemPic1=" + memberItemPic1 + "]";
 	}
 }

@@ -6,7 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
-import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMember;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 
 @Mapper
 public interface MemberItemMapper {
@@ -20,7 +21,19 @@ public interface MemberItemMapper {
 	public int updateMemberItem(MemberItem memberItem);
 	
 	// 판매중인 동네 아이템 리스트 출력
-	public List<MemberItemAndMember> selectItemList(Map<String, Object> map);
+	public List<MemberItemAndMemberAndMemberItemPic> selectItemList(Map<String, Object> map);
+	
+	// 카테고리별 판매중인 동네 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberItemPic> selectItemListByCategory(Map<String, Object> map);
+	
+	// 판매중인 관심동네 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> selectItemListByPlace(Map<String, Object> map);
+	
+	// 판매중인 나의 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberItemPic> selectItemListMyItem(Map<String, Object> map);
+	
+	// 나의 판매완료 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberItemPic> selectItemListBySaleMyItem(Map<String, Object> map);
 	
 	// 아이템 삭제(비활성화)
 	public int disabledMemberItem(MemberItem memberItem);

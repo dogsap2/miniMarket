@@ -5,11 +5,18 @@ public class MemberItemLike {
 	private String likeActive;
 	private String memberUniqueNo;
 	private int memberItemNo;
+	private String likeDate;
+	
+	// 겟터 셋터
 	public int getLikeNo() {
 		return likeNo;
 	}
-	
-	// 겟터 셋터
+	public String getLikeDate() {
+		return likeDate;
+	}
+	public void setLikeDate(String likeDate) {
+		this.likeDate = likeDate;
+	}
 	public void setLikeNo(int likeNo) {
 		this.likeNo = likeNo;
 	}
@@ -36,7 +43,7 @@ public class MemberItemLike {
 	@Override
 	public String toString() {
 		return "MemberItemLike [likeNo=" + likeNo + ", likeActive=" + likeActive + ", memberUniqueNo=" + memberUniqueNo
-				+ ", memberItemNo=" + memberItemNo + "]";
+				+ ", memberItemNo=" + memberItemNo + ", likeDate=" + likeDate + "]";
 	}
 	
 }

@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemPicMapper;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
-import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMember;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
@@ -215,104 +215,229 @@ public class MemberItemService {
 	public int modifyMemberItem(MemberItemForm memberItemForm) {
 		System.out.println(memberItemForm + " <== 멤버 아이템 서비스/멤버 아이템 수정/멤버 아이템 디버깅");
 		System.out.println(path + " <== 이미지 파일 저장경로");
-		
-		// 임의의 번호
-		int memberItemNo = 1;
+		// 기존 아이템 사진 이름 가져오기
+		int memberItemNo = memberItemForm.getMemberItemNo();
 		MemberItemPic memberItemPicc = memberItemPicMapper.selectMemberItemPicName(memberItemNo);
-		String originMemberPic1 = memberItemPicc.getMemberItemPic1();
-		String originMemberPic2 = memberItemPicc.getMemberItemPic2();
-		String originMemberPic3 = memberItemPicc.getMemberItemPic3();
-		String originMemberPic4 = memberItemPicc.getMemberItemPic4();
-		String originMemberPic5 = memberItemPicc.getMemberItemPic5();
+		String originMemberItemPic1 = memberItemPicc.getMemberItemPic1();
+		String originMemberItemPic2 = memberItemPicc.getMemberItemPic2();
+		String originMemberItemPic3 = memberItemPicc.getMemberItemPic3();
+		String originMemberItemPic4 = memberItemPicc.getMemberItemPic4();
+		String originMemberItemPic5 = memberItemPicc.getMemberItemPic5();
+		System.out.println(originMemberItemPic1);
+		System.out.println(originMemberItemPic2);
+		System.out.println(originMemberItemPic3);
+		System.out.println(originMemberItemPic4);
+		System.out.println(originMemberItemPic5);													// db에 저장되어있는 사진 이름
 		
-		// 이미지 파일 저장
-		MultipartFile multif1 = memberItemForm.getMemberItemPic1();
-		MultipartFile multif2 = memberItemForm.getMemberItemPic2();
-		MultipartFile multif3 = memberItemForm.getMemberItemPic3();
-		MultipartFile multif4 = memberItemForm.getMemberItemPic4();
-		MultipartFile multif5 = memberItemForm.getMemberItemPic5();
+		// 폼에서 넘어온 파일
+		MultipartFile mf1 = memberItemForm.getMemberItemPic1();
+		MultipartFile mf2 = memberItemForm.getMemberItemPic2();
+		MultipartFile mf3 = memberItemForm.getMemberItemPic3();
+		MultipartFile mf4 = memberItemForm.getMemberItemPic4();
+		MultipartFile mf5 = memberItemForm.getMemberItemPic5();										// 폼에서 넘어온 파일
 		
-		String originName1 = multif1.getOriginalFilename();
-		String originName2 = multif2.getOriginalFilename();
-		String originName3 = multif3.getOriginalFilename();
-		String originName4 = multif4.getOriginalFilename();
-		String originName5 = multif5.getOriginalFilename();
+		// 폼에서 넘어온 파일의 실제이름 구하기
+		String originalName1 = mf1.getOriginalFilename();
+		String originalName2 = mf2.getOriginalFilename();
+		String originalName3 = mf3.getOriginalFilename();
+		String originalName4 = mf4.getOriginalFilename();
+		String originalName5 = mf5.getOriginalFilename();
+		System.out.println(originalName1);
+		System.out.println(originalName2);
+		System.out.println(originalName3);
+		System.out.println(originalName4);
+		System.out.println(originalName5);															// 폼에서 넘어온 파일의 실제이름 구하기
 		
-		String memberItemPic1 = null;
-		String memberItemPic2 = null;
-		String memberItemPic3 = null;
-		String memberItemPic4 = null;
-		String memberItemPic5 = null;
+		// 새로 db에 입력될 이름
+		String memberItemPic1 = "";
+		String memberItemPic2 = "";
+		String memberItemPic3 = "";
+		String memberItemPic4 = "";
+		String memberItemPic5 = "";																	// 새로 db에 입력될 이름
 		
-		if(!originName1.equals("")) {
+		// 값이 없으면 삭제 X, 있으면 삭제 실행
+		if(!originalName1.equals("")) {
 			// 이미지 삭제
-			File originFile = new File(path + originMemberPic1);
+			File originFile = new File(path + originMemberItemPic1);
 			// 초기설정 이미지 삭제 X
-			if(originFile.exists() && !memberItemPic1.equals("default.jpg")) {
+			if(originFile.exists() && !originMemberItemPic1.equals("default.jpg")) {
 				originFile.delete();
 			}
-			int lastDot = originName1.lastIndexOf(".");
-			String extension = originName1.substring(lastDot);
-			memberItemPic1 = memberItemForm.getMemberItemPic1() + extension;
+			int lastDot = originalName1.lastIndexOf(".");
+			String extension = originalName1.substring(lastDot);
+			memberItemPic1 = "1" + extension;
 		} else {
-			memberItemPic1 = originMemberPic1;
+			memberItemPic1 = originMemberItemPic1;
 		}
 		
-		if(!originName1.equals("")) {
-			// 파일 저장
-			// 경로 저장
-			File file = new File(path + memberItemPic1);
-			// mf의 파일을 옮겨준다
-			try {
-				multif1.transferTo(file);
-			} catch (Exception e) {
-				e.printStackTrace();
-				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
-				throw new RuntimeException();
+		// 값이 없으면 삭제 X, 있으면 삭제 실행
+		if(!originalName2.equals("")) {
+			// 이미지 삭제
+			File originFile = new File(path + originMemberItemPic2);
+			// 초기설정 이미지 삭제 X
+			if(originFile.exists() && !originMemberItemPic2.equals("default.jpg")) {
+				originFile.delete();
 			}
+			int lastDot = originalName2.lastIndexOf(".");
+			String extension = originalName2.substring(lastDot);
+			memberItemPic2 = "2" + extension;
+		} else {
+			memberItemPic2 = originMemberItemPic2;
 		}
 		
-
+		// 값이 없으면 삭제 X, 있으면 삭제 실행
+		if(!originalName3.equals("")) {
+			// 이미지 삭제
+			File originFile = new File(path + originMemberItemPic3);
+			// 초기설정 이미지 삭제 X
+			if(originFile.exists() && !originMemberItemPic3.equals("default.jpg")) {
+				originFile.delete();
+			}
+			int lastDot = originalName3.lastIndexOf(".");
+			String extension = originalName3.substring(lastDot);
+			memberItemPic3 = "3" + extension;
+		} else {
+			memberItemPic3 = originMemberItemPic3;
+		}
 		
-		// 이름 변경된 값 디버깅
-		System.out.println(memberItemPic1 + " <== memberItemPic1");
-		System.out.println(memberItemPic2 + " <== memberItemPic2");
-		System.out.println(memberItemPic3 + " <== memberItemPic3");
-		System.out.println(memberItemPic4 + " <== memberItemPic4");
-		System.out.println(memberItemPic5 + " <== memberItemPic5");
+		// 값이 없으면 삭제 X, 있으면 삭제 실행
+		if(!originalName4.equals("")) {
+			// 이미지 삭제
+			File originFile = new File(path + originMemberItemPic4);
+			// 초기설정 이미지 삭제 X
+			if(originFile.exists() && !originMemberItemPic4.equals("default.jpg")) {
+				originFile.delete();
+			}
+			int lastDot = originalName4.lastIndexOf(".");
+			String extension = originalName4.substring(lastDot);
+			memberItemPic4 = "4" + extension;
+		} else {
+			memberItemPic4 = originMemberItemPic4;
+		}
 		
-		// 지정해줄 memberItemNo 셀렉트로 구해오기
+		// 값이 없으면 삭제 X, 있으면 삭제 실행
+		if(!originalName5.equals("")) {
+			// 이미지 삭제
+			File originFile = new File(path + originMemberItemPic5);
+			// 초기설정 이미지 삭제 X
+			if(originFile.exists() && !originMemberItemPic5.equals("default.jpg")) {
+				originFile.delete();
+			}
+			int lastDot = originalName5.lastIndexOf(".");
+			String extension = originalName5.substring(lastDot);
+			memberItemPic5 = "5" + extension;
+		} else {
+			memberItemPic5 = originMemberItemPic5;
+		}
 		
-		// 멤버아이템 폼에서 멤버아이템 속성 꺼내서 담아주기
+		// 멤버 아이템 업데이트
 		MemberItem memberItem = new MemberItem();
-		memberItem.setMemberItemNo(memberItemNo);
-		memberItem.setMemberUniqueNo(memberItemForm.getMemberUniqueNo());
+		memberItem.setMemberItemNo(memberItemForm.getMemberItemNo());
 		memberItem.setMemberItemTitle(memberItemForm.getMemberItemTitle());
-		memberItem.setCategoryName(memberItemForm.getCategoryName());
-		memberItem.setMemberItemPrice(memberItemForm.getMemberItemPrice());
 		memberItem.setMemberItemContent(memberItemForm.getMemberItemContent());
-		System.out.println(memberItem + " <== 멤버 아이템 서비스/멤버 아이템 추가/멤버 아이템 디버깅");
-		// 아이템 넘버를 받아와서 아이템 수정하기
+		memberItem.setMemberItemPrice(memberItemForm.getMemberItemPrice());
+		memberItem.setCategoryName(memberItemForm.getCategoryName());
+		System.out.println(memberItem + " <== memberItem");
 		memberItemMapper.updateMemberItem(memberItem);
 		
-		// 사진 수정하기
 		MemberItemPic memberItemPic = new MemberItemPic();
-		memberItemPic.setMemberItemNo(memberItemNo);
+		memberItemPic.setMemberItemNo(memberItemForm.getMemberItemNo());
 		memberItemPic.setMemberItemPic1(memberItemPic1);
 		memberItemPic.setMemberItemPic2(memberItemPic2);
 		memberItemPic.setMemberItemPic3(memberItemPic3);
 		memberItemPic.setMemberItemPic4(memberItemPic4);
 		memberItemPic.setMemberItemPic5(memberItemPic5);
-		// 받아온 아이템 넘버에 해당하는 아이템 사진 등록하기
 		memberItemPicMapper.updateMemberItemPic(memberItemPic);
 		
-		// 리턴
-		return memberItemMapper.updateMemberItem(memberItem);
+		// 사진 저장
+		if(!originalName1.equals("")) {
+			// 파일 저장
+			// 경로 저장
+			File file = new File(path + memberItemPic1);
+			// mf의 파일을 옮겨준다
+			try {
+				mf1.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
+				throw new RuntimeException();
+			}
+			// 예외처리를 해야만 문법적으로 이상없는 예외
+		}
+		
+		// 사진 저장
+		if(!originalName2.equals("")) {
+			// 파일 저장
+			// 경로 저장
+			File file = new File(path + memberItemPic2);
+			// mf의 파일을 옮겨준다
+			try {
+				mf2.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
+				throw new RuntimeException();
+			}
+			// 예외처리를 해야만 문법적으로 이상없는 예외
+		}
+		
+		// 사진 저장
+		if(!originalName3.equals("")) {
+			// 파일 저장
+			// 경로 저장
+			File file = new File(path + memberItemPic3);
+			// mf의 파일을 옮겨준다
+			try {
+				mf3.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
+				throw new RuntimeException();
+			}
+			// 예외처리를 해야만 문법적으로 이상없는 예외
+		}
+		
+		// 사진 저장
+		if(!originalName4.equals("")) {
+			// 파일 저장
+			// 경로 저장
+			File file = new File(path + memberItemPic4);
+			// mf의 파일을 옮겨준다
+			try {
+				mf4.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
+				throw new RuntimeException();
+			}
+			// 예외처리를 해야만 문법적으로 이상없는 예외
+		}
+		
+		// 사진 저장
+		if(!originalName5.equals("")) {
+			// 파일 저장
+			// 경로 저장
+			File file = new File(path + memberItemPic5);
+			// mf의 파일을 옮겨준다
+			try {
+				mf5.transferTo(file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
+				throw new RuntimeException();
+			}
+			// 예외처리를 해야만 문법적으로 이상없는 예외
+		}
+		return 0;
 	}
-	// 멤버 아이템 사진 수정
 	
 	// 판매중인 동네 아이템 리스트 출력
-	public List<MemberItemAndMember> getMemberItemList() {
+	public List<MemberItemAndMemberAndMemberItemPic> getMemberItemList() {
 		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
 		int beginRow = 0;
 		int rowPerPage = 10;
@@ -327,11 +452,13 @@ public class MemberItemService {
 		map.put("searchWord", searchWord);
 		
 		// 리스트 받아오기
-		List<MemberItemAndMember> list = memberItemMapper.selectItemList(map);
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemList(map);
 		
 		// 리스트 리턴
 		return list;
 	}
+	
+	
 	
 	// 아이템 삭제(비활성화)
 	public int disabledMemberItem(MemberItem memberItem) {

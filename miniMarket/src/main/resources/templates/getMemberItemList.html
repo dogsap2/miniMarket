@@ -8,6 +8,7 @@
 	<table border="1">
 		<thead>
 			<tr>
+				<th>사진</th>
 				<th>제목</th>
 				<th>아이템가격</th>
 				<th>아이템 올린 날짜</th>
@@ -17,6 +18,9 @@
 		</thead>
 		<tbody>
 			<tr th:each="list : ${list}">
+				<td>
+					<img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150">
+				</td>
 				<td th:text="${list.memberItemTitle}"></td>
 				<td th:text="${list.memberItemPrice}"></td>
 				<td th:text="${list.memberItemDate}"></td>

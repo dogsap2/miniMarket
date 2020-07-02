@@ -8,12 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cafe24.dk4750.miniMarket.service.MemberItemService;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
-import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMember;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
@@ -75,14 +73,16 @@ public class MemberItemController {
 	@PostMapping("/modifyMemberItem")
 	public String modifyMemberItem(MemberItemForm memberItemForm) {
 		System.out.println("modifyMemberItem 포스트매핑 시작");
-		System.out.println(memberItemForm + " <==멤버 아이템 수정하기");
+		System.out.println(memberItemForm + " <== 멤버 아이템 수정하기 / memberItemForm 디버깅");
 		
-		// 임의로 아이템 넘버 정해주기
-		int memberItemNo = 1;
-		memberItemForm.setMemberItemNo(memberItemNo);
 		
-		// 업데이트 실행
-		memberItemService.modifyMemberItem(memberItemForm);
+	    // 임의로 아이템 넘버 정해주기 
+	    int memberItemNo = 1;
+	    memberItemForm.setMemberItemNo(memberItemNo);
+	  
+	    // 업데이트 실행 
+	    memberItemService.modifyMemberItem(memberItemForm);
+		 
 		// 페이지 요청
 		return "index";
 	}
@@ -93,7 +93,7 @@ public class MemberItemController {
 		System.out.println("getMemberItemList 겟매핑 시작");
 		
 		// 리스트 받아오기
-		List<MemberItemAndMember> list = memberItemService.getMemberItemList();
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getMemberItemList();
 		
 		// list 모델에 담아서 페이지로 보내주기
 		model.addAttribute("list", list);
