@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ReportMByMMapper">
+<mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ReportMemberByMemberMapper">
    <!-- 신고 상태별 totalRow -->
    <select id="getStateTotalRow" parameterType="String" resultType="int">
       SELECT
@@ -11,7 +11,7 @@
       WHERE report_state = #{reportState}
    </select>
    <!-- 신고 상태별 List -->
-   <select id="selectReportMByMStateList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+   <select id="selectReportMemberByMemberStateList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
       SELECT
          report_no as reportNo,
          member_id as memberId,
@@ -30,7 +30,7 @@
       FROM mini_market_report_m_by_m
    </select>
    <!-- 신고 totalList -->
-   <select id="selectReportMByMAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+   <select id="selectReportMemberByMemberAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
       SELECT
          report_no as reportNo,
          member_id as memberId,
@@ -42,7 +42,7 @@
       LIMIT #{beginRow}, #{rowPerPage}
    </select>
    <!-- 신고 상세페이지 -->
-   <select id="selectReportMByMOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+   <select id="selectReportMemberByMemberOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
       SELECT
          report_no as reportNo,
          report_title as reportTitle,
@@ -55,7 +55,7 @@
       WHERE report_no = #{reportNo}
    </select>
    <!-- 신고 하기 접수 -->
-   <insert id="insertReportMByM" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMByM">
+   <insert id="insertReportMemberByMember" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
       INSERT INTO mini_market_report_m_by_m(
          report_title,
          report_content,

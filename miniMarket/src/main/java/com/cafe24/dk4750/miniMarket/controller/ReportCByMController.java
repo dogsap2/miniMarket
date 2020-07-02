@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cafe24.dk4750.miniMarket.vo.ReportCByM;
+import com.cafe24.dk4750.miniMarket.vo.ReportCompanyByMember;
 
 @Controller
 public class ReportCByMController {
@@ -13,7 +13,7 @@ public class ReportCByMController {
 		return "cByMReport";
 	}
 	@PostMapping("/cByMReport")
-	public String addReport(ReportCByM reportCByM) {
+	public String addReport(ReportCompanyByMember reportCByM) {
 		System.out.println(reportCByM);
 		return "redirect:/cByMReport";
 	}

@@ -13,7 +13,7 @@ public class ReportMByMController {
 	      return "mByMReport";
 	   }
 	   @PostMapping("/mByMReport")
-	   public String addReport(ReportMByM reportMByM) {
+	   public String addReport(ReportMemberByMember reportMByM) {
 	      System.out.println(reportMByM);
 	      return "redirect:/mByMReport";
 	   }

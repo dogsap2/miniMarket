@@ -1,11 +1,11 @@
 package com.cafe24.dk4750.miniMarket.vo;
 
-public class ReportMByM {
+public class ReportMemberByCompany {
 	private int reportNo;
 	private String reportTitle;
 	private String reportContent;
 	private String memberId;
-	private String memberUniqueNo;
+	private String CompanyUniqueNo;
 	private String reportState;
 	private String reportDate;
 	
@@ -34,11 +34,11 @@ public class ReportMByM {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getMemberUniqueNo() {
-		return memberUniqueNo;
+	public String getCompanyUniqueNo() {
+		return CompanyUniqueNo;
 	}
-	public void setMemberUniqueNo(String memberUniqueNo) {
-		this.memberUniqueNo = memberUniqueNo;
+	public void setCompanyUniqueNo(String companyUniqueNo) {
+		CompanyUniqueNo = companyUniqueNo;
 	}
 	public String getReportState() {
 		return reportState;
@@ -52,12 +52,11 @@ public class ReportMByM {
 	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
 	}
-	
 	// toString
 	@Override
 	public String toString() {
-		return "ReportMByM [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent=" + reportContent
-				+ ", memberId=" + memberId + ", memberUniqueNo=" + memberUniqueNo + ", reportState=" + reportState
+		return "ReportMByC [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent=" + reportContent
+				+ ", memberId=" + memberId + ", CompanyUniqueNo=" + CompanyUniqueNo + ", reportState=" + reportState
 				+ ", reportDate=" + reportDate + "]";
 	}
 }

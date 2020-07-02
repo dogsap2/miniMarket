@@ -1,12 +1,11 @@
 package com.cafe24.dk4750.miniMarket.vo;
 
-public class ReportMByMitem {
+public class ReportMemberByMember {
 	private int reportNo;
 	private String reportTitle;
 	private String reportContent;
-	private String reportMemo;
 	private String memberId;
-	private int memberItemNo;
+	private String memberUniqueNo;
 	private String reportState;
 	private String reportDate;
 	
@@ -29,23 +28,17 @@ public class ReportMByMitem {
 	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
 	}
-	public String getReportMemo() {
-		return reportMemo;
-	}
-	public void setReportMemo(String reportMemo) {
-		this.reportMemo = reportMemo;
-	}
 	public String getMemberId() {
 		return memberId;
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public int getMemberItemNo() {
-		return memberItemNo;
+	public String getMemberUniqueNo() {
+		return memberUniqueNo;
 	}
-	public void setMemberItemNo(int memberItemNo) {
-		this.memberItemNo = memberItemNo;
+	public void setMemberUniqueNo(String memberUniqueNo) {
+		this.memberUniqueNo = memberUniqueNo;
 	}
 	public String getReportState() {
 		return reportState;
@@ -63,8 +56,8 @@ public class ReportMByMitem {
 	// toString
 	@Override
 	public String toString() {
-		return "ReportMByMitem [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent="
-				+ reportContent + ", reportMemo=" + reportMemo + ", memberId=" + memberId + ", memberItemNo="
-				+ memberItemNo + ", reportState=" + reportState + ", reportDate=" + reportDate + "]";
+		return "ReportMByM [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent=" + reportContent
+				+ ", memberId=" + memberId + ", memberUniqueNo=" + memberUniqueNo + ", reportState=" + reportState
+				+ ", reportDate=" + reportDate + "]";
 	}
 }

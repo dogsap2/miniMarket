@@ -3,7 +3,7 @@ package com.cafe24.dk4750.miniMarket.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cafe24.dk4750.miniMarket.vo.ReportMByC;
+import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompany;
 
 public class ReportMByCController {
 
@@ -12,7 +12,7 @@ public class ReportMByCController {
 	      return "mByCReport";
 	   }
 	   @PostMapping("mByCReport")
-	   public String addReport(ReportMByC reportMByC) {
+	   public String addReport(ReportMemberByCompany reportMByC) {
 	      System.out.println(reportMByC);
 	      return "redirect:/mByCReport";
 	   }
