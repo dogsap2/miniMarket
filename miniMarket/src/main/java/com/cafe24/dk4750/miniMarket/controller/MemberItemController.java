@@ -1,6 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,10 +56,16 @@ public class MemberItemController {
 		int memberItemNo = 1;
 		
 		// 기존 정보 불러오기
-		MemberItem memberItem = memberItemService.getMemberItemOne(memberItemNo);
+		Map<String, Object> map = memberItemService.getMemberItemOne(memberItemNo);
+		MemberItemPic memberItemPic = (MemberItemPic)map.get("memberItemPic");
+		MemberItem memberItem = (MemberItem)map.get("memberItem");
+		System.out.println(memberItemPic + " <== Controller memberItemPic");
+		System.out.println(memberItem + " <== Controller memberItem");
+		System.out.println(memberItemPic.getMemberItemPic1() + " <== Controller memberItemPic1");
 		
 		// 모델에 값 담아서 페이지에 보내주기
 		model.addAttribute("memberItem", memberItem);
+		model.addAttribute("memberItemPic", memberItemPic);
 		
 		// 페이지요청
 		return "modifyMemberItem";
@@ -66,17 +73,16 @@ public class MemberItemController {
 	
 	// 멤버 아이템 수정하기 포스트맵핑. 액션
 	@PostMapping("/modifyMemberItem")
-	public String modifyMemberItem(MemberItem memberItem) {
+	public String modifyMemberItem(MemberItemForm memberItemForm) {
 		System.out.println("modifyMemberItem 포스트매핑 시작");
-		System.out.println(memberItem + " <==멤버 아이템 수정하기");
+		System.out.println(memberItemForm + " <==멤버 아이템 수정하기");
 		
 		// 임의로 아이템 넘버 정해주기
 		int memberItemNo = 1;
-		memberItem.setMemberItemNo(memberItemNo);
+		memberItemForm.setMemberItemNo(memberItemNo);
 		
 		// 업데이트 실행
-		memberItemService.modifyMemberItem(memberItem);
-		
+		memberItemService.modifyMemberItem(memberItemForm);
 		// 페이지 요청
 		return "index";
 	}

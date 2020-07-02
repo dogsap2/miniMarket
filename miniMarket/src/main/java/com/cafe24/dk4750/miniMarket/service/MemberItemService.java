@@ -120,7 +120,7 @@ public class MemberItemService {
 				e.printStackTrace();
 			}
 		}
-				
+		
 		// 사진이 널이 아닐시.
 		if(!originName3.equals("")) {
 			File file = new File(path+memberItemPic3);
@@ -164,41 +164,152 @@ public class MemberItemService {
 		System.out.println(memberItemPic4 + " <== memberItemPic4");
 		System.out.println(memberItemPic5 + " <== memberItemPic5");
 		
+		// 지정해줄 memberItemNo 셀렉트로 구해오기
+		int memberItemNo = memberItemMapper.selectMaxPlusMemberItemNo();
+		
 		// 멤버아이템 폼에서 멤버아이템 속성 꺼내서 담아주기
 		MemberItem memberItem = new MemberItem();
+		memberItem.setMemberItemNo(memberItemNo);
 		memberItem.setMemberUniqueNo(memberItemForm.getMemberUniqueNo());
 		memberItem.setMemberItemTitle(memberItemForm.getMemberItemTitle());
 		memberItem.setCategoryName(memberItemForm.getCategoryName());
 		memberItem.setMemberItemPrice(memberItemForm.getMemberItemPrice());
 		memberItem.setMemberItemContent(memberItemForm.getMemberItemContent());
 		System.out.println(memberItem + " <== 멤버 아이템 서비스/멤버 아이템 추가/멤버 아이템 디버깅");
+		// 아이템 넘버를 받아와서 아이템 등록하기
+		memberItemMapper.insertMemberItem(memberItem);
 		
+		// 사진 추가하기
 		MemberItemPic memberItemPic = new MemberItemPic();
-		int memberItemNo = 1;
 		memberItemPic.setMemberItemNo(memberItemNo);
 		memberItemPic.setMemberItemPic1(memberItemPic1);
 		memberItemPic.setMemberItemPic2(memberItemPic2);
 		memberItemPic.setMemberItemPic3(memberItemPic3);
 		memberItemPic.setMemberItemPic4(memberItemPic4);
 		memberItemPic.setMemberItemPic5(memberItemPic5);
-		memberItemMapper.insertMemberItem(memberItem);
+		// 받아온 아이템 넘버에 해당하는 아이템 사진 등록하기
 		memberItemPicMapper.insertMemberItemPic(memberItemPic);
 	}
 	
 	// 한개의 멤버 아이템 정보 가져오기
-	public MemberItem getMemberItemOne(int memberItemNo) {
+	public Map<String, Object> getMemberItemOne(int memberItemNo) {
 		System.out.println(memberItemNo + " <== 멤버 아이템 서비스/한개의 멤버 아이템 정보 가져오기/멤버 아이템 넘버 디버깅");
+		
+		// 리턴타입 map 생성
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// map에 담을 정보들
+		MemberItemPic memberItemPic = memberItemPicMapper.selectMemberItemPicName(memberItemNo);
+		MemberItem memberItem = memberItemMapper.selectMemberItemOne(memberItemNo);
+		// map에 담아주기
+		map.put("memberItemPic", memberItemPic);
+		map.put("memberItem", memberItem);
+		System.out.println(memberItemPic + " <== memberItemPic");
+		System.out.println(memberItemPic.getMemberItemPic1() + " <== memberItemPic1");
+		System.out.println(map.get("memberItemPic") + " <== map / memberItemPic");
+		System.out.println(memberItem + " <== memberItem");
 		// 리턴
-		return memberItemMapper.selectMemberItemOne(memberItemNo);
+		return map;
 	}
 	
 	// 멤버 아이템 수정
-	public int modifyMemberItem(MemberItem memberItem) {
-		System.out.println(memberItem + " <== 멤버 아이템 서비스/멤버 아이템 수정/멤버 아이템 디버깅");
+	public int modifyMemberItem(MemberItemForm memberItemForm) {
+		System.out.println(memberItemForm + " <== 멤버 아이템 서비스/멤버 아이템 수정/멤버 아이템 디버깅");
+		System.out.println(path + " <== 이미지 파일 저장경로");
+		
+		// 임의의 번호
+		int memberItemNo = 1;
+		MemberItemPic memberItemPicc = memberItemPicMapper.selectMemberItemPicName(memberItemNo);
+		String originMemberPic1 = memberItemPicc.getMemberItemPic1();
+		String originMemberPic2 = memberItemPicc.getMemberItemPic2();
+		String originMemberPic3 = memberItemPicc.getMemberItemPic3();
+		String originMemberPic4 = memberItemPicc.getMemberItemPic4();
+		String originMemberPic5 = memberItemPicc.getMemberItemPic5();
+		
+		// 이미지 파일 저장
+		MultipartFile multif1 = memberItemForm.getMemberItemPic1();
+		MultipartFile multif2 = memberItemForm.getMemberItemPic2();
+		MultipartFile multif3 = memberItemForm.getMemberItemPic3();
+		MultipartFile multif4 = memberItemForm.getMemberItemPic4();
+		MultipartFile multif5 = memberItemForm.getMemberItemPic5();
+		
+		String originName1 = multif1.getOriginalFilename();
+		String originName2 = multif2.getOriginalFilename();
+		String originName3 = multif3.getOriginalFilename();
+		String originName4 = multif4.getOriginalFilename();
+		String originName5 = multif5.getOriginalFilename();
+		
+		String memberItemPic1 = null;
+		String memberItemPic2 = null;
+		String memberItemPic3 = null;
+		String memberItemPic4 = null;
+		String memberItemPic5 = null;
+		
+		if(!originName1.equals("")) {
+			// 이미지 삭제
+			File originFile = new File(path + originMemberPic1);
+			// 초기설정 이미지 삭제 X
+			if(originFile.exists() && !memberItemPic1.equals("default.jpg")) {
+				originFile.delete();
+			}
+			int lastDot = originName1.lastIndexOf(".");
+			String extension = originName1.substring(lastDot);
+			memberItemPic1 = memberItemForm.getMemberItemPic1() + extension;
+		} else {
+			memberItemPic1 = originMemberPic1;
+		}
+		
+		if(!originName1.equals("")) {
+			// 파일 저장
+			// 경로 저장
+			File file = new File(path + memberItemPic1);
+			// mf의 파일을 옮겨준다
+			try {
+				multif1.transferTo(file);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// 예외처리를 코드에 구현하지 않아도 문제 없는 예외
+				throw new RuntimeException();
+			}
+		}
+		
+
+		
+		// 이름 변경된 값 디버깅
+		System.out.println(memberItemPic1 + " <== memberItemPic1");
+		System.out.println(memberItemPic2 + " <== memberItemPic2");
+		System.out.println(memberItemPic3 + " <== memberItemPic3");
+		System.out.println(memberItemPic4 + " <== memberItemPic4");
+		System.out.println(memberItemPic5 + " <== memberItemPic5");
+		
+		// 지정해줄 memberItemNo 셀렉트로 구해오기
+		
+		// 멤버아이템 폼에서 멤버아이템 속성 꺼내서 담아주기
+		MemberItem memberItem = new MemberItem();
+		memberItem.setMemberItemNo(memberItemNo);
+		memberItem.setMemberUniqueNo(memberItemForm.getMemberUniqueNo());
+		memberItem.setMemberItemTitle(memberItemForm.getMemberItemTitle());
+		memberItem.setCategoryName(memberItemForm.getCategoryName());
+		memberItem.setMemberItemPrice(memberItemForm.getMemberItemPrice());
+		memberItem.setMemberItemContent(memberItemForm.getMemberItemContent());
+		System.out.println(memberItem + " <== 멤버 아이템 서비스/멤버 아이템 추가/멤버 아이템 디버깅");
+		// 아이템 넘버를 받아와서 아이템 수정하기
+		memberItemMapper.updateMemberItem(memberItem);
+		
+		// 사진 수정하기
+		MemberItemPic memberItemPic = new MemberItemPic();
+		memberItemPic.setMemberItemNo(memberItemNo);
+		memberItemPic.setMemberItemPic1(memberItemPic1);
+		memberItemPic.setMemberItemPic2(memberItemPic2);
+		memberItemPic.setMemberItemPic3(memberItemPic3);
+		memberItemPic.setMemberItemPic4(memberItemPic4);
+		memberItemPic.setMemberItemPic5(memberItemPic5);
+		// 받아온 아이템 넘버에 해당하는 아이템 사진 등록하기
+		memberItemPicMapper.updateMemberItemPic(memberItemPic);
 		
 		// 리턴
 		return memberItemMapper.updateMemberItem(memberItem);
 	}
+	// 멤버 아이템 사진 수정
 	
 	// 판매중인 동네 아이템 리스트 출력
 	public List<MemberItemAndMember> getMemberItemList() {

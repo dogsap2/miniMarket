@@ -1,7 +1,5 @@
 package com.cafe24.dk4750.miniMarket.vo;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class MemberItemPic {
 	private int picNo;
 	private int memberItemNo;

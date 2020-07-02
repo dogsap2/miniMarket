@@ -25,4 +25,6 @@ public interface MemberItemMapper {
 	// 아이템 삭제(비활성화)
 	public int disabledMemberItem(MemberItem memberItem);
 	
+	// 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기
+	public int selectMaxPlusMemberItemNo();
 }

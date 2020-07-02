@@ -6,12 +6,17 @@
 </head>
 <body>
 	<form method="post" th:action="@{/modifyMemberItem}">
-		<table>
+		<table border="1">
 			<tr>
 				<th>제목</th>
 				<th>카테고리 이름</th>
 				<th>가격</th>
 				<th>내용</th>
+				<th>사진1</th>
+				<th>사진2</th>
+				<th>사진3</th>
+				<th>사진4</th>
+				<th>사진5</th>
 			</tr>
 			<tr>
 				<td>
@@ -25,6 +30,26 @@
 				</td>
 				<td>
 					<textarea rows="5" cols="10" name="memberItemContent" id="memberItemContent" th:text="${memberItem.memberItemContent}"></textarea>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${memberItemPic.memberItemPic1}}" width="300" height="150"></img><br>
+					<input type="file" name="memberItemPic1" id="memberItemPic1"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${memberItemPic.memberItemPic2}}" width="300" height="150"><br>
+					<input type="file" name="memberItemPic2" id="memberItemPic2"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${memberItemPic.memberItemPic3}}" width="300" height="150"><br>
+					<input type="file" name="memberItemPic3" id="memberItemPic3"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${memberItemPic.memberItemPic4}}" width="300" height="150"><br>
+					<input type="file" name="memberItemPic4" id="memberItemPic4"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${memberItemPic.memberItemPic5}}" width="300" height="150"><br>
+					<input type="file" name="memberItemPic5" id="memberItemPic5">
 				</td>
 			</tr>
 			<tr>

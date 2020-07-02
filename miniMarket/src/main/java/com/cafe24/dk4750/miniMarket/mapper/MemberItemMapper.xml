@@ -4,10 +4,16 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper">
 	
+	<!-- 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기 -->
+	<select id="selectMaxPlusMemberItemNo" resultType="int">
+		SELECT IFNULL(MAX(member_item_no)+1, 1) FROM mini_market_member_item
+	</select>
+	
 	<!-- 멤버아이템 추가 -->
 	<insert id="insertMemberItem" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberItem">
 		INSERT INTO mini_market_member_item
 			(
+				member_item_no,
 				member_unique_no,
 				member_item_title,
 				category_name,
@@ -15,6 +21,7 @@
 				member_item_content,
 				member_item_date
 			) VALUES (
+				#{memberItemNo},
 				#{memberUniqueNo},
 				#{memberItemTitle},
 				#{categoryName},
