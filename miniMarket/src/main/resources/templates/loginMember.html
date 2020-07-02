@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
 <!-- for-mobile-apps -->
@@ -50,7 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="agile-login">
 				<ul>
 					<li><a href="registered.html"> Create Account </a></li>
-					<li><a href="login.html">Login</a></li>
+					<li><a th:href="@{/loginMember}">Login</a></li>
 					<li><a href="contact.html">Help</a></li>
 					
 				</ul>
@@ -231,17 +231,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h2>Login Form</h2>
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form>
-					<input type="email" placeholder="Email Address" required=" " >
-					<input type="password" placeholder="Password" required=" " >
+				<form th:action="@{/loginMember}" method="post">
+					<input type="text" placeholder="ID를 입력하세" required=" " name="memberId">
+					<input type="password" placeholder="Password" required=" " name="memberPw" >
 					<div class="forgot">
-						<a href="#">Forgot Password?</a>
+						<a href="#">Forgot ID?</a>
+						<a href="#">Forgot Password?</a>						
 					</div>
 					<input type="submit" value="Login">
 				</form>
 			</div>
 			<h4>For New People</h4>
-			<p><a href="registered.html">회원가입</a> (Or) go back to <a href="index.html">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			<p><a th:href="@{/addMember}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->
@@ -283,7 +284,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="info"> 
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="loginMember">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
 					

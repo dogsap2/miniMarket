@@ -12,10 +12,7 @@ public interface MemberMapper {
 		
 	//멤버사진 수정
 	public int updateMemberPic(MemberPic memberPic);
-	
-	//로그인하기 아이디 비번 일치하는지 확인 
-	public LoginMember selectLoginMember(LoginMember loginMember);   
-	
+			
 	//나의 정보보기 
 	public Member selectMemberOne(LoginMember loginMember); 
 	
@@ -32,6 +29,8 @@ public interface MemberMapper {
 	//비번찾기
 	public String selectFindMemberPw(Member member); 
 	
+	//로그인하기 아이디 비번 일치하는지 확인 
+	public LoginMember selectLoginMember(LoginMember loginMember);   
 	
 	//핸드폰 중복확인 
 	public String selectMemberPhone(String checkMemberPhone); 

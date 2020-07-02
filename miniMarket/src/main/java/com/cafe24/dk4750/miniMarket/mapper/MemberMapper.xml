@@ -8,12 +8,9 @@
 
 	
 	
+
 	
-	<!-- 핸드폰 중복확인 -->
-	
-	<!-- 이메일 중복확인 -->
-	
-	<!-- 로그인 유효성 검사 -->
+
 	
 	<!--나의 정보보기 -->
 	
@@ -27,7 +24,19 @@
 	
 	<!-- 비번찾기 -->
 	
-
+	<!-- 로그인 유효성 검사 -->
+	<select id="selectLoginMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
+		SELECT
+			member_id as memberId,
+			member_pw as memberPw,
+			member_unique_no as memberUniqueNo
+		FROM
+			mini_market_member
+		WHERE 
+			member_id = #{memberId}
+		AND member_pw = PASSWORD(#{memberPw})		
+	</select>
+	
 	
 	<!-- 이메일 중복확인 -->
 	<select id="selectMemberEmail" parameterType="String" 	resultType="String">
@@ -108,8 +117,8 @@
          #{memberNickname},
          #{memberName},
          #{memberEmail},
-         <!--12345678,-->
-         #{memberUniqueNo},
+         123459888,
+         <!-- #{memberUniqueNo}, -->
          #{memberPhone},
          now()
       )
