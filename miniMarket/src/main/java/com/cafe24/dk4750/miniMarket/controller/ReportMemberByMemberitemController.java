@@ -18,12 +18,12 @@ public class ReportMemberByMemberitemController {
 	
    @GetMapping("/memberByMemberItemReport")
    public String addReport() {
-      return "memberByMemberItemReport";
+      return "memberByMemberReport";
    }
    @PostMapping("/memberByMemberItemReport")
    public String addReport(ReportMemberByMemberItem reportMemberByMemberItem) {
       System.out.println(reportMemberByMemberItem);
-      return "redirect:/memberByMemberItemReport";
+      return "redirect:/memberByMemberReport";
    }
    
 }

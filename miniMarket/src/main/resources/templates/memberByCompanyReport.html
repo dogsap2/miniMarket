@@ -465,7 +465,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      		let memberTextContent = "";
      		// 거래 문제 텍스트값들이 합쳐질 변수
      		let memberTradeContent = "";
-     		// textarea를 불러올 변수 memPreBtn
+     		// textarea를 불러올 변수
      		let memberMemo = '<textarea rows="10" cols="70" name="reportContent" placeholder="신고 항목 내용을 입력해주세요.." id="memReportContent"></textarea>';
      		//피해 금액 input
      		let tradeMemoTitle ='<div><input type="text" placeholder="피해 금액" id="memTradeContentTitle"></div>';
@@ -473,6 +473,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      		let tradeMemoContent ='<div><input type="text" placeholder="피해 물품" id="memTradeContentTitle2"></div>' ;
      		//신고 내용 textarea
      		let tradeMemo = '<textarea rows="10" cols="70" name="reportContent" placeholder="신고 내용을 입력하세요" id="memTradeContent"></textarea>';
+     		//금액 유효성 검사에 사용할 숫자값 변수
+     		let regexp = /^[0-9]*$/
+     		
      		$("#merberTitle").show();
              $("#memberNoManner").hide();
              $("#menuOneDesc").hide();
@@ -480,38 +483,65 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
              $("#menuThreeDesc").hide();
              $("#menuFourDesc").hide();
              $("#memSubmitBtn").hide();
+             $("#memPreBtn").hide();
              $(".memberTitlebtn").click(function(){
              	$("#merberTitle").hide();
              	//title 변수에 #title의 value값을 저장해줌
              	let memberTitle = $(this).val();
              	console.log(memberTitle);
-             	
+             	 $("#memPreBtn").show();
+             	 //이전 버튼
+             	 $("#memPreBtn").click(function(){
+             		//첫번째 메뉴로 돌아감
+              	 	$("#merberTitle").show();
+             		//메뉴에 맞는 text
+                     $("#memReportContent").remove();
+                     $("#memTradeContentTitle").remove();
+                     $("#memTradeContentTitle2").remove();
+                     $("#memTradeContent").remove();
+                     $("#memPreBtn").hide();
+                     $("#menuOneDesc").hide();
+                     $("#menuTwoDesc").hide();
+                     $("#menuThreeDesc").hide();
+                     $("#menuFourDesc").hide();
+                     $("#memberNoManner").hide();
+                     $("#memSubmitBtn").hide();
+                    // $("input[type=checkbox]").prop("checked", false);
+              	});
              	//전문 판매업자 버튼 클릭시
              	if(memberTitle == "전문 판매업자 같아요"){
+             		
+             		$("#memTradeContentTitle").remove();
+             		$("#memTradeContentTitle2").remove();
+             		$("#memTradeContent").remove();
              		//체크박스 보여줌
              		$("#memberNoManner").show();
              		$("#memSubmitBtn").show();
              		//체크박스 클릭 후 전송 버튼 클릭 시
              		$("#memSubmitBtn").click(function(){
              			//체크박스 유효성 검사
-             			if($("input:checked[Name='reportContent']").is(":checked") < 1){
-                 			alert("체크박스에 체크해주세요."); 
-                 			$("#reportContent").focus();
+             			console.log();
+             			
                  		//체크박스 5개 이상 클릭시
-             			}else if($('input:checkbox[name="reportContent"]:checked').length > 5){
+             			if($('input:checkbox[name="reportContent"]:checked').length > 5){
                  			alert("최대 5개까지 선택할 수 있습니다."); 
                  			$("#reportContent").focus();
                  		}
              			//체크박스 체크한 값을 배열에 저장 후 보내줌
  	            		$("input[name=reportContent]:checked").each(function() {
+ 	            			
  	            			memberContent.push($(this).val());
  	            			console.log(memberContent);
+ 	            			
  	            			$("#memberHiddenTitle").val(memberTitle);
  	            			$("#memberByMemberReportForm").submit();
  	            		});
              		});
  				//비매너 사용자 버튼 클릭시
              	}else if(memberTitle == "비매너 사용자예요"){
+             		$("#memTradeContentTitle").remove();
+             		$("#memTradeContentTitle2").remove();
+             		$("#memTradeContent").remove();
              		$("#menuOneDesc").show();
              		$("#memberContent").prepend(memberMemo);
              		$("#memSubmitBtn").show();
@@ -521,11 +551,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                			console.log(memberTextContent)
                			//title , content값을 컨트롤러로 전송
                			$("#reportContent").val(memberTextContent);
+               			console.log($("#reportContent").val())
                			$("#memberHiddenTitle").val(memberTitle);
                			$("#memberByMemberReportForm").submit();
                		});
              		//욕설 버튼 클릭시
              	}else if(memberTitle == "욕설을 해요"){
+             		$("#memTradeContentTitle").remove();
+             		$("#memTradeContentTitle2").remove();
+             		$("#memTradeContent").remove();
              		$("#menuTwoDesc").show();
              		$("#memberContent").prepend(memberMemo);
              		$("#memSubmitBtn").show();
@@ -548,9 +582,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
              		$("#tradeContent").prepend(tradeMemoContent);
              		
              		$("#memSubmitBtn").show();
+             		//이전 버튼
+                 	$("#memPreBtn").hide();
              		//전송 버튼 클릭 이벤트
              		$("#memSubmitBtn").click(function(){
-             			
+             			//피해 금액 입력값이 없을시
+             			if($("#memTradeContentTitle").val() == ""){
+             				alert("피해 금액을 입력해주세요");
+             				$("#memTradeContentTitle").focus();
+             				return;
+             			//피해 금액에 숫자말고 다른 값 입력시
+             			}else if(!regexp.test($("#memTradeContentTitle").val())){
+             				alert("숫자만 입력해주세요");
+             				$("#memTradeContentTitle").val('');
+             				$("#memTradeContentTitle").focus();
+             				return;	
+             			}
+             			//피해 물품 입력값이 없을 시
+             			if($("#memTradeContentTitle2").val() == ""){
+             				alert("피해 물품을 입력해주세요");
+             				$("#memTradeContentTitle2").focus();
+             				return;
+             			}
+             			//신고 내용 입력값이 없을 시 
+             			if($("#memTradeContent").val() == ""){
+             				alert("신고 내용을 입력해주세요");
+             				$("#memTradeContent").focus();
+             				return;
+             			//신고 내용을 5자 이내로 작성시
+             			}else if($("#memTradeContent").val().length < 5){
+             				alert("신고 내용을 자세히 입력해주세요.");
+             				$("#memTradeContent").focus();
+             				return;
+             			}
                			//피해 금액 , 피해 물품 , 피해 내용 값을 다 합친 후 reportContent 에 넣어줌 
                			let memberTradeContent = "피해 금액 : " + $("#memTradeContentTitle").val()+ "원, " + "피해 물품 : " + $("#memTradeContentTitle2").val()+ " , " + "신고 내용 : " + $("#memTradeContent").val() ;
                			//디버깅

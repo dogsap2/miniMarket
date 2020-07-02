@@ -21,4 +21,6 @@ public interface ReportMemberByMemberItemMapper {
 	public List<ReportMemberByMemberItem> selectReportMemberByMemberItemStateList(Map<String, Object> map, String reportState);
 	// 신고 상태별 페이징
 	public int getStateTotalRow(String reportState);
+	// 신고 상태 업데이트
+	public int updateMemberByMemberItemState(ReportMemberByMemberItem reportMemberByMemberItem);
 }

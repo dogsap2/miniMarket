@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.dk4750.miniMarket.mapper.ReportCompanyByMemberMapper;
 import com.cafe24.dk4750.miniMarket.vo.ReportCompanyByMember;
+import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItem;
 
 @Service
 @Transactional
@@ -66,5 +67,9 @@ public class ReportCompanyByMemberService {
 	// 신고 접수
 	public int addReportCompanyByMember(ReportCompanyByMember reportCompanyByMember) {
 		return reportCompanyByMemberMapper.insertReportCompanyByMember(reportCompanyByMember);
+	}
+	//상태 수정
+	public int modifyCompanyByMemberState(ReportCompanyByMember reportCompanyByMember) {
+		return reportCompanyByMemberMapper.updateReportCompanyByMemberState(reportCompanyByMember);
 	}
 }

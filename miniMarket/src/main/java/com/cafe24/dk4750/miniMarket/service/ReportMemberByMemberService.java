@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.dk4750.miniMarket.mapper.ReportMemberByMemberMapper;
+import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompany;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember;
 
 @Service
@@ -67,4 +68,8 @@ public class ReportMemberByMemberService {
 	public int addReportMemberByMember(ReportMemberByMember reportMemberByMember) {
 		return reportMemberByMemberMapper.insertReportMemberByMember(reportMemberByMember);
 	}
+	//상태 수정
+		public int modifyMemberByMemberState(ReportMemberByMember reportMemberByMember) {
+			return reportMemberByMemberMapper.updateReportMemberByMemberState(reportMemberByMember);
+		}
 }

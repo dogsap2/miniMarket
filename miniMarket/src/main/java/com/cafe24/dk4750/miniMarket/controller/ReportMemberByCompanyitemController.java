@@ -11,11 +11,11 @@ import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem;
 public class ReportMemberByCompanyitemController {
 	@GetMapping("/memberByCompanyItemReport")
 	public String addReport() {
-		return "memberByCompanyItemReport";
+		return "memberByCompanyReport";
 	}
 	@PostMapping("/memberByCompanyItemReport")
 	public String addReport(ReportMemberByCompanyItem reportMemberByCompanyItem) {
 		System.out.println(reportMemberByCompanyItem);
-		return "redirect:/memberByCompanyItemReport";
+		return "redirect:/memberByCompanyReport";
 	}
 }

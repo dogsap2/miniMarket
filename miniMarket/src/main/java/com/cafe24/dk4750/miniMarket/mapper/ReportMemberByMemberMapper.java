@@ -20,5 +20,6 @@ public interface ReportMemberByMemberMapper {
 	   public List<ReportMemberByMember> selectReportMemberByMemberStateList(Map<String, Object> map, String reportState);
 	   // 신고 상태별 페이징
 	   public int getStateTotalRow(String reportState);
-	
+	   // 신고 상태 변경
+	   public int updateReportMemberByMemberState(ReportMemberByMember reportMemberByMember);
 }

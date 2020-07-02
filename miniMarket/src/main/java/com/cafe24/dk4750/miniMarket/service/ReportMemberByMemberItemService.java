@@ -16,6 +16,11 @@ import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItem;
 public class ReportMemberByMemberItemService {
 	@Autowired
 	private ReportMemberByMemberItemMapper reportMemberByMemberItemMapper;
+	//상태 수정
+	public int modifyMemberByMemberItemState(ReportMemberByMemberItem reportMemberByMemberItem) {
+		return reportMemberByMemberItemMapper.updateMemberByMemberItemState(reportMemberByMemberItem);
+	}
+	
 	// 상태별 신고리스트(패이징)
 	public Map<String, Object> getReportMemberByMemberItemStateList(int currentPage, String reportState) {
 		int rowPerPage = 10;

@@ -452,6 +452,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                           	 		<div>
                           	 			<button type="button" id="memPreBtn">이전</button>
                           	 			<button type="button" id="memSubmitBtn">전송</button>
+                          	 			
                           	 		</div>
 								</form>
 							</div>
@@ -559,6 +560,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $("#desc").hide();
             //title 메뉴 버튼 값 선택시
             $(".titlebtn").click(function(){
+            	$("#preBtn").show();
             	//title 변수에 #title의 value값을 저장해줌
             	let title = $(this).val();
             	console.log(title);
@@ -573,66 +575,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             	}else if(title == "기타 사유 선택"){
             		$("#content4").show();
             	}
-            	//이전 버튼 보여줌
-            	$("#preBtn").show();
-            	//이전 버튼 클릭시
-            	$("#preBtn").click(function(){
-            		$("#title").show();
-                    $("#content1").hide();
-                    $("#content2").hide();
-                    $("#content3").hide();
-                    $("#content4").hide();
-                    $("#preBtn").hide();
-                    $("#desc").hide();
-                    $("#submitBtn").hide();
-                    $("#memoId").empty();
-                    
-            	});
-            	  //content 메뉴 버튼 클릭 시
-            	  $(".btnContent").click(function(){
-            		  //content 메뉴 값 저장
-                  	let content = $(this).val();
-                  	console.log(content);
-                  	//만약에 신고 항목 제안 버튼 클릭시 textarea와 제목을 띄워줌
-                  	if(content == "신고 항목 제안"){
-                  		//설명 
-                  		$("#desc").show();
-                  		//전송 버튼 보여줌
-                  		 $("#submitBtn").show();
-                  		$("#content4").hide();
-                  		//textarea를 보여줌
+            	$(".btnContent").click(function(){
+            		$("#submitBtn").show();
+            		let content = $(this).val();
+                 	console.log(content);
+                 	if(content == "신고 항목 제안"){
+                 		//설명 
+                 		$("#desc").show();
+                 		//전송 버튼 보여줌
+                 		$("#submitBtn").show();
+                 		 $("#content1").remove();
+                         $("#content2").remove();
+                         $("#content3").remove();
+                         $("#content4").hide();
+                         
+                       //textarea를 보여줌
                   		if($("#reportMemo").length > 0){
                   			$("#memoId").show();
                   		}else{
                   			$("#memoId").prepend(memo);
                   		}
-                  		// 전송버튼 클릭 이벤트
-                  		$("#submitBtn").click(function(){
-                  			if($("#reportMemo").val() == ""){
-                  				alert("내용을 입력해주세요.")
-                  				return;
-                  			}else if($("#reportMemo").val().length < 5){
-                  				alert("내용을 자세히 입력해주세요.")
-                  				return;
-                  			}
-                  			//textarea의 value값을 변수에 저장
-                  			let memoVal = $("#reportMemo").val();
-                  			console.log(memoVal)
-                  			//title , content, memo 값을 컨트롤러로 전송
-                  			$("#reportMemo").val(memoVal);
-                  			$("#reportTitle").val(title);
-    	                  	$("#reportContent").val(content);
-                  			$("#memberByMemberItemReportForm").submit();
-                  		});
-                  		//memo값이 없을 시 이벤트
-                  	}else{
-                  		$("#reportTitle").val(title);
+                 	} else {
+                 		 $("#content1").remove();
+                         $("#content2").remove();
+                         $("#content3").remove();
+                 		$("#reportTitle").val(title);
 	                  	$("#reportContent").val(content);
-	                  	console.log($("#reportTitle").val());
-	                  	console.log($("#reportContent").val());
-	                	$("#memberByMemberItemReportForm").submit()
-                  	}
-                  });  
+                 		$("#memberByMemberItemReportForm").submit();
+                 	}
+                 	// 전송버튼 클릭 이벤트
+               		$("#submitBtn").click(function(){
+               			let memoVal = $("#reportMemo").val();
+             			console.log(memoVal)
+             			//title , content, memo 값을 컨트롤러로 전송
+             			$("#reportMemo").val(memoVal);
+             			$("#reportTitle").val(title);
+	                  	$("#reportContent").val(content);
+             			$("#memberByMemberItemReportForm").submit();
+               		});
+            	});
+            	
+	           	//이전 버튼 클릭시
+	          	$("#preBtn").click(function(){
+	          		  $("#title").show();
+	                  $("#content1").hide();
+	                  $("#content2").hide();
+	                  $("#content3").hide();
+	                  $("#content4").hide();
+	                  $("#preBtn").hide();
+	                  $("#desc").hide();
+	                  $("#submitBtn").hide();
+	                  $("#memoId").empty();
+	                  
+	          	});
             });
            // 멤버 -> 멤버 신고
            //title 값을 저장할 변수
@@ -668,48 +663,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             	let memberTitle = $(this).val();
             	console.log(memberTitle);
             	 $("#memPreBtn").show();
-            	 
+            	 //이전 버튼
             	 $("#memPreBtn").click(function(){
-             		$("#merberTitle").show();
-                     $("#memReportContent").hide();
-                     $("#memTradeContentTitle").hide();
-                     $("#memTradeContentTitle2").hide();
-                     $("#memTradeContent").hide();
-                     $("#memPreBtn").hide();
-                     $("#menuOneDesc").hide();
-                     $("#menuTwoDesc").hide();
-                     $("#menuThreeDesc").hide();
-                     $("#menuFourDesc").hide();
-                     $("#memberNoManner").hide();
-                     $("#memSubmitBtn").hide();
-                     
+            		//첫번째 메뉴로 돌아감
+             	 	$("#merberTitle").show();
+            		//메뉴에 맞는 text
+                    $("#memReportContent").remove();
+                    $("#memTradeContentTitle").remove();
+                    $("#memTradeContentTitle2").remove();
+                    $("#memTradeContent").remove();
+                    $("#memPreBtn").hide();
+                    $("#menuOneDesc").hide();
+                    $("#menuTwoDesc").hide();
+                    $("#menuThreeDesc").hide();
+                    $("#menuFourDesc").hide();
+                    $("#memberNoManner").hide();
+                    $("#memSubmitBtn").hide();
+                   // $("input[type=checkbox]").prop("checked", false);
              	});
             	//전문 판매업자 버튼 클릭시
             	if(memberTitle == "전문 판매업자 같아요"){
+            		
+            		$("#memTradeContentTitle").remove();
+            		$("#memTradeContentTitle2").remove();
+            		$("#memTradeContent").remove();
             		//체크박스 보여줌
             		$("#memberNoManner").show();
             		$("#memSubmitBtn").show();
             		//체크박스 클릭 후 전송 버튼 클릭 시
             		$("#memSubmitBtn").click(function(){
             			//체크박스 유효성 검사
-            			if($("input:checked[Name='reportContent']").is(":checked") < 1){
-                			alert("체크박스에 체크해주세요."); 
-                			$("#reportContent").focus();
+            			console.log();
+            			
                 		//체크박스 5개 이상 클릭시
-            			}else if($('input:checkbox[name="reportContent"]:checked').length > 5){
+            			if($('input:checkbox[name="reportContent"]:checked').length > 5){
                 			alert("최대 5개까지 선택할 수 있습니다."); 
                 			$("#reportContent").focus();
                 		}
             			//체크박스 체크한 값을 배열에 저장 후 보내줌
 	            		$("input[name=reportContent]:checked").each(function() {
+	            			
 	            			memberContent.push($(this).val());
 	            			console.log(memberContent);
+	            			
 	            			$("#memberHiddenTitle").val(memberTitle);
 	            			$("#memberByMemberReportForm").submit();
 	            		});
             		});
 				//비매너 사용자 버튼 클릭시
             	}else if(memberTitle == "비매너 사용자예요"){
+            		$("#memTradeContentTitle").remove();
+            		$("#memTradeContentTitle2").remove();
+            		$("#memTradeContent").remove();
             		$("#menuOneDesc").show();
             		$("#memberContent").prepend(memberMemo);
             		$("#memSubmitBtn").show();
@@ -719,11 +724,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               			console.log(memberTextContent)
               			//title , content값을 컨트롤러로 전송
               			$("#reportContent").val(memberTextContent);
+              			console.log($("#reportContent").val())
               			$("#memberHiddenTitle").val(memberTitle);
               			$("#memberByMemberReportForm").submit();
               		});
             		//욕설 버튼 클릭시
             	}else if(memberTitle == "욕설을 해요"){
+            		$("#memTradeContentTitle").remove();
+            		$("#memTradeContentTitle2").remove();
+            		$("#memTradeContent").remove();
             		$("#menuTwoDesc").show();
             		$("#memberContent").prepend(memberMemo);
             		$("#memSubmitBtn").show();
@@ -747,7 +756,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             		
             		$("#memSubmitBtn").show();
             		//이전 버튼
-                	
+                	$("#memPreBtn").hide();
             		//전송 버튼 클릭 이벤트
             		$("#memSubmitBtn").click(function(){
             			//피해 금액 입력값이 없을시
