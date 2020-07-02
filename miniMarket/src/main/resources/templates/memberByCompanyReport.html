@@ -229,19 +229,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3>' '업체 게시글을 신고하는 이유를 선택해주세요</h3>
 								<br><br>
-							<form method="post" action="/mByCReport" id="mByCReportForm">
+							<form method="post" action="/memberByCompanyItemReport" id="mByCReportForm">
 							<div id="title">
                               <div id="title1">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle1" value="사실과 다른 거짓/과장 광고예요" name="reportTitle">사실과 다른 거짓/과장 광고예요</button>
+                                 <button type="button" class="titlebtn" value="사실과 다른 거짓/과장 광고예요" name="reportTitle">사실과 다른 거짓/과장 광고예요</button>
                               </div>
                               <div id="title2">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle2" value="불쾌한 내용이 포함되어 있어요" name="reportTitle">불쾌한 내용이 포함되어 있어요</button>
+                                 <button type="button" class="titlebtn" value="불쾌한 내용이 포함되어 있어요" name="reportTitle">불쾌한 내용이 포함되어 있어요</button>
                               </div>
                               <div id="title3">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle3" value="청소년 유해업소예요" name="reportTitle">청소년 유해업소예요</button>
+                                 <button type="button" class="titlebtn" value="청소년 유해업소예요" name="reportTitle">청소년 유해업소예요</button>
                               </div>
                               <div id="title4">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle4" value="기타 사유" name="reportTitle">기타 사유</button>
+                                 <button type="button" class="titlebtn" value="기타 사유" name="reportTitle">기타 사유</button>
                               </div>
                               <input type="hidden" id="reportTitle" name="reportTitle">
                            </div>
@@ -262,44 +262,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3>멤버 ' '를 신고하는 이유를 선택해주세요</h3>
 								<br><br>
-								<form method="post" action="/mByCReport" id="memberByMemberReportForm">
+								<form method="post" action="/memberByCompanyReport" id="memberByMemberReportForm">
 									<div id="merberTitle">
                               			<div id="merberTitle1">
-                                			<button type="button" class="memberTitlebtn btn btn-warning " id="mBymItemReportTitle1" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning " value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
                               			</div>
                               			<div id="merberTitle2">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle2" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button>
                               			</div>
                               			<div id="merberTitle3">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle3" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
                               			</div>
                               			<div id="merberTitle4">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle3" value="거래/환불 분쟁 신고" name="reportTitle">거래 /환불 분쟁 신고</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="거래/환불 분쟁 신고" name="reportTitle">거래 /환불 분쟁 신고</button>
                               			</div>
                               			<div id="merberTitle5">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" id="mBymItemReportTitle3" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
                               			</div>
                               			<input type="hidden" id="memberHiddenTitle" name="reportTitle">
                           	 		</div>
                           	 		<div id="memberNoManner">
                           	 			<label>불편했던 점을 선택해 주세요.(최대 5개)</label><br>
-                          	 			<input type="checkbox" value="구매 가격보다 비싼 가격으로 판매해요" id="c1" name="reportContent">구매 가격보다 비싼 가격으로 판매해요<br>
-								        <input type="checkbox" value="너무 늦은 시간이나 새벽에 연락해요" id="c2" name="reportContent">너무 늦은 시간이나 새벽에 연락해요<br>
-								        <input type="checkbox" value="구매의사 없이계속 찔러봐요" id="c3" name="reportContent">구매의사 없이계속 찔러봐요<br>
-								        <input type="checkbox" value="질문해도 답이 없어요" id="c4" name="reportContent">질문해도 답이 없어요<br>
-								        <input type="checkbox" value="무조건 택배거래만 하려고 해요" id="c5" name="reportContent"> 무조건 택배거래만 하려고 해요<br>
-								        <input type="checkbox" value="상품 가치없는 물건을 팔아요" id="c6" name="reportContent">상품 가치없는 물건을 팔아요<br>
-								        <input type="checkbox" value="차에서 내리지도 않고 창문만 열고 거래하려고 해요" id="c7" name="reportContent">차에서 내리지도 않고 창문만 열고 거래하려고 해요<br>
-								        <input type="checkbox" value="거래 약속을 하고 다른 사람한테 팔았어요" id="c8" name="reportContent">거래 약속을 하고 다른 사람한테 팔았어요<br>
-								        <input type="checkbox" value="시간약속을 안 지켜요 " id="c9" name="reportContent"> 시간약속을 안 지켜요<br>
-								        <input type="checkbox" value="상품 설명에 중요한 정보가 누락됐어요" id="c10" name="reportContent">상품 설명에 중요한 정보가 누락됐어요<br>
-								        <input type="checkbox" value="상품 상태가 설명과 달라요" id="c11" name="reportContent">상품 상태가 설명과 달라요<br>
-								        <input type="checkbox" value="무리하게 가격을 깎아요" id="c12" name="reportContent">무리하게 가격을 깎아요<br>
-								        <input type="checkbox" value="불친절해요" id="c13" name="reportContent">불친절해요<br>
-								        <input type="checkbox" value="예약만 해놓고 거래 시간을 명확하게 알려주지 않아요" id="c14" name="reportContent">예약만 해놓고 거래 시간을 명확하게 알려주지 않아요<br>
-								        <input type="checkbox" value="거래 시간과 장소를 정한 후 연락이 안돼요" id="c15" name="reportContent">거래 시간과 장소를 정한 후 연락이 안돼요<br>
-								        <input type="checkbox" value="약속 장소에 나타나지 않았어요" id="c16" name="reportContent">약속 장소에 나타나지 않았어요<br>
-								        <input type="checkbox" value="거래 시간과 장소를 정한 후 거래 직전 취소했어요" id="c17" name="reportContent">거래 시간과 장소를 정한 후 거래 직전 취소했어요<br>
+                          	 			<input type="checkbox" value="구매 가격보다 비싼 가격으로 판매해요" name="reportContent">구매 가격보다 비싼 가격으로 판매해요<br>
+								        <input type="checkbox" value="너무 늦은 시간이나 새벽에 연락해요" name="reportContent">너무 늦은 시간이나 새벽에 연락해요<br>
+								        <input type="checkbox" value="구매의사 없이계속 찔러봐요" name="reportContent">구매의사 없이계속 찔러봐요<br>
+								        <input type="checkbox" value="질문해도 답이 없어요" name="reportContent">질문해도 답이 없어요<br>
+								        <input type="checkbox" value="무조건 택배거래만 하려고 해요" name="reportContent"> 무조건 택배거래만 하려고 해요<br>
+								        <input type="checkbox" value="상품 가치없는 물건을 팔아요" name="reportContent">상품 가치없는 물건을 팔아요<br>
+								        <input type="checkbox" value="차에서 내리지도 않고 창문만 열고 거래하려고 해요" name="reportContent">차에서 내리지도 않고 창문만 열고 거래하려고 해요<br>
+								        <input type="checkbox" value="거래 약속을 하고 다른 사람한테 팔았어요" name="reportContent">거래 약속을 하고 다른 사람한테 팔았어요<br>
+								        <input type="checkbox" value="시간약속을 안 지켜요 " name="reportContent"> 시간약속을 안 지켜요<br>
+								        <input type="checkbox" value="상품 설명에 중요한 정보가 누락됐어요" name="reportContent">상품 설명에 중요한 정보가 누락됐어요<br>
+								        <input type="checkbox" value="상품 상태가 설명과 달라요" name="reportContent">상품 상태가 설명과 달라요<br>
+								        <input type="checkbox" value="무리하게 가격을 깎아요" name="reportContent">무리하게 가격을 깎아요<br>
+								        <input type="checkbox" value="불친절해요" name="reportContent">불친절해요<br>
+								        <input type="checkbox" value="예약만 해놓고 거래 시간을 명확하게 알려주지 않아요" name="reportContent">예약만 해놓고 거래 시간을 명확하게 알려주지 않아요<br>
+								        <input type="checkbox" value="거래 시간과 장소를 정한 후 연락이 안돼요" name="reportContent">거래 시간과 장소를 정한 후 연락이 안돼요<br>
+								        <input type="checkbox" value="약속 장소에 나타나지 않았어요" name="reportContent">약속 장소에 나타나지 않았어요<br>
+								        <input type="checkbox" value="거래 시간과 장소를 정한 후 거래 직전 취소했어요" name="reportContent">거래 시간과 장소를 정한 후 거래 직전 취소했어요<br>
                           	 		</div>
                           	 		<div id="menuOneDesc">
                            				<h3>전문 판매업자 같아요</h3>
@@ -322,6 +322,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                           	 			
                           	 		</div>
                           	 		<div>
+                          	 			
                           	 			<button type="button" id="memSubmitBtn">전송</button>
                           	 		</div>
 								</form>
@@ -452,6 +453,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $("#content").hide();
                     $("#preBtn").hide();
                     $("#submitBtn").hide();
+                    
             	});
             });
          // 멤버 -> 멤버 신고
@@ -463,7 +465,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      		let memberTextContent = "";
      		// 거래 문제 텍스트값들이 합쳐질 변수
      		let memberTradeContent = "";
-     		// textarea를 불러올 변수
+     		// textarea를 불러올 변수 memPreBtn
      		let memberMemo = '<textarea rows="10" cols="70" name="reportContent" placeholder="신고 항목 내용을 입력해주세요.." id="memReportContent"></textarea>';
      		//피해 금액 input
      		let tradeMemoTitle ='<div><input type="text" placeholder="피해 금액" id="memTradeContentTitle"></div>';

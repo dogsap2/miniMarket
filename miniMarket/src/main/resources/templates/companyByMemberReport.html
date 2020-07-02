@@ -227,22 +227,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3>' ' 회원 댓글 신고</h3>
 								<br><br>
-							<form method="post" action="/mByCReport" id="mByCItemReportForm">
+							<form method="post" action="/companyByMemberReport" id="memberByCompanyItemReportForm">
 							<div id="title">
                               <div id="title1">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle1" value="광고를 해요" name="reportTitle">광고를 해요</button>
+                                 <button type="button" class="titlebtn"value="광고를 해요" name="reportTitle">광고를 해요</button>
                               </div>
                               <div id="title2">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle2" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+                                 <button type="button" class="titlebtn" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
                               </div>
                               <div id="title3">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle3" value="도배를 해요" name="reportTitle">도배를 해요</button>
+                                 <button type="button" class="titlebtn" value="도배를 해요" name="reportTitle">도배를 해요</button>
                               </div>
                               <div id="title4">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle4" value="음란성 댓글을 올려요" name="reportTitle">음란성 댓글을 올려요</button>
+                                 <button type="button" class="titlebtn" value="음란성 댓글을 올려요" name="reportTitle">음란성 댓글을 올려요</button>
                               </div>
                               <div id="title5">
-                                 <button type="button" class="titlebtn" id="mBycItemReportTitle5" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
+                                 <button type="button" class="titlebtn" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
                               </div>
                               <input type="hidden" id="reportTitle" name="reportTitle">
                            </div>
@@ -372,17 +372,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             		$("#reportTitle").val(title);
             		// reportContent 유효성 검사
             		if($("#reportContent").val() == "") {
-            			alert("내용을 입력하세야 합니다");
+            			alert("내용을 입력해주세요.");
+            			return;
+            		}else if($("#reportContent").val().length < 5){
+            			alert("내용을 자세히 입력해주세요.");
             			return;
             		}
-            		$("#mByCItemReportForm").submit();
+            		$("#memberByCompanyItemReportForm").submit();
             	});
             	//이전 버튼 클릭시
             	$("#preBtn").click(function(){
+            		//이전 버튼 클릭시 textarea안에 내용을 다 지워줌
+            		let content = $("#reportContent").val();
+            		console.log(content);
+            		$("#reportContent").val("");
             		$("#title").show();
                     $("#content").hide();
                     $("#preBtn").hide();
                     $("#submitBtn").hide();
+                   
             	});
             });       
         });
