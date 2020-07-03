@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cafe24.dk4750.miniMarket.service.CheckLikeService;
 import com.cafe24.dk4750.miniMarket.service.MemberItemService;
+import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
@@ -21,6 +22,43 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 public class MemberItemController {
 	@Autowired MemberItemService memberItemService;
 	@Autowired CheckLikeService checkLikeService;
+	
+	// 구매자의 구매완료 아이템 리스트
+	@GetMapping("/getBuyListByMember")
+	public String getBuyListByMember(Model model) {
+		
+		//구매자의 구매완료 아이템 리스트 
+		List<ItemSoldout> list = memberItemService.getBuyListByMember();
+		model.addAttribute("list", list);
+		
+		return "getBuyListByMember";
+	}
+	
+	// 나의 판매완료 아이템 리스트
+	@GetMapping("/getItemListBySaleMyItem")
+	public String getItemListBySaleMyItem(Model model) {
+		
+		// 나의 판매완료 아이템 리스트
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListBySaleMyItem();
+		
+		// 나의 판매완료 아이템 리스트 모델로 값 넘기기
+		model.addAttribute("list", list);
+		
+		return "getItemListBySaleMyItem";
+	}
+	
+	// 나의 판매중인 아이템 리스트
+	@GetMapping("/getItemListMyItem")
+	public String getItemListMyItem(Model model) {
+		
+		// 나의 판매중인 아이템 리스트
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListMyItem();
+		
+		// 나의 판매중인 아이템 리스트 모델로 값 넘기기
+		model.addAttribute("list", list);
+		
+		return "getItemListMyItem";
+	}
 	
 	// 멤버 추가하기 겟매핑. 페이지요청. 폼
 	@GetMapping("/addMemberItem")

@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemPicMapper;
+import com.cafe24.dk4750.miniMarket.mapper.SoldoutMapper;
+import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
@@ -24,8 +26,92 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 public class MemberItemService {
 	@Autowired private MemberItemMapper memberItemMapper;
 	@Autowired private MemberItemPicMapper memberItemPicMapper;
+	@Autowired private SoldoutMapper soldoutMapper;
 	@Value("D:\\spring_work\\maven.1593421934386\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 구매자의 구매완료 리스트
+	public List<ItemSoldout> getBuyListByMember() {
+		
+		// 임시유니크넘버
+		String memberUniqueNo = "test2";
+		// 임시로 설정한 유니크넘버 번호
+		int beginRow = 0;
+		int rowPerPage = 10;
+		String searchWord = "";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		map.put("memberUniqueNo", memberUniqueNo);
+		
+		// 구매자의 구매완료 리스트
+		List<ItemSoldout> list = soldoutMapper.selectBuyListByMember(map);
+		
+		return list;
+	}
+	
+	// 나의 판매완료 목록 리스트
+	public List<MemberItemAndMemberAndMemberItemPic> getItemListBySaleMyItem() {
+		
+		// 임시로 설정한 유니크넘버 번호
+		int beginRow = 0;
+		int rowPerPage = 10;
+		String searchWord = "";
+		String memberUniqueNo = "test1";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberUniqueNo", memberUniqueNo);
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		
+		// 리스트 불러오기
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListBySaleMyItem(map);
+		
+		return list;
+	}
+	// 판매자의 판매중인 아이템 판매완료로 수정
+	public int itemSalesComplete(MemberItem memberItem) {
+		
+		// 임시로 멤버아이템넘버 값 설정
+		int memberItemNo = 1;
+		
+		// 판매자의 판매중인 아이템 판매완료로 수정
+		String memberItemState = "판매완료";
+		memberItem.setMemberItemState(memberItemState);
+		memberItem.setMemberItemNo(memberItemNo);
+		// 판매자의 판매중인 아이템 판매완료로 수정
+		memberItemMapper.itemSalesComplete(memberItem);
+		
+		// 판매자가 누구한테 어떤 아이템을 팔았는지 정보 입력
+		ItemSoldout itemSoldout = new ItemSoldout();
+		String memberUniqueNo = "test2";
+		itemSoldout.setMemberItemNo(memberItemNo);
+		itemSoldout.setMemberUniqueNo(memberUniqueNo);
+		
+		// 판매자가 판매중인 아이템을 누구에게 팔았는지 판매완료 테이블에 추가
+		soldoutMapper.insertSoldoutItem(itemSoldout);
+		
+		return 0;
+	}
+	
+	// 나의 판매중인 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberItemPic> getItemListMyItem() {
+		
+		int beginRow = 0;
+		int rowPerPage = 10;
+		String searchWord = "";
+		String memberUniqueNo = "test1";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberUniqueNo", memberUniqueNo);
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListMyItem(map);
+		
+		return list;
+	}
 	
 	// 멤버 아이템 추가
 	public void addMemberItem(MemberItemForm memberItemForm) {

@@ -6,7 +6,7 @@
 	
 	<!-- 판매완료 상품 추가 -->
 	<insert id="insertSoldoutItem" parameterType="com.cafe24.dk4750.miniMarket.vo.ItemSoldout">
-		INSERT INTO mini_market_item_soldout
+		INSERT INTO mini_market_‪item_soldout
 			(
 				member_item_no,
 				member_unique_no,
@@ -20,7 +20,7 @@
 	
 	<!-- 구매자의 구매완료 리스트 -->
 	<!-- soldout 테이블과 memberItem테이블과 memberItemPic 테이블 INNER JOIN -->
-	<select id="selectBuyListByMember" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.ItemSoldoutAndMemberItemAndMemberItemPic">
+	<select id="selectBuyListByMember" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ItemSoldoutAndMemberItemAndMemberItemPic">
 		SELECT
 			iso.soldout_no AS soldoutNo,
 			iso.member_item_no AS memberItemNo,
@@ -29,11 +29,12 @@
 			i.member_item_title AS memberItemTitle,
 			i.member_item_price AS memberItemPrice,
 			i.member_item_date AS memberItemDate,
-			ip.member_item_pic AS memberItemPic
+			ip.member_item_pic1 AS memberItemPic1
 		FROM mini_market_‪item_soldout AS iso
 		INNER JOIN mini_market_member_item AS i
+		ON iso.member_item_no = i.member_item_no
 		INNER JOIN mini_market_member_item_pic AS ip
-		ON i.member_item_no = ip.member_item_no = iso.member_item_no
+		ON i.member_item_no = ip.member_item_no
 		WHERE iso.member_unique_no = #{memberUniqueNo}
 		ORDER BY iso.soldout_no DESC
 	</select>

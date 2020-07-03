@@ -11,6 +11,10 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 
 @Mapper
 public interface MemberItemMapper {
+	
+	// 판매자의 판매중인 아이템 판매완료로 수정
+	public int itemSalesComplete(MemberItem memberItem);
+	
 	// 멤버 아이템 추가
 	public int insertMemberItem(MemberItem memberItem);
 	
