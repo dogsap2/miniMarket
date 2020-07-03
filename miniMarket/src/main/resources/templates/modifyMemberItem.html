@@ -3,6 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <title>modify member item</title>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		let count=0;
+		let check = Number($('#check').text());
+		if(check == 1) {
+			$('#img').attr('src', '/images/heart.png');
+			count = count + check;
+			console.log(count + "asdas");
+		} else if(check == 0) {
+			$('#img').attr('src', '/images/emptyheart.png');
+		}
+		console.log(check)
+		$('#btn').click(function() {
+			count = count+1;
+			console.log(count);
+			$.ajax({
+				url:'/likeCheck?count='+count,
+				type:'get',
+				success : function(data) {
+					console.log("0이면 좋아요취소, 1이면 좋아요 : " + data);
+					if(data == 1) {
+						$('#img').attr('src', '/images/heart.png');
+					} else {
+						$('#img').attr('src', '/images/emptyheart.png');
+					}
+					count = data;
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<form method="post" th:action="@{/modifyMemberItem}" enctype="multipart/form-data">
@@ -59,5 +92,7 @@
 			</tr>
 		</table>
 	</form>
+	<button type="submit" id="btn"><img id="img" th:src="@{'/images/emptyheart.png'}" width="50" height="50"></button>
+	<div id="check" style="display:none" th:text="${check}"></div>
 </body>
 </html>

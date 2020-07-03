@@ -9,15 +9,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.cafe24.dk4750.miniMarket.service.CheckLikeService;
 import com.cafe24.dk4750.miniMarket.service.MemberItemService;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
 @Controller
 public class MemberItemController {
 	@Autowired MemberItemService memberItemService;
+	@Autowired CheckLikeService checkLikeService;
 	
 	// 멤버 추가하기 겟매핑. 페이지요청. 폼
 	@GetMapping("/addMemberItem")
@@ -52,6 +55,14 @@ public class MemberItemController {
 		
 		// 임시 넘버
 		int memberItemNo = 1;
+		String memberUniqueNo = "test1";
+		
+		MemberItemLike memberItemLike = new MemberItemLike();
+		memberItemLike.setMemberItemNo(memberItemNo);
+		memberItemLike.setMemberUniqueNo(memberUniqueNo);
+		
+		Integer check = checkLikeService.defaultLike(memberItemLike);
+		System.out.println(check + " <== check");
 		
 		// 기존 정보 불러오기
 		Map<String, Object> map = memberItemService.getMemberItemOne(memberItemNo);
@@ -64,7 +75,7 @@ public class MemberItemController {
 		// 모델에 값 담아서 페이지에 보내주기
 		model.addAttribute("memberItem", memberItem);
 		model.addAttribute("memberItemPic", memberItemPic);
-		
+		model.addAttribute("check", check);
 		// 페이지요청
 		return "modifyMemberItem";
 	}
