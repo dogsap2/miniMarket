@@ -13,12 +13,30 @@
 	
 	<!-- 비번찾기 -->
 	
-	<!-- 고유번호추출 -->
-	<select id="selectMemberUniqueNo" resultType="String">
-	SELECT 
-	CONCAT('m',(SELECT LPAD(COUNT(*)+1,6,'0')
-	FROM mini_market_member))
-	</select>
+	
+	<!--나의 정보 수정(닉네임,사진)-->
+	
+	
+	
+	<!--나의 정보 수정(비밀번호)-->
+	 <update id="" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">
+	 UPDATE mini_market_member
+	 SET member_pw = PASSWORD(#{memberPw})
+	 WHERE member_id = #{memberId}	 			
+	 </update>
+	 
+	<!--나의 정보 수정(이름,전화번호,주소(동네))-->
+	<update id="updateMemberOne" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">
+		UPDATE mini_market_member
+		SET 
+			member_name = #{memberName},
+			member_sido = #{memberSido},
+		    member_sigungu = #{memberSigungu},
+		    member_bname = #{memberBname},
+			member_phone = #{memberPhone}
+		WHERE
+			member_id = #{memberId}	
+	</update>
 	
 	
 	<!--나의 정보보기 -->
@@ -39,7 +57,7 @@
 	      WHERE
 	      	member_id = #{memberId}
    </select>
-	
+  
 	<!-- 로그인 유효성 검사 -->
 	<select id="selectLoginMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
 		SELECT
@@ -109,6 +127,13 @@
 	  	now()
 	 )
 	</insert>
+	
+	<!-- 고유번호추출 -->
+	<select id="selectMemberUniqueNo" resultType="String">
+	SELECT 
+	CONCAT('m',(SELECT LPAD(COUNT(*)+1,6,'0')
+	FROM mini_market_member))
+	</select>
 	
 	<!-- 멤머 정보 입력, 회원가입  -->
 	<insert id="insertMember" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">

@@ -39,6 +39,106 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	
 </script>
+<!--주소 입력 기능 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>	
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            	console.log(data.sido);
+                console.log(data.sigungu);
+                console.log(data.bname);
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
+                }
+                document.getElementById("address").value = addr;
+                $('#memberSido').val(data.sido);
+                $('#memberSigungu').val(data.sigungu); 
+                $('#memberbname').val(data.bname); 
+            }
+        }).open();
+    }
+   
+    let helperInit = function(){
+    	$('#idHelper').text("");
+    	$('#pwHelper').text("");
+    	$('#nameHelper').text("");
+    	$('#addrHelper').text("");
+    	$('#phoneHelper').text("");
+    	$('#emailHelper').text("");
+    };
+
+
+    $(document).ready(function() { 
+    	$('#btn').click(function() {
+    		if($('#memberId').val().length < 4){	
+    			helperInit();
+    			$('#idHelper').text("id 4자이상");
+    			$('#memberId').focus();
+    			
+    		}else if($('#memberPw').val().length < 4){	
+    			helperInit();
+    			$('#pwHelper').text("pw 4자 이상 입력");
+    			$('#memberPw').focus();			
+    		}else if($('#memberPw').val()!= $('#memberPw2').val()) {
+    			helperInit();
+    			$('#pwHelper').text("pw를 확인하세요");
+    			$('#memberPw').focus();
+    		}else if($('#memberName').val().length === 0){ //0->공백 
+    			helperInit();
+    			$('#nameHelper').text("이름 입력하세요");
+    			$('#memberName').focus();
+    		}else if($('#memberAddr').val().length === 0){
+    			helperInit();
+    			$('#addrHelper').text("주소 입력하세요");
+    			$('#memberAddr').focus();
+    		}else if($('#memberPhone').val().length === 0){ 
+    			helperInit();
+    			$('#phoneHelper').text("전화번호 입력하세요");
+    			$('#memberPhone').focus();			
+    		}else if($('#memberEmail').val().length === 0){ 
+    			helperInit();
+    			$('#emailHelper').text("이메일을  입력하세요");
+    			$('#memberEmail').focus();			
+    		} else{
+    			$('#myform').submit();
+    		} 	
+    	});
+
+	   //전화번호 중복 유효성 검사(비동기!!!)
+	   $('#checkMemberPhone').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
+	      console.log('#checkMemberPhone blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
+	   	  if($('#checkMemberPhone').val().length <11){
+	   		  $('#memberPhoneCheckHelper').text('11글자이상');
+	   		  $('#checkMemberPhone').focus();	 
+	   	  }else{
+	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
+	   		  $.ajax({
+	   			  url:'/checkPhone',
+	   			  type:'GET',
+	   		  	  data:{checkMemberPhone:$('#checkMemberPhone').val()},
+	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
+	   		  		  console.log(data);  
+	   		  	  		if(data =='사용불가'){
+	   		  	  			$('#memberPhoneCheckHelper').text('핸드폰번호 중복 사용불가');
+	   		  	  			$('#checkMemberPhone').focus();
+	   		  	  		}else if(data=='사용가능'){
+	   		  	  			$('#memberPhoneCheckHelper').text('사용 가능한 전화번호입니다');
+	   		  	  		}
+	   		  	  }
+	   		  });
+	   	  }
+	   });   
+   });        
+</script>
 <!-- start-smoth-scrolling -->
 </head>
 	
@@ -230,22 +330,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 나의 정보 -->
 	<div class="login">
 		<div class="container">
-			<h2>나의 정보</h2>
-		
+			<h2>나의 정보 수정</h2>
+			<form method="post" th:action="@{/modifyMember}">
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-						아이디 : <div th:text="${member.memberId}"></div>
-						이름 : <div th:text="${member.memberName}"></div>
-						닉네임 : <div th:text="${member.memberNickname}"></div>
-						주소 : <div th:text="${member.memberSido}+${member.memberSigungu}+${member.memberBname}"></div>
-						이메일 : <div th:text="${member.memberEmail}"></div>
-						고유번호: <div th:text="${member.memberUniqueNo}"></div>
-						핸드폰번호 : <div th:text="${member.memberPhone}"></div>
-						가입날짜 : <div th:text="${member.memberDate}"></div>
+						아이디 : <span th:text="${member.memberId}"></span><br>
+						<input type ="hidden" name="memberId" id="memberId" th:value="${member.memberId}"> 
+						고유번호: <span th:text="${member.memberUniqueNo}"></span><br>
+						이메일 : <span th:text="${member.memberEmail}"></span><br>
+						이름:<input type="text" style="width: 270px; display:inline;" th:value="${member.memberName}" name="memberName"><br>
+						핸드폰번호 :<input id="checkMemberPhone"  name="memberPhone" style="width:270px; display:inline;" type="text" th:value="${member.memberPhone}"><br>				
+						<span id="memberPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
+						 동네:
+						 <input style="width: 270px; display:inline;" type="text" id="address"
+						 th:value="${member.memberSido}+${member.memberSigungu}+${member.memberBname}" name="memberAdress">
+						<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="동네검색" name=""><br>
+						<!-- 이메일 일단은 수정불가 -->
 						
 						
+						<!-- 동네 주소값 히든으로 받아 넘기기  -->
+						<input type ="hidden" name="memberSido" id="memberSido">
+               	 		<input type ="hidden" name="memberSigungu" id="memberSigungu">
+                		<input type ="hidden" name="memberBname" id="memberbname">
+                		
+                		<input type="submit" id="Form123" value="수정완료">
 			</div>
-			<h4>For New People</h4>
-			<p><a th:href="@{/addMember}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			</form>
+			<p><a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->

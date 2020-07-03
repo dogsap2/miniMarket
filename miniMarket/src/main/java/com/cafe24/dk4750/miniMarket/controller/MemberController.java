@@ -18,6 +18,33 @@ public class MemberController {
 	@Autowired 
 	private MemberService memberService; 
 
+	
+	//멤버 정보 수정 폼
+	@GetMapping("/modifyMember")
+	public String modifyMember(HttpSession session,Model model ) {
+		//로그인 상태 아니면 홈
+		if(session.getAttribute("loginMember")== null){ 
+			return "redirect:/";
+		}
+		
+		Member member= memberService.selectMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		System.out.println("수정확인중"+member);
+		model.addAttribute("member", member);
+				
+		return "modifyMember";		
+	}		
+	//멤버 정보 수정
+	@PostMapping("/modifyMember")
+	public String modifyMember(HttpSession session, Member member) {
+		//로그인 상태 아니면 홈
+		if(session.getAttribute("loginMember")== null){ 
+			return "redirect:/";
+		}
+		System.out.println(member+"<----수정된 member값");
+		memberService.modifyMemberOne(member);
+		return "redirect:/getMemberOne";
+	}
+	
 	// 로그아웃하기
 	@GetMapping("/logoutMember")
 	public String logout(HttpSession session) {

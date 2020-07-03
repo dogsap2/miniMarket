@@ -20,8 +20,8 @@ public interface MemberMapper {
 	//나의 정보보기 
 	public Member selectMemberOne(LoginMember memberId); 
 	
-	//나의 정보수정
-	public Member updateMemberOne(Member member);
+	//나의 정보수정(이름,전화번호,주소(동네))
+	public int updateMemberOne(Member member);
 	
 	//회원 탈퇴 
 	public int deleteMember(Member member);

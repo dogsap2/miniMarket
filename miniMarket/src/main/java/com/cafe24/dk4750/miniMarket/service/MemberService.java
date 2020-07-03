@@ -39,10 +39,9 @@ public class MemberService {
 		return memberMapper.selectMemberOne(memberId);		
 	}
 	
-	//나의 정보 수정 
-	public Member modifyMemberOne(Member member) {		
-		// 나의 정보수정 메퍼 
-		return member;		
+	//나의 정보 수정(이름,전화번호,주소(동네))
+	public int modifyMemberOne(Member member) {		
+		return memberMapper.updateMemberOne(member);		
 	}
 	
 	//회원 탈퇴 
