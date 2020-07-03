@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
@@ -17,9 +18,36 @@ import com.cafe24.dk4750.miniMarket.vo.Member;
 public class MemberController {
 	@Autowired 
 	private MemberService memberService; 
-
 	
-	//멤버 정보 수정 폼
+	//멤버 정보 수정(비밀번호 수정)폼  
+	@GetMapping("/modifyMemberPw")
+	public String modifyMemberPw(HttpSession session) {
+		//로그인 아닐때
+		if(session.getAttribute("loginMember")== null){
+			return "redirect:/index";
+		}				
+		return "modifyMemberPw";		
+	}
+	
+	//멤버 정보 수정(비밀번호 수정)액션  
+	@PostMapping("/modifyMemberPw")
+	public String modifyMemberPw(HttpSession session, @RequestParam(value="memberPw") String memberPw) {
+		//로그인 아닐때 
+		if(session.getAttribute("loginMember")== null){
+			return "redirect:/index";
+		}
+		//세션에 담긴 아이디와, 입력받은 패스워드  변수에 담아서 서비스로 넘겨줌 
+		LoginMember loginMember = (LoginMember)(session.getAttribute("loginMember"));
+		loginMember.setMemberPw(memberPw);
+		
+		System.out.println(loginMember.getMemberId()+"<-- 아이디");
+		System.out.println(loginMember.getMemberPw()+"<---새비번 확인 ");
+		memberService.updateMemberPw(loginMember);
+		return "memberMyPage";		
+	}
+	
+	
+	//멤버 정보 수정(이름,전화번호,내동네 )폼
 	@GetMapping("/modifyMember")
 	public String modifyMember(HttpSession session,Model model ) {
 		//로그인 상태 아니면 홈
@@ -33,7 +61,7 @@ public class MemberController {
 				
 		return "modifyMember";		
 	}		
-	//멤버 정보 수정
+	//멤버 정보(이름,전화번호,내동네 ) 수정 액션
 	@PostMapping("/modifyMember")
 	public String modifyMember(HttpSession session, Member member) {
 		//로그인 상태 아니면 홈
@@ -44,6 +72,18 @@ public class MemberController {
 		memberService.modifyMemberOne(member);
 		return "redirect:/getMemberOne";
 	}
+	
+	//마이페이지 
+	@GetMapping("/memberMyPage")
+	public String memberMyPage(HttpSession session) {
+		//로그인 아닐때
+		if(session.getAttribute("loginMember")== null){
+			return "redirect:/index";
+		}				
+		return "memberMyPage";
+		
+	}
+	
 	
 	// 로그아웃하기
 	@GetMapping("/logoutMember")
@@ -110,7 +150,7 @@ public class MemberController {
 	
 		int row= memberService.addMember(member);
 		
-		String msg = "ㄴㅇㄹㄴㅀㄴ";
+		String msg = "메일 정확히 입력해주세요";
 		if(row == 1) {
 			msg="인증된 메일로 임시 비밀번호를 전송했습니다  확인 후 로그인 해주세요 "; 			
 		}

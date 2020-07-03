@@ -7,13 +7,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -36,8 +36,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
-	
-	
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -47,12 +45,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>SALE UP TO 70% OFF. USE CODE "SALE70%" . <a href="products.html">SHOP NOW</a></p>
+				<p>mini market 작업중 ^_^ <a href="products.html">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
 					<li><a href="registered.html"> Create Account </a></li>
-					<li><a th:href="@{/loginMember}">Login</a></li>
+					<li th:if="${session.loginMember != null}">
+						<a th:href="@{/logoutMember}" >로그아웃</a>
+					</li>
+					<li th:if="${session.loginMember != null}">
+						<a th:href="@{/memberMyPage}" >마이페이지</a>
+					</li>
+					<li th:if="${session.loginMember == null}">
+						<a th:href="@{/loginMember}" >로그인</a>
+					</li>
+					<li th:if="${session.loginMember == null}">	
+						<a th:href="@{/addMember}">회원가입</a>
+					</li>
 					<li><a href="contact.html">Help</a></li>
 					
 				</ul>
@@ -72,12 +81,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>이슬민,엄미선,한윤아,서일태,정유석,김동희 Order online or call us : (+0123) 234 567</li>
 					
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.html">super Market</a></h1>
+				<h1><a href="index.html">Mini Market</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="#" method="post">
@@ -124,90 +133,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<li><a href="groceries.html"> Mukhwas </a></li>
 														<li><a href="groceries.html">Rice & Rice Products</a></li>
 													</ul>
-												</div>	
-												
+												</div>													
 											</div>
 										</ul>
-									</li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Household<b class="caret"></b></a>
-										<ul class="dropdown-menu multi-column columns-3">
-											<div class="row">
-												<div class="multi-gd-img">
-													<ul class="multi-column-dropdown">
-														<h6>All Household</h6>
-														<li><a href="household.html">Cookware</a></li>
-														<li><a href="household.html">Dust Pans</a></li>
-														<li><a href="household.html">Scrubbers</a></li>
-														<li><a href="household.html">Dust Cloth</a></li>
-														<li><a href="household.html"> Mops </a></li>
-														<li><a href="household.html">Kitchenware</a></li>
-													</ul>
-												</div>
-												
-												
-											</div>
-										</ul>
-									</li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Personal Care<b class="caret"></b></a>
-										<ul class="dropdown-menu multi-column columns-3">
-											<div class="row">
-												<div class="multi-gd-img">
-													<ul class="multi-column-dropdown">
-														<h6>Baby Care</h6>
-														<li><a href="personalcare.html">Baby Soap</a></li>
-														<li><a href="personalcare.html">Baby Care Accessories</a></li>
-														<li><a href="personalcare.html">Baby Oil & Shampoos</a></li>
-														<li><a href="personalcare.html">Baby Creams & Lotion</a></li>
-														<li><a href="personalcare.html"> Baby Powder</a></li>
-														<li><a href="personalcare.html">Diapers & Wipes</a></li>
-													</ul>
-												</div>
-												
-											</div>
-										</ul>
-									</li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Packaged Foods<b class="caret"></b></a>
-										<ul class="dropdown-menu multi-column columns-3">
-											<div class="row">
-												<div class="multi-gd-img">
-													<ul class="multi-column-dropdown">
-														<h6>All Accessories</h6>
-														<li><a href="packagedfoods.html">Baby Food</a></li>
-														<li><a href="packagedfoods.html">Dessert Items</a></li>
-														<li><a href="packagedfoods.html">Biscuits</a></li>
-														<li><a href="packagedfoods.html">Breakfast Cereals</a></li>
-														<li><a href="packagedfoods.html"> Canned Food </a></li>
-														<li><a href="packagedfoods.html">Chocolates & Sweets</a></li>
-													</ul>
-												</div>
-												
-											
-											</div>
-										</ul>
-									</li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<b class="caret"></b></a>
-										<ul class="dropdown-menu multi-column columns-3">
-											<div class="row">
-												<div class="multi-gd-img">
-													<ul class="multi-column-dropdown">
-														<h6>Tea & Coeffe</h6>
-														<li><a href="beverages.html">Green Tea</a></li>
-														<li><a href="beverages.html">Ground Coffee</a></li>
-														<li><a href="beverages.html">Herbal Tea</a></li>
-														<li><a href="beverages.html">Instant Coffee</a></li>
-														<li><a href="beverages.html"> Tea </a></li>
-														<li><a href="beverages.html">Tea Bags</a></li>
-													</ul>
-												</div>
-							
-											</div>
-										</ul>
-									</li>
-									<li><a href="gourmet.html">Gourmet</a></li>
+									</li>								
 									<li><a href="offers.html">Offers</a></li>
 									<li><a href="contact.html">Contact</a></li>
 								</ul>
@@ -215,51 +144,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</nav>
 			</div>
 		</div>
-		
-<!-- //navigation -->
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Login Page</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
-<!-- 나의 정보 -->
-	<div class="login">
-		<div class="container">
-			<h2>나의 정보</h2>
-		
-			
-			<div class="login-form-grids animated wow slideInUp"data-wow-delay=".5s">
-				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyMember}">수정하기</a></p>
-				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyMemberPw}">비밀번호 변경</a></p><br>
-				아이디 :
-				<div style="display: inline;" th:text="${member.memberId}"></div><br>
-				이름 :
-				<div style="display: inline;" th:text="${member.memberName}"></div><br>
-				닉네임 :
-				<div style="display: inline;" th:text="${member.memberNickname}"></div><br>
-				주소 :
-				<div
-					style="display: inline;" th:text="${member.memberSido}+${member.memberSigungu}+${member.memberBname}"></div><br>
-				이메일 :
-				<div style="display: inline;" th:text="${member.memberEmail}"></div><br>
-				고유번호:
-				<div style="display: inline;" th:text="${member.memberUniqueNo}"></div><br>
-				핸드폰번호 :
-				<div style="display: inline;" th:text="${member.memberPhone}"></div><br>
-				가입날짜 :
-				<div style="display: inline;" th:text="${member.memberDate}"></div><br>				
-			</div>
-			
-			<p>(Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
-		</div>
-	</div>
-<!-- //login -->
-<!-- //footer -->
+<div class="breadcrumbs">
+	<a th:href="@{/getMemberOne}">내정보</a>	
+	
+</div>		
+
 <div class="footer">
 		<div class="container">
 			<div class="w3_footer_grids">
@@ -297,11 +186,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="info"> 
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="loginMember">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="@{/login}">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
-					
-					
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -334,6 +221,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
@@ -377,6 +265,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 </script>	
 <!-- //main slider-banner --> 
-
 </body>
 </html>

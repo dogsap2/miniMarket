@@ -29,20 +29,6 @@ public class MemberService {
 		return 0;
 	}	
 	
-	//로그인하기 아이디 비번 일치하는지 확인 
-	public LoginMember selectLoginMember(LoginMember loginMember) {
-		return memberMapper.selectLoginMember(loginMember);		
-	}
-	
-	//나의 정보보기 
-	public Member selectMemberOne(LoginMember memberId) {
-		return memberMapper.selectMemberOne(memberId);		
-	}
-	
-	//나의 정보 수정(이름,전화번호,주소(동네))
-	public int modifyMemberOne(Member member) {		
-		return memberMapper.updateMemberOne(member);		
-	}
 	
 	//회원 탈퇴 
 	public int deleteMember(Member member) {
@@ -60,11 +46,31 @@ public class MemberService {
 		return null;		
 	}
 	
-	//멤머 정보 입력, 회원가입  
+	//회원 정보 입력, 회원가입  
 	public int insertMember(Member member) {
 		return 0;		
 	}
 	
+	//회원 비밀번호 수정 
+	public int updateMemberPw(LoginMember loginMember) {
+		int row = memberMapper.updateMemberPw(loginMember);
+		return row;
+	}
+	
+	//로그인하기 아이디 비번 일치하는지 확인 
+	public LoginMember selectLoginMember(LoginMember loginMember) {
+		return memberMapper.selectLoginMember(loginMember);		
+	}
+	
+	//나의 정보보기 
+	public Member selectMemberOne(LoginMember memberId) {
+		return memberMapper.selectMemberOne(memberId);		
+	}
+	
+	//나의 정보 수정(이름,전화번호,주소(동네))
+	public int modifyMemberOne(Member member) {		
+		return memberMapper.updateMemberOne(member);		
+	}
 	
 	//멤머 정보 입력, 회원가입  
 	public int addMember(Member member) {

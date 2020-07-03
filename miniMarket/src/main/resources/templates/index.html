@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<a th:href="@{/logoutMember}" >로그아웃</a>
 					</li>
 					<li th:if="${session.loginMember != null}">
-						<a th:href="@{/getMemberOne}" >나의정보</a>
+						<a th:href="@{/memberMyPage}" >마이페이지</a>
 					</li>
 					<li th:if="${session.loginMember == null}">
 						<a th:href="@{/loginMember}" >로그인</a>

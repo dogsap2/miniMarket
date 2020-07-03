@@ -33,9 +33,16 @@ public interface MemberMapper {
 	//비번찾기
 	public String selectFindMemberPw(Member member); 
 	
+	//비밀번호 변경하기(새 비밀번호 입력)
+	public int updateMemberPw(LoginMember loginMember);
+	
+	
+	//비밀번호변경(현재 입력된 비밀번호 값 비교)
+	public String selectMemberPwId(LoginMember checkIdPw);
+	
 	//로그인하기 아이디 비번 일치하는지 확인 
 	public LoginMember selectLoginMember(LoginMember loginMember);   
-	
+		
 	//핸드폰 중복확인 
 	public String selectMemberPhone(String checkMemberPhone); 
 	

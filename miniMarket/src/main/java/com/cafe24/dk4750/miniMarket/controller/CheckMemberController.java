@@ -1,16 +1,43 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.dk4750.miniMarket.mapper.MemberMapper;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 
 @RestController
 public class CheckMemberController {
 	@Autowired
-	private MemberMapper mamberMapper;
+	private MemberMapper memberMapper;
+	
+	//비밀번호 중복체크 
+	@PostMapping("/checkMemberPw")
+	public String checkMemberPw(@RequestParam(value="checkMemberPw") String checkMemberPw, HttpSession session ) {
+		
+		//세션에 담긴 아이디 빼기 		
+		LoginMember checkIdPw = (LoginMember)(session.getAttribute("loginMember"));
+		//String memberId=checkIdPw.getMemberId();		
+		//checkIdPw.setMemberId(memberId);
+		checkIdPw.setMemberPw(checkMemberPw);
+		
+		System.out.println(checkIdPw.getMemberId()+"<-아이디 ");
+				
+		String resultPw ="비밀번호 불일치";
+		
+		if(memberMapper.selectMemberPwId(checkIdPw)!=null) {
+			resultPw="현재 비밀번호가 확인되었습니다";
+		}		
+		
+		return resultPw;
+	}
+	
+	
 	
 	//아이디 중복 체크 
 	@GetMapping("/checkId")
@@ -18,7 +45,7 @@ public class CheckMemberController {
 		System.out.println(checkMemberId+"<-checkMemberId");
 		String resultId="사용불가";
 		
-		if(mamberMapper.selectMemberId(checkMemberId)==null) {
+		if(memberMapper.selectMemberId(checkMemberId)==null) {
 		  resultId="사용가능";	
 		}
 				
@@ -31,7 +58,7 @@ public class CheckMemberController {
 		System.out.println(checkMemberPhone+"<-checkMemberPhone");
 		String resultPhone="사용불가";
 		
-		if(mamberMapper.selectMemberPhone(checkMemberPhone)==null) {
+		if(memberMapper.selectMemberPhone(checkMemberPhone)==null) {
 			resultPhone="사용가능";	
 		}				
 		return resultPhone;		
@@ -43,7 +70,7 @@ public class CheckMemberController {
 		System.out.println(checkMemberEmail+"<-checkMemberEmail");
 		String resultEmail="사용불가";
 		
-		if(mamberMapper.selectMemberEmail(checkMemberEmail)==null) {
+		if(memberMapper.selectMemberEmail(checkMemberEmail)==null) {
 			resultEmail="사용가능";	
 		}				
 		return resultEmail;		
