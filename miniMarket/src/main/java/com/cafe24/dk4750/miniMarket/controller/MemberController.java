@@ -1,5 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
+import com.cafe24.dk4750.miniMarket.vo.MemberPic;
 
 
 @Controller
 public class MemberController {
 	@Autowired 
 	private MemberService memberService; 
+	
+	
+	
 	//비밀번호 찾기 액션 
 	@PostMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session, Member member, Model model) {
@@ -76,6 +82,8 @@ public class MemberController {
 		return "getFindMemberId"; 
 	}
 	
+
+	
 	//멤버 정보 수정(비밀번호 수정)폼  
 	@GetMapping("/modifyMemberPw")
 	public String modifyMemberPw(HttpSession session) {
@@ -132,15 +140,49 @@ public class MemberController {
 	
 	//마이페이지 
 	@GetMapping("/memberMyPage")
-	public String memberMyPage(HttpSession session) {
+	public String memberMyPage(HttpSession session,Model model) {
 		//로그인 아닐때
 		if(session.getAttribute("loginMember")== null){
 			return "redirect:/index";
 		}				
-		return "memberMyPage";
+		LoginMember memberId = (LoginMember)(session.getAttribute("loginMember"));
+		//사진 닉네임 불러오기
+		Map<String,Object> map = memberService.getMemberNickAndPic(memberId);
 		
+		model.addAttribute("memberPic",map.get("memberPic"));
+		model.addAttribute("memberNick",map.get("memberNick"));
+		
+		return "memberMyPage";
 	}
 	
+	//멤버 사진,닉네임 수정 폼
+	@GetMapping("/modifyMemberNickAndPic")
+	public String modifyMemberNickAndPic(HttpSession session,Model model) {
+		//로그인 아닐때
+		if(session.getAttribute("loginMember")== null){
+			return "redirect:/index";
+		}				
+		LoginMember memberId = (LoginMember)(session.getAttribute("loginMember"));
+		//사진 닉네임 불러오기
+		Map<String,Object> map = memberService.getMemberNickAndPic(memberId);
+		
+		model.addAttribute("memberPic",map.get("memberPic"));
+		model.addAttribute("memberNick",map.get("memberNick"));
+		
+		return "modifyMemberNickAndPic";
+	}
+	
+	//멤버 사진, 닉네임만 수저폼 수정 액션
+	@PostMapping("/modifyMemberNickAndPic")
+	public String modifyMemberNickAndPic(HttpSession session,MemberPic memberPic, @RequestParam(value="memberNickname") String memberNickname){
+		if (session.getAttribute("loginMember") == null) {
+			return "redirect:/index"; 
+		}
+		
+		
+		
+		return "redirect:/memberMyPage";
+	}
 	
 	// 로그아웃하기
 	@GetMapping("/logoutMember")

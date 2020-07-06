@@ -7,6 +7,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
+
 <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,6 +40,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- start-smoth-scrolling -->
+
+<style>
+.rounded {
+  background: silver;
+  border-radius: 200px;
+}
+</style>
+
 </head>
 	
 <body>
@@ -145,8 +155,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 <div class="breadcrumbs">
-	<a th:href="@{/getMemberOne}">내정보</a>	
-	
+<div align="center">
+	<!-- 프로필 사진 -->
+	<div>
+	<img th:src="@{${'/imgs/'+memberPic}}" width="200" height="200" class='rounded'>	
+	</div>
+	<br>
+	<h4>닉네임<br>
+	<span th:text="${memberNick}"></span></h4>
+	<br>
+	<a class="btn btn-warning" th:href="@{/getMemberOne}">내정보</a>
+	<a class="btn btn-warning" th:href="@{/modifyMemberNickAndPic}">프로필 사진 수정</a>
+	</div>
 </div>		
 
 <div class="footer">

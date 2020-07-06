@@ -5,14 +5,37 @@
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberMapper">
 	<!-- 멤버사진 수정 -->
 	
+	<!-- 멤버 닉네임 수정 -->
+	 <update id="updateMemberNickname" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">
+	 UPDATE mini_market_member
+	 SET member_nickname = #{memberNickname}
+	 WHERE member_id = #{memberId}			
+	 </update>
 	<!-- 탈퇴 -->
 	
 	<!-- 멤버 백업 -->
 	
-		
-	<!--나의 정보 수정(닉네임,사진)-->
+		<!--나의 정보 보여주기(닉네임)-->
+	<select id="selectMemberNick" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember"
+		resultType="String">
+		SELECT
+			member_nickname as memberNickname
+		FROM
+			mini_market_member
+		WHERE
+			member_id = #{memberId}
+	</select>
 	
-	
+	<!--나의 정보 보여주기(사진)-->
+	<select id="selectMemberPic" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember"
+		resultType="String">
+		SELECT
+			profile_pic as profilePic
+		FROM
+			mini_market_member_pic
+		WHERE
+			member_id = #{memberId}
+	</select>
 	
 	<!-- 아이디 찾기  -->
 	<select id="selectFindMemberId" parameterType="com.cafe24.dk4750.miniMarket.vo.Member"

@@ -1,9 +1,12 @@
 package com.cafe24.dk4750.miniMarket.service;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -20,15 +23,25 @@ import com.cafe24.dk4750.miniMarket.vo.MemberPic;
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private JavaMailSender javaMailSender;//@Conponent
+	//@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\imgs\\");
 	
 	
-	//멤버사진과 닉네임 수정 
-	public int updateMemberPic(MemberPic memberPic) {		
-		// 닉네임만 수정하는 메퍼
-		// 사진수정 매퍼  
-		return 0;
+	//멤버사진과 닉네임만 수정 
+	public int updateMemberPic(Member member) {		
+		return memberMapper.updateMemberNickname(member);
 	}	
 	
+	
+	//멤버사진과 닉네임을 불러와요.^^
+		public Map<String, Object> getMemberNickAndPic(LoginMember memberId) {		
+			Map<String,Object> map = new HashMap<>(); 
+			String memberPic = memberMapper.selectMemberPic(memberId);
+			String memberNick = memberMapper.selectMemberNick(memberId);
+			
+			map.put("memberPic",memberPic);
+			map.put("memberNick", memberNick);
+			return map;
+		}	
 	
 	//회원 탈퇴 
 	public int deleteMember(Member member) {

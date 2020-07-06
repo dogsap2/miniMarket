@@ -7,6 +7,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
+
 <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,6 +40,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- start-smoth-scrolling -->
+
+<style>
+.rounded {
+  background: silver;
+  border-radius: 200px;
+}
+</style>
+
 </head>
 	
 <body>
@@ -144,50 +154,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</nav>
 			</div>
 		</div>
-		
-<!-- //navigation -->
-	<!-- main-slider -->
-		<ul id="demo1">
-			<li>
-				<img src="images/11.jpg" alt="" />
-				<!--Slider Description example-->
-				<div class="slide-desc">
-					<h3>Buy Rice Products Are Now On Line With Us</h3>
-				</div>
-			</li>
-			<li>
-				<img src="images/22.jpg" alt="" />
-				  <div class="slide-desc">
-					<h3>Whole Spices Products Are Now On Line With Us</h3>
-				</div>
-			</li>
-			
-			<li>
-				<img src="images/44.jpg" alt="" />
-				<div class="slide-desc">
-					<h3>Whole Spices Products Are Now On Line With Us</h3>
-				</div>
-			</li>
-		</ul>
+<div class="breadcrumbs">
+<div align="center">
+	<!-- 프로필 사진 -->
+	<form method="post" th:action="@{/modifyMemberNickAndPic}" enctype="multipart/form-data">
+	<div align="center">
+	사진:
+		<img th:src="@{${'/imgs/'+memberPic}}" width="200" height="200" class='rounded'>									
+		<input type="file" name="profilePic" id="pic">
+		<span th:if="${#httpServletRequest.getParameter('imgMsg')!=null}"> .jpg, .png, .gif 파일만 첨부 가능 합니다</span>
+	</div>
+		<br>
+	닉네임:<input type="text" th:value="${memberNick}"><br><br>
+           <input type="submit" id="btn" value="입력완료">
+		</form>
+	</div>
 
+</div>		
 
-<!--brands-->	
-
-	<div class="register">
-      <div class="container">
-         <h2>아이디 확인 </h2>
-         <div class="login-form-grids">
-            <h4 align="center"><strong>회원님의 아이디는 <span th:text="${memberIdPart}" style="color: blue;"></span>입니다</strong></h4>
-            <br>
-            <div align="center"><a th:href="@{/loginMember}">로그인 페이지로 이동하시겠습니까?</a></div>
-         </div>
-         <div class="register-home">
-            <a th:href="@{/index}">Home</a>
-         </div>
-      </div>
-   </div>
-<!-- //new -->
-<!-- //footer -->
 <div class="footer">
 		<div class="container">
 			<div class="w3_footer_grids">

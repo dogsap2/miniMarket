@@ -14,9 +14,18 @@ public interface MemberMapper {
 	//고유번호 가져오기(카운트후  m+1)
 	public String selectMemberUniqueNo();
 	
+	//멤버닉네임 수정
+	public int updateMemberNickname(Member member);
+	
 	//멤버사진 수정
 	public int updateMemberPic(MemberPic memberPic);
-			
+	
+	//나의 사진보기
+	public String selectMemberPic (LoginMember memberId); 
+	
+	//나의 닉네임 보기
+	public String selectMemberNick (LoginMember memberId);
+	
 	//나의 정보보기 
 	public Member selectMemberOne(LoginMember memberId); 
 	
