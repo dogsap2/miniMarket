@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>add manner</title>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	let count = 0;
+	$(document).ready(function(){
+		$('#ma1').hide();
+		$('#ma2').hide();
+		$('#manner').click(function(){
+			$('#ma1').show();
+			$('#ma2').hide();
+			// 별점 1 클릭시
+			$('#goodScore1').click(function(){
+				// check풀기
+				$('.pin').each(function(index, item){
+					item.checked = false;
+				});
+				// 체크하기
+				$('.pin1').each(function(index, item){
+					item.checked = true;
+				});
+				count = 0.1;
+				console.log(count);
+			});
+			// 별점 2 클릭시
+			$('#goodScore2').click(function(){
+				// check풀기
+				$('.pin').each(function(index, item){
+					item.checked = false;
+				});
+				// 체크하기
+				$('.pin1').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin2').each(function(index, item){
+					item.checked = true;
+				});
+				count = 0.2;
+				console.log(count);
+			});
+			// 별점 3 클릭시
+			$('#goodScore3').click(function(){
+				// check풀기
+				$('.pin').each(function(index, item){
+					item.checked = false;
+				});
+				// 체크하기
+				$('.pin1').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin2').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin3').each(function(index, item){
+					item.checked = true;
+				});
+				count = 0.3;
+				console.log(count);
+			});
+			// 별점 4 클릭시
+			$('#goodScore4').click(function(){
+				// check풀기
+				$('.pin').each(function(index, item){
+					item.checked = false;
+				});
+				// 체크하기
+				$('.pin1').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin2').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin3').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin4').each(function(index, item){
+					item.checked = true;
+				});
+				count = 0.4;
+				console.log(count);
+			});
+			// 별점 5 클릭시
+			$('#goodScore5').click(function(){
+				// check풀기
+				$('.pin').each(function(index, item){
+					item.checked = false;
+				});
+				// 체크하기
+				$('.pin1').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin2').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin3').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin4').each(function(index, item){
+					item.checked = true;
+				});
+				$('.pin5').each(function(index, item){
+					item.checked = true;
+				});
+				count = 0.5;
+				console.log(count);
+			});
+		});
+		// 비매너 클릭시
+		$('#bmanner').click(function(){
+			$('#ma2').show();
+			$('#ma1').hide();
+			count= 1.0;
+			console.log(count);
+		});
+		
+		// 평가제출
+		$('#goodbtn').click(function() {
+			$('#goodManner').val(count);
+			console.log($('#goodManner').val());
+			$('#goodMannerForm').submit();
+			alert("평가가 완료되었습니다.");
+			
+			if(confirm("리뷰를 작성하시겠습니까?") == true){
+                $('#removeForm').submit();
+            }
+            else{
+            	window.close();
+            }
+			
+		});
+		$('#badbtn').click(function() {
+			$('#badManner').val(count);
+			console.log($('#badManner').val());
+			$('#badMannerForm').submit();
+			alert("평가가 완료되었습니다.");
+			
+			if(confirm("정말 삭제하시겠습니까 ??") == true){
+                $('#removeForm').submit();
+            }
+            else{
+            	window.close();
+            }
+			
+		});
+	});
+</script>
+</head>
+<body>
+	<h1 align="center">매너평가</h1>
+		<div th:text="'구매자 : ' + ${subUnique}"></div>
+		<div th:text="'판매자 : ' + ${subUniqueSale}"></div>
+		<div>
+			<button type="button" id="manner">매너</button>
+			<button type="button" id="bmanner">비매너</button>
+		</div>
+		<div id="ma1">
+			<form method="post" th:action="@{/goodAddManner}" id="goodMannerForm">
+				<div>
+					<input type="hidden" name="goodManner" id="goodManner">
+					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}">
+					<input type="hidden" name="memberId" th:value="${subUnique}">
+					<input type="hidden" name="memberUniqueNo" th:value="${subUniqueSale}">
+					<!-- 별점 -->
+					<input class="pin pin1" type = "checkbox" name="goodScore1" id="goodScore1">
+					<input class="pin pin2" type = "checkbox" name="goodScore2" id="goodScore2">
+					<input class="pin pin3" type = "checkbox" name="goodScore3" id="goodScore3">
+					<input class="pin pin4" type = "checkbox" name="goodScore4" id="goodScore4">
+					<input class="pin pin5" type = "checkbox" name="goodScore5" id="goodScore5"><br>
+					<!-- 별점 종료 -->
+					
+					<!-- 매너 컨텐츠 -->
+					<input type="checkbox" name="mannerContent1" id="goodContent1" value="좋은 상품을 저렴하게 판매해요.">좋은 상품을 저렴하게 판매해요.<br>
+					<input type="checkbox" name="mannerContent2" id="goodContent2" value="시간 약속을 잘 지켜요.">시간 약속을 잘 지켜요.<br>
+					<input type="checkbox" name="mannerContent3" id="goodContent3" value="친절하고 매너가 좋아요.">친절하고 매너가 좋아요.<br>
+					<input type="checkbox" name="mannerContent4" id="goodContent4" value="응답이 빨라요.">응답이 빨라요.<br>
+					<input type="checkbox" name="mannerContent5" id="goodContent5" value="상품상태가 설명한 것과 같아요.">상품상태가 설명한 것과 같아요.<br>
+					<input type="checkbox" name="mannerContent6" id="goodContent6" value="상품설명이 자세해요.">상품설명이 자세해요.<br>
+					<!-- 매너 컨텐츠 종료-->
+					<div>
+						<button type="button" id="goodbtn">평가완료</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="ma2">
+			<form method="post" th:action="@{/badAddManner}" id="badMannerForm">
+				<div>
+					<input type="hidden" name="badManner" id="badManner">
+					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}">
+					<input type="hidden" name="memberId" th:value="${subUnique}">
+					<input type="hidden" name="memberUniqueNo" th:value="${subUniqueSale}">
+					<textarea name="mannerContent1"></textarea>
+				</div>
+				<div>
+					<button type="button" id="badbtn">평가완료</button>
+				</div>
+			</form>	
+		</div>
+</body>
+</html>

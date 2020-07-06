@@ -5,6 +5,13 @@
 <title>Insert title here</title>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#btn').click(function(){
+			
+		});
+	});
+</script>
 </head>
 <body>
 	<table border="1">
@@ -26,7 +33,7 @@
 				<td th:text="${list.memberItemPrice}"></td>
 				<td th:text="${list.memberItemDate}"></td>
 				<td>
-					<button id="btn"  type="submit" >구매완료</button>
+					<button id="btn" type="button" th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=600,height=800,location=no,status=no,scrollbars=yes');">구매완료</button>
 				</td>
 			</tr>
 		</tbody>

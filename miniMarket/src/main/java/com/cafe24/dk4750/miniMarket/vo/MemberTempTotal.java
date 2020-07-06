@@ -2,7 +2,7 @@ package com.cafe24.dk4750.miniMarket.vo;
 
 public class MemberTempTotal {
 	private int tempTotalNo;
-	private String memberId;
+	private String memberUniqueNo;
 	private double memberTempTotal;
 	private String memberTempDate;
 	
@@ -13,11 +13,11 @@ public class MemberTempTotal {
 	public void setTempTotalNo(int tempTotalNo) {
 		this.tempTotalNo = tempTotalNo;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getMemberUniqueNo() {
+		return memberUniqueNo;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberUniqueNo(String memberUniqueNo) {
+		this.memberUniqueNo = memberUniqueNo;
 	}
 	public double getMemberTempTotal() {
 		return memberTempTotal;
@@ -35,7 +35,7 @@ public class MemberTempTotal {
 	// toString
 	@Override
 	public String toString() {
-		return "MemberTempTotal [tempTotalNo=" + tempTotalNo + ", memberId=" + memberId + ", memberTempTotal="
-				+ memberTempTotal + ", memberTempDate=" + memberTempDate + "]";
+		return "MemberTempTotal [tempTotalNo=" + tempTotalNo + ", memberUniqueNo=" + memberUniqueNo
+				+ ", memberTempTotal=" + memberTempTotal + ", memberTempDate=" + memberTempDate + "]";
 	}
 }

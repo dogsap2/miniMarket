@@ -28,6 +28,7 @@
 			iso.soldout_date AS soldoutDate,
 			i.member_item_title AS memberItemTitle,
 			i.member_item_price AS memberItemPrice,
+			i.member_unique_no AS memberUniqueNoSale,
 			i.member_item_date AS memberItemDate,
 			ip.member_item_pic1 AS memberItemPic1
 		FROM mini_market_‪item_soldout AS iso

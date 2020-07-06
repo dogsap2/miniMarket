@@ -13,6 +13,7 @@ public class ItemSoldoutAndMemberItemAndMemberItemPic {
 	private String memberItemContent;
 	private String memberItemDate;
 	private String memberItemState;
+	private String memberUniqueNoSale;
 	// memberItemPic 속성
 	private int picNo;
 	private String memberItemPic1;
@@ -23,6 +24,12 @@ public class ItemSoldoutAndMemberItemAndMemberItemPic {
 	private String picDate;
 	
 	// 겟터 셋터
+	public String getMemberUniqueNoSale() {
+		return memberUniqueNoSale;
+	}
+	public void setMemberUniqueNoSale(String memberUniqueNoSale) {
+		this.memberUniqueNoSale = memberUniqueNoSale;
+	}
 	public int getSoldoutNo() {
 		return soldoutNo;
 	}
@@ -132,9 +139,9 @@ public class ItemSoldoutAndMemberItemAndMemberItemPic {
 				+ ", memberUniqueNo=" + memberUniqueNo + ", soldoutDate=" + soldoutDate + ", memberItemTitle="
 				+ memberItemTitle + ", categoryName=" + categoryName + ", memberItemPrice=" + memberItemPrice
 				+ ", memberItemContent=" + memberItemContent + ", memberItemDate=" + memberItemDate
-				+ ", memberItemState=" + memberItemState + ", picNo=" + picNo + ", memberItemPic1=" + memberItemPic1
-				+ ", memberItemPic2=" + memberItemPic2 + ", memberItemPic3=" + memberItemPic3 + ", memberItemPic4="
-				+ memberItemPic4 + ", memberItemPic5=" + memberItemPic5 + ", picDate=" + picDate + "]";
+				+ ", memberItemState=" + memberItemState + ", memberUniqueNoSale=" + memberUniqueNoSale + ", picNo="
+				+ picNo + ", memberItemPic1=" + memberItemPic1 + ", memberItemPic2=" + memberItemPic2
+				+ ", memberItemPic3=" + memberItemPic3 + ", memberItemPic4=" + memberItemPic4 + ", memberItemPic5="
+				+ memberItemPic5 + ", picDate=" + picDate + "]";
 	}
-	
 }

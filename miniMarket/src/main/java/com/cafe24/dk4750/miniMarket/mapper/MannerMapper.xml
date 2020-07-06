@@ -3,5 +3,51 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MannerMapper">
+	<!-- 매너평가 추가 -->
+	<insert id="insertGoodManner" parameterType="com.cafe24.dk4750.miniMarket.vo.Manner">
+		INSERT INTO mini_market_manner(
+			good_manner,
+			manner_date,
+			manner_content1,
+			manner_content2,
+			manner_content3,
+			manner_content4,
+			manner_content5,
+			manner_content6,
+			member_id,
+			member_unique_no,
+			member_item_no
+		) VALUES (
+			#{goodManner},
+			NOW(),
+			#{mannerContent1},
+			#{mannerContent2},
+			#{mannerContent3},
+			#{mannerContent4},
+			#{mannerContent5},
+			#{mannerContent6},
+			#{memberId},
+			#{memberUniqueNo},
+			#{memberItemNo}
+		)
+	</insert>
 	
+	<!-- 비매너평가 추가 -->
+	<insert id="insertBadManner" parameterType="com.cafe24.dk4750.miniMarket.vo.Manner">
+		INSERT INTO mini_market_manner(
+			bad_manner,
+			manner_date,
+			manner_content1,
+			member_id,
+			member_unique_no,
+			member_item_no
+		) VALUES (
+			#{badManner},
+			NOW(),
+			#{mannerContent1},
+			#{memberId},
+			#{memberUniqueNo},
+			#{memberItemNo}
+		)
+	</insert>
 </mapper>
