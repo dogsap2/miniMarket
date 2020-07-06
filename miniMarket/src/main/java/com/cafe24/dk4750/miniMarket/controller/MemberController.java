@@ -18,6 +18,63 @@ import com.cafe24.dk4750.miniMarket.vo.Member;
 public class MemberController {
 	@Autowired 
 	private MemberService memberService; 
+	//비밀번호 찾기 액션 
+	@PostMapping("/getFindMemberPw")
+	public String getFindMemberPw(HttpSession session, Member member, Model model) {
+		//로그인 상태면
+		if(session.getAttribute("loginMember")!= null){ 
+			return "redirect:/index";
+		}
+		int row = memberService.getFindMemberPw(member);
+	      String msg = "";
+	      String msg2 = "";
+	      
+	      if(row == 1) {
+	         msg2 = "해당 이메일로 임시비밀번호를 전송하였습니다. ";
+	         model.addAttribute("msg2", msg2);
+	      } else {
+	         msg = "회원님의 입력정보와 일치하는 정보가 없습니다.";
+	      }
+	      model.addAttribute("msg", msg);
+	      
+		return "getFindMemberPw"; 
+	}
+	
+	
+	
+	//비밀번호 찾기 폼 
+	@GetMapping("/getFindMemberPw")
+	public String getFindMemberPw(HttpSession session) {
+		//로그인 상태면
+		if(session.getAttribute("loginMember")!= null){ 
+			return "redirect:/index";
+		}				
+		return "getFindMemberPw"; 
+	}
+	
+	//아이디 찾기 액션
+	@PostMapping("/getFindMemberId")
+	public String findMemberId(HttpSession session,Model model ,Member member) {
+		//로그인 상태 
+		if(session.getAttribute("loginMember")!= null){ 
+			return "redirect:/index";
+		}			
+		String memberIdPart= memberService.getFindMemberId(member);
+		System.out.println(memberIdPart+"<-----memberIdpart");
+		model.addAttribute("memberIdPart", memberIdPart);		
+		return "memberIdView";
+	}
+	
+	
+	//아이디 찾기 폼 
+	@GetMapping("/getFindMemberId")
+	public String findMemberId(HttpSession session) {
+		//로그인 상태면
+		if(session.getAttribute("loginMember")!= null){ 
+			return "redirect:/index";
+		}				
+		return "getFindMemberId"; 
+	}
 	
 	//멤버 정보 수정(비밀번호 수정)폼  
 	@GetMapping("/modifyMemberPw")
@@ -52,7 +109,7 @@ public class MemberController {
 	public String modifyMember(HttpSession session,Model model ) {
 		//로그인 상태 아니면 홈
 		if(session.getAttribute("loginMember")== null){ 
-			return "redirect:/";
+			return "redirect:/index";
 		}
 		
 		Member member= memberService.selectMemberOne((LoginMember)(session.getAttribute("loginMember")));

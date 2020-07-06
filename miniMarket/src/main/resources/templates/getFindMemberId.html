@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Registered :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,8 +37,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
-<!-- start-smoth-scrolling -->
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>	
+    $(document).ready(function() { 
+    	$('#btn').click(function() {
+    		if($('#memberPhone').val().length < 9){ 
+    			$('#phoneHelper').text("정확한 전화번호를 입력하세요");
+    			$('#memberPhone').focus();			
+    		}else{
+    			$('#myform').submit();
+    		} 	
+    	});
+   });        
+</script>
 </head>
+
 	
 <body>
 <!-- header -->
@@ -50,7 +64,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="agile-login">
 				<ul>
 					<li><a href="registered.html"> Create Account </a></li>
-					<li><a th:href="@{/loginMember}">Login</a></li>
+					<li><a href="login.html">Login</a></li>
 					<li><a href="contact.html">Help</a></li>
 					
 				</ul>
@@ -122,8 +136,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<li><a href="groceries.html"> Mukhwas </a></li>
 														<li><a href="groceries.html">Rice & Rice Products</a></li>
 													</ul>
-												</div>	
-												
+												</div>													
 											</div>
 										</ul>
 									</li>
@@ -220,32 +233,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Login Page</li>
+				<li class="active">Register Page</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- login -->
-	<div class="login">
+<!-- register -->
+	<div class="register">
 		<div class="container">
-			<h2>Login Form</h2>
+			<h2>아이디 찾기 </h2>
+			<div class="login-form-grids">
+				<h4><strong>아이디 찾기</strong></h4>
+				<br>
+				<!-- 아이디 찾기 -->
+				<form id="myform" method="post" th:action="@{/getFindMemberId}" >				
+					이름 :&nbsp;<input id="memberName" name="memberName" style="width:270px; display:inline;" type="text" placeholder="이름을 입력하세요"  required=" " ><br>																
+				
+					<!-- 이메일  확인 -->			
+					이메일:&nbsp;<input id="memberEmail" name="memberEmail" style="width:270px; display:inline;" type="email" placeholder="ex) ㅇㅇㅇ@naver.com" required=" "><br>												
+				
+					<!-- 전화번호 확인 -->		
+					전화번호:&nbsp;<input id="memberPhone" name="memberPhone" style="width:270px; display:inline;" type="text" placeholder="전화번호를 입력해주세요" required=" "><br>					
+					<span id="phoneHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>						
 		
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form th:action="@{/loginMember}" method="post">
-					<input type="text" placeholder="ID를 입력하세" required=" " name="memberId">
-					<input type="password" placeholder="Password" required=" " name="memberPw" >
-					<div class="forgot">
-						<a th:href="@{/getFindMemberId }">Forgot ID?</a>
-						<a th:href="@{/getFindMemberPw}">Forgot Password?</a>						
-					</div>
-					<input type="submit" value="Login">
+					<input type="submit" id="btn" value="아이디 찾기">
 				</form>
 			</div>
-			<h4>For New People</h4>
-			<p><a th:href="@{/addMember}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			<div class="register-home">
+				<a href="index.html">Home</a>
+			</div>
 		</div>
 	</div>
-<!-- //login -->
+<!-- //register -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
@@ -284,7 +303,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="info"> 
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="loginMember">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
 					

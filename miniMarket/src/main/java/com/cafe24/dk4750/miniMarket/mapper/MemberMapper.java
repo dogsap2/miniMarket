@@ -31,7 +31,7 @@ public interface MemberMapper {
 	public String selectFindMemberId(Member member); 
 	
 	//비번찾기
-	public String selectFindMemberPw(Member member); 
+	public int updateMemberFindPw(Member member); 
 	
 	//비밀번호 변경하기(새 비밀번호 입력)
 	public int updateMemberPw(LoginMember loginMember);

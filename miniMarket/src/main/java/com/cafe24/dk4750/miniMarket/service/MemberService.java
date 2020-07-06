@@ -37,13 +37,30 @@ public class MemberService {
 		//아이디 이메일 백업하기 고유번호 
 		
 	//아이디 찾기  
-	public String selectFindMemberId(Member member) {
-		return null;		
+	public String getFindMemberId (Member member) {
+		return memberMapper.selectFindMemberId(member);		
 	}
 	
 	//비번찾기
-	public String selectFindMemberPw(Member member) {
-		return null;		
+	public int getFindMemberPw(Member member) {
+		// 멤버 비밀번호 찾기, 랜덤 비밀번호 만들어줌 
+		UUID uuid = UUID.randomUUID();
+		System.out.println(uuid);
+		
+		//랜덤 비번 8글자로 자름 
+		String memberPw = uuid.toString().substring(0, 8); 
+		member.setMemberPw(memberPw);
+		int row = memberMapper.updateMemberFindPw(member);
+		if (row == 1) {	
+			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+			simpleMailMessage.setTo(member.getMemberEmail()); // 누구에게 보내는지 
+			simpleMailMessage.setFrom("hya7835@gmail.com"); // 누가 보내는지
+			simpleMailMessage.setSubject("Minimarket 임시 비밀번호 메일");//내용
+			simpleMailMessage.setText("변경된 비밀번호는 " + memberPw + " 입니다.");
+			javaMailSender.send(simpleMailMessage);
+		}
+		return row;
+
 	}
 	
 	//회원 정보 입력, 회원가입  
