@@ -25,13 +25,34 @@
 					$('#table').append('<td>'+item.memberItemTitle+'</td>')
 					$('#table').append('<td>'+item.memberItemPrice+'</td>')
 					$('#table').append('<td>'+item.memberItemDate+'</td>')
-					$('#table').append('<td><button type="button" id="mannerBtn'+item.memberItemNo+'" onclick="window.open(\'/addManner?memberItemNo='+item.memberItemNo+'&memberUniqueNo='+item.memberUniqueNo+'&memberUniqueNoSale='+item.memberUniqueNoSale+'\', \'매너평가\', \'width=600,height=800,location=no,status=no,scrollbars=yes\')">매너평가하기</button><br><button type="button" id="reviewBtn'+item.memberItemNo+'">리뷰작성하기</button></td>')
+					$('#table').append('<td><button type="button" id="mannerBtn'+item.memberItemNo+'" onclick="window.open(\'/addManner?memberItemNo='+item.memberItemNo+'&memberUniqueNo='+item.memberUniqueNo+'&memberUniqueNoSale='+item.memberUniqueNoSale+'\', \'매너평가\', \'width=600,height=800,location=no,status=no,scrollbars=yes\')">매너평가하기</button><br><button type="button" id="reviewBtn'+item.memberItemNo+'"onclick="window.open(\'/addReview?memberItemNo='+item.memberItemNo+'&memberUniqueNo='+item.memberUniqueNo+'&memberUniqueNoSale='+item.memberUniqueNoSale+'\', \'매너평가\', \'width=600,height=800,location=no,status=no,scrollbars=yes\')">리뷰작성하기</button></td>')
 					$('#table').append('</tr>');
 					
 					// manner 평가 했는지 check.
 					$.ajax({
 						url:'/mannerCheck',
 						data:{
+							memberUniqueNo:item.memberUniqueNoSale,
+							memberItemNo:item.memberItemNo
+						},
+						type:'get',
+						success : function(data) {
+							console.log(data)
+							if(data==1){
+								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+							}
+							
+							if(data==0){
+								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+							}
+						}
+					});
+					
+ 					// review 작성 했는지 check
+					$.ajax({
+						url:'/reviewCheck',
+						data:{
+							memberItemNo:item.memberItemNo,
 							memberUniqueNo:item.memberUniqueNoSale,
 							memberItemNo:item.memberItemNo
 						},
@@ -46,14 +67,12 @@
 								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
 							}
 						}
-					});
+					}); 
 				});
 			}
 	});
 	
-	// btn 클릭시
 	$(document).ready(function() {
-		// mannerBtn 클릭시
 		
 	});
 </script>

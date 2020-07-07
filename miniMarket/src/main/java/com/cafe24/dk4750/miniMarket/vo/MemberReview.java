@@ -5,9 +5,11 @@ public class MemberReview {
 	private String memberReviewContent;
 	private String memberId;
 	private String memberUniqueNo;
+	private String memberUniqueNoSale;
 	private String memberReviewDate;
+	private int memberItemNo;
 	
-	// 겟터 셋터
+	// 게터 세터
 	public int getMemberReviewNo() {
 		return memberReviewNo;
 	}
@@ -32,18 +34,32 @@ public class MemberReview {
 	public void setMemberUniqueNo(String memberUniqueNo) {
 		this.memberUniqueNo = memberUniqueNo;
 	}
+	public String getMemberUniqueNoSale() {
+		return memberUniqueNoSale;
+	}
+	public void setMemberUniqueNoSale(String memberUniqueNoSale) {
+		this.memberUniqueNoSale = memberUniqueNoSale;
+	}
 	public String getMemberReviewDate() {
 		return memberReviewDate;
 	}
 	public void setMemberReviewDate(String memberReviewDate) {
 		this.memberReviewDate = memberReviewDate;
 	}
+	public int getMemberItemNo() {
+		return memberItemNo;
+	}
+	public void setMemberItemNo(int memberItemNo) {
+		this.memberItemNo = memberItemNo;
+	}
 	
 	// toString
 	@Override
 	public String toString() {
 		return "MemberReview [memberReviewNo=" + memberReviewNo + ", memberReviewContent=" + memberReviewContent
-				+ ", memberId=" + memberId + ", memberUniqueNo=" + memberUniqueNo + ", memberReviewDate="
-				+ memberReviewDate + "]";
+				+ ", memberId=" + memberId + ", memberUniqueNo=" + memberUniqueNo + ", memberUniqueNoSale="
+				+ memberUniqueNoSale + ", memberReviewDate=" + memberReviewDate + ", memberItemNo=" + memberItemNo
+				+ "]";
 	}
+
 }

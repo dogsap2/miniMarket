@@ -123,12 +123,10 @@
 			console.log($('#goodManner').val());
 			$('#goodMannerForm').submit();
 			alert("평가가 완료되었습니다.");
-			
-			if(confirm("리뷰를 작성하시겠습니까?") == true){
-            }
-            else{
-            	window.close();
-            }
+			//평가 완료 후 부모창 새로 고침
+			opener.parent.location='http://localhost/getBuyListByMember';
+			opener.parent.location.reload();
+            window.close();
 			
 		});
 		$('#badbtn').click(function() {
@@ -136,12 +134,11 @@
 			console.log($('#badManner').val());
 			$('#badMannerForm').submit();
 			alert("평가가 완료되었습니다.");
-			
-			if(confirm("리뷰를 작성하시겠습니까 ?") == true){
-            }
-            else{
-            	window.close();
-            }
+			//평가 완료 후 부모창 새로 고침
+   			opener.parent.location='http://localhost/getBuyListByMember';
+   			opener.parent.location.reload();
+            window.close();
+			}
 		});
 	});
 </script>

@@ -29,30 +29,26 @@ public class MannerController {
 		model.addAttribute("memberUniqueNo", memberUniqueNo);
 		model.addAttribute("memberUniqueNoSale", memberUniqueNoSale);
 		
-		return "addManner";
+		return "addManner"; // 리뷰 작성한다고 했을 때
 	}
 	
 	//매너 평가하기  goodAddManner 포스트 맵핑 (액션)
 	@PostMapping("/goodAddManner")
-	public String goodAddManner(Manner manner) {
+	public void goodAddManner(Manner manner) {
 		System.out.println(manner + " <== good manner");
 		String memberId = "test2";
 		manner.setMemberId(memberId);
 		
 		mannerService.addGoodManner(manner);
-		
-		return "addMember";
 	}
 	
 	//매너 평가하기  badAddManner 포스트 맵핑 (액션)
 	@PostMapping("/badAddManner")
-	public String badAddManner(Manner manner) {
+	public void badAddManner(Manner manner) {
 		System.out.println(manner + " <== bad manner");
 		String memberId = "test2";
 		manner.setMemberId(memberId);
 		
 		mannerService.addBadManner(manner);
-		
-		return "addMember";
 	}
 }

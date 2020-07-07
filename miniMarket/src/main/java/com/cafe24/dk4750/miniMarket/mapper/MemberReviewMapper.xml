@@ -4,4 +4,27 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberReviewMapper">
 	
+	<!-- 인설트 리뷰 -->
+	<insert id="insertReview" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberReview">
+		INSERT INTO mini_market_member_review(
+				member_review_content,
+				member_id,
+				member_unique_no,
+				member_review_date
+			) VALUES (
+				#{memberReviewContent},
+				#{memberId},
+				#{memberUniqueNo},
+				NOW()			
+			)
+	</insert>
+	
+	<!-- 리뷰체크  -->
+	<select id="reviewCheck" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberReview" resultType="int">
+		SELECT COUNT(*)
+		FROM mini_market_member_review
+		WHERE member_id = #{memberId}
+		AND member_unique_no = #{memberUniqueNo}
+		AND member_item_no = #{memberItemNo}
+	</select>
 </mapper>
