@@ -23,6 +23,17 @@ public class ChatroomController {
 	@Autowired
 	private ChatroomService chatroomService;
 	
+	@GetMapping("/modifyChatroomActive")
+	public String modifyChatroom(@RequestParam("chatroomNo") int chatroomNo) {
+		System.out.println(chatroomNo + "<--chatroomNo modifyChatroomActive");
+		String chatroomActive = "connect";
+		Chatroom chatroom = new Chatroom();
+		chatroom.setChatroomNo(chatroomNo);
+		chatroom.setChatroomActive(chatroomActive);
+		chatroomService.modifyChatroomDisconnect(chatroom);
+		return "redirect:/chatroomList";
+	}
+	
 	@GetMapping("/button")
 	public String getButton() {
 		return "button";
@@ -34,12 +45,16 @@ public class ChatroomController {
 		}
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
 		Chatroom chatRoom = new Chatroom();
 		chatRoom.setMemberId(memberId);
 		chatRoom.setMemberUniqueNo(memberUniqueNo);
 		List<Chatroom> list = chatroomService.getChatRoomListBymemberId(chatRoom);
 		System.out.println(list + "<--채팅방 리스트");
 		model.addAttribute("list", list);
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("memberUniqueNo", memberUniqueNo);
+		model.addAttribute("memberNickname", memberNickname);
 		return "chatroomList";
 	}
 	
@@ -49,7 +64,7 @@ public class ChatroomController {
 		System.out.println(memberUniqueNo);
 		System.out.println(memberId);
 		int memberItemNo = 3;
-		String active = "connect"; 
+		String active = "disconnect"; 
 		Chatroom chatroom = new Chatroom();
 		chatroom.setMemberItemNo(memberItemNo);
 		chatroom.setMemberUniqueNo(memberUniqueNo);

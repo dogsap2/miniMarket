@@ -3,25 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	});
+</script>
 </head>
 <body>
 	<h1>채팅방 리스트</h1>
-  <table border="1">
-  	<tr>
-  		<td>방번호</td>
-  		<td>아이템 번호</td>
-  		<td>상대방 이름</td>
-  		<td>활성화 상태</td>
-  	</tr>
-  	<tr th:each="list : ${list}">
-  		<td th:text="${list.chatroomNo}"></td>
-  		<td th:text="${list.memberItemNo}"></td>
-  		<td th:if="${list.chatroomActive} == connect"><a th:href="@{chatRoom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId}"></a></td>
-  		<td th:unless="${list.chatroomActive} == connect" th:text="${list.memberId}"></td>
-  		<!-- 연결 상태별 -->
-  		<td th:if="${list.chatroomActive} == connect">연결 완료</td>
-  		<td th:unless="${list.chatroomActive} == connect">연결 대기중</td>
-  	</tr>
-  </table>
+	<form method="post" th:action="@{chatRoomList} " id="chatroomListForm">
+		<table border="1">
+			<tr>
+				<td>방번호</td>
+				<td>게시글 이름</td>
+				<td>상대방 닉네임</td>
+				<td>활성화 여부</td>
+				<td>채팅방 상태</td>
+				<td>판매 / 구매</td>
+			</tr>
+			<tr th:each="list : ${list}">
+				<td th:text="${list.chatroomNo}"></td>
+				<td th:text="${list.memberItemTitle}"></td>
+				<td th:if="${list.chatroomActive} == connect"><a th:href="@{chatRoom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${memberNickname} : ${list.memberNickname}"></a></td>
+				<td th:unless="${list.chatroomActive} == connect" th:text="${list.memberId == memberId} ? ${memberNickname} : ${list.memberNickname}"></td>
+				
+				<!-- 연결 상태별 -->
+				<td th:if="${list.chatroomActive} == connect">채팅 활성</td>
+				<td th:if="${list.chatroomActive} != connect">채팅 비활성</td>
+				
+				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect"><button type="button" disabled="disabled">연결대기</button></td>
+				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect"><button type="button" disabled="disabled">연결대기</button></td>
+				<td th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect"><a th:href="@{modifyChatroomActive(chatroomNo = ${list.chatroomNo})}" class="btn">채팅연결</a></td>
+				<td th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} == connect"><button type="button" disabled="disabled">판매중</button></td>	
+				
+				<td th:if="${list.memberUniqueNo == memberUniqueNo}">구매</td>
+				<td th:if="${list.memberUniqueNo != memberUniqueNo}">판매</td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

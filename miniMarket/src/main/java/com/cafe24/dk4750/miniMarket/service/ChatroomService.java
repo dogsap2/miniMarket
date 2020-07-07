@@ -17,6 +17,10 @@ public class ChatroomService {
 	@Autowired
 	private ChatroomMapper chatroomMapper;
 	
+	public int modifyChatroomDisconnect(Chatroom chatroom) {
+	      return chatroomMapper.updateChatroomDisconnect(chatroom);
+	   }
+	
 	public Chatroom getChatRoomOne(int chatroomNo) {
 	      return chatroomMapper.selectChatroomOne(chatroomNo);
 	   }

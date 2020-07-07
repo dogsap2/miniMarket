@@ -6,6 +6,7 @@ public class LoginMember {
 	private String memberUniqueNo;
 	private String memberNickname;
 	
+	
 	public String getMemberId() {
 		return memberId;
 	}

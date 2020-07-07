@@ -6,6 +6,9 @@ public class Chatroom {
 	private String memberId;
 	private String chatroomActive;
 	private int memberItemNo;
+	private String memberItemTitle;
+	private String memberNickname;
+	
 	public int getChatroomNo() {
 		return chatroomNo;
 	}
@@ -36,10 +39,27 @@ public class Chatroom {
 	public void setMemberItemNo(int memberItemNo) {
 		this.memberItemNo = memberItemNo;
 	}
+	
+	public String getMemberItemTitle() {
+		return memberItemTitle;
+	}
+	public void setMemberItemTitle(String memberItemTitle) {
+		this.memberItemTitle = memberItemTitle;
+	}
+	
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
 	@Override
 	public String toString() {
 		return "Chatroom [chatroomNo=" + chatroomNo + ", memberUniqueNo=" + memberUniqueNo + ", memberId=" + memberId
-				+ ", chatroomActive=" + chatroomActive + ", memberItemNo=" + memberItemNo + "]";
+				+ ", chatroomActive=" + chatroomActive + ", memberItemNo=" + memberItemNo + ", memberItemTitle="
+				+ memberItemTitle + ", memberNickname=" + memberNickname + "]";
 	}
+	
+	
 	
 }

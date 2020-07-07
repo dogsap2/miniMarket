@@ -19,7 +19,8 @@ $(document).ready(function(){
               url: "/addMessage",
               data: {memberId : memberId , chatMessage : $("#chatMessage").val() , chatroomNo : chatroomNo},
               success: function(data) {
-                 console.log("성공")
+            	  $("#chatMessage").val("");
+                 console.log("성공");
               },
               error: function (error) {
                    alert('data error');
@@ -58,7 +59,7 @@ $(document).ready(function(){
 <body>
 
 	
-   <h1>''님과의 채팅방</h1>
+   <h1>채팅방</h1>
       <input type="text" name="memberId" placeholder="작성자"  th:value="${memberNickname}" readonly="readonly" id="memberId">
       <input type="text" name="chatMessage" placeholder="내용" id="chatMessage">
       <input type="hidden" name="chatroomNo" th:value="${chatroom.chatroomNo}" id="chatroomNo">

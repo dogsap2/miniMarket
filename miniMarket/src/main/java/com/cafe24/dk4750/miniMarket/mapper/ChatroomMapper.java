@@ -14,4 +14,5 @@ public interface ChatroomMapper {
 	public int insertChatRoom(Chatroom chatroom);
 	public int selectMaxNum();
 	public Chatroom selectChatroomOne(int chatroomNo);
+	public int updateChatroomDisconnect(Chatroom chatroom);
 }
