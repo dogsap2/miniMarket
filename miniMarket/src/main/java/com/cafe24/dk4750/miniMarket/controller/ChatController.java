@@ -17,6 +17,7 @@ import com.cafe24.dk4750.miniMarket.service.ChatService;
 import com.cafe24.dk4750.miniMarket.service.ChatroomService;
 import com.cafe24.dk4750.miniMarket.vo.Chat;
 import com.cafe24.dk4750.miniMarket.vo.Chatroom;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 
 
 
@@ -34,9 +35,11 @@ public class ChatController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:login";
 		}
+		String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
 		System.out.println(chatroomNo);
 		Chatroom chatroom = chatroomService.getChatRoomOne(chatroomNo);
 		model.addAttribute("chatroom", chatroom);
+		model.addAttribute("memberNickname", memberNickname);
 		return "chatRoom";
 	}
 	

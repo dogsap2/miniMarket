@@ -4,6 +4,7 @@ public class LoginMember {
 	private String memberId;
 	private String memberPw; 
 	private String memberUniqueNo;
+	private String memberNickname;
 	
 	public String getMemberId() {
 		return memberId;
@@ -24,11 +25,17 @@ public class LoginMember {
 		this.memberUniqueNo = memberUniqueNo;
 	}
 	
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	public void setMemberNickname(String memberNicname) {
+		this.memberNickname = memberNicname;
+	}
 	@Override
 	public String toString() {
 		return "LoginMember [memberId=" + memberId + ", memberPw=" + memberPw + ", memberUniqueNo=" + memberUniqueNo
-				+ "]";
-	} 
+				+ ", memberNickname=" + memberNickname + "]";
+	}
 	
 	
 }

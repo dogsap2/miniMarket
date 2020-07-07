@@ -29,7 +29,6 @@
 			chatroom_no as chatroomNo,
 			member_unique_no as memberUniqueNo,
 			member_id as memberId,
-			chatroom_check as chatroomCheck,
 			chatroom_active as chatroomActive,
 			member_item_no as memberItemNo
 		FROM mini_market_chatroom
@@ -49,7 +48,6 @@
 		INSERT INTO mini_market_chatroom(
 			member_unique_no,
 			member_id,
-			chatroom_check,
 			chatroom_active,
 			member_item_no
 		) VALUES (

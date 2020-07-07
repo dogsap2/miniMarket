@@ -50,13 +50,11 @@ public class ChatroomController {
 		System.out.println(memberId);
 		int memberItemNo = 3;
 		String active = "connect"; 
-		String check = "N";
 		Chatroom chatroom = new Chatroom();
 		chatroom.setMemberItemNo(memberItemNo);
 		chatroom.setMemberUniqueNo(memberUniqueNo);
 		chatroom.setMemberId(memberId);
 		chatroom.setChatroomActive(active);
-		chatroom.setChatroomCheck(check);
 		
 		
 		int chatRoomCheck = chatroomService.addChatRoom(chatroom);

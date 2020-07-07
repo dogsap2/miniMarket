@@ -115,7 +115,8 @@
 		SELECT
 			member_id as memberId,
 			member_pw as memberPw,
-			member_unique_no as memberUniqueNo
+			member_unique_no as memberUniqueNo,
+			member_nickname as memberNickname
 		FROM
 			mini_market_member
 		WHERE 
