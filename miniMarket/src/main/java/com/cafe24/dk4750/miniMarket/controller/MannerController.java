@@ -46,7 +46,7 @@ public class MannerController {
 		return "addMember";
 	}
 	
-	//매너 평가하기  goodAddManner 포스트 맵핑 (액션)
+	//매너 평가하기  badAddManner 포스트 맵핑 (액션)
 	@PostMapping("/badAddManner")
 	public String badAddManner(Manner manner) {
 		System.out.println(manner + " <== bad manner");

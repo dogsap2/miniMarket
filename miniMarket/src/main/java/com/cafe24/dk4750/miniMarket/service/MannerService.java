@@ -1,5 +1,8 @@
 package com.cafe24.dk4750.miniMarket.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,35 +16,67 @@ import com.cafe24.dk4750.miniMarket.vo.MemberTemp;
 @Service
 @Transactional
 public class MannerService {
-	@Autowired private MannerMapper mannerMapper;
-	@Autowired private MemberTempMapper memberTempMapper;
-	@Autowired private MemberTempTotalMapper memberTempTotalMapper;
-	
-	// good 매너 평가하기
-	public int addGoodManner(Manner manner) {
-		// 매너평가하기
-		mannerMapper.insertGoodManner(manner);
-		
-		// 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
-		MemberTemp memberTemp = new MemberTemp();
-		memberTemp.setMemberUniqueNo(manner.getMemberUniqueNo());
-		if(manner.getBadManner() == 0) {
-			memberTemp.setTempInsertScore(manner.getGoodManner());
-		} else {
-			memberTemp.setTempInsertScore(manner.getBadManner());
-		}
-		memberTempMapper.insertTemp(memberTemp);
-		
-		// 매너평가 insert된 스코어를 total에 인서트하기
-		
-		return 0;
-	}
-	
-	// bad 매너 평가하기
-	public int addBadManner(Manner manner) {
-		
-		mannerMapper.insertBadManner(manner);
-		
-		return 0;
-	}
+   @Autowired private MannerMapper mannerMapper;
+   @Autowired private MemberTempMapper memberTempMapper;
+   @Autowired private MemberTempTotalMapper memberTempTotalMapper;
+   
+   // good 매너 평가하기
+   public int addGoodManner(Manner manner) {
+      // 매너평가하기
+      mannerMapper.insertGoodManner(manner);
+      
+      // 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
+      MemberTemp memberTemp = new MemberTemp();
+      memberTemp.setMemberUniqueNo(manner.getMemberUniqueNo());
+      memberTemp.setTempInsertScore(manner.getGoodManner());
+      // 인서트 temp실행
+      memberTempMapper.insertTemp(memberTemp);
+      
+      // tempTotal 부분.. 현재템프토탈과 해당멤버의 인서트스코어를 계산 후 새로 템프토탈 인서트하기
+      String memberUniqueNo = manner.getMemberUniqueNo();
+      double tempTotalNow = memberTempTotalMapper.selectTempTotalNow(memberUniqueNo);
+      System.out.println(tempTotalNow + " <== 현재 템프토탈");
+      
+      // 최종 템프토탈 값을 구하고 인서트해주기
+      double finalTempTotal = tempTotalNow + manner.getGoodManner();
+      System.out.println(finalTempTotal + " <== 최종 tempTotal");
+      // 인서트temp에 들어갈 값들을 담을 임시 맵 생성
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("memberUniqueNo", memberUniqueNo);
+      map.put("memberTempTotal", finalTempTotal);
+      // 인서트 실행
+      memberTempTotalMapper.insertTempTotal(map);
+      
+      return 0;
+   }
+   
+   // bad 매너 평가하기
+   public int addBadManner(Manner manner) {
+      
+	  // 매너평가하기
+      mannerMapper.insertBadManner(manner);
+      // 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
+      MemberTemp memberTemp = new MemberTemp();
+      memberTemp.setMemberUniqueNo(manner.getMemberUniqueNo());
+      memberTemp.setTempInsertScore(manner.getBadManner());
+      // 인서트 temp실행
+      memberTempMapper.insertTemp(memberTemp);
+      
+      // tempTotal 부분.. 현재템프토탈과 해당멤버의 인서트스코어를 계산 후 새로 템프토탈 인서트하기
+      String memberUniqueNo = manner.getMemberUniqueNo();
+      double tempTotalNow = memberTempTotalMapper.selectTempTotalNow(memberUniqueNo);
+      System.out.println(tempTotalNow + " <== 현재 템프토탈");
+      
+      // 최종 템프토탈 값을 구하고 인서트해주기
+      double finalTempTotal = tempTotalNow + manner.getBadManner();
+      System.out.println(finalTempTotal + " <== 최종 tempTotal");
+      // 인서트temp에 들어갈 값들을 담을 임시 맵 생성
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("memberUniqueNo", memberUniqueNo);
+      map.put("memberTempTotal", finalTempTotal);
+      // 인서트 실행
+      memberTempTotalMapper.insertTempTotal(map);
+      
+      return 0;
+   }
 }
