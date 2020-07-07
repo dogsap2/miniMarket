@@ -23,6 +23,37 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 public class MemberController {
 	@Autowired private MemberService memberService; 
 
+	//회원탈퇴
+	@GetMapping("/removeMember")
+	public String removeMember(HttpSession session) {
+		//로그인 상태가 아니면
+		if(session.getAttribute("loginMember")== null){ 
+			return "redirect:/index";
+		}				
+		return "removeMember";
+	}
+	//회원탈퇴 포스트
+	@PostMapping("/removeMember")
+	public String removeMember(HttpSession session,@RequestParam(value="memberPw") String memberPw,Model model) {
+		//로그인 상태가 아니면
+		if(session.getAttribute("loginMember")== null){ 
+			return "redirect:/index";
+		}
+		
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		loginMember.setMemberPw(memberPw);
+		
+		String check = memberService.removeMember(loginMember);
+		String msg = "";
+		if(check == null) {
+			msg = "비밀번호를 확인해주세요.";
+			model.addAttribute("msg",msg);
+			return "removeMember";
+		}
+		session.invalidate(); 
+		return "redirect:/index";
+	}
+	
 	//비밀번호 찾기 액션 
 	@PostMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session, Member member, Model model) {

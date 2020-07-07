@@ -30,6 +30,21 @@ public class MemberService {
 	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\imgs\\")
 	private String path;
 	
+	
+	//회원탈퇴 서비스
+	public String removeMember(LoginMember loginMember) {
+		String check = memberMapper.selectMemberPw(loginMember);
+		if(check!=null) {
+			memberMapper.deleteMember(loginMember);
+			check="탈퇴성공";
+		}
+		System.out.println(check+"<--check값 2면 탈퇴성공");
+		return check;
+	}
+	
+	
+	
+	
 	//멤버사진과 닉네임 사진 수정 
 	public int modifyMemberNickAndPic(MemberNickAndPic memberNickAndPic) {		
 		MultipartFile mf = memberNickAndPic.getProfilePic();

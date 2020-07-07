@@ -13,6 +13,7 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 public interface MemberMapper {	
 		
 	
+
 	//고유번호 가져오기(카운트후  m+1)
 	public String selectMemberUniqueNo();
 	
@@ -35,8 +36,12 @@ public interface MemberMapper {
 	public int updateMemberOne(Member member);
 	
 	//회원 탈퇴 
-	public int deleteMember(Member member);
-		//아이디 이메일 백업하기 고유번호 
+	public int deleteMember(LoginMember loginMember);
+		
+	//회원 탈퇴시 비밀번호 확인
+	public String selectMemberPw(LoginMember loginMember);
+	
+	//아이디 이메일 백업하기 고유번호 
 		
 	//아이디 찾기  
 	public String selectFindMemberId(Member member); 
@@ -46,7 +51,6 @@ public interface MemberMapper {
 	
 	//비밀번호 변경하기(새 비밀번호 입력)
 	public int updateMemberPw(LoginMember loginMember);
-	
 	
 	//비밀번호변경(현재 입력된 비밀번호 값 비교)
 	public String selectMemberPwId(LoginMember checkIdPw);

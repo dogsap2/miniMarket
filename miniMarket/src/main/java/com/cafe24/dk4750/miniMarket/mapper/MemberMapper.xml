@@ -19,7 +19,6 @@
 	 SET member_nickname = #{memberNickname}
 	 WHERE member_id = #{memberId}			
 	 </update>
-	<!-- 탈퇴 -->
 	
 	<!-- 멤버 백업 -->
 	
@@ -75,6 +74,36 @@
 	 
 	 <!--나의 정보수정 , 현재 비밀번호 일치하는지 확인  -->
 	 <select id="selectMemberPwId" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="String">
+		SELECT
+			member_id as memberId			
+		FROM
+			mini_market_member
+		WHERE 
+			member_id = #{memberId}
+		AND member_pw = PASSWORD(#{memberPw})		
+	</select>
+	
+	 <!-- 탈퇴하기 -->
+	 <update id="deleteMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
+	    UPDATE mini_market_member
+		SET 
+			member_name = "x",
+			member_sido = "x",
+		    member_sigungu = "x",
+		    member_bname = "x",
+			member_phone = "x",
+			member_pw = "x",
+			member_nickname = "x",
+        	member_email = "x",
+         	member_date = now()
+		WHERE
+			member_id = #{memberId}	
+		AND
+			member_pw = PASSWORD(#{memberPw})	     
+ 	 </update>
+	 
+	 <!--탈퇴시 비밀번호 확인 -->
+	 <select id="selectMemberPw" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="String">
 		SELECT
 			member_id as memberId			
 		FROM
