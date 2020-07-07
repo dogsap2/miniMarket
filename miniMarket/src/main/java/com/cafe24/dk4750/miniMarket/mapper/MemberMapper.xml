@@ -4,9 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberMapper">
 	<!-- 멤버사진 수정 -->
+	<update id="updateMemberPic" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2">
+      UPDATE	
+      	mini_market_member_pic
+      SET
+     	profile_pic = #{profilePic},
+      	pic_date = now()
+      WHERE member_id = #{memberId}
+   </update>
 	
 	<!-- 멤버 닉네임 수정 -->
-	 <update id="updateMemberNickname" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">
+	 <update id="updateMemberNickname" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2">
 	 UPDATE mini_market_member
 	 SET member_nickname = #{memberNickname}
 	 WHERE member_id = #{memberId}			

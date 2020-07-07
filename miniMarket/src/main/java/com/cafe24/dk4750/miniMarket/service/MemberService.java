@@ -1,6 +1,7 @@
 package com.cafe24.dk4750.miniMarket.service;
 
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -11,25 +12,74 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.dk4750.miniMarket.mapper.MemberMapper;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
-import com.cafe24.dk4750.miniMarket.vo.MemberPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
+
 
 
 @Service
 @Transactional
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
-	@Autowired private JavaMailSender javaMailSender;//@Conponent
-	//@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\imgs\\");
+	@Autowired private JavaMailSender javaMailSender;//@Conponent	
+	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\imgs\\")
+	private String path;
 	
-	
-	//멤버사진과 닉네임만 수정 
-	public int updateMemberPic(Member member) {		
-		return memberMapper.updateMemberNickname(member);
+	//멤버사진과 닉네임 사진 수정 
+	public int modifyMemberNickAndPic(MemberNickAndPic memberNickAndPic) {		
+		MultipartFile mf = memberNickAndPic.getProfilePic();
+		//확장자 필요		
+		String originName= mf.getOriginalFilename();	
+		 
+		 System.out.println(originName+ "<--originName" ); //user.jpg<--originName
+			int lastDot= originName.lastIndexOf("."); // 마지막글자의 . (좌석표.png)
+			String extension =originName.substring(lastDot); 
+			
+			//새로운 이름을 생성: UUID
+			String profilePic= memberNickAndPic.getMemberId()+extension; 
+			
+			//1.디비에서 저장 
+			MemberNickAndPic2 memberNickAndPic2 = new MemberNickAndPic2(); 
+			memberNickAndPic2.setMemberId(memberNickAndPic.getMemberId());
+			memberNickAndPic2.setMemberNickname(memberNickAndPic.getMemberNickname());
+			memberNickAndPic2.setProfilePic(profilePic);
+			
+			System.out.println(memberNickAndPic2+"<-----MemberService.memberNickAndPic1 출력확인");
+			System.out.println(profilePic+"<-----profilePic출력확인");
+			int row = memberMapper.updateMemberNickname(memberNickAndPic2);
+			int row2=memberMapper.updateMemberPic(memberNickAndPic2);
+			
+			//2.파일저장
+			
+			File file = new File(this.path+profilePic);
+			 
+			try {
+				mf.transferTo(file);
+			} catch (Exception e) {			
+				e.printStackTrace();
+			}		
+		         // Exception 
+		         //1.예외처리를 해야만 문법적으로 이상없는 예외 
+		         //2.예외처리를 토드에서 구현하지 않아도 아무문제 없는 예외 RuntimeException
+		 
+		      return row;
 	}	
+	
+	
+	// 멤버 수정  닉네임만 수정 
+	public int modifyMemberNick(MemberNickAndPic memberNickAndPic) {
+		MemberNickAndPic2 memberNick = new MemberNickAndPic2();
+		memberNick.setMemberId(memberNickAndPic.getMemberId());
+		memberNick.setMemberNickname(memberNickAndPic.getMemberNickname());
+		
+		int row =memberMapper.updateMemberNickname(memberNick);
+		return row;		
+	}
 	
 	
 	//멤버사진과 닉네임을 불러와요.^^

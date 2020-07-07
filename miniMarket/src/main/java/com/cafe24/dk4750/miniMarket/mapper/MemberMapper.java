@@ -4,7 +4,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
-import com.cafe24.dk4750.miniMarket.vo.MemberPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
+
 
 
 @Mapper
@@ -15,10 +17,10 @@ public interface MemberMapper {
 	public String selectMemberUniqueNo();
 	
 	//멤버닉네임 수정
-	public int updateMemberNickname(Member member);
+	public int updateMemberNickname(MemberNickAndPic2 memberNickAndPic2);
 	
 	//멤버사진 수정
-	public int updateMemberPic(MemberPic memberPic);
+	public int updateMemberPic(MemberNickAndPic2 memberNickAndPic2);
 	
 	//나의 사진보기
 	public String selectMemberPic (LoginMember memberId); 

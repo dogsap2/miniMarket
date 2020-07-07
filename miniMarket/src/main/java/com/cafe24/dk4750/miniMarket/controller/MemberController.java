@@ -10,20 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
-import com.cafe24.dk4750.miniMarket.vo.MemberPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
+
 
 
 @Controller
 public class MemberController {
-	@Autowired 
-	private MemberService memberService; 
-	
-	
-	
+	@Autowired private MemberService memberService; 
+
 	//비밀번호 찾기 액션 
 	@PostMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session, Member member, Model model) {
@@ -108,7 +107,7 @@ public class MemberController {
 		System.out.println(loginMember.getMemberId()+"<-- 아이디");
 		System.out.println(loginMember.getMemberPw()+"<---새비번 확인 ");
 		memberService.updateMemberPw(loginMember);
-		return "memberMyPage";		
+		return "redirect:/memberMyPage";		
 	}
 	
 	
@@ -174,13 +173,41 @@ public class MemberController {
 	
 	//멤버 사진, 닉네임만 수저폼 수정 액션
 	@PostMapping("/modifyMemberNickAndPic")
-	public String modifyMemberNickAndPic(HttpSession session,MemberPic memberPic, @RequestParam(value="memberNickname") String memberNickname){
+	public String modifyMemberNickAndPic(HttpSession session,MemberNickAndPic memberNickAndPic){
+		//로그인 상태 아니면 인덱스로 
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/index"; 
 		}
+		//세셩 아이디 값 memberNickAndPic 넣어주기 
+		LoginMember f = (LoginMember)session.getAttribute("loginMember");
+		String memberId = f.getMemberId();
 		
-		
-		
+		memberNickAndPic.setMemberId(memberId);
+				
+		System.out.println(memberNickAndPic + "<----memberNickAndPic 받아온값 확인");
+		MultipartFile mf = memberNickAndPic.getProfilePic(); 
+		String originName= mf.getOriginalFilename();
+		System.out.println(originName+"<----originName 디버깅 ");
+		System.out.println(memberNickAndPic.getProfilePic() + "<--memberNickAndPic.getProfilePic()");
+				
+		// "image/png" 파일로는 사용 가능하나 그게 아니라면
+		if (memberNickAndPic.getProfilePic() != null && !originName.equals("")) {
+			if (!memberNickAndPic.getProfilePic().getContentType().equals("image/png")
+					&& !memberNickAndPic.getProfilePic().getContentType().equals("image/jpeg")
+					&& !memberNickAndPic.getProfilePic().getContentType().equals("image/gif")) {
+				return "redirect:/modifyMemberNickAndPic?imgMsg=n";
+			}
+		}
+
+		// 받아온 사진이 없으면(프로필 사진 변경 x) 원래 저장된 사진 그대로 보여줌
+		if (memberNickAndPic.getProfilePic().getOriginalFilename().equals("")) {			
+			memberService.modifyMemberNick(memberNickAndPic);			
+			return "redirect:/memberMyPage"; 
+		}
+
+		memberService.modifyMemberNickAndPic(memberNickAndPic);
+		System.out.println(memberNickAndPic + "업데이트 memberNickAndPic 확인!!");
+
 		return "redirect:/memberMyPage";
 	}
 	

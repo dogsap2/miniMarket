@@ -156,16 +156,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 <div class="breadcrumbs">
 <div align="center">
-	<!-- 프로필 사진 -->
-	<form method="post" th:action="@{/modifyMemberNickAndPic}" enctype="multipart/form-data">
+	<!-- 프로필 사진 -->   
+	<form method="post" th:action="@{/modifyMemberNickAndPic}" enctype="multipart/form-data" >
 	<div align="center">
 	사진:
-		<img th:src="@{${'/imgs/'+memberPic}}" width="200" height="200" class='rounded'>									
+		<img th:src="@{${'/imgs/'+memberPic}}" width="200" height="200" class='rounded' >									
 		<input type="file" name="profilePic" id="pic">
 		<span th:if="${#httpServletRequest.getParameter('imgMsg')!=null}"> .jpg, .png, .gif 파일만 첨부 가능 합니다</span>
 	</div>
 		<br>
-	닉네임:<input type="text" th:value="${memberNick}"><br><br>
+	닉네임:<input type="text" th:value="${memberNick}" name="memberNickname"><br><br>
            <input type="submit" id="btn" value="입력완료">
 		</form>
 	</div>
