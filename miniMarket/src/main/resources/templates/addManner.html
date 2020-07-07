@@ -125,7 +125,6 @@
 			alert("평가가 완료되었습니다.");
 			
 			if(confirm("리뷰를 작성하시겠습니까?") == true){
-                $('#removeForm').submit();
             }
             else{
             	window.close();
@@ -138,21 +137,19 @@
 			$('#badMannerForm').submit();
 			alert("평가가 완료되었습니다.");
 			
-			if(confirm("정말 삭제하시겠습니까 ??") == true){
-                $('#removeForm').submit();
+			if(confirm("리뷰를 작성하시겠습니까 ?") == true){
             }
             else{
             	window.close();
             }
-			
 		});
 	});
 </script>
 </head>
 <body>
 	<h1 align="center">매너평가</h1>
-		<div th:text="'구매자 : ' + ${subUnique}"></div>
-		<div th:text="'판매자 : ' + ${subUniqueSale}"></div>
+		<div th:text="'구매자 : ' + ${memberUniqueNo}"></div>
+		<div th:text="'판매자 : ' + ${memberUniqueNoSale}"></div>
 		<div>
 			<button type="button" id="manner">매너</button>
 			<button type="button" id="bmanner">비매너</button>
@@ -162,8 +159,8 @@
 				<div>
 					<input type="hidden" name="goodManner" id="goodManner">
 					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}">
-					<input type="hidden" name="memberId" th:value="${subUnique}">
-					<input type="hidden" name="memberUniqueNo" th:value="${subUniqueSale}">
+					<input type="hidden" name="memberId" th:value="${memberUniqueNo}">
+					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNoSale}">
 					<!-- 별점 -->
 					<input class="pin pin1" type = "checkbox" name="goodScore1" id="goodScore1">
 					<input class="pin pin2" type = "checkbox" name="goodScore2" id="goodScore2">
@@ -191,8 +188,8 @@
 				<div>
 					<input type="hidden" name="badManner" id="badManner">
 					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}">
-					<input type="hidden" name="memberId" th:value="${subUnique}">
-					<input type="hidden" name="memberUniqueNo" th:value="${subUniqueSale}">
+					<input type="hidden" name="memberId" th:value="${memberUniqueNo}">
+					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNoSale}">
 					<textarea name="mannerContent1"></textarea>
 				</div>
 				<div>

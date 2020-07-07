@@ -6,37 +6,60 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+	// list 뿌리기
+	$.ajax({
+		url:'/getBuyListByMember2',
+		type:'get',
+		success : function(data) {
+				console.log(data);
+				$('#table').append('<tr>');
+				$('#table').append('<th>'+"사진"+'</th>');
+				$('#table').append('<th>'+"제목"+'</th>');
+				$('#table').append('<th>'+"아이템가격"+'</th>');
+				$('#table').append('<th>'+"아이템 올린 날짜"+'</th>');
+				$('#table').append('<th>'+"구매완료"+'</th>');
+				$('#table').append('</tr>');
+				$.each(data, function(index, item){
+					$('#table').append('<tr>');
+					$('#table').append('<td><img width="300" height="150" src='+/images/+item.memberItemPic1+'></td>');
+					$('#table').append('<td>'+item.memberItemTitle+'</td>')
+					$('#table').append('<td>'+item.memberItemPrice+'</td>')
+					$('#table').append('<td>'+item.memberItemDate+'</td>')
+					$('#table').append('<td><button type="button" id="mannerBtn'+item.memberItemNo+'" onclick="window.open(\'/addManner?memberItemNo='+item.memberItemNo+'&memberUniqueNo='+item.memberUniqueNo+'&memberUniqueNoSale='+item.memberUniqueNoSale+'\', \'매너평가\', \'width=600,height=800,location=no,status=no,scrollbars=yes\')">매너평가하기</button><br><button type="button" id="reviewBtn'+item.memberItemNo+'">리뷰작성하기</button></td>')
+					$('#table').append('</tr>');
+					
+					// manner 평가 했는지 check.
+					$.ajax({
+						url:'/mannerCheck',
+						data:{
+							memberUniqueNo:item.memberUniqueNoSale,
+							memberItemNo:item.memberItemNo
+						},
+						type:'get',
+						success : function(data) {
+							console.log(data)
+							if(data==1){
+								$('#mannerBtn'+item.memberItemNo).prop("disabled", true);
+							}
+							
+							if(data==0){
+								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+							}
+						}
+					});
+				});
+			}
+	});
+	
+	// btn 클릭시
 	$(document).ready(function() {
-		$('#btn').click(function(){
-			
-		});
+		// mannerBtn 클릭시
+		
 	});
 </script>
 </head>
 <body>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>사진</th>
-				<th>제목</th>
-				<th>아이템가격</th>
-				<th>아이템 올린 날짜</th>
-				<th>구매 완료</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="list : ${list}">
-				<td>
-					<img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150">
-				</td>
-				<td th:text="${list.memberItemTitle}"></td>
-				<td th:text="${list.memberItemPrice}"></td>
-				<td th:text="${list.memberItemDate}"></td>
-				<td>
-					<button id="btn" type="button" th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=600,height=800,location=no,status=no,scrollbars=yes');">구매완료</button>
-				</td>
-			</tr>
-		</tbody>
+	<table border="1" id="table">
 	</table>
 </body>
 </html>

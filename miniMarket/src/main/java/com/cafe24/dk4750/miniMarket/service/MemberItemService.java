@@ -74,7 +74,7 @@ public class MemberItemService {
 	public int itemSalesComplete(MemberItem memberItem) {
 		
 		// 임시로 멤버아이템넘버 값 설정
-		int memberItemNo = 1;
+		int memberItemNo = 2;
 		
 		// 판매자의 판매중인 아이템 판매완료로 수정
 		String memberItemState = "판매완료";

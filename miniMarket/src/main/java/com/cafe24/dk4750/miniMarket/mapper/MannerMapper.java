@@ -12,4 +12,7 @@ public interface MannerMapper {
 	
 	// bad 매너 평가하기
 	public int insertBadManner(Manner manner);
+	
+	// 해당 아이템에 매너평가를 한 적이 있는지 체크 
+	public int mannerCheck(Manner manner);
 }

@@ -23,16 +23,13 @@ public class MemberItemController {
 	@Autowired MemberItemService memberItemService;
 	@Autowired CheckLikeService checkLikeService;
 	
-	// 구매자의 구매완료 아이템 리스트
-	@GetMapping("/getBuyListByMember")
-	public String getBuyListByMember(Model model) {
-		
-		//구매자의 구매완료 아이템 리스트 
-		List<ItemSoldout> list = memberItemService.getBuyListByMember();
-		model.addAttribute("list", list);
-		
-		return "getBuyListByMember";
-	}
+	
+	  // 구매자의 구매완료 아이템 리스트
+	  @GetMapping("/getBuyListByMember") public String getBuyListByMember() {
+	  
+		  return "getBuyListByMember"; 
+	  }
+	 
 	
 	// 나의 판매완료 아이템 리스트
 	@GetMapping("/getItemListBySaleMyItem")

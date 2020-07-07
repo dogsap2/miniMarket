@@ -3,6 +3,16 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MannerMapper">
+	<!-- 해당 아이템에 매너평가를 한 적이 있는지 체크 -->
+	<select id="mannerCheck" parameterType="com.cafe24.dk4750.miniMarket.vo.Manner" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM mini_market_manner
+		WHERE member_id = #{memberId}
+		AND member_unique_no = #{memberUniqueNo}
+		AND member_item_no = #{memberItemNo}
+	</select>
+
 	<!-- 매너평가 추가 -->
 	<insert id="insertGoodManner" parameterType="com.cafe24.dk4750.miniMarket.vo.Manner">
 		INSERT INTO mini_market_manner(

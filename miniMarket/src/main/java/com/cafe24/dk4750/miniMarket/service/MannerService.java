@@ -24,6 +24,7 @@ public class MannerService {
    public int addGoodManner(Manner manner) {
       // 매너평가하기
       mannerMapper.insertGoodManner(manner);
+      System.out.println(manner.getMemberItemNo() + " <== memberItemNo..");
       
       // 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
       MemberTemp memberTemp = new MemberTemp();
@@ -55,6 +56,7 @@ public class MannerService {
       
 	  // 매너평가하기
       mannerMapper.insertBadManner(manner);
+      System.out.println(manner.getMemberItemNo() + " <== memberItemNo..");
       // 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
       MemberTemp memberTemp = new MemberTemp();
       memberTemp.setMemberUniqueNo(manner.getMemberUniqueNo());
@@ -78,5 +80,10 @@ public class MannerService {
       memberTempTotalMapper.insertTempTotal(map);
       
       return 0;
+   }
+   
+   // 해당 아이템에 매너평가를 한 적이 있는지 체크 
+   public int mannerCheck(Manner manner) {
+	   return mannerMapper.mannerCheck(manner);
    }
 }

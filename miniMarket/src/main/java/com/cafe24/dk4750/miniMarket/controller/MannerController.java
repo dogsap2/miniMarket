@@ -22,14 +22,12 @@ public class MannerController {
 		int memberItemNo = itemSoldoutAndMemberItemAndMemberItemPic.getMemberItemNo();
 		String memberUniqueNo = itemSoldoutAndMemberItemAndMemberItemPic.getMemberUniqueNo();
 		String memberUniqueNoSale = itemSoldoutAndMemberItemAndMemberItemPic.getMemberUniqueNoSale();
-		String subUnique = memberUniqueNo.substring(1,6);
-		String subUniqueSale = memberUniqueNoSale.substring(1,6);
-		System.out.println(subUnique + " <== subUnique 디버깅");
-		System.out.println(subUniqueSale + " <== subUniqueSale 디버깅");
+		System.out.println(memberUniqueNo + " <== subUnique 디버깅");
+		System.out.println(memberUniqueNoSale + " <== subUniqueSale 디버깅");
 		System.out.println(memberItemNo + " <== memberItemNo 디버깅");
 		model.addAttribute("memberItemNo", memberItemNo);
-		model.addAttribute("subUnique", subUnique);
-		model.addAttribute("subUniqueSale", subUniqueSale);
+		model.addAttribute("memberUniqueNo", memberUniqueNo);
+		model.addAttribute("memberUniqueNoSale", memberUniqueNoSale);
 		
 		return "addManner";
 	}
