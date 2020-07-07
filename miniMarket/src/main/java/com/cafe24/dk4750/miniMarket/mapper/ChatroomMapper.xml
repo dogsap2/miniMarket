@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ChatroomMapper">
+	<select id="selectChatroomOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+      SELECT
+         chatroom_no as chatroomNo,
+         member_unique_no as memberUniqueNo,
+         member_id as memberId
+      FROM mini_market_chatroom
+      WHERE chatroom_no = #{chatroomNo}
+    </select>
+	<!-- 채팅방 유무 체크 -->
+	<select id="selectChatRoomCheck" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			mini_market_chatroom
+		WHERE 
+			member_item_no = #{memberItemNo}
+		AND
+			member_unique_no = #{memberUniqueNo}
+		AND
+			member_id = #{memberId}
+	</select>
+	<select id="selectChatRoomByMemberId" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+		SELECT
+			chatroom_no as chatroomNo,
+			member_unique_no as memberUniqueNo,
+			member_id as memberId,
+			chatroom_check as chatroomCheck,
+			chatroom_active as chatroomActive,
+			member_item_no as memberItemNo
+		FROM mini_market_chatroom
+		WHERE 
+			member_unique_no = #{memberUniqueNo}
+		OR
+			member_id = #{memberId}
+	</select>
+
+	<select id="selectMaxNum" resultType="int">
+		SELECT 
+			max(chatroom_no)
+		FROM 
+			mini_market_chatroom
+	</select>
+	<insert id="insertChatRoom" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+		INSERT INTO mini_market_chatroom(
+			member_unique_no,
+			member_id,
+			chatroom_check,
+			chatroom_active,
+			member_item_no
+		) VALUES (
+			#{memberUniqueNo},
+			#{memberId},
+			#{chatroomCheck},
+			#{chatroomActive},
+			#{memberItemNo}
+		)
+	</insert>
+</mapper>

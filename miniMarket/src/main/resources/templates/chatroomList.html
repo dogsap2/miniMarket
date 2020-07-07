@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <table border="1">
+  	<tr>
+  		<td>방번호</td>
+  		<td>아이템 번호</td>
+  		<td>상대방 이름</td>
+  		<td>활성화 상태</td>
+  	</tr>
+  	<tr th:each="list : ${list}">
+  		<td th:text="${list.chatroomNo}"></td>
+  		<td th:text="${list.memberItemNo}"></td>
+  		<td><a th:href="@{chatRoom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId}"></a></td>
+  		<td th:text="${list.chatroomCheck}"></td>
+  	</tr>
+  </table>
+</body>
+</html>

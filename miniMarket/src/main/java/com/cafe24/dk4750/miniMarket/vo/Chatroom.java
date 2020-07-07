@@ -6,8 +6,7 @@ public class Chatroom {
 	private String memberId;
 	private String chatroomCheck;
 	private String chatroomActive;
-	
-	// 겟터 셋터
+	private int memberItemNo;
 	public int getChatroomNo() {
 		return chatroomNo;
 	}
@@ -38,11 +37,21 @@ public class Chatroom {
 	public void setChatroomActive(String chatroomActive) {
 		this.chatroomActive = chatroomActive;
 	}
-	
-	// toString
+	public int getMemberItemNo() {
+		return memberItemNo;
+	}
+	public void setMemberItemNo(int memberItemNo) {
+		this.memberItemNo = memberItemNo;
+	}
 	@Override
 	public String toString() {
 		return "Chatroom [chatroomNo=" + chatroomNo + ", memberUniqueNo=" + memberUniqueNo + ", memberId=" + memberId
-				+ ", chatroomCheck=" + chatroomCheck + ", chatroomActive=" + chatroomActive + "]";
+				+ ", chatroomCheck=" + chatroomCheck + ", chatroomActive=" + chatroomActive + ", memberItemNo="
+				+ memberItemNo + "]";
 	}
+	
+	
+	
+	
+	
 }
