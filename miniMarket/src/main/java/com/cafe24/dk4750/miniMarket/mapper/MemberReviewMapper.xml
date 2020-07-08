@@ -10,11 +10,13 @@
 				member_review_content,
 				member_id,
 				member_unique_no,
+				member_item_no,
 				member_review_date
 			) VALUES (
 				#{memberReviewContent},
 				#{memberId},
 				#{memberUniqueNo},
+				#{memberItemNo},
 				NOW()			
 			)
 	</insert>

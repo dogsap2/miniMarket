@@ -11,6 +11,8 @@
 			$('#form').submit();
 			alert("리뷰작성이 완료되었습니다.");
 			window.close();
+			opener.parent.location='http://localhost/getBuyListByMember';
+   			opener.parent.location.reload();
 		});
 	});
 </script>
@@ -32,6 +34,7 @@
 		</table>
 		<input type="hidden" name="memberUniqueNo" id="memberUniqueNo" th:value="${memberReview.memberUniqueNo}">
 		<input type="hidden" name="memberUniqueNoSale" id="memberUniqueNoSale" th:value="${memberReview.memberUniqueNoSale}">
+		<input type="hidden" name="memberItemNo" id="memberItemNo" th:value="${memberReview.memberItemNo}">
 		<button type="button" id="btn">리뷰작성</button>
 	</form>
 </body>

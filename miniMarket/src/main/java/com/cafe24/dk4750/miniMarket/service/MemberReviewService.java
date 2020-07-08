@@ -26,6 +26,9 @@ public class MemberReviewService {
 		
 		// 판매자
 		memberReview.setMemberUniqueNo(memberReview.getMemberUniqueNoSale());
+		System.out.println(memberReview + "<== 인설트 리뷰 서비스");
+		
+		System.out.println(memberReview + " <== memberReview / 리뷰 서비스");
 		
 		return memberReviewMapper.insertReview(memberReview);
 	}

@@ -37,9 +37,9 @@
 						},
 						type:'get',
 						success : function(data) {
-							console.log(data)
+							console.log(data + " = mannerCheck data")
 							if(data==1){
-								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+								$('#mannerBtn'+item.memberItemNo).prop("disabled", true);
 							}
 							
 							if(data==0){
@@ -53,17 +53,14 @@
 						url:'/reviewCheck',
 						data:{
 							memberItemNo:item.memberItemNo,
-							memberUniqueNo:item.memberUniqueNoSale,
-							memberItemNo:item.memberItemNo
+							memberUniqueNo:item.memberUniqueNo,
+							memberUniqueNoSale:item.memberUniqueNoSale
 						},
 						type:'get',
 						success : function(data) {
-							console.log(data)
+							console.log(data + " = reviewCheck data")
+							console.log(item.memberItemNo + " <== item.memberItemNo");
 							if(data==1){
-								$('#mannerBtn'+item.memberItemNo).prop("disabled", true);
-							}
-							
-							if(data==0){
 								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
 							}
 						}

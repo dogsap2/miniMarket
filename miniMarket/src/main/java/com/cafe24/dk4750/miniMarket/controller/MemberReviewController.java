@@ -26,7 +26,10 @@ public class MemberReviewController {
 	//리뷰 인서트 포스트 맵핑
 	@PostMapping("/addReview")
 	public void addReview(MemberReview memberReview) {
+		System.out.println("addReview post매핑 스타트");
 		System.out.println(memberReview+"<== 리뷰 작성 하기 포스트맵핑  값확인");
+		
+		// addReview 서비스
 		memberReviewService.addReview(memberReview);
 	}
 }
