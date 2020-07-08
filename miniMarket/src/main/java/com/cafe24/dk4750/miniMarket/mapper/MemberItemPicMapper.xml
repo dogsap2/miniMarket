@@ -24,6 +24,7 @@
 				NOW()
 			)
 	</insert>
+	
 	<!-- 멤버 아이템 사진 수정하기.. 기존 사진 이름가져오기 폼 -->
 	<select id="selectMemberItemPicName" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemPic">
 		SELECT

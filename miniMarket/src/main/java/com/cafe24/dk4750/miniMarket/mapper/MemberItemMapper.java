@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPicAndMemberItemLike;
 
 @Mapper
 public interface MemberItemMapper {
@@ -44,4 +45,7 @@ public interface MemberItemMapper {
 	
 	// 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기
 	public int selectMaxPlusMemberItemNo();
+	
+	// 내가 좋아요 한 멤버 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> selectMyLikeItem(Map<String, Object> map);
 }

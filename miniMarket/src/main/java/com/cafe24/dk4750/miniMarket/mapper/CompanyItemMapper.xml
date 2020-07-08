@@ -3,7 +3,140 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.CompanyItemMapper">
-	<!-- <insert id="" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItem">
-		
-	</insert> -->
+	
+	<!-- 업체 아이템 추가(한번만 가능) -->
+	<insert id="insertCompanyItem" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItem">
+		INSERT INTO mini_market_company_item(
+				company_unique_no,
+				company_item_title,
+				category_name,
+				company_phone,
+				company_item_price,
+				company_item_content,
+				company_item_state,
+				company_item_date
+			) VALUES (
+				#{companyUniqueNo},
+				#{companyItemTitle},
+				#{categoryName},
+				#{companyPhone},
+				#{companyItemPrice},
+				#{companyItemContent},
+				#{companyItemState},
+				NOW()		
+			)	
+	</insert> 
+	
+	<!-- 업체 아이템 삭제(비활성화) -->
+	<update id="disabledCompanyItem" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItem">
+		UPDATE mini_market_company_item
+		SET company_item_state = #{companyItemState}
+		WHERE company_item_no = #{companyItemNo}
+	</update>
+	
+	<!-- 업체 아이템 수정을 위한 기존 값 가져오기 -->
+	<!-- 업체 아이템 상세보기 -->
+	<select id="selectCompanyItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItem" parameterType="int">
+		SELECT 
+			company_item_no AS companyItemNo,
+			company_unique_no AS companyUniqueNo,
+			company_item_title AS companyItemTitle,
+			category_name AS categoryName,
+			company_item_price AS companyItemPrice,
+			company_item_content AS companyItemContent,
+			company_item_state AS companyItemState,
+			company_item_date AS companyItemDate
+		FROM mini_market_company_item
+		WHERE company_item_no = #{companyItemNo}
+	</select>
+	
+	<!-- 업체 아이템 수정 (액션)-->
+	<update id="updateCompanyItem" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItem">
+		UPDATE mini_market_company_item
+		SET
+			company_item_title = #{companyItemTitle},
+			category_name = #{categoryName},
+			company_item_price = #{companyItemPrice},
+			company_item_content = #{companyItemContent}
+		WHERE company_item_no = #{companyItemNo}
+	</update>
+	
+	<!-- 홍보중인  업체 리스트 -->
+	<select id="selectCompanyItemList" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic" parameterType="Map">
+		SELECT 
+			ci.company_item_no AS companyItemNo,
+			ci.company_item_title AS companyItemTitle,
+			ci.company_phone AS companyPhone,
+			ci.company_item_date AS companyItemDate,
+			ci.company_unique_no AS companyUniqueNo,
+			c.company_sigungu AS companySigungu,
+			c.company_bname AS companyBname,
+			cip.company_item_pic1 AS companyItemPic1
+		FROM mini_market_company_item AS ci
+		INNER JOIN mini_market_company AS c
+		ON ci.company_unique_no = c.company_unique_no
+		INNER JOIN mini_market_company_item_pic AS cip
+		ON ci.company_item_no = cip.company_item_no
+		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND ci.company_item_state = "홍보"
+		AND c.company_sigungu = #{companySigungu}
+		AND c.company_bname = #{companyBname}
+		ORDER BY ci.company_item_no DESC
+		LIMIt #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 카테고리별 홍보중인  업체 리스트 -->
+	<select id="selectCompanyItemListByCategory" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic" parameterType="Map">
+		SELECT 
+			ci.company_item_no AS companyItemNo,
+			ci.company_item_title AS companyItemTitle,
+			ci.company_phone AS companyPhone,
+			ci.company_item_date AS companyItemDate,
+			ci.company_unique_no AS companyUniqueNo,
+			c.company_sigungu AS companySigungu,
+			c.company_bname AS companyBname,
+			cip.company_item_pic1 AS companyItemPic1
+		FROM mini_market_company_item AS ci
+		INNER JOIN mini_market_company AS c
+		ON ci.company_unique_no = c.company_unique_no
+		INNER JOIN mini_market_company_item_pic AS cip
+		ON ci.company_item_no = cip.company_item_no
+		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND ci.company_item_state = "홍보"
+		AND c.company_sigungu = #{companySigungu}
+		AND c.company_bname = #{companyBname}
+		AND ci.category_name = #{categoryName}
+		ORDER BY ci.company_item_no DESC
+		LIMIt #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 내가 좋아요 한 업체 아이템 리스트 출력 -->
+	<select id="selectMyLikeCompanyItem" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLike" parameterType="Map">
+		SELECT 
+			ci.company_item_no AS companyItemNo,
+			ci.company_item_title AS companyItemTitle,
+			ci.company_phone AS companyPhone,
+			ci.company_item_date AS companyItemDate,
+			ci.company_unique_no AS companyUniqueNo,
+			c.company_sigungu AS companySigungu,
+			c.company_bname AS companyBname,
+			cip.company_item_pic1 AS companyItemPic1
+		FROM mini_market_company_item AS ci
+		INNER JOIN mini_market_company AS c
+		ON ci.company_unique_no = c.company_unique_no
+		INNER JOIN mini_market_company_item_pic AS cip
+		ON ci.company_item_no = cip.company_item_no
+		INNER JOIN mini_market_company_item_like AS cil 
+	    ON ci.company_item_no = cil.company_item_no
+		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND ci.company_item_state = "홍보"
+		AND c.company_sigungu = #{companySigungu}
+		AND c.company_bname = #{companyBname}
+		AND cil.like_active = '0'
+		ORDER BY ci.company_item_no DESC
+		LIMIt #{beginRow}, #{rowPerPage}
+	</select>
 </mapper>

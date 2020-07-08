@@ -20,8 +20,8 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
 @Controller
 public class MemberItemController {
-	@Autowired MemberItemService memberItemService;
-	@Autowired CheckLikeService checkLikeService;
+	@Autowired private MemberItemService memberItemService;
+	@Autowired private CheckLikeService checkLikeService;
 	
 	
 	  // 구매자의 구매완료 아이템 리스트
