@@ -49,14 +49,32 @@
 		INNER join
 			mini_market_member m
 		ON
-			m.member_unique_no = c.member_unique_no
+			m.member_id = c.member_id
 		WHERE 
 			c.member_unique_no = #{memberUniqueNo}
 		OR
 			c.member_id = #{memberId}
 
-	</select>
 
+
+	</select>
+	<select id="selectChatRoomByMemberUniqueNo" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+		SELECT
+			c.member_unique_no AS memberUniqueNo,
+			m.member_nickname AS memberNickname
+		FROM
+			mini_market_chatroom c
+		INNER JOIN
+			mini_market_member_item i
+		ON
+			c.member_item_no = i.member_item_no
+		INNER join
+			mini_market_member m
+		ON
+			m.member_unique_no = c.member_unique_no
+		WHERE 
+			c.member_id = #{memberId}
+	</select>
 	<select id="selectMaxNum" resultType="int">
 		SELECT 
 			max(chatroom_no)

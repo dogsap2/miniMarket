@@ -58,7 +58,7 @@ public class ChatroomController {
 		return "chatroomList";
 	}
 	
-	@PostMapping("/chatRoom")
+	@PostMapping("/chatroom")
 	public String addChatRoom(/*세션으로 받*/ @RequestParam("memberId") String memberId/*받는 사람*/, Model model, HttpSession session) {
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		System.out.println(memberUniqueNo);

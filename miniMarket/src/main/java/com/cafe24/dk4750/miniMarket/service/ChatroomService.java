@@ -17,6 +17,10 @@ public class ChatroomService {
 	@Autowired
 	private ChatroomMapper chatroomMapper;
 	
+	public List<Chatroom> getChatRoomListByMemberUniqueNo(String memberId){
+		return chatroomMapper.selectChatRoomByMemberUniqueNo(memberId);
+	}
+	
 	public int modifyChatroomDisconnect(Chatroom chatroom) {
 	      return chatroomMapper.updateChatroomDisconnect(chatroom);
 	   }

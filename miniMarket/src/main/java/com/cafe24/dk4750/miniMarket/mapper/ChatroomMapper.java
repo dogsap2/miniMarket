@@ -15,4 +15,5 @@ public interface ChatroomMapper {
 	public int selectMaxNum();
 	public Chatroom selectChatroomOne(int chatroomNo);
 	public int updateChatroomDisconnect(Chatroom chatroom);
+	public List<Chatroom> selectChatRoomByMemberUniqueNo(String memberId);
 }

@@ -31,7 +31,7 @@ public class ChatController {
 	private ChatService chatService;
 	
 	
-	@GetMapping("/chatRoom")
+	@GetMapping("/chatroom")
 	public String getChatRoom(HttpSession session, Model model, @RequestParam("chatroomNo") int chatroomNo) {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:login";
@@ -48,7 +48,7 @@ public class ChatController {
 		model.addAttribute("MymemberId", chatroom.getMemberId());
 		model.addAttribute("list", list);
 
-		return "chatRoom";
+		return "chatroom";
 	}
 	
 	@PostMapping("/addMessage")
