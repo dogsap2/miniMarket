@@ -178,13 +178,16 @@
 	      	member_id = #{memberId}
    </select>
   
-	<!-- 로그인 유효성 검사 -->
+	<!-- 로그인 유효성 검사,세션에 담기 -->
 	<select id="selectLoginMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
 		SELECT
 			member_id as memberId,
 			member_pw as memberPw,
 			member_unique_no as memberUniqueNo,
-			member_nickname as memberNickname
+			member_nickname as memberNickname,
+			member_sido as memberSido,
+		    member_sigungu as memberSigungu,
+		    member_bname as memberBname
 		FROM
 			mini_market_member
 		WHERE 

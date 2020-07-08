@@ -143,11 +143,7 @@ public class MemberService {
 
 	}
 	
-	//회원 정보 입력, 회원가입  
-	public int insertMember(Member member) {
-		return 0;		
-	}
-	
+
 	//회원 비밀번호 수정 
 	public int updateMemberPw(LoginMember loginMember) {
 		int row = memberMapper.updateMemberPw(loginMember);

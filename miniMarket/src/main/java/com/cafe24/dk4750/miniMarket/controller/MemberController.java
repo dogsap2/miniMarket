@@ -278,6 +278,7 @@ public class MemberController {
 			model.addAttribute("msg","아이디와 비밀번호를 확인하세요");
 			return "loginMember"; 
 		}else{//로그인 성공시 (디비에 결과값 있으면 회원임)
+			//세션에 담기
 			session.setAttribute("loginMember", returnLoginMember);
 			return "redirect:/index"; // 홈으로감  
 		}	

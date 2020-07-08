@@ -5,8 +5,9 @@ public class LoginMember {
 	private String memberPw; 
 	private String memberUniqueNo;
 	private String memberNickname;
-	
-	
+	private String memberSido;
+	private String memberSigungu;
+	private String memberBname;
 	public String getMemberId() {
 		return memberId;
 	}
@@ -25,18 +26,35 @@ public class LoginMember {
 	public void setMemberUniqueNo(String memberUniqueNo) {
 		this.memberUniqueNo = memberUniqueNo;
 	}
-	
 	public String getMemberNickname() {
 		return memberNickname;
 	}
-	public void setMemberNickname(String memberNicname) {
-		this.memberNickname = memberNicname;
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
+	public String getMemberSido() {
+		return memberSido;
+	}
+	public void setMemberSido(String memberSido) {
+		this.memberSido = memberSido;
+	}
+	public String getMemberSigungu() {
+		return memberSigungu;
+	}
+	public void setMemberSigungu(String memberSigungu) {
+		this.memberSigungu = memberSigungu;
+	}
+	public String getMemberBname() {
+		return memberBname;
+	}
+	public void setMemberBname(String memberBname) {
+		this.memberBname = memberBname;
 	}
 	@Override
 	public String toString() {
 		return "LoginMember [memberId=" + memberId + ", memberPw=" + memberPw + ", memberUniqueNo=" + memberUniqueNo
-				+ ", memberNickname=" + memberNickname + "]";
+				+ ", memberNickname=" + memberNickname + ", memberSido=" + memberSido + ", memberSigungu="
+				+ memberSigungu + ", memberBname=" + memberBname + "]";
 	}
-	
 	
 }
