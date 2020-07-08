@@ -83,7 +83,7 @@
 		AND member_pw = PASSWORD(#{memberPw})		
 	</select>
 	
-	 <!-- 탈퇴하기 -->
+	 <!-- 탈퇴시 정보 변경-->
 	 <update id="deleteMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
 	    UPDATE mini_market_member
 		SET 
@@ -91,10 +91,10 @@
 			member_sido = "x",
 		    member_sigungu = "x",
 		    member_bname = "x",
-			member_phone = "x",
+			member_phone = NULL,
 			member_pw = "x",
 			member_nickname = "x",
-        	member_email = "x",
+        	member_email = NULL,
          	member_date = now()
 		WHERE
 			member_id = #{memberId}	
@@ -112,8 +112,39 @@
 			member_id = #{memberId}
 		AND member_pw = PASSWORD(#{memberPw})		
 	</select>
-	 
-	 
+	
+	<!--자진 탈퇴 백업하기 -->
+	<insert id="insertMemberBackUp" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
+	 INSERT INTO mini_market_member_backup(	 	
+	 	member_id, 
+	 	member_unique_no,
+	 	member_date	 	
+	 )VALUES(
+	  	#{memberId},
+	  	#{memberUniqueNo},
+	  	now()
+	 )
+	</insert>
+	
+	<!--탈퇴시 memberPic 삭제  -->
+ 	<delete id="deleteMemberPic" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
+		 DELETE FROM mini_market_member_pic
+		 WHERE member_id = #{memberId}	  
+	</delete> 
+	
+	<!-- 탈퇴시 memberTempTotal 삭제 -->	 	
+	<delete id="deleteMemberTempTotal" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
+		DELETE FROM mini_market_member_temp_total
+		WHERE member_unique_no = #{memberUniqueNo}	  
+	</delete> 
+	
+	<!-- 탈퇴시 memberTemp삭제 -->
+	<delete id="deleteMemberTemp" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
+		DELETE FROM mini_market_member_temp
+		WHERE member_unique_no = #{memberUniqueNo}	  
+	</delete> 	 
+	
+
 	<!--나의 정보 수정(이름,전화번호,주소(동네))-->
 	<update id="updateMemberOne" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">
 		UPDATE mini_market_member
@@ -161,8 +192,18 @@
 		AND member_pw = PASSWORD(#{memberPw})		
 	</select>
 	
+	<!--회원 가입시 온도 추가 -->
+	<insert id="insertMemberTemp" parameterType="String">
+		INSERT INTO mini_market_member_temp_total(	 	
+	 		member_unique_no, 
+	 		member_temp_date	 	
+		 )VALUES(
+	  		#{memberUniqueNo},
+	  		now()
+		 )
+	</insert>	 	
 	
-	<!-- 이메일 중복확인 -->
+	<!--회원 가입시 이메일 중복확인 -->
 	<select id="selectMemberEmail" parameterType="String" 	resultType="String">
 		SELECT 
 			member_email as memberEmail
@@ -180,7 +221,7 @@
 		 
 	</select>	
 	
-	<!-- 핸드폰 중복확인 -->
+	<!--회원 가입시 핸드폰 중복확인 -->
 	<select id="selectMemberPhone" parameterType="String" 	resultType="String">		
       SELECT 
       	member_phone
@@ -192,7 +233,7 @@
       WHERE member_phone = #{checkMemberPhone}
 	</select>	
 	
-	<!-- 멤버 아이디 중복확인 -->
+	<!--회원 가입시 멤버 아이디 중복확인 -->
 	<select id="selectMemberId" parameterType="String" resultType="String">
 		SELECT 
 		   member_id as memberId 
@@ -209,23 +250,23 @@
 		
 	<!--회원가입 멤버 디폴트 사진추가 -->
 	<insert id="insertMemberPic" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberPic">
-	 INSERT INTO mini_market_member_pic(	 	
-	 	member_id, 
-	 	pic_date	 	
-	 )VALUES(
-	  	#{memberId},
-	  	now()
-	 )
+		 INSERT INTO mini_market_member_pic(	 	
+		 	member_id, 
+		 	pic_date	 	
+		 )VALUES(
+		  	#{memberId},
+		  	now()
+		 )
 	</insert>
 	
-	<!-- 고유번호추출 -->
+	<!--회원가입시 고유번호추출 -->
 	<select id="selectMemberUniqueNo" resultType="String">
 	SELECT 
 	CONCAT('m',(SELECT LPAD(COUNT(*)+1,6,'0')
 	FROM mini_market_member))
 	</select>
 	
-	<!-- 멤머 정보 입력, 회원가입  -->
+	<!--회원가입  , 멤머 정보 입력 -->
 	<insert id="insertMember" parameterType="com.cafe24.dk4750.miniMarket.vo.Member">
 		INSERT INTO mini_market_member(
          member_id,

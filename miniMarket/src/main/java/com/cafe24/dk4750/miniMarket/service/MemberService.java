@@ -31,18 +31,20 @@ public class MemberService {
 	private String path;
 	
 	
-	//회원탈퇴 서비스
+	//회원탈퇴 
 	public String removeMember(LoginMember loginMember) {
 		String check = memberMapper.selectMemberPw(loginMember);
 		if(check!=null) {
+			memberMapper.insertMemberBackUp(loginMember);
+			memberMapper.deleteMemberPic(loginMember);
 			memberMapper.deleteMember(loginMember);
+			memberMapper.deleteMemberTemp(loginMember);
+			memberMapper.deleteMemberTempTotal(loginMember); 
 			check="탈퇴성공";
 		}
 		System.out.println(check+"<--check값 2면 탈퇴성공");
 		return check;
 	}
-	
-	
 	
 	
 	//멤버사진과 닉네임 사진 수정 
@@ -186,6 +188,8 @@ public class MemberService {
 			//회원가입 완료되면 사진 넣기 
 			memberMapper.insertMemberPic(member.getMemberId());				
 			System.out.println(memberPw+"<--임시 비밀번호 들어갔는지 확인 memberPw");
+			//온도넣기
+			memberMapper.insertMemberTemp(member.getMemberUniqueNo());
 			
 			//회원가입 완료되면 생성된 임시 비번 메일로 보내주기 
 			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();

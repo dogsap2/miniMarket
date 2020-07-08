@@ -12,7 +12,6 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 @Mapper
 public interface MemberMapper {	
 		
-	
 
 	//고유번호 가져오기(카운트후  m+1)
 	public String selectMemberUniqueNo();
@@ -35,11 +34,23 @@ public interface MemberMapper {
 	//나의 정보수정(이름,전화번호,주소(동네))
 	public int updateMemberOne(Member member);
 	
-	//회원 탈퇴 
+	//회원 탈퇴(회원탈퇴하면 멤버 정보 업데이트됨)
 	public int deleteMember(LoginMember loginMember);
 		
 	//회원 탈퇴시 비밀번호 확인
 	public String selectMemberPw(LoginMember loginMember);
+	
+	//회원탈퇴시 백업 
+	public int insertMemberBackUp(LoginMember loginMember);
+	
+	//회원탈퇴시 멤버 프로필 사진 삭제 
+	public int deleteMemberPic(LoginMember loginMember);
+	
+	//회원탈퇴시 멤버 temptotal 삭제
+	public int deleteMemberTempTotal(LoginMember loginMember);
+
+	//회원탈퇴시 멤버 temp삭제
+	public int deleteMemberTemp(LoginMember loginMember);
 	
 	//아이디 이메일 백업하기 고유번호 
 		
@@ -54,6 +65,9 @@ public interface MemberMapper {
 	
 	//비밀번호변경(현재 입력된 비밀번호 값 비교)
 	public String selectMemberPwId(LoginMember checkIdPw);
+	
+	//회원가입시 온도 넣기 
+	public int insertMemberTemp(String memberUniqueNo);
 	
 	//로그인하기 아이디 비번 일치하는지 확인 
 	public LoginMember selectLoginMember(LoginMember loginMember);   

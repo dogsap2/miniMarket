@@ -32,7 +32,7 @@ public class MemberController {
 		}				
 		return "removeMember";
 	}
-	//회원탈퇴 포스트
+	//회원탈퇴 액션
 	@PostMapping("/removeMember")
 	public String removeMember(HttpSession session,@RequestParam(value="memberPw") String memberPw,Model model) {
 		//로그인 상태가 아니면

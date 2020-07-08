@@ -182,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   		  	  			$('#memberEmailCheckHelper').text('이메일 중복, 사용불가');
 	   		  	  			$('#checkMemberEmail').focus();
 	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#memberEmailCheckHelper').text('');
+	   		  	  			$('#memberEmailCheckHelper').text('사용가능한 이메일 입니다');
 	   		  	  		}
 	   		  	  }
 	   		  });
@@ -400,7 +400,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!-- 나의 이름과 동네 주소 -->	
 					 이름:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="이름을  입력하세요" required=" "  name="memberName"><br>
 					닉네임:&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="닉네임  입력하세요" required=" "  name="memberNickname"><br>
-					 동네:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" id="address" placeholder="나의 동네 주소" name="memberAdress">
+					 동네:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" id="address" placeholder="나의 동네 주소" name="memberAdress" readonly="readonly">
 					<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="동네검색" name=""><br>
 					
 					<!-- 동네 주소값 히든으로 받아 넘기기  -->
