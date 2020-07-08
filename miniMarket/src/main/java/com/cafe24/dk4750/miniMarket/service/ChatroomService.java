@@ -30,18 +30,15 @@ public class ChatroomService {
 		list = chatroomMapper.selectChatRoomByMemberId(chatroom);
 		return list;
 	}
-	public int addChatRoom(Chatroom chatRoom) {
-		System.out.println(chatRoom);
-		int checkRoom = chatroomMapper.selectChatRoomCheck(chatRoom);
-		if(checkRoom == 1) {
+	public int addChatRoom(Chatroom chatroom) {
+		System.out.println(chatroom);
+		int checkroom = chatroomMapper.selectChatRoomCheck(chatroom);
+		System.out.println(checkroom + "채팅방 유무 체크");
+		if(checkroom > 0) {
 			return 0;
 		}else {
 			
-			int chatroomNo =  chatroomMapper.selectMaxNum();
-			System.out.println(chatroomNo + "<-- chatroomNo service");
-			chatRoom.setChatroomNo(chatroomNo);
-			
-			return chatroomMapper.insertChatRoom(chatRoom);
+			return chatroomMapper.insertChatRoom(chatroom);
 		}
 		 
 	}

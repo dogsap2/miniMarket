@@ -63,7 +63,7 @@ public class ChatroomController {
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		System.out.println(memberUniqueNo);
 		System.out.println(memberId);
-		int memberItemNo = 3;
+		int memberItemNo = 5;
 		String active = "disconnect"; 
 		Chatroom chatroom = new Chatroom();
 		chatroom.setMemberItemNo(memberItemNo);

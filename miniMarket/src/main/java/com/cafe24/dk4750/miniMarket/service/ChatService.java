@@ -16,6 +16,11 @@ public class ChatService {
 	@Autowired
 	private ChatMapper chatMapper;
 	
+	public List<String> getChatMemberId(int chatroomNo) {
+		
+		
+		return chatMapper.selectChatMemberId(chatroomNo);
+	}
 	public List<Chat> getChatList(int chatroomNo){
 		System.out.println(chatroomNo);
 		List<Chat> list = chatMapper.selectChatList(chatroomNo);

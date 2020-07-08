@@ -72,7 +72,6 @@
 		) VALUES (
 			#{memberUniqueNo},
 			#{memberId},
-			#{chatroomCheck},
 			#{chatroomActive},
 			#{memberItemNo}
 		)

@@ -10,4 +10,5 @@ import com.cafe24.dk4750.miniMarket.vo.Chat;
 public interface ChatMapper {
 	public List<Chat> selectChatList(int chatroomNo);
 	public int insertChatList(Chat chat);
+	public List<String> selectChatMemberId(int chatroomNo);
 }

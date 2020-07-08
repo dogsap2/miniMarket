@@ -1,5 +1,6 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,11 +36,18 @@ public class ChatController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:login";
 		}
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
 		System.out.println(chatroomNo);
+		List<String> list = chatService.getChatMemberId(chatroomNo);
+		System.out.println(list + "<--출력");
 		Chatroom chatroom = chatroomService.getChatRoomOne(chatroomNo);
 		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("memberNickname", memberNickname);
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("MymemberId", chatroom.getMemberId());
+		model.addAttribute("list", list);
+
 		return "chatRoom";
 	}
 	
