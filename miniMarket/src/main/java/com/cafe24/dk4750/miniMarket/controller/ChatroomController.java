@@ -61,11 +61,13 @@ public class ChatroomController {
 	@PostMapping("/chatroom")
 	public String addChatRoom(/*세션으로 받*/ @RequestParam("memberId") String memberId/*받는 사람*/, Model model, HttpSession session) {
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
+		String nickName = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
 		System.out.println(memberUniqueNo);
 		System.out.println(memberId);
 		int memberItemNo = 5;
 		String active = "disconnect"; 
 		Chatroom chatroom = new Chatroom();
+		chatroom.setMemberNickname(nickName);
 		chatroom.setMemberItemNo(memberItemNo);
 		chatroom.setMemberUniqueNo(memberUniqueNo);
 		chatroom.setMemberId(memberId);

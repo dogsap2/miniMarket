@@ -24,12 +24,11 @@
 				<td>채팅방 상태</td>
 				<td>판매 / 구매</td>
 			</tr>
-			
 			<tr th:each="list : ${list}">
 				<td th:text="${list.chatroomNo}"></td>
 				<td th:text="${list.memberItemTitle}"></td>
 				<td th:if="${list.chatroomActive} == connect">
-				<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.memberNickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
+				<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickName} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 				</td>
 				<td th:unless="${list.chatroomActive} == connect" th:text="${list.memberNickname}"></td>
 				
@@ -37,7 +36,7 @@
 				<td th:if="${list.chatroomActive} == connect">채팅 활성</td>
 				<td th:if="${list.chatroomActive} != connect">채팅 비활성</td>
 				
-				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect"><button type="button" disabled="disabled">연결대기</button></td>
+				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect"><button type="button" disabled="disabled">구매중</button></td>
 				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect"><button type="button" disabled="disabled">연결대기</button></td>
 				
 				<td th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect"><a th:href="@{modifyChatroomActive(chatroomNo = ${list.chatroomNo})}" class="btn">채팅연결</a></td>

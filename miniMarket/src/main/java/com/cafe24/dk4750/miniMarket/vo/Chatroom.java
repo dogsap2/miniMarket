@@ -2,18 +2,24 @@ package com.cafe24.dk4750.miniMarket.vo;
 
 public class Chatroom {
 	private int chatroomNo;
+	private String nickName;
 	private String memberUniqueNo;
 	private String memberId;
 	private String chatroomActive;
 	private int memberItemNo;
 	private String memberItemTitle;
 	private String memberNickname;
-	
 	public int getChatroomNo() {
 		return chatroomNo;
 	}
 	public void setChatroomNo(int chatroomNo) {
 		this.chatroomNo = chatroomNo;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public String getMemberUniqueNo() {
 		return memberUniqueNo;
@@ -39,14 +45,12 @@ public class Chatroom {
 	public void setMemberItemNo(int memberItemNo) {
 		this.memberItemNo = memberItemNo;
 	}
-	
 	public String getMemberItemTitle() {
 		return memberItemTitle;
 	}
 	public void setMemberItemTitle(String memberItemTitle) {
 		this.memberItemTitle = memberItemTitle;
 	}
-	
 	public String getMemberNickname() {
 		return memberNickname;
 	}
@@ -55,11 +59,9 @@ public class Chatroom {
 	}
 	@Override
 	public String toString() {
-		return "Chatroom [chatroomNo=" + chatroomNo + ", memberUniqueNo=" + memberUniqueNo + ", memberId=" + memberId
-				+ ", chatroomActive=" + chatroomActive + ", memberItemNo=" + memberItemNo + ", memberItemTitle="
-				+ memberItemTitle + ", memberNickname=" + memberNickname + "]";
+		return "Chatroom [chatroomNo=" + chatroomNo + ", nickName=" + nickName + ", memberUniqueNo=" + memberUniqueNo
+				+ ", memberId=" + memberId + ", chatroomActive=" + chatroomActive + ", memberItemNo=" + memberItemNo
+				+ ", memberItemTitle=" + memberItemTitle + ", memberNickname=" + memberNickname + "]";
 	}
-	
-	
 	
 }

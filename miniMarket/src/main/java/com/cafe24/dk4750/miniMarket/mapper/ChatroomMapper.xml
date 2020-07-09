@@ -3,6 +3,17 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ChatroomMapper">
+	<select id="selectCustomerList" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+		SELECT
+			nickname as nickName,
+			member_unique_no as memberUniqueNo,
+			member_item_no as memberItemNo
+		FROM
+			mini_market_chatroom
+		WHERE
+			member_item_no = #{memberItemNo}
+			
+	</select>
 	<update id="updateChatroomDisconnect" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
       UPDATE 
          mini_market_chatroom 
@@ -15,6 +26,7 @@
       SELECT
          chatroom_no as chatroomNo,
          member_unique_no as memberUniqueNo,
+         nickname as nickName,
          member_id as memberId
       FROM mini_market_chatroom
       WHERE chatroom_no = #{chatroomNo}
@@ -36,6 +48,7 @@
 		SELECT
 			c.chatroom_no AS chatroomNo,
 			c.member_unique_no AS memberUniqueNo,
+			c.nickname as nickName,
 			c.chatroom_active AS chatroomActive,
 			c.member_id AS memberId,
 			i.member_item_title AS memberItemTitle,
@@ -60,7 +73,6 @@
 	</select>
 	<select id="selectChatRoomByMemberUniqueNo" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
 		SELECT
-			c.member_unique_no AS memberUniqueNo,
 			m.member_nickname AS memberNickname
 		FROM
 			mini_market_chatroom c
@@ -83,11 +95,13 @@
 	</select>
 	<insert id="insertChatRoom" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
 		INSERT INTO mini_market_chatroom(
+			nickname,
 			member_unique_no,
 			member_id,
 			chatroom_active,
 			member_item_no
 		) VALUES (
+			#{nickName},
 			#{memberUniqueNo},
 			#{memberId},
 			#{chatroomActive},

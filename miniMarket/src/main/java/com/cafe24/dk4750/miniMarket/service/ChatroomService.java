@@ -16,7 +16,9 @@ import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 public class ChatroomService {
 	@Autowired
 	private ChatroomMapper chatroomMapper;
-	
+	public List<Chatroom> getCustomerList(int memberItemNo) {
+		return chatroomMapper.selectCustomerList(memberItemNo);
+	}
 	public List<Chatroom> getChatRoomListByMemberUniqueNo(String memberId){
 		return chatroomMapper.selectChatRoomByMemberUniqueNo(memberId);
 	}

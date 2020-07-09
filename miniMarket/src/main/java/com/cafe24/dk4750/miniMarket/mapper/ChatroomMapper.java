@@ -9,6 +9,7 @@ import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 
 @Mapper
 public interface ChatroomMapper {
+	public List<Chatroom> selectCustomerList(int memberItemNo);
 	public int selectChatRoomCheck(Chatroom chatroom);
 	public List<Chatroom> selectChatRoomByMemberId(Chatroom chatroom);
 	public int insertChatRoom(Chatroom chatroom);
