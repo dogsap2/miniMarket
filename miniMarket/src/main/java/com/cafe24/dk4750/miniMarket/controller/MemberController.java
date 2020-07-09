@@ -314,16 +314,26 @@ public class MemberController {
 		}
 		model.addAttribute("msg",msg);
 		
-		
 		return "redirect:/index";				
 	}
 	
-	
+	//index 홈 
 	@GetMapping("/index")
 	public String index() {
 		return "index";		
 	}
 	
+	//회원가입 폼 
+	@GetMapping("/addMemeberAndCompany")
+	public String addMemberAndCompany(HttpSession session) {
+		if(session.getAttribute("loginMember")!= null){
+			return "redirect:/index";
+		}		
+		return "addMemeberAndCompany";
+		
+	}
+	
+
 	//나의 정보보기
 	@GetMapping("/getMemberOne")
 	public String getMemberOne(HttpSession session, Model model) {
@@ -334,25 +344,7 @@ public class MemberController {
 		Member member = memberService.selectMemberOne((LoginMember)(session.getAttribute("loginMember")));
 		System.out.println(member);
 		model.addAttribute("member",member);
-		return "getMemberOne";
-		
+		return "getMemberOne";		
 	}
-	
-	// 멤버 사진추가 
-	
-	//멤버 아이디 중복확인 
-	
-	// 로그인 유효성 검사
-	
-	
-	// 멤버사진 수정 
-	
-	// 탈퇴 
-
-	//멤버 백업 
-	
-	// 아이디 찾기
-	
-	//비번찾기
 	
 }

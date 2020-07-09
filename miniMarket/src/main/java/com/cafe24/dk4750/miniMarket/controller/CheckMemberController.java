@@ -22,8 +22,6 @@ public class CheckMemberController {
 		
 		//세션에 담긴 아이디 빼기 		
 		LoginMember checkIdPw = (LoginMember)(session.getAttribute("loginMember"));
-		//String memberId=checkIdPw.getMemberId();		
-		//checkIdPw.setMemberId(memberId);
 		checkIdPw.setMemberPw(checkMemberPw);
 		
 		System.out.println(checkIdPw.getMemberId()+"<-아이디 ");

@@ -1,0 +1,474 @@
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Registered :: w3layouts</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>	
+
+	
+
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            	console.log(data.sido);
+                console.log(data.sigungu);
+                console.log(data.bname);
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
+                }
+                document.getElementById("address").value = addr;
+                $('#companySido').val(data.sido);
+                $('#companySigungu').val(data.sigungu); 
+                $('#companyBname').val(data.bname); 
+            }
+        }).open();
+    }
+   
+    let helperInit = function(){
+    	$('#idHelper').text("");
+    	$('#pwHelper').text("");
+    	$('#nameHelper').text("");
+    	$('#addrHelper').text("");
+    	$('#phoneHelper').text("");
+    	$('#emailHelper').text("");
+    };
+
+
+    $(document).ready(function() { 
+    	$('#btn').click(function() {
+    		if($('#companyId').val().length < 4){	
+    			helperInit();
+    			$('#idHelper').text("id 4자이상");
+    			$('#memberId').focus();
+    			
+    		}else if($('#companyPw').val().length < 4){	
+    			helperInit();
+    			$('#pwHelper').text("pw 4자 이상 입력");
+    			$('#companyPw').focus();			
+    		}else if($('#companyPw').val()!= $('#companyPw2').val()) {
+    			helperInit();
+    			$('#pwHelper').text("pw를 확인하세요");
+    			$('#companyPw').focus();
+    		}else if($('#companyName').val().length === 0){ //0->공백 
+    			helperInit();
+    			$('#nameHelper').text("이름 입력하세요");
+    			$('#companyName').focus();
+    		}else if($('#companyCeoName').val().length === 0){
+    			helperInit();
+    			$('#addrHelper').text("ceo를 입력하세요");
+    			$('#companyCeoName').focus();
+    		}else if($('#companyPhone').val().length === 0){ 
+    			helperInit();
+    			$('#phoneHelper').text("전화번호 입력하세요");
+    			$('#companyPhone').focus();			
+    		}else if($('#companyEmail').val().length === 0){ 
+    			helperInit();
+    			$('#emailHelper').text("이메일을  입력하세요");
+    			$('#companyEmail').focus();			
+    		} else{
+    			$('#myform').submit();
+    		} 	
+    	});
+
+	   //아이디 중복 유효성 검사(비동기!!!)
+	   $('#checkCompanyId').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
+	      console.log('#checkCompanyId blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
+	   	  if($('#checkCompanyId').val().length <4){
+	   		  $('#companyIdCheckHelper').text('4글자이상');
+	   		  $('#checkCompanyId').focus();	 
+	   	  }else{
+	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
+	   		  $.ajax({
+	   			  url:'/checkCompanyId',
+	   			  type:'GET',
+	   		  	  data:{checkCompanyId:$('#checkCompanyId').val()},
+	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
+	   		  		  console.log(data); // 결과 콘솔창으로 확인   
+	   		  	  		if(data =='사용불가'){
+	   		  	  			$('#companyIdCheckHelper').text('아이디 중복 사용불가');
+	   		  	  			$('#checkCompanyId').focus();
+	   		  	  		}else if(data=='사용가능'){
+	   		  	  			$('#companyIdCheckHelper').text('사용 가능한 아이디입니다');
+	   		  	  		}
+	   		  	  }
+	   		  });
+	   	  }
+	   }); 
+	   
+	   //전화번호 중복 유효성 검사(비동기!!!)
+	   $('#checkCompanyPhone').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
+	      console.log('#checkCompanyPhone blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
+	   	  if($('#checkCompanyPhone').val().length <11){
+	   		  $('#companyPhoneCheckHelper').text('11글자이상');
+	   		  $('#checkCompanyPhone').focus();	 
+	   	  }else{
+	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
+	   		  $.ajax({
+	   			  url:'/checkCompanyPhone',
+	   			  type:'GET',
+	   		  	  data:{checkCompanyPhone:$('#checkCompanyPhone').val()},
+	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
+	   		  		  console.log(data);  
+	   		  	  		if(data =='사용불가'){
+	   		  	  			$('#companyPhoneCheckHelper').text('핸드폰번호 중복 사용불가');
+	   		  	  			$('#checkCompanyPhone').focus();
+	   		  	  		}else if(data=='사용가능'){
+	   		  	  			$('#companyPhoneCheckHelper').text('사용 가능한 전화번호입니다');
+	   		  	  		}
+	   		  	  }
+	   		  });
+	   	  }
+	   });   
+	   
+	   //이메일 중복 유효성 검사(비동기!!!)
+	   $('#checkCompanyEmail').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
+	      console.log('#checkCompanyEmail blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
+	   	  if($('#checkCompanyEmail').val().length <8){
+	   		  $('#companyEmailCheckHelper').text('메일형식으로 입력 하세요');
+	   		  $('#checkCompanyEmail').focus();	 
+	   	  }else{
+	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
+	   		  $.ajax({
+	   			  url:'/checkCompanyEmail',
+	   			  type:'GET',
+	   		  	  data:{checkCompanyEmail:$('#checkCompanyEmail').val()},
+	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
+	   		  		  console.log(data);  
+	   		  	  		if(data =='사용불가'){
+	   		  	  			$('#companyEmailCheckHelper').text('이메일 중복, 사용불가');
+	   		  	  			$('#checkCompanyEmail').focus();
+	   		  	  		}else if(data=='사용가능'){
+	   		  	  			$('#companyEmailCheckHelper').text('사용가능한 이메일 입니다');
+	   		  	  		}
+	   		  	  }
+	   		  });
+	   	  }
+	   });   
+   });        
+</script>
+</head>
+
+	
+<body>
+<!-- header -->
+	<div class="agileits_header">
+		<div class="container">
+			<div class="w3l_offers">
+				<p>미니마켓수정중</p>
+			</div>
+			<div class="agile-login">
+				<ul>
+				<!-- 					
+					<li><a th:href="@{/loginCompany}">로그인</a></li>
+					<li th:if="${session.loginCompany == null}">	
+						<a th:href="@{/addCompany}">회원가입</a>
+					</li>
+					<li><a href="contact.html">Help</a></li>
+				 -->	
+				</ul>
+			</div>
+			<div class="product_list_header">  
+					<form action="#" method="post" class="last"> 
+						<input type="hidden" name="cmd" value="_cart">
+						<input type="hidden" name="display" value="1">
+						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+					</form>  
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+	<div class="logo_products">
+		<div class="container">
+		<div class="w3ls_logo_products_left1">
+				<ul class="phone_email">
+					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+					
+				</ul>
+			</div>
+			<div class="w3ls_logo_products_left">
+				<h1><a th:href="@{/index}">Mini Market</a></h1>
+			</div>
+		<div class="w3l_search">
+			<form action="#" method="post">
+				<input type="search" name="Search" placeholder="Search for a Product..." required="">
+				<button type="submit" class="btn btn-default search" aria-label="Left Align">
+					<i class="fa fa-search" aria-hidden="true"> </i>
+				</button>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+			
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+<!-- //header -->
+<!-- navigation -->
+	<div class="navigation-agileits">
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header nav_2">
+					<button type="button"
+						class="navbar-toggle collapsed navbar-toggle1"
+						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+					<ul class="nav navbar-nav">
+						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
+						<!-- Mega Menu -->
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Groceries<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>All Groceries</h6>
+											<li><a href="groceries.html">Dals & Pulses</a></li>
+											<li><a href="groceries.html">Almonds</a></li>
+											<li><a href="groceries.html">Cashews</a></li>
+											<li><a href="groceries.html">Dry Fruit</a></li>
+											<li><a href="groceries.html"> Mukhwas </a></li>
+											<li><a href="groceries.html">Rice & Rice Products</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+
+						<li><a href="gourmet.html">Gourmet</a></li>
+						<li><a href="offers.html">Offers</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+
+	<!-- //navigation -->
+<!-- breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">회원가입</li>
+			</ol>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
+<!-- register -->
+	<div class="register">
+		<div class="container">
+			<h2>업체 회원가입</h2>
+			<div class="login-form-grids">
+				<h4><strong>회원가입 기본정보</strong></h4>
+				<br>
+				<!-- 회원가입 아이디 체크 -->
+				<form id="idForm" method="post" th:action="@{/addCompany}" >				
+					아이디:&nbsp;<input id="checkCompanyId" name="companyId" style="width:270px; display:inline;" type="text" placeholder="ID를 입력하세요"  required=" " ><br>					
+					<span id="companyIdCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 -->	<br>																
+				
+					<!-- 연락처 중복 확인 -->			
+					연락처:&nbsp;<input id="checkCompanyPhone"  name="companyPhone" style="width:270px; display:inline;" type="text" placeholder="연락처를 입력하세요" required=" " ><br>				
+					<span id="companyPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
+				
+					<!-- 이메일 중복확인 -->		
+					이메일:&nbsp;<input id="checkCompanyEmail" name="companyEmail" style="width:270px; display:inline;" type="email" placeholder="ex) ㅇㅇㅇ@naver.com" required=" "><br>					
+					<span id="companyEmailCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>						
+	
+					<!-- 업체 이름,CEO이름과 주소 -->	
+					ceo:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="CEO 이름을  입력하세요" required=" "  name="companyCeoName"><br>
+					업체명:&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="업체명을 입력하세요" required=" "  name="companyName"><br>
+					동네:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" id="address" placeholder="업체 주소" name="memberAdress" readonly="readonly">
+					<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="주소검색" name=""><br>
+					
+					<!-- 동네 주소값 히든으로 받아 넘기기  -->
+					<input type ="hidden" name="companySido" id="companySido">
+               	 	<input type ="hidden" name="companySigungu" id="companySigungu">
+                	<input type ="hidden" name="companyBname" id="companyBname">
+					
+					
+					<input type="submit" id="Form123" value="회원가입">
+					
+					<!--  <div class="register-check-box" 써먹을때있지않을까?>
+						<div class="check">
+							<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I accept the terms and conditions</label>
+						</div>
+					</div>
+					 -->
+				</form>
+			</div>
+			<div class="register-home">
+				<a th:href="@{/index}">Home</a>
+			</div>
+		</div>
+	</div>
+<!-- //register -->
+<!-- //footer -->
+<div class="footer">
+		<div class="container">
+			<div class="w3_footer_grids">
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Contact</h3>
+					
+					<ul class="address">
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block, <span>New York City.</span></li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
+						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Information</h3>
+					<ul class="info"> 
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="contact.html">Contact Us</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="short-codes.html">Short Codes</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="faq.html">FAQ's</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Special Products</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Category</h3>
+					<ul class="info"> 
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="groceries.html">Groceries</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="household.html">Household</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="personalcare.html">Personal Care</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="packagedfoods.html">Packaged Foods</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="beverages.html">Beverages</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Profile</h3>
+					<ul class="info"> 
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
+					</ul>
+					
+					
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		
+		<div class="footer-copy">
+			
+			<div class="container">
+				<p>© 2017 Super Market. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+			</div>
+		</div>
+		
+	</div>	
+	<div class="footer-botm">
+			<div class="container">
+				<div class="w3layouts-foot">
+					<ul>
+						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+				<div class="payment-w3ls">	
+					<img src="images/card.png" alt=" " class="img-responsive">
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+<!-- //footer -->	
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- top-header and slider -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+<script src="js/minicart.min.js"></script>
+<script>
+	// Mini Cart
+	paypal.minicart.render({
+		action: '#'
+	});
+
+	if (~window.location.search.indexOf('reset=true')) {
+		paypal.minicart.reset();
+	}
+</script>
+<!-- main slider-banner -->
+<script src="js/skdslider.min.js"></script>
+<link href="css/skdslider.css" rel="stylesheet">
+<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
+						
+			jQuery('#responsive').change(function(){
+			  $('#responsive_wrapper').width(jQuery(this).val());
+			});
+			
+		});
+</script>	
+<!-- //main slider-banner --> 
+
+</body>
+</html>

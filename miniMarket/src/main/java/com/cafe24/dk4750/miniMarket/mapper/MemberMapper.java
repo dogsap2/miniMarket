@@ -4,15 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
-import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
-
-
 
 @Mapper
 public interface MemberMapper {	
 		
-
 	//고유번호 가져오기(카운트후  m+1)
 	public String selectMemberUniqueNo();
 	
@@ -51,8 +47,6 @@ public interface MemberMapper {
 
 	//회원탈퇴시 멤버 temp삭제
 	public int deleteMemberTemp(LoginMember loginMember);
-	
-	//아이디 이메일 백업하기 고유번호 
 		
 	//아이디 찾기  
 	public String selectFindMemberId(Member member); 

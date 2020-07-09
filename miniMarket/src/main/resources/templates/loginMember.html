@@ -157,13 +157,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="password" placeholder="Password" required=" " name="memberPw" >
 					<div class="forgot">
 						<a th:href="@{/getFindMemberId }">Forgot ID?</a>
-						<a th:href="@{/getFindMemberPw}">Forgot Password?</a>						
-					</div>
+						<a th:href="@{/getFindMemberPw}">Forgot Password?</a>
+										
+					</div>	
+					<div style="display:inline;" align="right">
+						<a href="" class="btn btn-warning">업체 로그인</a>
+					</div>					
 					<input type="submit" value="Login">
 				</form>
 			</div>
 			<h4>For New People</h4>
-			<p><a th:href="@{/addMember}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			<p><a th:href="@{/addMemeberAndCompany}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->
