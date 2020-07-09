@@ -14,6 +14,16 @@
 			member_item_no = #{memberItemNo}
 			
 	</select>
+	
+	<update id="updateSoldOutItem" parameterType="int">
+     UPDATE 
+         mini_market_chatroom 
+      SET 
+         chatroom_active = 'disconnect'
+      WHERE 
+         member_item_no = #{memberItemNo}
+   </update>
+	
 	<update id="updateChatroomDisconnect" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
       UPDATE 
          mini_market_chatroom 
@@ -27,7 +37,8 @@
          chatroom_no as chatroomNo,
          member_unique_no as memberUniqueNo,
          nickname as nickName,
-         member_id as memberId
+         member_id as memberId,
+         member_item_no as memberItemNo
       FROM mini_market_chatroom
       WHERE chatroom_no = #{chatroomNo}
     </select>

@@ -3,13 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>add member item</title>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#btn').click(function(){
+			if($('#categoryName').val() == "") {
+				alert("카테고리 종류를 선택해주세요.");
+			} else {
+				$('#form').submit();
+			}
+		});
+	});
+</script>
 </head>
 <body>
-	<form method="post" th:action="@{/addMemberItem}" enctype="multipart/form-data">
+	<a th:href="@{/index}">home</a>
+	<form method="post" th:action="@{/addMemberItem}" enctype="multipart/form-data" id="form">
 		<table border="1">
-		
 			<tr>
-				<th>멤버 고유번호</th>
 				<th>제목</th>
 				<th>카테고리 이름</th>
 				<th>가격</th>
@@ -18,19 +30,19 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="text" name="memberUniqueNo" id="memberUniqueNo" th:value="test1">
-				</td>
-				<td>
 					<input type="text" name="memberItemTitle" id="memberItemTitle">
 				</td>
 				<td>
-					<input type="text" name="categoryName" id="categoryName" th:value="노트북">
+					<select name="categoryName" id="categoryName">
+						<option selected value="">상품의 카테고리를 선택해주세요.</option>
+						<option th:each="list : ${list}" th:value="${list.categoryName}" th:text="${list.categoryName}">
+					</select>
 				</td>
 				<td>
 					<input type="text" name="memberItemPrice" id="memberItemPrice">
 				</td>
 				<td>
-					<textarea rows="5" cols="10" name="memberItemContent" id="memberItemContent"></textarea>
+					<textarea rows="10" cols="30" name="memberItemContent" id="memberItemContent"></textarea>
 				</td>
 				<td>
 					<input type="file" name="memberItemPic1" id="memberItemPic1"><br>
@@ -42,7 +54,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="submit">추가</button>
+					<button type="button" id="btn">추가</button>
 				</td>
 			</tr>
 		</table>

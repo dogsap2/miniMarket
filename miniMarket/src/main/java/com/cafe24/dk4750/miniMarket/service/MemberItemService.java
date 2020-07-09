@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.dk4750.miniMarket.mapper.ChatroomMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemPicMapper;
 import com.cafe24.dk4750.miniMarket.mapper.SoldoutMapper;
+import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
@@ -27,15 +33,18 @@ public class MemberItemService {
 	@Autowired private MemberItemMapper memberItemMapper;
 	@Autowired private MemberItemPicMapper memberItemPicMapper;
 	@Autowired private SoldoutMapper soldoutMapper;
+	@Autowired private ChatroomMapper chatroomMapper;
 	@Value("D:\\spring_work\\maven.1593421934386\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
+	
 	// 구매자의 구매완료 리스트
-	public List<ItemSoldout> getBuyListByMember() {
+	public List<ItemSoldout> getBuyListByMember(HttpSession session) {
 		
-		// 임시유니크넘버
-		String memberUniqueNo = "test2";
-		// 임시로 설정한 유니크넘버 번호
+		// 세션에서 받아온 유니크넘버
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberUniqueNo = loginMember.getMemberUniqueNo();
+		
 		int beginRow = 0;
 		int rowPerPage = 10;
 		String searchWord = "";
@@ -52,13 +61,15 @@ public class MemberItemService {
 	}
 	
 	// 나의 판매완료 목록 리스트
-	public List<MemberItemAndMemberAndMemberItemPic> getItemListBySaleMyItem() {
+	public List<MemberItemAndMemberAndMemberItemPic> getItemListBySaleMyItem(HttpSession session) {
 		
 		// 임시로 설정한 유니크넘버 번호
 		int beginRow = 0;
 		int rowPerPage = 10;
 		String searchWord = "";
-		String memberUniqueNo = "test1";
+		// 세션에서 유니크넘버꺼내주기
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberUniqueNo = loginMember.getMemberUniqueNo();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberUniqueNo", memberUniqueNo);
 		map.put("beginRow", beginRow);
@@ -70,38 +81,43 @@ public class MemberItemService {
 		
 		return list;
 	}
+	
 	// 판매자의 판매중인 아이템 판매완료로 수정
-	public int itemSalesComplete(MemberItem memberItem) {
+	public int itemSalesComplete(int memberItemNo , String memberUniqueNo) {
 		
-		// 임시로 멤버아이템넘버 값 설정
-		int memberItemNo = 2;
+		System.out.println(memberItemNo + "sevice itemno");
+		System.out.println(memberUniqueNo + "sevice memberUniqueNo");
+        MemberItem memberItem = new MemberItem();
+        // 판매자의 판매중인 아이템 판매완료로 수정
+        String memberItemState = "판매완료";
+        memberItem.setMemberItemState(memberItemState);
+        memberItem.setMemberItemNo(memberItemNo);
+        // 판매자의 판매중인 아이템 판매완료로 수정
+        memberItemMapper.itemSalesComplete(memberItem);
+      
+        Chatroom chatroom = new Chatroom();
+        chatroom.setMemberItemNo(memberItemNo);
+        //채팅방 비활성화
+        chatroomMapper.updateSoldOutItem(memberItemNo);
+      
+        // 판매자가 누구한테 어떤 아이템을 팔았는지 정보 입력
+        ItemSoldout itemSoldout = new ItemSoldout();
+        itemSoldout.setMemberItemNo(memberItemNo);
+        itemSoldout.setMemberUniqueNo(memberUniqueNo);
+      
+        // 판매자가 판매중인 아이템을 누구에게 팔았는지 판매완료 테이블에 추가
+        return soldoutMapper.insertSoldoutItem(itemSoldout);
+	    }
 		
-		// 판매자의 판매중인 아이템 판매완료로 수정
-		String memberItemState = "판매완료";
-		memberItem.setMemberItemState(memberItemState);
-		memberItem.setMemberItemNo(memberItemNo);
-		// 판매자의 판매중인 아이템 판매완료로 수정
-		memberItemMapper.itemSalesComplete(memberItem);
-		
-		// 판매자가 누구한테 어떤 아이템을 팔았는지 정보 입력
-		ItemSoldout itemSoldout = new ItemSoldout();
-		String memberUniqueNo = "test2";
-		itemSoldout.setMemberItemNo(memberItemNo);
-		itemSoldout.setMemberUniqueNo(memberUniqueNo);
-		
-		// 판매자가 판매중인 아이템을 누구에게 팔았는지 판매완료 테이블에 추가
-		soldoutMapper.insertSoldoutItem(itemSoldout);
-		
-		return 0;
-	}
 	
 	// 나의 판매중인 아이템 리스트 출력
-	public List<MemberItemAndMemberAndMemberItemPic> getItemListMyItem() {
+	public List<MemberItemAndMemberAndMemberItemPic> getItemListMyItem(HttpSession session) {
 		
 		int beginRow = 0;
 		int rowPerPage = 10;
 		String searchWord = "";
-		String memberUniqueNo = "test1";
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberUniqueNo = loginMember.getMemberUniqueNo();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberUniqueNo", memberUniqueNo);
 		map.put("beginRow", beginRow);
@@ -144,7 +160,10 @@ public class MemberItemService {
 			int lastDot = originName1.lastIndexOf(".");
 			System.out.println(lastDot + " <== 마지막 .의 위치... 확장자 앞까지만 나오게하기 위해");
 			String extension = originName1.substring(lastDot);
-			memberItemPic1 = "1"+extension;
+			// 랜덤 사진 이름 생성
+			UUID uuid = UUID.randomUUID();
+			String pic1Name = uuid.toString().substring(0, 6);
+			memberItemPic1 = pic1Name+"1"+extension;
 		}
 		
 		if(originName2.equals("")) {
@@ -153,7 +172,10 @@ public class MemberItemService {
 			int lastDot = originName2.lastIndexOf(".");
 			System.out.println(lastDot + " <== 마지막 .의 위치... 확장자 앞까지만 나오게하기 위해");
 			String extension = originName2.substring(lastDot);
-			memberItemPic2 = "2"+extension;
+			// 랜덤 사진 이름 생성
+			UUID uuid = UUID.randomUUID();
+			String pic2Name = uuid.toString().substring(0, 6);
+			memberItemPic2 = pic2Name+"2"+extension;
 		}
 		
 		if(originName3.equals("")) {
@@ -162,7 +184,10 @@ public class MemberItemService {
 			int lastDot = originName3.lastIndexOf(".");
 			System.out.println(lastDot + " <== 마지막 .의 위치... 확장자 앞까지만 나오게하기 위해");
 			String extension = originName3.substring(lastDot);
-			memberItemPic3 = "3"+extension;
+			// 랜덤 사진 이름 생성
+			UUID uuid = UUID.randomUUID();
+			String pic3Name = uuid.toString().substring(0, 6);
+			memberItemPic3 = pic3Name+"3"+extension;
 		}
 		
 		if(originName4.equals("")) {
@@ -171,7 +196,10 @@ public class MemberItemService {
 			int lastDot = originName4.lastIndexOf(".");
 			System.out.println(lastDot + " <== 마지막 .의 위치... 확장자 앞까지만 나오게하기 위해");
 			String extension = originName4.substring(lastDot);
-			memberItemPic4 = "4"+extension;
+			// 랜덤 사진 이름 생성
+			UUID uuid = UUID.randomUUID();
+			String pic4Name = uuid.toString().substring(0, 6);
+			memberItemPic4 = pic4Name+"4"+extension;
 		}
 		
 		if(originName5.equals("")) {
@@ -180,7 +208,10 @@ public class MemberItemService {
 			int lastDot = originName5.lastIndexOf(".");
 			System.out.println(lastDot + " <== 마지막 .의 위치... 확장자 앞까지만 나오게하기 위해");
 			String extension = originName5.substring(lastDot);
-			memberItemPic5 = "5"+extension;
+			// 랜덤 사진 이름 생성
+			UUID uuid = UUID.randomUUID();
+			String pic5Name = uuid.toString().substring(0, 6);
+			memberItemPic5 = pic5Name+"5"+extension;
 		}
 		
 		// 사진이 널이 아닐시.
@@ -252,6 +283,7 @@ public class MemberItemService {
 		
 		// 지정해줄 memberItemNo 셀렉트로 구해오기
 		int memberItemNo = memberItemMapper.selectMaxPlusMemberItemNo();
+		System.out.println(memberItemNo + " <== 새로 생성 될 멤버 아이템 넘버");
 		
 		// 멤버아이템 폼에서 멤버아이템 속성 꺼내서 담아주기
 		MemberItem memberItem = new MemberItem();
@@ -523,12 +555,13 @@ public class MemberItemService {
 	}
 	
 	// 판매중인 동네 아이템 리스트 출력
-	public List<MemberItemAndMemberAndMemberItemPic> getMemberItemList() {
+	public List<MemberItemAndMemberAndMemberItemPic> getMemberItemList(HttpSession session) {
 		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
 		int beginRow = 0;
 		int rowPerPage = 10;
-		String memberBname = "test1";
-		String memberSigungu = "test1";
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberBname = loginMember.getMemberBname();
+		String memberSigungu = loginMember.getMemberSigungu();
 		String searchWord = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("beginRow", beginRow);

@@ -22,6 +22,12 @@ $(document).ready(function(){
 		$('html, body').scrollTop( $(document).height() );
 	});
    
+   $("#successBtn").click(function(){
+	      $("#soldOutForm").submit();
+	      
+	      
+	   });
+   
    
    $('#addBtn').on('click', function () {
       console.log("클릭");
@@ -173,6 +179,11 @@ $(document).ready(function(){
          <input type="hidden" name="chatroomNo" th:value="${chatroom.chatroomNo}" id="chatroomNo">
          <button type="button" id="addBtn" class="btn btn-primary">보내기</button>
       </div>
+      <form method="post" th:action="@{/soldOutComplete}" id="soldOutForm">
+         <input type="text" th:value="${chatroom.memberItemNo}" name="memberItemNo">
+         <input type="hidden" th:value="${chatroom.memberUniqueNo}" name="memberUniqueNo">
+           <button type="button" class="btn" id="successBtn">판매완료</button>
+      </form>
       <input type="hidden" th:value="${memberId}" id="memberId">
    </div>
 </body>

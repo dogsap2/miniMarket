@@ -1,5 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cafe24.dk4750.miniMarket.service.MannerService;
 import com.cafe24.dk4750.miniMarket.vo.ItemSoldoutAndMemberItemAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Manner;
 
 @Controller
@@ -16,9 +19,9 @@ public class MannerController {
 	
 	//매너 평가 하기 겟맵핑 (폼)
 	@GetMapping("/addManner")
-	public String addManner(Model model, ItemSoldoutAndMemberItemAndMemberItemPic itemSoldoutAndMemberItemAndMemberItemPic) {
+	public String addManner(HttpSession session, Model model, ItemSoldoutAndMemberItemAndMemberItemPic itemSoldoutAndMemberItemAndMemberItemPic) {
 		System.out.println("addManner Controller start..");
-		
+			
 		int memberItemNo = itemSoldoutAndMemberItemAndMemberItemPic.getMemberItemNo();
 		String memberUniqueNo = itemSoldoutAndMemberItemAndMemberItemPic.getMemberUniqueNo();
 		String memberUniqueNoSale = itemSoldoutAndMemberItemAndMemberItemPic.getMemberUniqueNoSale();
@@ -34,19 +37,21 @@ public class MannerController {
 	
 	//매너 평가하기  goodAddManner 포스트 맵핑 (액션)
 	@PostMapping("/goodAddManner")
-	public void goodAddManner(Manner manner) {
+	public void goodAddManner(HttpSession session ,Manner manner) {
+		System.out.println();
 		System.out.println(manner + " <== good manner");
-		String memberId = "test2";
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberId = loginMember.getMemberId();
 		manner.setMemberId(memberId);
-		
 		mannerService.addGoodManner(manner);
 	}
 	
 	//매너 평가하기  badAddManner 포스트 맵핑 (액션)
 	@PostMapping("/badAddManner")
-	public void badAddManner(Manner manner) {
+	public void badAddManner(HttpSession session, Manner manner) {
 		System.out.println(manner + " <== bad manner");
-		String memberId = "test2";
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberId = loginMember.getMemberId();
 		manner.setMemberId(memberId);
 		
 		mannerService.addBadManner(manner);

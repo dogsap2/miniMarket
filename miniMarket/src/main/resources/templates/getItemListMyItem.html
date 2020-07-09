@@ -18,7 +18,6 @@
 			$('#table').append('<th>'+"아이템가격"+'</th>');
 			$('#table').append('<th>'+"아이템 올린 날짜"+'</th>');
 			$('#table').append('<th>'+"판매지역"+'</th>');
-			$('#table').append('<th>'+"판매완료버튼"+'</th>');
 			$('#table').append('</tr>');
 			$.each(data, function(index, item){
 				$('#table').append('<tr>');
@@ -27,28 +26,14 @@
 				$('#table').append('<td>'+item.memberItemPrice+'</td>')
 				$('#table').append('<td>'+item.memberItemDate+'</td>')
 				$('#table').append('<td>'+item.memberBname+'</td>')
-				$('#table').append('<td><button type="button" id="btn'+item.memberItemNo+'">판매완료</button></td>')
 				$('#table').append('</tr>');
-				
-				$('#btn'+item.memberItemNo).click(function(){
-					//판매 완료 시 -> itemSoldout 테이블로 
-					$.ajax({
-						url:'/SaleComplete',
-						type:'get',
-						success : function(data) {
-							console.log(data)
-						}
-					});
-					setTimeout(function(){
-						location.reload();
-						},10); // 10밀리초 = 0.01초
-				});
 			});
 		}
 	});
 </script>
 </head>
 <body>
+	<a th:href="@{/index}">home</a>
 	<table border="1" id="table">
 	</table>
 </body>

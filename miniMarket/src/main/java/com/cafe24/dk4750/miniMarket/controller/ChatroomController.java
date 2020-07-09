@@ -64,13 +64,15 @@ public class ChatroomController {
 		String nickName = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
 		System.out.println(memberUniqueNo);
 		System.out.println(memberId);
-		int memberItemNo = 5;
+		System.out.println(nickName + "<----chatrommController nickName");
+		String memberId2 = "seoiltae";
+		int memberItemNo = 2;
 		String active = "disconnect"; 
 		Chatroom chatroom = new Chatroom();
-		chatroom.setMemberNickname(nickName);
+		chatroom.setNickName(nickName);
 		chatroom.setMemberItemNo(memberItemNo);
 		chatroom.setMemberUniqueNo(memberUniqueNo);
-		chatroom.setMemberId(memberId);
+		chatroom.setMemberId(memberId2);
 		chatroom.setChatroomActive(active);
 		
 		

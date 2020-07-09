@@ -3,15 +3,20 @@ package com.cafe24.dk4750.miniMarket.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafe24.dk4750.miniMarket.service.CategoryService;
 import com.cafe24.dk4750.miniMarket.service.CheckLikeService;
 import com.cafe24.dk4750.miniMarket.service.MemberItemService;
-import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
+import com.cafe24.dk4750.miniMarket.vo.Category;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
@@ -22,44 +27,71 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 public class MemberItemController {
 	@Autowired private MemberItemService memberItemService;
 	@Autowired private CheckLikeService checkLikeService;
+	@Autowired private CategoryService categoryService;
+
+	// 판매완료 
+    @PostMapping("/soldOutComplete")
+    public String soldOutComplete(@RequestParam("memberItemNo") int memberItemNo , @RequestParam("memberUniqueNo") String memberUniqueNo) {
+		System.out.println(memberItemNo + "<--soldOutComplete itemNo");
+		System.out.println(memberUniqueNo + "<--soldOutComplete memberUniqueNo");
+		memberItemService.itemSalesComplete(memberItemNo, memberUniqueNo);
+		  
+		return "redirect:/index";
+    }
 	
-	
-	  // 구매자의 구매완료 아이템 리스트
-	  @GetMapping("/getBuyListByMember") public String getBuyListByMember() {
-	  
-		  return "getBuyListByMember"; 
-	  }
+	// 구매자의 구매완료 아이템 리스트
+	@GetMapping("/getBuyListByMember") public String getBuyListByMember(HttpSession session) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		return "getBuyListByMember"; 
+	}
 	 
 	
 	// 나의 판매완료 아이템 리스트
 	@GetMapping("/getItemListBySaleMyItem")
-	public String getItemListBySaleMyItem(Model model) {
-//		// 나의 판매완료 아이템 리스트
-//		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListBySaleMyItem();
-//		
-//		// 나의 판매완료 아이템 리스트 모델로 값 넘기기
-//		model.addAttribute("list", list);
-//		
+	public String getItemListBySaleMyItem(HttpSession session, Model model) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 내 판매완료 아이템 리스트 받아오기
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListBySaleMyItem(session);
+		
+		// 모델에 담아서 보내주기
+		model.addAttribute("list", list);
+		
 		return "getItemListBySaleMyItem";
 	}
 	
 	// 나의 판매중인 아이템 리스트
 	@GetMapping("/getItemListMyItem")
-	public String getItemListMyItem(Model model) {
-		
-		// 나의 판매중인 아이템 리스트
-		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListMyItem();
-		
-		// 나의 판매중인 아이템 리스트 모델로 값 넘기기
-		model.addAttribute("list", list);
-		
+	public String getItemListMyItem(HttpSession session, Model model) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+	
 		return "getItemListMyItem";
 	}
 	
 	// 멤버 추가하기 겟매핑. 페이지요청. 폼
 	@GetMapping("/addMemberItem")
-	public String addMemberItem() {
+	public String addMemberItem(HttpSession session, Model model) {
 		System.out.println("addMemberItem 겟매핑 시작");
+		
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 카테고리 목록 모델에담아서 포워딩 시켜주기
+		List<Category> list = categoryService.getMemberCategory();
+		System.out.println(list + " <== 중고물품등록 카테고리 이름");
+		model.addAttribute("list", list);
 		
 		// 페이지요청
 		return "addMemberItem";
@@ -67,8 +99,21 @@ public class MemberItemController {
 	
 	// 멤버 추가하기 포스트매핑. 액션
 	@PostMapping("/addMemberItem")
-	public String addMemberItem(MemberItemForm memberItemForm) {
+	public String addMemberItem(HttpSession session, MemberItemForm memberItemForm) {
 		System.out.println("addMemberItem 포스트매핑 시작");
+
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 세션에서 유니크넘버 받기
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberUniqueNo = loginMember.getMemberUniqueNo();
+		System.out.println(memberUniqueNo + " <== memberUniqueNo");
+		// form에 세션값 uniqueNo 넣어주기
+		memberItemForm.setMemberUniqueNo(memberUniqueNo);
+		
 		System.out.println(memberItemForm + " <== 멤어 아이템 추가 memberItemForm");
 		System.out.println(memberItemForm.getMemberItemPic1().getOriginalFilename() + " <== pic1");
 		System.out.println(memberItemForm.getMemberItemPic2().getOriginalFilename() + " <== pic2");
@@ -76,9 +121,11 @@ public class MemberItemController {
 		System.out.println(memberItemForm.getMemberItemPic4().getOriginalFilename() + " <== pic4");
 		System.out.println(memberItemForm.getMemberItemPic5().getOriginalFilename() + " <== pic5");
 		
+		
+		// 아이템 등록 실행
 		memberItemService.addMemberItem(memberItemForm);
 		
-		// 리턴
+		// 리턴.. 나중에 수정
 		return "index";
 	}
 	
@@ -134,11 +181,15 @@ public class MemberItemController {
 	
 	// 판매중인 동네 아이템 리스트 출력하기
 	@GetMapping("/getMemberItemList")
-	public String getMemberItemList(Model model) {
+	public String getMemberItemList(HttpSession session, Model model) {
 		System.out.println("getMemberItemList 겟매핑 시작");
+		// 세션이 널일시 인덱스로 이동
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
 		
 		// 리스트 받아오기
-		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getMemberItemList();
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getMemberItemList(session);
 		
 		// list 모델에 담아서 페이지로 보내주기
 		model.addAttribute("list", list);

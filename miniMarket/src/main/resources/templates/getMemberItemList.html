@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a th:href="@{/index}">home</a>
 	<table border="1">
 		<thead>
 			<tr>
@@ -13,7 +14,6 @@
 				<th>아이템가격</th>
 				<th>아이템 올린 날짜</th>
 				<th>판매지역</th>
-				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,9 +25,6 @@
 				<td th:text="${list.memberItemPrice}"></td>
 				<td th:text="${list.memberItemDate}"></td>
 				<td th:text="${list.memberBname}"></td>
-				<td>
-					<a th:href="@{/disabledMemberItem(memberItemNo=${list.memberItemNo})}">삭제</a>
-				</td>
 			</tr>
 		</tbody>
 	</table>

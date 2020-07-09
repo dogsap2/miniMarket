@@ -1,5 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +27,11 @@ public class MemberReviewController {
 	
 	//리뷰 인서트 포스트 맵핑
 	@PostMapping("/addReview")
-	public void addReview(MemberReview memberReview) {
+	public void addReview(HttpSession session, MemberReview memberReview) {
 		System.out.println("addReview post매핑 스타트");
 		System.out.println(memberReview+"<== 리뷰 작성 하기 포스트맵핑  값확인");
 		
 		// addReview 서비스
-		memberReviewService.addReview(memberReview);
+		memberReviewService.addReview(session, memberReview);
 	}
 }

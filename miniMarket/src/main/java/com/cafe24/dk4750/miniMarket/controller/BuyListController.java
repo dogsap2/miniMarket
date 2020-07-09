@@ -2,8 +2,9 @@ package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,9 +17,10 @@ public class BuyListController {
 	
 	// 내가 구매한 아이템 리스트
 	@GetMapping("/getBuyListByMember2")
-	public List<ItemSoldout> getBuyListByMember() {
+	public List<ItemSoldout> getBuyListByMember(HttpSession session) {
 		
-		List<ItemSoldout> list = memberItemService.getBuyListByMember();
+		// 내 구매리스트 출력해주기.
+		List<ItemSoldout> list = memberItemService.getBuyListByMember(session);
 		
 		return list;
 	}

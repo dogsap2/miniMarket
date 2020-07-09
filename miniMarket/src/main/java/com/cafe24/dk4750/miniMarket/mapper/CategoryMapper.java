@@ -16,8 +16,8 @@ public interface CategoryMapper {
 	public int deleteCategory(String categroyName);
 	
 	// 멤버 카테고리 리스트 출력
-	public List<Category> selectCategoryListByMember(Category category);
+	public List<Category> selectCategoryListByMember();
 	
 	// 업체 카테고리 리스트 출력
-	public List<Category> selectCategoryListByCompany(Category category);
+	public List<Category> selectCategoryListByCompany();
 }

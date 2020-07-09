@@ -47,18 +47,38 @@
 	
 	<!-- 멤버 아이템 수정을 위한 기존 값 가져오기 -->
 	<!-- 멤버 아이템 상세보기 -->
-	<select id="selectMemberItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItem" parameterType="int">
+	<select id="selectMemberItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike" parameterType="int">
 		SELECT 
-			member_item_no AS memberItemNo,
-			member_unique_no AS memberUniqueNo,
-			member_item_title AS memberItemTitle,
-			category_name AS categoryName,
-			member_item_price AS memberItemPrice,
-			member_item_content AS memberItemContent,
-			member_item_date AS memberItemDate,
-			member_item_state AS memberItemState
-		FROM mini_market_member_item
-		WHERE member_item_no = #{memberItemNo}
+		   mi.member_item_no AS memberItemNo,
+		   mi.member_unique_no AS memberUniqueNo,
+		   mi.member_item_title AS memberItemTitle,
+		   mi.category_name AS categoryName,
+		   mi.member_item_price AS memberItemPrice,
+		   mi.member_item_content AS memberItemContent,
+		   mi.member_item_date AS memberItemDate,
+		   mi.member_item_state AS memberItemState,
+		   m.member_bname AS memberBname,
+		   m.member_nickname AS memberNickname,
+		   mp.profile_pic AS profilePic,
+		   mip.member_item_pic1 AS memberItemPic1,
+		   mip.member_item_pic2 AS memberItemPic2,
+		   mip.member_item_pic3 AS memberItemPic3,
+		   mip.member_item_pic4 AS memberItemPic4,
+		   mip.member_item_pic5 AS memberItemPic5,
+		   (SELECT member_temp_total FROM mini_market_member_temp_total WHERE member_unique_no = m.member_unique_no ORDER BY temp_total_no DESC LIMIT 1) AS memberTempTotal,
+			COUNT(*) AS likeActive
+		FROM mini_market_member_item AS mi
+		INNER JOIN mini_market_member AS m
+		ON mi.member_unique_no = m.member_unique_no
+		INNER JOIN mini_market_member_pic AS mp
+		ON m.member_id = mp.member_id
+		INNER JOIN mini_market_member_item_pic AS mip
+		ON mi.member_item_no = mip.member_item_no
+		INNER JOIN mini_market_member_temp_total AS mtt
+		ON m.member_unique_no = mtt.member_unique_no
+		INNER JOIN mini_market_member_item_like AS mil
+		ON mi.member_item_no = mil.member_item_no AND mil.like_active = 1
+		WHERE mi.member_item_no = #{memberItemNo}
 	</select>
 	
 	<!-- 멤버 아이템 수정 (액션)-->

@@ -1,10 +1,13 @@
 package com.cafe24.dk4750.miniMarket.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.dk4750.miniMarket.mapper.MemberReviewMapper;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberReview;
 
 @Service
@@ -18,10 +21,11 @@ public class MemberReviewService {
 	}
 	
 	// 리뷰 작성하기 서비스 
-	public int addReview(MemberReview memberReview) {
+	public int addReview(HttpSession session, MemberReview memberReview) {
 		
-		// 임시 구매자 아이디.. 추후에 세션에서 받아오는걸로
-		String memberId = "test2";
+		// 세션에서 내 아이디 넣기
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberId = loginMember.getMemberId();
 		memberReview.setMemberId(memberId);
 		
 		// 판매자
