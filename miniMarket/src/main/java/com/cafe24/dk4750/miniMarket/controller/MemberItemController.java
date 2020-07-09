@@ -34,13 +34,12 @@ public class MemberItemController {
 	// 나의 판매완료 아이템 리스트
 	@GetMapping("/getItemListBySaleMyItem")
 	public String getItemListBySaleMyItem(Model model) {
-		
-		// 나의 판매완료 아이템 리스트
-		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListBySaleMyItem();
-		
-		// 나의 판매완료 아이템 리스트 모델로 값 넘기기
-		model.addAttribute("list", list);
-		
+//		// 나의 판매완료 아이템 리스트
+//		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListBySaleMyItem();
+//		
+//		// 나의 판매완료 아이템 리스트 모델로 값 넘기기
+//		model.addAttribute("list", list);
+//		
 		return "getItemListBySaleMyItem";
 	}
 	

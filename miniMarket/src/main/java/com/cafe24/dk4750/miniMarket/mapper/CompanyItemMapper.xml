@@ -4,25 +4,30 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.CompanyItemMapper">
 	
+	<!-- 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기 -->
+	<select id="selectMaxPlusCompanyItemNo" resultType="int">
+		SELECT IFNULL(MAX(company_item_no)+1, 1) FROM mini_market_company_item
+	</select>
+	
 	<!-- 업체 아이템 추가(한번만 가능) -->
 	<insert id="insertCompanyItem" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItem">
 		INSERT INTO mini_market_company_item(
+				company_item_no,
 				company_unique_no,
 				company_item_title,
 				category_name,
 				company_phone,
 				company_item_price,
 				company_item_content,
-				company_item_state,
 				company_item_date
 			) VALUES (
+				#{companyItemNo},
 				#{companyUniqueNo},
 				#{companyItemTitle},
 				#{categoryName},
 				#{companyPhone},
 				#{companyItemPrice},
 				#{companyItemContent},
-				#{companyItemState},
 				NOW()		
 			)	
 	</insert> 

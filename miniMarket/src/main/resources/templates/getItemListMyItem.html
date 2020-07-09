@@ -6,48 +6,45 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function(){
-		$('#btn').click(function(){
-			$.ajax({
-				url:'/SaleComplete',
-				type:'get',
-				success : function(data) {
-					console.log(data)
-				}
-			});
-			setTimeout(function(){
-				location.reload();
-				},10); // 10밀리초 = 0.01초
-		});
-	});
+	//리스트 뿌리기
+		$.ajax({
+			uri:'/getItemListMyItem2',
+			type:'get',
+			success : function(data) {
+				console.log(data+"<===리스트 뿌린 데이타");
+				$('#table').append('<tr>');
+				$('#table').append('<th>'+"사진"+'</th>');
+				$('#table').append('<th>'+"제목"+'</th>');
+				$('#table').append('<th>'+"아이템가격"+'</th>');
+				$('#table').append('<th>'+"아이템 올린 날짜"+'</th>');
+				$('#table').append('<th>'+"판매지역"+'</th>');
+				$('#table').append('<th>'+"판매완료버튼"+'</th>');
+				$('#table').append('</tr>');
+				$.each(data, function(index, item){
+					$('#table').append('<tr>');
+					$('#table').append('<td><img width="300" height="150" src='+/images/+item.memberItemPic1+'></td>');
+					$('#table').append('</tr>');
+				});	
+			$('#btn').click(function(){
+				//판매 완료 시 -> itemSoldout 테이블로 
+				$.ajax({
+					url:'/SaleComplete',
+					type:'get',
+					success : function(data) {
+						console.log(data)
+					}
+				});
+				setTimeout(function(){
+					location.reload();
+					},10); // 10밀리초 = 0.01초
+				});	
+			}
+		})
 </script>
 </head>
 <body>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>사진</th>
-				<th>제목</th>
-				<th>아이템가격</th>
-				<th>아이템 올린 날짜</th>
-				<th>판매지역</th>
-				<th>판매완료버튼<th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="list : ${list}">
-				<td>
-					<img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150">
-				</td>
-				<td th:text="${list.memberItemTitle}"></td>
-				<td th:text="${list.memberItemPrice}"></td>
-				<td th:text="${list.memberItemDate}"></td>
-				<td th:text="${list.memberBname}"></td>
-				<td>
-					<button id="btn"  type="submit" >판매완료</button>
-				</td>
-			</tr>
-		</tbody>
+	<table border="1" id="table">
+	
 	</table>
 </body>
 </html>

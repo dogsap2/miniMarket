@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>add member item</title>
+</head>
+<body>
+	<form method="post" th:action="@{/addCompanyItem}" enctype="multipart/form-data">
+		<table border="1">
+		
+			<tr>
+				<th>업체 고유번호</th>
+				<th>제목</th>
+				<th>카테고리 이름</th>
+				<th>번호</th>
+				<th>가격</th>
+				<th>내용</th>
+				<th>사진</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="companyUniqueNo" id="companyUniqueNo" th:value="1">
+				</td>
+				<td>
+					<input type="text" name="companyItemTitle" id="companyItemTitle">
+				</td>
+				<td>
+					<input type="text" name="categoryName" id="categoryName" th:value="업체홍보">
+				</td>
+				<td>
+					<input type="text" name="companyPhone" id="companyPhone">
+				</td>
+				<td>
+					<input type="text" name="companyItemPrice" id="companyItemPrice">
+				</td>
+				<td>
+					<textarea rows="5" cols="10" name="companyItemContent" id="companyItemContent"></textarea>
+				</td>
+				<td>
+					<input type="file" name="companyItemPic1" id="companyItemPic1"><br>
+					<input type="file" name="companyItemPic2" id="companyItemPic2"><br>
+					<input type="file" name="companyItemPic3" id="companyItemPic3"><br>
+					<input type="file" name="companyItemPic4" id="companyItemPic4"><br>
+					<input type="file" name="companyItemPic5" id="companyItemPic5">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button type="submit">추가</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

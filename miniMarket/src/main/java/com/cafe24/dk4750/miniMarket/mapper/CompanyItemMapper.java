@@ -15,7 +15,7 @@ public interface CompanyItemMapper {
 	public int insertCompanyItem(CompanyItem companyItem);
 	
 	// 한 업체 아이템 정보 출력하기
-	public CompanyItem selectCompanyItemOne(CompanyItem companyItem);
+	public CompanyItem selectCompanyItemOne(int companyItemNo);
 	
 	// 업체 아이템 수정 액션
 	public int updateCompanyItem(CompanyItem companyItem);
@@ -28,6 +28,9 @@ public interface CompanyItemMapper {
 	
 	// 내가 좋아요 한 업체 아이템 리스트 출력
 	public List<CompanyItemAndCompanyAndCompanyItemPic> selectMyLikeCompanyItem(Map<String, Object> map);
+	
+	// 다음 업체 아이템의 넘버를 알기위해서 현재 업체 아이템넘버 max+1 값 구해오기
+	public int selectMaxPlusCompanyItemNo();
 	
 	// 업체 아이템 삭제(비활성화)
 	public int disabledCompanyItem(CompanyItem companyItem);
