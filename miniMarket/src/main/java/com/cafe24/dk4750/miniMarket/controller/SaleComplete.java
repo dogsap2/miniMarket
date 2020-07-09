@@ -13,7 +13,7 @@ public class SaleComplete {
 	
 	@GetMapping("/SaleComplete")
 	public int SalesComplete(MemberItem memberItem) {
-		
+		System.out.println(memberItem + " <== memberItem / saleComplete");
 		return memberItemService.itemSalesComplete(memberItem);
 	}
 }

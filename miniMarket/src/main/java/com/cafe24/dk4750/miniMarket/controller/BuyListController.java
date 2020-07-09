@@ -16,7 +16,7 @@ public class BuyListController {
 	
 	// 내가 구매한 아이템 리스트
 	@GetMapping("/getBuyListByMember2")
-	public List<ItemSoldout> getBuyListByMember(Model model) {
+	public List<ItemSoldout> getBuyListByMember() {
 		
 		List<ItemSoldout> list = memberItemService.getBuyListByMember();
 		
