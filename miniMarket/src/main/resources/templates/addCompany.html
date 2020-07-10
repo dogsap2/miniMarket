@@ -37,12 +37,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
-
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>	
-
-	
-
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -198,12 +194,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>미니마켓수정중</p>
+				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>				
 					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
-					<li th:if="${session.loginCompany == null}">	
+					<li th:if="${session.loginCompany == null || session.loginMember == null }">	
 						<a th:href="@{/addMemberAndCompany}">회원가입</a>
 					</li>
 					<li><a href="contact.html">Help</a></li>	
@@ -296,7 +292,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">회원가입</li>
+				<li class="active">업체 회원가입</li>
 			</ol>
 		</div>
 	</div>
@@ -322,7 +318,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span id="companyEmailCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>						
 	
 					<!-- 업체 이름,CEO이름과 주소 -->	
-					ceo:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="CEO 이름을  입력하세요" required=" "  name="companyCeoName"><br>
+					CEO:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="CEO 이름을  입력하세요" required=" "  name="companyCeoName"><br>
 					업체명:&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="업체명을 입력하세요" required=" "  name="companyName"><br>
 					동네:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" id="address" placeholder="업체 주소" name="companyAdress" readonly="readonly">
 					<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="주소검색" name=""><br>

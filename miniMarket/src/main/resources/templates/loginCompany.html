@@ -45,14 +45,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>미니마켓 수정중</p>
+				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
-					
 					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
+					<li th:if="${session.loginMember == null && session.loginCompany ==null}">
+					<a th:href="@{/addMemberAndCompany}">회원가입</a></li>
 					<li><a href="contact.html">Help</a></li>
-					
 				</ul>
 			</div>
 			<div class="product_list_header">  
@@ -110,38 +110,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
 						<!-- Mega Menu -->
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Groceries<b class="caret"></b></a>
+							data-toggle="dropdown">중고물품 관련<b class="caret"></b></a>
 							<ul class="dropdown-menu multi-column columns-3">
 								<div class="row">
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
-											<h6>All Groceries</h6>
-											<li><a href="groceries.html">Dals & Pulses</a></li>
-											<li><a href="groceries.html">Almonds</a></li>
-											<li><a href="groceries.html">Cashews</a></li>
-											<li><a href="groceries.html">Dry Fruit</a></li>
-											<li><a href="groceries.html"> Mukhwas </a></li>
-											<li><a href="groceries.html">Rice & Rice Products</a></li>
+											<h6>중고물품 관련</h6>
+											<li><a th:href="@{/addMemberItem}">중고아이템 판매</a></li>
+											<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
+											<li><a th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
+											<li><a th:href="@{/getBuyListByMember}">내가 구매한 아이템
+													목록</a></li>
+											<li><a th:href="@{/modifyMemberItem}">내 아이템 수정
+													---------- 상세보기 완료 후 생성</a></li>
+											<li><a th:href="@{/getItemListBySaleMyItem}">내 판매완료
+													아이템 목록</a></li>
 										</ul>
 									</div>
 								</div>
 							</ul></li>
 
-						<li><a href="gourmet.html">Gourmet</a></li>
-						<li><a href="offers.html">Offers</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
+						<li>
+							<!-- 채팅방 버튼 --> <a th:href="@{/button}">채팅방</a>
+						</li>
 				</div>
 			</nav>
 		</div>
 	</div>
-<!-- //navigation -->
+	<!-- //navigation -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Login Page</li>
+				<li class="active">업체 로그인</li>
 			</ol>
 		</div>
 	</div>
@@ -164,7 +166,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</form>
 			</div>
 			<h4>For New People</h4>
-			<p><a th:href="@{/addMemeberAndCompany}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			<p><a th:href="@{/addMemberAndCompany}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->

@@ -37,7 +37,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
-
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>	
     $(document).ready(function() { 
@@ -59,14 +58,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>미니마켓 수정중</p>
+				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>					
-					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
-					<li th:if="${session.loginMember == null}">	
-						<a th:href="@{/addMemberAndCompany}">회원가입</a>
+					<li>
+						<a th:href="@{/loginMemberAndCompany}">로그인</a>
 					</li>
+					<li>
+						<a th:href="@{/addMemberAndCompany}">회원가입</a></li>
 					<li><a href="contact.html">Help</a></li>					
 				</ul>
 			</div>
@@ -86,7 +86,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
 					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
-					
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
@@ -101,63 +100,62 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"></div>
 			</form>
 		</div>
-			
 			<div class="clearfix"> </div>
 		</div>
 	</div>
 <!-- //header -->
 <!-- navigation -->
-	<div class="navigation-agileits">
-		<div class="container">
-			<nav class="navbar navbar-default">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header nav_2">
-					<button type="button"
-						class="navbar-toggle collapsed navbar-toggle1"
-						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav">
-						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
-						<!-- Mega Menu -->
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Groceries<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<h6>All Groceries</h6>
-											<li><a href="groceries.html">Dals & Pulses</a></li>
-											<li><a href="groceries.html">Almonds</a></li>
-											<li><a href="groceries.html">Cashews</a></li>
-											<li><a href="groceries.html">Dry Fruit</a></li>
-											<li><a href="groceries.html"> Mukhwas </a></li>
-											<li><a href="groceries.html">Rice & Rice Products</a></li>
-										</ul>
-									</div>
+<div class="navigation-agileits">
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header nav_2">
+				<button type="button"
+					class="navbar-toggle collapsed navbar-toggle1"
+					data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+				<ul class="nav navbar-nav">
+					<li class="active"><a th:href="@{/index}"class="act">Home</a></li>
+					<!-- Mega Menu -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">중고물품 관련<b class="caret"></b></a>
+						<ul class="dropdown-menu multi-column columns-3">
+							<div class="row">
+								<div class="multi-gd-img">
+									<ul class="multi-column-dropdown">
+										<h6>중고물품 관련</h6>
+										<li><a th:href="@{/addMemberItem}">중고아이템 판매</a></li>
+										<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
+										<li><a th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
+										<li><a th:href="@{/getBuyListByMember}">내가 구매한 아이템
+												목록</a></li>
+										<li><a th:href="@{/modifyMemberItem}">내 아이템 수정
+												---------- 상세보기 완료 후 생성</a></li>
+										<li><a th:href="@{/getItemListBySaleMyItem}">내 판매완료
+												아이템 목록</a></li>
+									</ul>
 								</div>
-							</ul></li>
-
-						<li><a href="gourmet.html">Gourmet</a></li>
-						<li><a href="offers.html">Offers</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-			</nav>
-		</div>
+							</div>
+						</ul></li>
+					<li>
+						<!-- 채팅방 버튼 --> <a th:href="@{/button}">채팅방</a>
+					</li>
+			</div>
+		</nav>
 	</div>
-
-	<!-- //navigation -->
+</div>
+<!-- //navigation -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">>아이디 찾기</li>
+				<li class="active">업체 아이디 찾기</li>
 			</ol>
 		</div>
 	</div>
@@ -178,8 +176,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 					<!-- 전화번호 확인 -->		
 					전화번호:&nbsp;<input id="companyPhone" name="companyPhone" style="width:270px; display:inline;" type="text" placeholder="전화번호를 입력해주세요" required=" "><br>					
-					<span id="phoneHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>						
-		
+					<span id="phoneHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
 					<input type="submit" id="btn" value="아이디 찾기">
 				</form>
 			</div>
@@ -227,7 +224,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="info"> 
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="@{/loginMemberAndCompany}">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
 					
