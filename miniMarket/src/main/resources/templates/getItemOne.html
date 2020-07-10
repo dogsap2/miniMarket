@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이템 상세보기</title>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -111,7 +111,8 @@
 			</td>
 		</tr>
 	</table>
-	<button type="submit" id="btn"><img id="img" th:src="@{'/images/emptyheart.png'}" width="50" height="50"></button>
+	<button type="submit" id="btn"><img id="img" th:src="@{'/images/emptyheart.png'}" width="50" height="50"></button><br>
 	<div id="check" style="display:none" th:text="${check}"></div>
+	<a th:if="${session.loginMember.memberUniqueNo == getItemOne.memberUniqueNo}and${pageCheck}==1" th:href="@{/modifyMemberItem(memberItemNo=${getItemOne.memberItemNo})}">수정</a>
 </body>
 </html>

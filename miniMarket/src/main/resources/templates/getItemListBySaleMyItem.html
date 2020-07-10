@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 판매완료 아이템</title>
 </head>
 <body>
 	<table border="1">
@@ -18,7 +18,7 @@
 		<tbody>
 			<tr th:each="list : ${list}">
 				<td>
-					<img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150">
+					<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}"><img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150"></a>
 				</td>
 				<td th:text="${list.memberItemTitle}"></td>
 				<td th:text="${list.memberItemPrice}"></td>

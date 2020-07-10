@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 판매중인 아이템</title>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -21,7 +21,7 @@
 			$('#table').append('</tr>');
 			$.each(data, function(index, item){
 				$('#table').append('<tr>');
-				$('#table').append('<td><img width="300" height="150" src='+/images/+item.memberItemPic1+'></td>');
+				$('#table').append('<td><a href="/getItemOne?memberItemNo='+item.memberItemNo+'&pageCheck='+1+'"><img width="300" height="150" src='+/images/+item.memberItemPic1+'></a></td>');
 				$('#table').append('<td>'+item.memberItemTitle+'</td>')
 				$('#table').append('<td>'+item.memberItemPrice+'</td>')
 				$('#table').append('<td>'+item.memberItemDate+'</td>')

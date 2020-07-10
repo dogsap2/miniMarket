@@ -32,7 +32,7 @@ public class MemberItemController {
 
 	// 아이템 상세보기 겟매핑
 	@GetMapping("/getItemOne")
-	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo) {
+	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo, @RequestParam(value="pageCheck", defaultValue = "0") int pageCheck) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
@@ -57,6 +57,10 @@ public class MemberItemController {
 		model.addAttribute("getItemOne", getItemOne);
 		model.addAttribute("check", check);
 		System.out.println(getItemOne + " <== getItemOne");
+		
+		// 거래완료, 리스트에서는 수정이 안나오게끔... 이유는 판매하고 정보를 바꿔버릴수도 있기 때문에
+		// 나의 판매중인 아이템리스트에만 수정버튼이 나오게끔
+		model.addAttribute("pageCheck", pageCheck);
 		
 		return "getItemOne";
 	}
@@ -106,7 +110,7 @@ public class MemberItemController {
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-	
+		
 		return "getItemListMyItem";
 	}
 	
@@ -163,12 +167,13 @@ public class MemberItemController {
 	
 	// 멤버 아이템 수정하기 겟매핑. 페이지요청. 폼
 	@GetMapping("/modifyMemberItem")
-	public String modifyMemberItem(Model model) {
+	public String modifyMemberItem(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo) {
 		System.out.println("modifyMemberItem 겟매핑 시작");
-		
-		// 임시 넘버
-		int memberItemNo = 1;
-		String memberUniqueNo = "m000001";
+		System.out.println(memberItemNo);
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
 		
 		// 기존 정보 불러오기
 		Map<String, Object> map = memberItemService.getMemberItemOneForUpdate(memberItemNo);
@@ -192,9 +197,9 @@ public class MemberItemController {
 		System.out.println("modifyMemberItem 포스트매핑 시작");
 		System.out.println(memberItemForm + " <== 멤버 아이템 수정하기 / memberItemForm 디버깅");
 		
+		// 넘어온 값으로 memberItemNo 값 담아주기
+		int memberItemNo = memberItemForm.getMemberItemNo();
 		
-	    // 임의로 아이템 넘버 정해주기 
-	    int memberItemNo = 1;
 	    memberItemForm.setMemberItemNo(memberItemNo);
 	  
 	    // 업데이트 실행 

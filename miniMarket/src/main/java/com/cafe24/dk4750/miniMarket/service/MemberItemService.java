@@ -392,7 +392,10 @@ public class MemberItemService {
 			}
 			int lastDot = originalName1.lastIndexOf(".");
 			String extension = originalName1.substring(lastDot);
-			memberItemPic1 = "1" + extension;
+			// 랜덤이름주기
+			UUID uuid = UUID.randomUUID();
+			String pic1Name = uuid.toString().substring(0, 6);
+			memberItemPic1 = pic1Name+"1" + extension;
 		} else {
 			memberItemPic1 = originMemberItemPic1;
 		}
@@ -407,7 +410,10 @@ public class MemberItemService {
 			}
 			int lastDot = originalName2.lastIndexOf(".");
 			String extension = originalName2.substring(lastDot);
-			memberItemPic2 = "2" + extension;
+			// 랜덤이름주기
+			UUID uuid = UUID.randomUUID();
+			String pic2Name = uuid.toString().substring(0, 6);
+			memberItemPic2 = pic2Name+"2" + extension;
 		} else {
 			memberItemPic2 = originMemberItemPic2;
 		}
@@ -422,7 +428,10 @@ public class MemberItemService {
 			}
 			int lastDot = originalName3.lastIndexOf(".");
 			String extension = originalName3.substring(lastDot);
-			memberItemPic3 = "3" + extension;
+			// 랜덤이름주기
+			UUID uuid = UUID.randomUUID();
+			String pic3Name = uuid.toString().substring(0, 6);
+			memberItemPic3 = pic3Name+"3" + extension;
 		} else {
 			memberItemPic3 = originMemberItemPic3;
 		}
@@ -437,7 +446,10 @@ public class MemberItemService {
 			}
 			int lastDot = originalName4.lastIndexOf(".");
 			String extension = originalName4.substring(lastDot);
-			memberItemPic4 = "4" + extension;
+			// 랜덤이름주기
+			UUID uuid = UUID.randomUUID();
+			String pic4Name = uuid.toString().substring(0, 6);
+			memberItemPic4 = pic4Name+"4" + extension;
 		} else {
 			memberItemPic4 = originMemberItemPic4;
 		}
@@ -452,7 +464,10 @@ public class MemberItemService {
 			}
 			int lastDot = originalName5.lastIndexOf(".");
 			String extension = originalName5.substring(lastDot);
-			memberItemPic5 = "5" + extension;
+			// 랜덤이름주기
+			UUID uuid = UUID.randomUUID();
+			String pic5Name = uuid.toString().substring(0, 6);
+			memberItemPic5 = pic5Name+"5" + extension;
 		} else {
 			memberItemPic5 = originMemberItemPic5;
 		}
