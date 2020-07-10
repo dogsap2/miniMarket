@@ -38,158 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>	
 
-	
-
-    function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-            	console.log(data.sido);
-                console.log(data.sigungu);
-                console.log(data.bname);
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
-                }
-                document.getElementById("address").value = addr;
-                $('#companySido').val(data.sido);
-                $('#companySigungu').val(data.sigungu); 
-                $('#companyBname').val(data.bname); 
-            }
-        }).open();
-    }
-   
-    let helperInit = function(){
-    	$('#idHelper').text("");
-    	$('#pwHelper').text("");
-    	$('#nameHelper').text("");
-    	$('#addrHelper').text("");
-    	$('#phoneHelper').text("");
-    	$('#emailHelper').text("");
-    };
-
-
-    $(document).ready(function() { 
-    	$('#btn').click(function() {
-    		if($('#companyId').val().length < 4){	
-    			helperInit();
-    			$('#idHelper').text("id 4자이상");
-    			$('#companyId').focus();
-    			
-    		}else if($('#companyPw').val().length < 4){	
-    			helperInit();
-    			$('#pwHelper').text("pw 4자 이상 입력");
-    			$('#companyPw').focus();			
-    		}else if($('#companyPw').val()!= $('#companyPw2').val()) {
-    			helperInit();
-    			$('#pwHelper').text("pw를 확인하세요");
-    			$('#companyPw').focus();
-    		}else if($('#companyName').val().length === 0){ //0->공백 
-    			helperInit();
-    			$('#nameHelper').text("이름 입력하세요");
-    			$('#companyName').focus();
-    		}else if($('#companyCeoName').val().length === 0){
-    			helperInit();
-    			$('#addrHelper').text("ceo를 입력하세요");
-    			$('#companyCeoName').focus();
-    		}else if($('#companyPhone').val().length === 0){ 
-    			helperInit();
-    			$('#phoneHelper').text("전화번호 입력하세요");
-    			$('#companyPhone').focus();			
-    		}else if($('#companyEmail').val().length === 0){ 
-    			helperInit();
-    			$('#emailHelper').text("이메일을  입력하세요");
-    			$('#companyEmail').focus();			
-    		} else{
-    			$('#myform').submit();
-    		} 	
-    	});
-
-	   //아이디 중복 유효성 검사(비동기!!!)
-	   $('#checkCompanyId').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
-	      console.log('#checkCompanyId blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
-	   	  if($('#checkCompanyId').val().length <4){
-	   		  $('#companyIdCheckHelper').text('4글자이상');
-	   		  $('#checkCompanyId').focus();	 
-	   	  }else{
-	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
-	   		  $.ajax({
-	   			  url:'/checkCompanyId',
-	   			  type:'GET',
-	   		  	  data:{checkCompanyId:$('#checkCompanyId').val()},
-	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
-	   		  		  console.log(data); // 결과 콘솔창으로 확인   
-	   		  	  		if(data =='사용불가'){
-	   		  	  			$('#companyIdCheckHelper').text('아이디 중복 사용불가');
-	   		  	  			$('#checkCompanyId').focus();
-	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#companyIdCheckHelper').text('사용 가능한 아이디입니다');
-	   		  	  		}
-	   		  	  }
-	   		  });
-	   	  }
-	   }); 
-	   
-	   //전화번호 중복 유효성 검사(비동기!!!)
-	   $('#checkCompanyPhone').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
-	      console.log('#checkCompanyPhone blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
-	   	  if($('#checkCompanyPhone').val().length <11){
-	   		  $('#companyPhoneCheckHelper').text('11글자이상');
-	   		  $('#checkCompanyPhone').focus();	 
-	   	  }else{
-	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
-	   		  $.ajax({
-	   			  url:'/checkCompanyPhone',
-	   			  type:'GET',
-	   		  	  data:{checkCompanyPhone:$('#checkCompanyPhone').val()},
-	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
-	   		  		  console.log(data);  
-	   		  	  		if(data =='사용불가'){
-	   		  	  			$('#companyPhoneCheckHelper').text('핸드폰번호 중복 사용불가');
-	   		  	  			$('#checkCompanyPhone').focus();
-	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#companyPhoneCheckHelper').text('사용 가능한 전화번호입니다');
-	   		  	  		}
-	   		  	  }
-	   		  });
-	   	  }
-	   });   
-	   
-	   //이메일 중복 유효성 검사(비동기!!!)
-	   $('#checkCompanyEmail').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
-	      console.log('#checkCompanyEmail blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
-	   	  if($('#checkCompanyEmail').val().length <8){
-	   		  $('#companyEmailCheckHelper').text('메일형식으로 입력 하세요');
-	   		  $('#checkCompanyEmail').focus();	 
-	   	  }else{
-	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
-	   		  $.ajax({
-	   			  url:'/checkCompanyEmail',
-	   			  type:'GET',
-	   		  	  data:{checkCompanyEmail:$('#checkCompanyEmail').val()},
-	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
-	   		  		  console.log(data);  
-	   		  	  		if(data =='사용불가'){
-	   		  	  			$('#companyEmailCheckHelper').text('이메일 중복, 사용불가');
-	   		  	  			$('#checkCompanyEmail').focus();
-	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#companyEmailCheckHelper').text('사용가능한 이메일 입니다');
-	   		  	  		}
-	   		  	  }
-	   		  });
-	   	  }
-	   });   
-   });        
-</script>
 </head>
 
 	
@@ -201,12 +50,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p>미니마켓수정중</p>
 			</div>
 			<div class="agile-login">
-				<ul>				
-					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
-					<li th:if="${session.loginCompany == null}">	
-						<a th:href="@{/addMemberAndCompany}">회원가입</a>
+				<ul>					
+					<li><a th:href="@{/loginMember}">로그인</a></li>
+					<li th:if="${session.loginMember == null}">	
+						<a th:href="@{/addMember}">회원가입</a>
 					</li>
-					<li><a href="contact.html">Help</a></li>	
+					<li><a href="contact.html">Help</a></li>
+					
 				</ul>
 			</div>
 			<div class="product_list_header">  
@@ -296,7 +146,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">회원가입</li>
+				<li class="active">로그인</li>
 			</ol>
 		</div>
 	</div>
@@ -304,44 +154,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- register -->
 	<div class="register">
 		<div class="container">
-			<h2>업체 회원가입</h2>
+			<h2>회원가입</h2>
 			<div class="login-form-grids">
-				<h4><strong>회원가입 기본정보</strong></h4>
+				<h4 align="center"><strong> </strong></h4>
 				<br>
 				<!-- 회원가입 아이디 체크 -->
-				<form id="idForm" method="post" th:action="@{/addCompany}" >				
-					아이디:&nbsp;<input id="checkCompanyId" name="companyId" style="width:270px; display:inline;" type="text" placeholder="ID를 입력하세요"  required=" " ><br>					
-					<span id="companyIdCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 -->	<br>																
-				
-					<!-- 연락처 중복 확인 -->			
-					연락처:&nbsp;<input id="checkCompanyPhone"  name="companyPhone" style="width:270px; display:inline;" type="text" placeholder="연락처를 입력하세요" required=" " ><br>				
-					<span id="companyPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
-				
-					<!-- 이메일 중복확인 -->		
-					이메일:&nbsp;<input id="checkCompanyEmail" name="companyEmail" style="width:270px; display:inline;" type="email" placeholder="ex) ㅇㅇㅇ@naver.com" required=" "><br>					
-					<span id="companyEmailCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>						
-	
-					<!-- 업체 이름,CEO이름과 주소 -->	
-					ceo:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="CEO 이름을  입력하세요" required=" "  name="companyCeoName"><br>
-					업체명:&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="업체명을 입력하세요" required=" "  name="companyName"><br>
-					동네:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" id="address" placeholder="업체 주소" name="companyAdress" readonly="readonly">
-					<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="주소검색" name=""><br>
-					
-					<!-- 동네 주소값 히든으로 받아 넘기기  -->
-					<input type ="hidden" name="companySido" id="companySido">
-               	 	<input type ="hidden" name="companySigungu" id="companySigungu">
-                	<input type ="hidden" name="companyBname" id="companyBname">
-					
-					
-					<input type="submit" id="Form123" value="회원가입">
-					
-					<!--  <div class="register-check-box" 써먹을때있지않을까?>
-						<div class="check">
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I accept the terms and conditions</label>
-						</div>
-					</div>
-					 -->
-				</form>
+				<div align="center">
+					<a class="btn btn-warning" th:href="@{/loginMember}" style="width:200px; height:45px; font-size:20px;" ><strong>일반 회원 로그인</strong> </a>
+					<a class="btn btn-success" th:href="@{/loginCompany}" style="width:200px; height:45px; font-size:20px;"><strong>업체 회원 로그인</strong></a>
+				</div>
 			</div>
 			<div class="register-home">
 				<a th:href="@{/index}">Home</a>

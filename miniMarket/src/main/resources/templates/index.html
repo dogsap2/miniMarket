@@ -48,21 +48,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
-				<ul>					
+				<ul>
 					<li th:if="${session.loginMember != null}">
-						<a th:href="@{/logoutMember}" >로그아웃</a>
-					</li>
-					<li th:if="${session.loginMember != null}">
-						<a th:href="@{/memberMyPage}" >마이페이지</a>
-					</li>
-					<li th:if="${session.loginMember == null}">
-						<a th:href="@{/loginMember}" >로그인</a>
-					</li>
-					<li th:if="${session.loginMember == null}">	
-						<a th:href="@{/addMember}">회원가입</a>
-					</li>
-					<li><a href="contact.html">Help</a></li>
-					
+	                  <a th:href="@{/logoutMember}" >로그아웃</a>
+	               </li>
+	               <li th:if="${session.loginMember != null}">
+	                  <a th:href="@{/memberMyPage}" >마이페이지</a>
+	               </li>
+	               <li th:if="${session.loginMember == null || session.loginCompany ==null}">
+	                  <a th:href="@{/loginMemberAndCompany}" >로그인</a>
+	               </li>
+	               <li th:if="${session.loginMember == null}">   
+	                  <a th:href="@{/addMemberAndCompany}">회원가입</a>
+	               </li>
+	               <li><a href="contact.html">Help</a></li>									  
 				</ul>
 			</div>
 			<div class="product_list_header">  

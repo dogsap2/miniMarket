@@ -11,9 +11,7 @@ public class Company {
 	private String companyEmail;
 	private String companyUniqueNo;
 	private String companyPhone;
-	private String compnayDate;
-	
-	// 겟터 셋터
+	private String companyDate;
 	public String getCompanyId() {
 		return companyId;
 	}
@@ -74,19 +72,19 @@ public class Company {
 	public void setCompanyPhone(String companyPhone) {
 		this.companyPhone = companyPhone;
 	}
-	public String getCompnayDate() {
-		return compnayDate;
+	public String getCompanyDate() {
+		return companyDate;
 	}
-	public void setCompnayDate(String compnayDate) {
-		this.compnayDate = compnayDate;
+	public void setCompanyDate(String companyDate) {
+		this.companyDate = companyDate;
 	}
-	
-	// toString
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companySido=" + companySido + ", companySigungu=" + companySigungu
 				+ ", companyBname=" + companyBname + ", companyPw=" + companyPw + ", companyName=" + companyName
 				+ ", companyCeoName=" + companyCeoName + ", companyEmail=" + companyEmail + ", companyUniqueNo="
-				+ companyUniqueNo + ", companyPhone=" + companyPhone + ", compnayDate=" + compnayDate + "]";
+				+ companyUniqueNo + ", companyPhone=" + companyPhone + ", companyDate=" + companyDate + "]";
 	}
+	
+	
 }

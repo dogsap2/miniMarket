@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Registered :: w3layouts</title>
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -36,13 +36,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+	
+	
 </script>
-
+<!--주소 입력 기능 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>	
-
-	
-
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -63,7 +62,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 document.getElementById("address").value = addr;
                 $('#companySido').val(data.sido);
                 $('#companySigungu').val(data.sigungu); 
-                $('#companyBname').val(data.bname); 
+                $('#companyBname').val(data.bname);
             }
         }).open();
     }
@@ -113,100 +112,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     			$('#myform').submit();
     		} 	
     	});
-
-	   //아이디 중복 유효성 검사(비동기!!!)
-	   $('#checkCompanyId').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
-	      console.log('#checkCompanyId blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
-	   	  if($('#checkCompanyId').val().length <4){
-	   		  $('#companyIdCheckHelper').text('4글자이상');
-	   		  $('#checkCompanyId').focus();	 
-	   	  }else{
-	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
-	   		  $.ajax({
-	   			  url:'/checkCompanyId',
-	   			  type:'GET',
-	   		  	  data:{checkCompanyId:$('#checkCompanyId').val()},
-	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
-	   		  		  console.log(data); // 결과 콘솔창으로 확인   
-	   		  	  		if(data =='사용불가'){
-	   		  	  			$('#companyIdCheckHelper').text('아이디 중복 사용불가');
-	   		  	  			$('#checkCompanyId').focus();
-	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#companyIdCheckHelper').text('사용 가능한 아이디입니다');
-	   		  	  		}
-	   		  	  }
-	   		  });
-	   	  }
-	   }); 
-	   
-	   //전화번호 중복 유효성 검사(비동기!!!)
-	   $('#checkCompanyPhone').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
-	      console.log('#checkCompanyPhone blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
-	   	  if($('#checkCompanyPhone').val().length <11){
-	   		  $('#companyPhoneCheckHelper').text('11글자이상');
-	   		  $('#checkCompanyPhone').focus();	 
-	   	  }else{
-	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
-	   		  $.ajax({
-	   			  url:'/checkCompanyPhone',
-	   			  type:'GET',
-	   		  	  data:{checkCompanyPhone:$('#checkCompanyPhone').val()},
-	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
-	   		  		  console.log(data);  
-	   		  	  		if(data =='사용불가'){
-	   		  	  			$('#companyPhoneCheckHelper').text('핸드폰번호 중복 사용불가');
-	   		  	  			$('#checkCompanyPhone').focus();
-	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#companyPhoneCheckHelper').text('사용 가능한 전화번호입니다');
-	   		  	  		}
-	   		  	  }
-	   		  });
-	   	  }
-	   });   
-	   
-	   //이메일 중복 유효성 검사(비동기!!!)
-	   $('#checkCompanyEmail').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
-	      console.log('#checkCompanyEmail blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
-	   	  if($('#checkCompanyEmail').val().length <8){
-	   		  $('#companyEmailCheckHelper').text('메일형식으로 입력 하세요');
-	   		  $('#checkCompanyEmail').focus();	 
-	   	  }else{
-	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
-	   		  $.ajax({
-	   			  url:'/checkCompanyEmail',
-	   			  type:'GET',
-	   		  	  data:{checkCompanyEmail:$('#checkCompanyEmail').val()},
-	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
-	   		  		  console.log(data);  
-	   		  	  		if(data =='사용불가'){
-	   		  	  			$('#companyEmailCheckHelper').text('이메일 중복, 사용불가');
-	   		  	  			$('#checkCompanyEmail').focus();
-	   		  	  		}else if(data=='사용가능'){
-	   		  	  			$('#companyEmailCheckHelper').text('사용가능한 이메일 입니다');
-	   		  	  		}
-	   		  	  }
-	   		  });
-	   	  }
-	   });   
+    	
+ 	   //전화번호 중복 유효성 검사(비동기!!!)
+ 	   $('#checkCompanyPhone').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
+ 	      console.log('#checkCompanyPhone blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
+ 	   	  if($('#checkCompanyPhone').val().length <11){
+ 	   		  $('#companyPhoneCheckHelper').text('11글자이상');
+ 	   		  $('#checkCompanyPhone').focus();	 
+ 	   	  }else{
+ 	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
+ 	   		  $.ajax({
+ 	   			  url:'/checkCompanyPhone',
+ 	   			  type:'GET',
+ 	   		  	  data:{checkCompanyPhone:$('#checkCompanyPhone').val()},
+ 	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
+ 	   		  		  console.log(data);  
+ 	   		  	  		if(data =='사용불가'){
+ 	   		  	  			$('#companyPhoneCheckHelper').text('핸드폰번호 중복 사용불가');
+ 	   		  	  			$('#checkCompanyPhone').focus();
+ 	   		  	  		}else if(data=='사용가능'){
+ 	   		  	  			$('#companyPhoneCheckHelper').text('사용 가능한 전화번호입니다');
+ 	   		  	  		}
+ 	   		  	  }
+ 	   		  });
+ 	   	  }
+ 	   });  
    });        
 </script>
+<!-- start-smoth-scrolling -->
 </head>
-
 	
 <body>
 <!-- header -->
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>미니마켓수정중</p>
+				<p>SALE UP TO 70% OFF. USE CODE "SALE70%" . <a href="products.html">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
-				<ul>				
-					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
-					<li th:if="${session.loginCompany == null}">	
-						<a th:href="@{/addMemberAndCompany}">회원가입</a>
-					</li>
-					<li><a href="contact.html">Help</a></li>	
+				<ul>
+					<li><a href="registered.html"> Create Account </a></li>
+					<li><a th:href="@{/loginMemberAndCompany}">Login</a></li>
+					<li><a href="contact.html">Help</a></li>
+					
 				</ul>
 			</div>
 			<div class="product_list_header">  
@@ -229,7 +177,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a th:href="@{/index}">Mini Market</a></h1>
+				<h1><a href="index.html">super Market</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="#" method="post">
@@ -249,106 +197,168 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="navigation-agileits">
 		<div class="container">
 			<nav class="navbar navbar-default">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header nav_2">
-					<button type="button"
-						class="navbar-toggle collapsed navbar-toggle1"
-						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav">
-						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
-						<!-- Mega Menu -->
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Groceries<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<h6>All Groceries</h6>
-											<li><a href="groceries.html">Dals & Pulses</a></li>
-											<li><a href="groceries.html">Almonds</a></li>
-											<li><a href="groceries.html">Cashews</a></li>
-											<li><a href="groceries.html">Dry Fruit</a></li>
-											<li><a href="groceries.html"> Mukhwas </a></li>
-											<li><a href="groceries.html">Rice & Rice Products</a></li>
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header nav_2">
+								<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div> 
+							<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+								<ul class="nav navbar-nav">
+									<li class="active"><a href="index.html" class="act">Home</a></li>	
+									<!-- Mega Menu -->
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Groceries<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Groceries</h6>
+														<li><a href="groceries.html">Dals & Pulses</a></li>
+														<li><a href="groceries.html">Almonds</a></li>
+														<li><a href="groceries.html">Cashews</a></li>
+														<li><a href="groceries.html">Dry Fruit</a></li>
+														<li><a href="groceries.html"> Mukhwas </a></li>
+														<li><a href="groceries.html">Rice & Rice Products</a></li>
+													</ul>
+												</div>	
+												
+											</div>
 										</ul>
-									</div>
-								</div>
-							</ul></li>
-
-						<li><a href="gourmet.html">Gourmet</a></li>
-						<li><a href="offers.html">Offers</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-			</nav>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Household<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Household</h6>
+														<li><a href="household.html">Cookware</a></li>
+														<li><a href="household.html">Dust Pans</a></li>
+														<li><a href="household.html">Scrubbers</a></li>
+														<li><a href="household.html">Dust Cloth</a></li>
+														<li><a href="household.html"> Mops </a></li>
+														<li><a href="household.html">Kitchenware</a></li>
+													</ul>
+												</div>
+												
+												
+											</div>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Personal Care<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>Baby Care</h6>
+														<li><a href="personalcare.html">Baby Soap</a></li>
+														<li><a href="personalcare.html">Baby Care Accessories</a></li>
+														<li><a href="personalcare.html">Baby Oil & Shampoos</a></li>
+														<li><a href="personalcare.html">Baby Creams & Lotion</a></li>
+														<li><a href="personalcare.html"> Baby Powder</a></li>
+														<li><a href="personalcare.html">Diapers & Wipes</a></li>
+													</ul>
+												</div>
+												
+											</div>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Packaged Foods<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Accessories</h6>
+														<li><a href="packagedfoods.html">Baby Food</a></li>
+														<li><a href="packagedfoods.html">Dessert Items</a></li>
+														<li><a href="packagedfoods.html">Biscuits</a></li>
+														<li><a href="packagedfoods.html">Breakfast Cereals</a></li>
+														<li><a href="packagedfoods.html"> Canned Food </a></li>
+														<li><a href="packagedfoods.html">Chocolates & Sweets</a></li>
+													</ul>
+												</div>
+												
+											
+											</div>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>Tea & Coeffe</h6>
+														<li><a href="beverages.html">Green Tea</a></li>
+														<li><a href="beverages.html">Ground Coffee</a></li>
+														<li><a href="beverages.html">Herbal Tea</a></li>
+														<li><a href="beverages.html">Instant Coffee</a></li>
+														<li><a href="beverages.html"> Tea </a></li>
+														<li><a href="beverages.html">Tea Bags</a></li>
+													</ul>
+												</div>
+							
+											</div>
+										</ul>
+									</li>
+									<li><a href="gourmet.html">Gourmet</a></li>
+									<li><a href="offers.html">Offers</a></li>
+									<li><a href="contact.html">Contact</a></li>
+								</ul>
+							</div>
+							</nav>
+			</div>
 		</div>
-	</div>
-
-	<!-- //navigation -->
+		
+<!-- //navigation -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">회원가입</li>
+				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">Login Page</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- register -->
-	<div class="register">
+<!-- 업체의 정보 -->
+	<div class="login">
 		<div class="container">
-			<h2>업체 회원가입</h2>
-			<div class="login-form-grids">
-				<h4><strong>회원가입 기본정보</strong></h4>
-				<br>
-				<!-- 회원가입 아이디 체크 -->
-				<form id="idForm" method="post" th:action="@{/addCompany}" >				
-					아이디:&nbsp;<input id="checkCompanyId" name="companyId" style="width:270px; display:inline;" type="text" placeholder="ID를 입력하세요"  required=" " ><br>					
-					<span id="companyIdCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 -->	<br>																
-				
-					<!-- 연락처 중복 확인 -->			
-					연락처:&nbsp;<input id="checkCompanyPhone"  name="companyPhone" style="width:270px; display:inline;" type="text" placeholder="연락처를 입력하세요" required=" " ><br>				
-					<span id="companyPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
-				
-					<!-- 이메일 중복확인 -->		
-					이메일:&nbsp;<input id="checkCompanyEmail" name="companyEmail" style="width:270px; display:inline;" type="email" placeholder="ex) ㅇㅇㅇ@naver.com" required=" "><br>					
-					<span id="companyEmailCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>						
-	
-					<!-- 업체 이름,CEO이름과 주소 -->	
-					ceo:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="CEO 이름을  입력하세요" required=" "  name="companyCeoName"><br>
-					업체명:&nbsp;<input style="width: 270px; display:inline;" type="text" placeholder="업체명을 입력하세요" required=" "  name="companyName"><br>
-					동네:&emsp;&nbsp;<input style="width: 270px; display:inline;" type="text" id="address" placeholder="업체 주소" name="companyAdress" readonly="readonly">
-					<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="주소검색" name=""><br>
-					
-					<!-- 동네 주소값 히든으로 받아 넘기기  -->
-					<input type ="hidden" name="companySido" id="companySido">
-               	 	<input type ="hidden" name="companySigungu" id="companySigungu">
-                	<input type ="hidden" name="companyBname" id="companyBname">
-					
-					
-					<input type="submit" id="Form123" value="회원가입">
-					
-					<!--  <div class="register-check-box" 써먹을때있지않을까?>
-						<div class="check">
-							<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I accept the terms and conditions</label>
-						</div>
-					</div>
-					 -->
-				</form>
+			<h2>업체 정보 수정</h2>
+			<form method="post" th:action="@{/modifyCompany}">
+			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+						아이디 : <span th:text="${company.companyId}"></span><br>
+						<input type ="hidden" name="companyId" id="companyId" th:value="${company.companyId}"> 
+						고유번호: <span th:text="${company.companyUniqueNo}"></span><br>
+						이메일 : <span th:text="${company.companyEmail}"></span><br>
+						CEO:<input type="text" style="width: 270px; display:inline;" th:value="${company.companyCeoName}" name="companyCeoName"><br>
+						핸드폰번호 :<input id="checkCompanyPhone"  name="companyPhone" style="width:270px; display:inline;" type="text" th:value="${company.companyPhone}"><br>				
+						<span id="companyPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
+						 동네:
+						 <input style="width: 270px; display:inline;" type="text" id="address"
+						 th:value="${company.companySido}+${company.companySigungu}+${company.companyBname}" name="companyAdress">
+						<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="동네검색" name=""><br>
+						<!-- 이메일 일단은 수정불가 -->
+						
+						
+						<!-- 동네 주소값 히든으로 받아 넘기기  -->
+						<input type ="hidden" name="companySido" id="companySido"   th:value="${company.companySido}">
+               	 		<input type ="hidden" name="companySigungu" id="companySigungu" th:value="${company.companySigungu}">
+                		<input type ="hidden" name="companyBname" id="companybname" th:value="${company.companyBname}">
+                		
+                		<input type="submit" id="Form123" value="수정완료">
 			</div>
-			<div class="register-home">
-				<a th:href="@{/index}">Home</a>
-			</div>
+			</form>
+			<p><a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
-<!-- //register -->
+<!-- //login -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
@@ -387,7 +397,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="info"> 
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="loginMember">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
 					

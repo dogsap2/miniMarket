@@ -36,6 +36,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+	
+	
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -45,12 +47,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>미니마켓 수정중</p>
+				<p>SALE UP TO 70% OFF. USE CODE "SALE70%" . <a href="products.html">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
-					
-					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
+					<li><a href="registered.html"> Create Account </a></li>
+					<li><a th:href="@{/loginMemberAndCompany}">Login</a></li>
 					<li><a href="contact.html">Help</a></li>
 					
 				</ul>
@@ -75,7 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a th:href="@{/index}">Mini Market</a></h1>
+				<h1><a href="index.html">super Market</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="#" method="post">
@@ -95,76 +97,163 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="navigation-agileits">
 		<div class="container">
 			<nav class="navbar navbar-default">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header nav_2">
-					<button type="button"
-						class="navbar-toggle collapsed navbar-toggle1"
-						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav">
-						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
-						<!-- Mega Menu -->
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Groceries<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<h6>All Groceries</h6>
-											<li><a href="groceries.html">Dals & Pulses</a></li>
-											<li><a href="groceries.html">Almonds</a></li>
-											<li><a href="groceries.html">Cashews</a></li>
-											<li><a href="groceries.html">Dry Fruit</a></li>
-											<li><a href="groceries.html"> Mukhwas </a></li>
-											<li><a href="groceries.html">Rice & Rice Products</a></li>
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header nav_2">
+								<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div> 
+							<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+								<ul class="nav navbar-nav">
+									<li class="active"><a href="index.html" class="act">Home</a></li>	
+									<!-- Mega Menu -->
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Groceries<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Groceries</h6>
+														<li><a href="groceries.html">Dals & Pulses</a></li>
+														<li><a href="groceries.html">Almonds</a></li>
+														<li><a href="groceries.html">Cashews</a></li>
+														<li><a href="groceries.html">Dry Fruit</a></li>
+														<li><a href="groceries.html"> Mukhwas </a></li>
+														<li><a href="groceries.html">Rice & Rice Products</a></li>
+													</ul>
+												</div>	
+												
+											</div>
 										</ul>
-									</div>
-								</div>
-							</ul></li>
-
-						<li><a href="gourmet.html">Gourmet</a></li>
-						<li><a href="offers.html">Offers</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-			</nav>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Household<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Household</h6>
+														<li><a href="household.html">Cookware</a></li>
+														<li><a href="household.html">Dust Pans</a></li>
+														<li><a href="household.html">Scrubbers</a></li>
+														<li><a href="household.html">Dust Cloth</a></li>
+														<li><a href="household.html"> Mops </a></li>
+														<li><a href="household.html">Kitchenware</a></li>
+													</ul>
+												</div>
+												
+												
+											</div>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Personal Care<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>Baby Care</h6>
+														<li><a href="personalcare.html">Baby Soap</a></li>
+														<li><a href="personalcare.html">Baby Care Accessories</a></li>
+														<li><a href="personalcare.html">Baby Oil & Shampoos</a></li>
+														<li><a href="personalcare.html">Baby Creams & Lotion</a></li>
+														<li><a href="personalcare.html"> Baby Powder</a></li>
+														<li><a href="personalcare.html">Diapers & Wipes</a></li>
+													</ul>
+												</div>
+												
+											</div>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Packaged Foods<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Accessories</h6>
+														<li><a href="packagedfoods.html">Baby Food</a></li>
+														<li><a href="packagedfoods.html">Dessert Items</a></li>
+														<li><a href="packagedfoods.html">Biscuits</a></li>
+														<li><a href="packagedfoods.html">Breakfast Cereals</a></li>
+														<li><a href="packagedfoods.html"> Canned Food </a></li>
+														<li><a href="packagedfoods.html">Chocolates & Sweets</a></li>
+													</ul>
+												</div>
+												
+											
+											</div>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>Tea & Coeffe</h6>
+														<li><a href="beverages.html">Green Tea</a></li>
+														<li><a href="beverages.html">Ground Coffee</a></li>
+														<li><a href="beverages.html">Herbal Tea</a></li>
+														<li><a href="beverages.html">Instant Coffee</a></li>
+														<li><a href="beverages.html"> Tea </a></li>
+														<li><a href="beverages.html">Tea Bags</a></li>
+													</ul>
+												</div>
+							
+											</div>
+										</ul>
+									</li>
+									<li><a href="gourmet.html">Gourmet</a></li>
+									<li><a href="offers.html">Offers</a></li>
+									<li><a href="contact.html">Contact</a></li>
+								</ul>
+							</div>
+							</nav>
+			</div>
 		</div>
-	</div>
+		
 <!-- //navigation -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
 				<li class="active">Login Page</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-<!-- login -->
+<!-- 나의 정보 -->
 	<div class="login">
 		<div class="container">
-			<h2>업체 로그인</h2>
+			<h2>나의 정보</h2>
 		
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form th:action="@{/loginCompany}" method="post">
-					<input type="text" placeholder="업체 ID를 입력하세요" required=" " name="companyId">
-					<input type="password" placeholder="Password" required=" " name="companyPw" >
-					<div class="forgot">
-						<a th:href="@{/getFindCompanyId }">Forgot ID?</a>
-						<a th:href="@{/getFindCompanyPw}">Forgot Password?</a>
-										
-					</div>						
-					<input type="submit" value="Login">
-				</form>
+			
+			<div class="login-form-grids animated wow slideInUp"data-wow-delay=".5s">
+				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyCompany}">수정하기</a></p>
+				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyCompanyPw}">비밀번호 변경</a></p><br>
+				아이디 :
+				<div style="display: inline;" th:text="${company.companyId}"></div><br>
+				CEO 이름 :
+				<div style="display: inline;" th:text="${company.companyCeoName}"></div><br>
+				주소 :
+				<div
+					style="display: inline;" th:text="${company.companySido}+${company.companySigungu}+${company.companyBname}"></div><br>
+				이메일 :
+				<div style="display: inline;" th:text="${company.companyEmail}"></div><br>
+				고유번호:
+				<div style="display: inline;" th:text="${company.companyUniqueNo}"></div><br>
+				핸드폰번호 :
+				<div style="display: inline;" th:text="${company.companyPhone}"></div><br>
+				가입날짜 :
+				<div style="display: inline;" th:text="${company.companyDate}"></div><br>				
 			</div>
-			<h4>For New People</h4>
-			<p><a th:href="@{/addMemeberAndCompany}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+			
+			<p>(Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->

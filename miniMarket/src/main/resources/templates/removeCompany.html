@@ -7,13 +7,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
+
+
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -38,6 +40,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- start-smoth-scrolling -->
+
+<style>
+.rounded {
+  background: silver;
+  border-radius: 200px;
+}
+</style>
+
 </head>
 	
 <body>
@@ -45,12 +55,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>미니마켓 수정중</p>
+				<p>mini market 작업중 ^_^ <a href="products.html">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
-					
-					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
+					<li><a href="registered.html"> Create Account </a></li>
+					<li th:if="${session.loginCompany != null}">
+						<a th:href="@{/logoutCompany}" >로그아웃</a>
+					</li>
+					<li th:if="${session.loginCompany != null}">
+						<a th:href="@{/CompanyMyPage}" >마이페이지</a>
+					</li>
+					<li th:if="${session.loginCompany == null}">
+						<a th:href="@{/loginMemberAndCompany}" >로그인</a>
+					</li>
+					<li th:if="${session.loginCompany == null}">	
+						<a th:href="@{/addMemberAndCompany}">회원가입</a>
+					</li>
 					<li><a href="contact.html">Help</a></li>
 					
 				</ul>
@@ -70,12 +91,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>이슬민,엄미선,한윤아,서일태,정유석,김동희 Order online or call us : (+0123) 234 567</li>
 					
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a th:href="@{/index}">Mini Market</a></h1>
+				<h1><a href="index.html">Mini Market</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="#" method="post">
@@ -95,80 +116,56 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="navigation-agileits">
 		<div class="container">
 			<nav class="navbar navbar-default">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header nav_2">
-					<button type="button"
-						class="navbar-toggle collapsed navbar-toggle1"
-						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav">
-						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
-						<!-- Mega Menu -->
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Groceries<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<h6>All Groceries</h6>
-											<li><a href="groceries.html">Dals & Pulses</a></li>
-											<li><a href="groceries.html">Almonds</a></li>
-											<li><a href="groceries.html">Cashews</a></li>
-											<li><a href="groceries.html">Dry Fruit</a></li>
-											<li><a href="groceries.html"> Mukhwas </a></li>
-											<li><a href="groceries.html">Rice & Rice Products</a></li>
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header nav_2">
+								<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div> 
+							<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+								<ul class="nav navbar-nav">
+									<li class="active"><a href="index.html" class="act">Home</a></li>	
+									<!-- Mega Menu -->
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Groceries<b class="caret"></b></a>
+										<ul class="dropdown-menu multi-column columns-3">
+											<div class="row">
+												<div class="multi-gd-img">
+													<ul class="multi-column-dropdown">
+														<h6>All Groceries</h6>
+														<li><a href="groceries.html">Dals & Pulses</a></li>
+														<li><a href="groceries.html">Almonds</a></li>
+														<li><a href="groceries.html">Cashews</a></li>
+														<li><a href="groceries.html">Dry Fruit</a></li>
+														<li><a href="groceries.html"> Mukhwas </a></li>
+														<li><a href="groceries.html">Rice & Rice Products</a></li>
+													</ul>
+												</div>													
+											</div>
 										</ul>
-									</div>
-								</div>
-							</ul></li>
-
-						<li><a href="gourmet.html">Gourmet</a></li>
-						<li><a href="offers.html">Offers</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-			</nav>
-		</div>
-	</div>
-<!-- //navigation -->
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Login Page</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
-<!-- login -->
-	<div class="login">
-		<div class="container">
-			<h2>업체 로그인</h2>
-		
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form th:action="@{/loginCompany}" method="post">
-					<input type="text" placeholder="업체 ID를 입력하세요" required=" " name="companyId">
-					<input type="password" placeholder="Password" required=" " name="companyPw" >
-					<div class="forgot">
-						<a th:href="@{/getFindCompanyId }">Forgot ID?</a>
-						<a th:href="@{/getFindCompanyPw}">Forgot Password?</a>
-										
-					</div>						
-					<input type="submit" value="Login">
-				</form>
+									</li>								
+									<li><a href="offers.html">Offers</a></li>
+									<li><a href="contact.html">Contact</a></li>
+								</ul>
+							</div>
+							</nav>
 			</div>
-			<h4>For New People</h4>
-			<p><a th:href="@{/addMemeberAndCompany}">회원가입</a> (Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
-	</div>
-<!-- //login -->
-<!-- //footer -->
+<div class="breadcrumbs">
+	<div align="center">
+		<!-- 회원탈퇴 비밀번호 입력 -->
+		<form th:action="@{/removeCompany}" method="post">
+			<div>
+				<input type="password" style= "width: 300px; height: 40px;"  placeholder="Password" required=" " name="companyPw"><br><br>
+				<span th:text="${msg}"></span>
+				<input class="btn btn-warning" type="submit" value="탈퇴하기">
+			</div>
+		</form>
+	</div>		
+</div>
 <div class="footer">
 		<div class="container">
 			<div class="w3_footer_grids">
@@ -206,11 +203,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="info"> 
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="loginMember">Login</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="@{/login}">Login</a></li>
 						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
 					</ul>
-					
-					
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -243,6 +238,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
@@ -286,6 +282,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 </script>	
 <!-- //main slider-banner --> 
-
 </body>
 </html>
