@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.dk4750.miniMarket.mapper.QnaBoardCompanyMapper">
+	<!-- 총 리스트 갯수(페이징) -->
+	<select id="getTotalRow" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM mini_market_qna_board_company
+	</select>
+	<!-- Qna리스트 페이징 -->
+	<select id="selectCompanyBoardQnAList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.QnaBoardCompanyAndCompany">
+		SELECT
+			q.qna_board_company_no as qnaBoardCompanyNo,
+			c.company_id as companyId,
+			q.qna_board_company_title as qnaBoardCompanyTitle,
+			q.qna_board_company_date as qnaBoardCompanyDate
+		FROM mini_market_qna_board_company AS q
+		INNER JOIN mini_market_company c
+		ON q.company_unique_no = c.company_unique_no
+		ORDER BY q.qna_board_company_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+</mapper>
