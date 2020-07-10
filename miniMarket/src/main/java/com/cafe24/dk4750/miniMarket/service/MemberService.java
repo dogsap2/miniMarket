@@ -27,7 +27,7 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private JavaMailSender javaMailSender;//@Conponent	
-	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\imgs\\")
+	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
 	

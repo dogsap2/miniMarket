@@ -38,11 +38,25 @@ public class MemberItemController {
 			return "index";
 		}
 		
+		// 세션에서 내 유니크넘버 받아오기
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		String memberUniqueNo = loginMember.getMemberUniqueNo();
+		
+		// 내가 좋아요 한 적이 있는지 체크
+		MemberItemLike memberItemLike = new MemberItemLike();
+		memberItemLike.setMemberItemNo(memberItemNo);
+		memberItemLike.setMemberUniqueNo(memberUniqueNo);
+		
+		Integer check = checkLikeService.defaultLike(memberItemLike);
+		System.out.println(check + " <== check");
+		
 		// 아이템 상세보기 불러오기
 		MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getItemOne = memberItemService.getMemberItemOne(memberItemNo);
 		
 		// 모델에 담아주기
 		model.addAttribute("getItemOne", getItemOne);
+		model.addAttribute("check", check);
+		System.out.println(getItemOne + " <== getItemOne");
 		
 		return "getItemOne";
 	}
@@ -156,13 +170,6 @@ public class MemberItemController {
 		int memberItemNo = 1;
 		String memberUniqueNo = "m000001";
 		
-		MemberItemLike memberItemLike = new MemberItemLike();
-		memberItemLike.setMemberItemNo(memberItemNo);
-		memberItemLike.setMemberUniqueNo(memberUniqueNo);
-		
-		Integer check = checkLikeService.defaultLike(memberItemLike);
-		System.out.println(check + " <== check");
-		
 		// 기존 정보 불러오기
 		Map<String, Object> map = memberItemService.getMemberItemOneForUpdate(memberItemNo);
 		MemberItemPic memberItemPic = (MemberItemPic)map.get("memberItemPic");
@@ -174,7 +181,7 @@ public class MemberItemController {
 		// 모델에 값 담아서 페이지에 보내주기
 		model.addAttribute("memberItem", memberItem);
 		model.addAttribute("memberItemPic", memberItemPic);
-		model.addAttribute("check", check);
+		
 		// 페이지요청
 		return "modifyMemberItem";
 	}

@@ -35,7 +35,7 @@ public class MemberItemService {
 	@Autowired private MemberItemPicMapper memberItemPicMapper;
 	@Autowired private SoldoutMapper soldoutMapper;
 	@Autowired private ChatroomMapper chatroomMapper;
-	@Value("D:\\spring_work\\maven.1593421934386\\miniMarket\\src\\main\\resources\\static\\images\\")
+	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
 	// 아이템 상세보기 겟매핑.. 정보 넘겨주기

@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		let count=0;
+		let check = Number($('#check').text());
+		if(check == 1) {
+			$('#img').attr('src', '/images/heart.png');
+			count = count + check;
+			console.log(count + "체크넘버가 1일시 count에 check 더해서 1으로 고정");
+		} else if(check == 0) {
+			$('#img').attr('src', '/images/emptyheart.png');
+		}
+		console.log(check + " 검사한결과값")
+		$('#btn').click(function() {
+			count = count+1;
+			console.log(count);
+			$.ajax({
+				url:'/likeCheck?count='+count+'&memberItemNo='+$('#memberItemNo').val(),
+				type:'get',
+				success : function(data) {
+					console.log("0이면 좋아요취소, 1이면 좋아요 : " + data);
+					if(data == 1) {
+						$('#img').attr('src', '/images/heart.png');
+					} else {
+						$('#img').attr('src', '/images/emptyheart.png');
+					}
+					count = data;
+				}
+			});
+			location.reload();
+		});
+	});
+</script>
 </head>
 <body>
-
+	<input type="hidden" id="memberItemNo" th:value="${getItemOne.memberItemNo}">
+	<input type="hidden" id="memberUniqueNo" th:value="${getItemOne.memberUniqueNo}">
+	<table border="1">
+		<tr>
+			<th>제목</th>
+			<th>카테고리</th>
+			<th>가격</th>
+			<th>내용</th>
+			<th>작성날짜</th>
+			<th>판매여부</th>
+			<th>동네</th>
+			<th>닉네임</th>
+			<th>판매자사진</th>
+			<th>아이템사진1</th>
+			<th>아이템사진2</th>
+			<th>아이템사진3</th>
+			<th>아이템사진4</th>
+			<th>아이템사진5</th>
+			<th>멤버온도</th>
+			<th>좋아요수</th>
+		</tr>
+		<tr>
+			<td>
+				<div th:text="${getItemOne.memberItemTitle}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.CategoryName}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberItemPrice}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberItemContent}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberItemDate}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberItemState}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberBname}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberNickname}"></div>
+			</td>
+			<td>
+				<img th:src="@{'/images/'+${getItemOne.profilePic}}" width="300" height="150">
+			</td>
+			<td>
+				<img th:src="@{'/images/'+${getItemOne.memberItemPic1}}" width="300" height="150">
+			</td>
+			<td>
+				<img th:src="@{'/images/'+${getItemOne.memberItemPic2}}" width="300" height="150">
+			</td>
+			<td>
+				<img th:src="@{'/images/'+${getItemOne.memberItemPic3}}" width="300" height="150">
+			</td>
+			<td>
+				<img th:src="@{'/images/'+${getItemOne.memberItemPic4}}" width="300" height="150">
+			</td>
+			<td>
+				<img th:src="@{'/images/'+${getItemOne.memberItemPic5}}" width="300" height="150">
+			</td>
+			<td>
+				<div th:text="${getItemOne.memberTempTotal}"></div>
+			</td>
+			<td>
+				<div th:text="${getItemOne.LikeActive}"></div>
+			</td>
+		</tr>
+	</table>
+	<button type="submit" id="btn"><img id="img" th:src="@{'/images/emptyheart.png'}" width="50" height="50"></button>
+	<div id="check" style="display:none" th:text="${check}"></div>
 </body>
 </html>
