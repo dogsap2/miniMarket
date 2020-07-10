@@ -5,18 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!--  	<form th:action="@{/getCompanyItemListByCategory(caegoryName=${categoryList.categoryName})}" method="get" id="form">
-		<select name="categoryName" id="categoryName">
-				<option selected value="">상품의 카테고리를 선택해주세요.</option>
-				<option th:each="categoryList : ${categoryList}" th:text="${categoryList.categoryName}"></option>
-		</select> 
-		<button type="submit">카테고리별로 이동</button>
-	</form>  -->
-	<ul>
-		<li></li>
-	</ul>
-	<a th:href="@{/getCompanyItemListByCategory(categoryName='업체홍보')}">카테고리별 이동</a>
-	
 	<table border="1">
 		<thead>
 			<tr>
@@ -25,7 +13,6 @@
 				<th>업체 번호</th>
 				<th>아이템 올린 날짜</th>
 				<th>판매지역</th>
-				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,9 +24,6 @@
 				<td th:text="${list.companyPhone}"></td>
 				<td th:text="${list.companyItemDate}"></td>
 				<td th:text="${list.companyBname}"></td>
-				<td>
-					<a th:href="@{/disabledCompanyItem(companyItemNo=${list.companyItemNo})}">삭제</a>
-				</td>
 			</tr>
 		</tbody>
 	</table>

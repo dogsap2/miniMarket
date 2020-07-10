@@ -3,35 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <title>add member item</title>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		// 업체아이템 추가시 있는지 없는지 확인..
+		$.ajax({
+			url:'/CompanyItemCheck',
+			data:{
+				companyUniqueNo:$('#companyUniqueNo').val()
+			},
+			type:'get',
+			success : function(data) {
+				console.log(data + " = CompanyItemCheck")
+				if(data==1){
+					//location.replace('/'); 해당페이지로 이동 이전페이지 이동 불가
+					$('#btn').prop("disabled", true);
+				}
+			}
+		});
+		$('#btn').click(function() {
+			$('#addForm').submit();
+		});
+	});
+</script>
 </head>
 <body>
-	<form method="post" th:action="@{/addCompanyItem}" enctype="multipart/form-data">
+	<form method="post" th:action="@{/addCompanyItem}" enctype="multipart/form-data" id="addForm">
 		<table border="1">
-		
 			<tr>
-				<th>업체 고유번호</th>
 				<th>제목</th>
 				<th>카테고리 이름</th>
-				<th>번호</th>
 				<th>가격</th>
+				<th>번호</th>
 				<th>내용</th>
 				<th>사진</th>
 			</tr>
 			<tr>
 				<td>
-					<input type="text" name="companyUniqueNo" id="companyUniqueNo" th:value="1">
-				</td>
-				<td>
 					<input type="text" name="companyItemTitle" id="companyItemTitle">
 				</td>
 				<td>
-					<input type="text" name="categoryName" id="categoryName" th:value="업체홍보">
-				</td>
-				<td>
-					<input type="text" name="companyPhone" id="companyPhone">
+					<select name="categoryName" id="categoryName">
+						<option selected value="">상품의 카테고리를 선택해주세요.</option>
+						<option th:each="list : ${list}" th:value="${list.categoryName}" th:text="${list.categoryName}">
+					</select>
 				</td>
 				<td>
 					<input type="text" name="companyItemPrice" id="companyItemPrice">
+				</td>
+				<td>
+					<input type="text" name="companyPhone" id="companyPhone">
 				</td>
 				<td>
 					<textarea rows="5" cols="10" name="companyItemContent" id="companyItemContent"></textarea>
@@ -46,10 +69,13 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="submit">추가</button>
+					<button type="button" id="btn">추가</button>
 				</td>
 			</tr>
 		</table>
+		<div>
+			<input type="hidden" name="companyUniqueNo" th:value="${companyUniqueNo}" id="companyUniqueNo">
+		</div>
 	</form>
 </body>
 </html>

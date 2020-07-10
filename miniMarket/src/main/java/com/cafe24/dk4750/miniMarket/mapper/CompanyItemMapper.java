@@ -11,14 +11,17 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic;
 @Mapper
 public interface CompanyItemMapper {
 	
-	// 업체 아이템 추가(한번만 가능)
-	public int insertCompanyItem(CompanyItem companyItem);
-	
-	// 한 업체 아이템 정보 출력하기
-	public CompanyItem selectCompanyItemOne(int companyItemNo);
+	// 업체 아이템 수정 (폼)
+	public CompanyItem selectCompanyItemOneForUpdate(int companyItemNo);
 	
 	// 업체 아이템 수정 액션
 	public int updateCompanyItem(CompanyItem companyItem);
+	
+	// 업체 아이템 있는 지 없는지 체크
+	public int selectCompanyItemCheck(String companyUniqueNo);
+	
+	// 업체 아이템 추가(한번만 가능)
+	public int insertCompanyItem(CompanyItem companyItem);
 	
 	// 홍보중인  업체 리스트
 	public List<CompanyItemAndCompanyAndCompanyItemPic> selectCompanyItemList(Map<String, Object> map);

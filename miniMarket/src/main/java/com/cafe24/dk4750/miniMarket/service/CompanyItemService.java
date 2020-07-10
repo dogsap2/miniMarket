@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,22 +20,79 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemPic;
+import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 
 @Service
 @Transactional
 public class CompanyItemService {
 	@Autowired private CompanyItemMapper companyItemMapper;
 	@Autowired private CompanyItemPicMapper companyItemPicMapper;
-	@Value("D:\\spring_work\\maven.1593421934386\\miniMarket\\src\\main\\resources\\static\\images\\")
+	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1594275612256\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
-	// 홍보중인 업체 아이템 리스트 출력
-	public List<CompanyItemAndCompanyAndCompanyItemPic> getCompanyItemList() {
+	// 수정 폼
+	
+	// 수정 액션
+	
+	// 업체 아이템이 있는지 없는지 체크 
+	public int getCompanyItemCheck(String companyUniqueNo) {
+		return companyItemMapper.selectCompanyItemCheck(companyUniqueNo);
+	}
+	
+	// 홍보중인 카테고리별 업체 아이템 리스트 출력
+	public List<CompanyItemAndCompanyAndCompanyItemPic> getCompanyItemListByCategory(HttpSession session, String categoryName) {
+		// 세션값 가져오기
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		
 		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
 		int beginRow = 0;
 		int rowPerPage = 10;
-		String companyBname = "company";
-		String companySigungu = "company";
+		String companyBname;
+		String companySigungu;
+		// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
+		if(session.getAttribute("loginCompany") == null) {
+			companyBname = loginMember.getMemberBname();
+			companySigungu = loginMember.getMemberSigungu();
+		} else {
+			companyBname = loginCompany.getCompanyBname();
+			companySigungu = loginCompany.getCompanySigungu();
+		}
+		String searchWord = "";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("companyBname", companyBname);
+		map.put("companySigungu", companySigungu);
+		map.put("searchWord", searchWord);
+		map.put("categoryName", categoryName);
+		System.out.println(categoryName+"<-----맵에 담긴 카테고리 네임 값");
+		//리스트 담기
+		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemListByCategory(map);
+		return list;
+	}
+	
+	// 홍보중인 업체 아이템 리스트 출력
+	public List<CompanyItemAndCompanyAndCompanyItemPic> getCompanyItemList(HttpSession session) {
+		// 세션값 가져오기
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		
+		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
+		int beginRow = 0;
+		int rowPerPage = 10;
+		String companyBname;
+		String companySigungu;
+		
+		// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
+		if(session.getAttribute("loginCompany") == null) {
+			companyBname = loginMember.getMemberBname();
+			companySigungu = loginMember.getMemberSigungu();
+		} else {
+			companyBname = loginCompany.getCompanyBname();
+			companySigungu = loginCompany.getCompanySigungu();
+		}
 		String searchWord = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("beginRow", beginRow);
@@ -50,7 +109,7 @@ public class CompanyItemService {
 	}
 	
 	// 업체 아이템 추가
-	public void addCompanyItem(CompanyItemForm companyItemForm) {
+	public void addCompanyItem(HttpSession session, CompanyItemForm companyItemForm) {
 		System.out.println(companyItemForm + "<===업체 아이템 서비스 / companyItemForm 디버깅");
 		System.out.println(path + "<-- 이미지 파일 저장경로");
 		
@@ -182,8 +241,11 @@ public class CompanyItemService {
 		System.out.println(companyItemPic4 + "<==companyItemPic4");
 		System.out.println(companyItemPic5 + "<==companyItemPic5");
 		
+		
 		// 지정해줄 companyItemNo 셀렉트로 구해오기
 		int companyItemNo = companyItemMapper.selectMaxPlusCompanyItemNo();
+		
+		System.out.println(companyItemNo+"<---companyItemNo 값 컴퍼니아이템 서비스 컴퍼니아이템 추가");
 		
 		// 업체아이템 폼에서 업체아이템 속성 꺼내서 담아주기
 		CompanyItem companyItem = new CompanyItem();
@@ -195,7 +257,7 @@ public class CompanyItemService {
 		companyItem.setCompanyItemPrice(companyItemForm.getCompanyItemPrice());
 		companyItem.setCompanyItemContent(companyItemForm.getCompanyItemContent());
 		System.out.println(companyItem + "<== 업체 아이템 서비스 / 업체 아이템 추가 / 업체 아이템 디버깅");
-	
+		
 		// 아이템 넘버를 받아와서 아이템 등록하기
 		companyItemMapper.insertCompanyItem(companyItem);
 		
@@ -212,7 +274,7 @@ public class CompanyItemService {
 		
 	}
 	
-	// 한개의 업체 아이템 정보 가져오기
+// 한개의 업체 아이템 정보 가져오기
 //	public Map<String, Object> getCompanyItemOne(int companyItemNo) {
 //	System.out.println(companyItemNo +
 //	"<== 업체 아이템 서비스 / 한개의 업체 아이템 정보 가져오기 / 업체 아이템 넘버 디버깅");
