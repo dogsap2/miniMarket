@@ -323,15 +323,25 @@ public class MemberController {
 		return "index";		
 	}
 	
-	//회원가입 폼 
-	@GetMapping("/addMemeberAndCompany")
+	//전체 회원가입 폼 
+	@GetMapping("/addMemberAndCompany")
 	public String addMemberAndCompany(HttpSession session) {
 		if(session.getAttribute("loginMember")!= null){
 			return "redirect:/index";
 		}		
-		return "addMemeberAndCompany";
+		return "addMemberAndCompany";
 		
 	}
+	
+	//전체 회원가입 폼 
+		@GetMapping("/loginMemberAndCompany")
+		public String loginMemberAndCompany(HttpSession session) {
+			if(session.getAttribute("loginMemberAndCompany")!= null){
+				return "redirect:/index";
+			}		
+			return "loginMemberAndCompany";
+			
+		}
 	
 
 	//나의 정보보기
