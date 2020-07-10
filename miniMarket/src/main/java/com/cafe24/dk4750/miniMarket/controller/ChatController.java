@@ -41,6 +41,7 @@ public class ChatController {
 		List<String> list = chatService.getChatMemberId(chatroomNo);
 		System.out.println(list + "<--출력");
 		Chatroom chatroom = chatroomService.getChatRoomOne(chatroomNo);
+		System.out.println(chatroom.getMemberId() + "<---controller getmemberId");
 		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("memberNickname", memberNickname);
 		model.addAttribute("memberId", memberId);

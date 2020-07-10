@@ -9,6 +9,9 @@ import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 
 @Mapper
 public interface ChatroomMapper {
+	//채팅창 판매자 아이디 불러오기
+	public String selectChatroomMemberIdOne(int chatroomNo);
+	//아이템 판매완료 
    public int updateSoldOutItem(int memberItemNo);
    // 구매자 리스트 
    public List<Chatroom> selectCustomerList(int memberItemNo);
