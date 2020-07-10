@@ -17,38 +17,7 @@
 $(document).ready(function(){
    var memberId = $("#memberId").val();
    var chatroomNo = $("#chatroomNo").val();
-   $("#go-bottom").click(function(){
-	   console.log("가자가자가자");
-		$('html, body').scrollTop( $(document).height() );
-	});
-   
-   $("#successBtn").click(function(){
-	      $("#soldOutForm").submit();
-	      
-	      
-	   });
-   
-   
-   $('#addBtn').on('click', function () {
-      console.log("클릭");
-      //function addAjax(){
-          $.ajax({
-              method: "Post",
-              //url: "/miniMarket/addMessage",
-               url: "/addMessage",
-              data: {memberId : memberId , chatMessage : $("#chatMessage").val() , chatroomNo : chatroomNo},
-              success: function(data) {
-                 $("#chatMessage").val("");
-                 console.log("성공");
-              },
-              error: function (error) {
-                   alert('data error');
-               }
-          });
-      //}
-   });
    //function getAjax(){
-   setInterval(function(){
       $.ajax({
            method: "Get",
            //url: "/miniMarket/getAllMessages",
@@ -75,8 +44,7 @@ $(document).ready(function(){
            error: function (error) {
                 alert('data error');
             }
-       });   
-   }, 3000);
+       });
    //}
 })
     
@@ -170,21 +138,13 @@ $(document).ready(function(){
       <div id="chatLog">
          <div id="chat_list">
          </div>
+         <div id="chatForm" >
+         <input type="hidden" name="memberId" placeholder="작성자"  th:value="${memberNickname}" readonly="readonly" id="memberId">
+         <input type="hidden" name="chatroomNo" th:value="${chatroom.chatroomNo}" id="chatroomNo">
+      </div>
+         <input type="hidden" th:value="${memberId}" id="memberId">
           <div id="go-bottom"></div>
       </div>
-     
-      <div id="chatForm" >
-         <input type="hidden" name="memberId" placeholder="작성자"  th:value="${memberNickname}" readonly="readonly" id="memberId">
-         <input type="text" name="chatMessage" id="chatMessage" autocomplete="off" size="30" placeholder="메시지를 입력하세요">
-         <input type="hidden" name="chatroomNo" th:value="${chatroom.chatroomNo}" id="chatroomNo">
-         <button type="button" id="addBtn" class="btn btn-primary">보내기</button>
-      </div>
-      <form method="post" th:action="@{/soldOutComplete}" id="soldOutForm">
-         <input type="hidden" th:value="${chatroom.memberItemNo}" name="memberItemNo">
-         <input type="hidden" th:value="${chatroom.memberUniqueNo}" name="memberUniqueNo">
-           <button type="button" class="btn" id="successBtn">판매완료</button>
-      </form>
-      <input type="hidden" th:value="${memberId}" id="memberId">
    </div>
 </body>
 

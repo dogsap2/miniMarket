@@ -30,9 +30,8 @@ public class ChatController {
 	@Autowired 
 	private ChatService chatService;
 	
-	
-	@GetMapping("/chatroom")
-	public String getChatRoom(HttpSession session, Model model, @RequestParam("chatroomNo") int chatroomNo) {
+	@GetMapping("/chatList")
+	public String getChatList(HttpSession session, Model model, @RequestParam("chatroomNo") int chatroomNo) {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:login";
 		}
@@ -48,16 +47,33 @@ public class ChatController {
 		model.addAttribute("MymemberId", chatroom.getMemberId());
 		model.addAttribute("list", list);
 
+		return "chatList";
+	}
+	//채팅 페이지 
+	@GetMapping("/chatroom")
+	public String getChatRoom(HttpSession session, Model model, @RequestParam("chatroomNo") int chatroomNo) {
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:login";
+		}
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
+		System.out.println(chatroomNo);
+		Chatroom chatroom = chatroomService.getChatRoomOne(chatroomNo);
+		model.addAttribute("chatroom", chatroom);
+		model.addAttribute("memberNickname", memberNickname);
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("MymemberId", chatroom.getMemberId());
+
 		return "chatroom";
 	}
-	
+	// 채팅 보내기 액션 ajax
 	@PostMapping("/addMessage")
 	@ResponseBody
 	public int addMessage(Chat chat){
 		System.out.println(chat);	
 		return chatService.addChatList(chat);
 	}
-	
+	//채팅 리스트 받아오기 ajax
 	@RequestMapping("/getAllMessages")
 	@ResponseBody
 	public List<Chat> getAllMessages(@RequestParam("chatroomNo") int chatroomNo){

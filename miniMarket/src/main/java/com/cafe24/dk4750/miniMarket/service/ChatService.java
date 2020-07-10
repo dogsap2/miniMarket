@@ -15,19 +15,18 @@ import com.cafe24.dk4750.miniMarket.vo.Chat;
 public class ChatService {
 	@Autowired
 	private ChatMapper chatMapper;
-	
+	//멤버 아이디 리스트
 	public List<String> getChatMemberId(int chatroomNo) {
-		
-		
 		return chatMapper.selectChatMemberId(chatroomNo);
 	}
+	// 채팅 메세지 리스트
 	public List<Chat> getChatList(int chatroomNo){
 		System.out.println(chatroomNo);
 		List<Chat> list = chatMapper.selectChatList(chatroomNo);
 		
 		return list;
 	}
-	
+	//채팅 메세지 추가
 	public int addChatList(Chat chat) {
 		System.out.println(chat);
 		

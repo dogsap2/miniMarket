@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ChatroomMapper">
-	<select id="selectCustomerList" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
-		SELECT
-			nickname as nickName,
-			member_unique_no as memberUniqueNo,
-			member_item_no as memberItemNo
-		FROM
-			mini_market_chatroom
-		WHERE
-			member_item_no = #{memberItemNo}
-			
-	</select>
-	
-	<update id="updateSoldOutItem" parameterType="int">
+   <update id="updateSoldOutItem" parameterType="int">
      UPDATE 
          mini_market_chatroom 
       SET 
@@ -23,8 +11,20 @@
       WHERE 
          member_item_no = #{memberItemNo}
    </update>
-	
-	<update id="updateChatroomDisconnect" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+   <!-- 구매자 리스트 -->
+   <select id="selectCustomerList" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+      SELECT
+         nickname as nickName,
+         member_unique_no as memberUniqueNo,
+         member_item_no as memberItemNo
+      FROM
+         mini_market_chatroom
+      WHERE
+         member_item_no = #{memberItemNo}
+         
+   </select>
+   <!-- 채팅방 활성화 상태 -->
+   <update id="updateChatroomDisconnect" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
       UPDATE 
          mini_market_chatroom 
       SET 
@@ -32,7 +32,8 @@
       WHERE 
          chatroom_no = #{chatroomNo}
    </update>
-	<select id="selectChatroomOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+   <!-- 채팅창 정보 불러오는 값 -->
+   <select id="selectChatroomOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
       SELECT
          chatroom_no as chatroomNo,
          member_unique_no as memberUniqueNo,
@@ -42,81 +43,85 @@
       FROM mini_market_chatroom
       WHERE chatroom_no = #{chatroomNo}
     </select>
-	<!-- 채팅방 유무 체크 -->
-	<select id="selectChatRoomCheck" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="int">
-		SELECT 
-			COUNT(*) 
-		FROM 
-			mini_market_chatroom
-		WHERE 
-			member_item_no = #{memberItemNo}
-		AND
-			member_unique_no = #{memberUniqueNo}
-		AND
-			member_id = #{memberId}
-	</select>
-	<select id="selectChatRoomByMemberId" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
-		SELECT
-			c.chatroom_no AS chatroomNo,
-			c.member_unique_no AS memberUniqueNo,
-			c.nickname as nickName,
-			c.chatroom_active AS chatroomActive,
-			c.member_id AS memberId,
-			i.member_item_title AS memberItemTitle,
-			m.member_nickname AS memberNickname
-		FROM
-			mini_market_chatroom c
-		INNER JOIN
-			mini_market_member_item i
-		ON
-			c.member_item_no = i.member_item_no
-		INNER join
-			mini_market_member m
-		ON
-			m.member_id = c.member_id
-		WHERE 
-			c.member_unique_no = #{memberUniqueNo}
-		OR
-			c.member_id = #{memberId}
-
-
-
-	</select>
-	<select id="selectChatRoomByMemberUniqueNo" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
-		SELECT
-			m.member_nickname AS memberNickname
-		FROM
-			mini_market_chatroom c
-		INNER JOIN
-			mini_market_member_item i
-		ON
-			c.member_item_no = i.member_item_no
-		INNER join
-			mini_market_member m
-		ON
-			m.member_unique_no = c.member_unique_no
-		WHERE 
-			c.member_id = #{memberId}
-	</select>
-	<select id="selectMaxNum" resultType="int">
-		SELECT 
-			max(chatroom_no)
-		FROM 
-			mini_market_chatroom
-	</select>
-	<insert id="insertChatRoom" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
-		INSERT INTO mini_market_chatroom(
-			nickname,
-			member_unique_no,
-			member_id,
-			chatroom_active,
-			member_item_no
-		) VALUES (
-			#{nickName},
-			#{memberUniqueNo},
-			#{memberId},
-			#{chatroomActive},
-			#{memberItemNo}
-		)
-	</insert>
+   <!-- 채팅방 유무 체크 -->
+   <select id="selectChatRoomCheck" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="int">
+      SELECT 
+         COUNT(*) 
+      FROM 
+         mini_market_chatroom
+      WHERE 
+         member_item_no = #{memberItemNo}
+      AND
+         member_unique_no = #{memberUniqueNo}
+      AND
+         member_id = #{memberId}
+   </select>
+   <!-- 채팅방 리스트 뿌리기 -->
+   <select id="selectChatRoomByMemberId" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+      SELECT
+         c.chatroom_no AS chatroomNo,
+         c.member_unique_no AS memberUniqueNo,
+         c.nickname as nickName,
+         c.chatroom_active AS chatroomActive,
+         c.member_id AS memberId,
+         i.member_item_title AS memberItemTitle,
+         m.member_nickname AS memberNickname,
+         i.member_item_state AS memberItemState
+      FROM
+         mini_market_chatroom c
+      INNER JOIN
+         mini_market_member_item i
+      ON
+         c.member_item_no = i.member_item_no 
+      INNER join
+         mini_market_member m
+      ON
+         m.member_id = c.member_id
+      WHERE 
+         c.member_unique_no = #{memberUniqueNo}
+      OR
+         c.member_id = #{memberId}
+   </select>
+   <!--  채팅방 상대방 닉네임 구하기
+   <select id="selectChatRoomByMemberUniqueNo" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+      SELECT
+         m.member_nickname AS memberNickname
+      FROM
+         mini_market_chatroom c
+      INNER JOIN
+         mini_market_member_item i
+      ON
+         c.member_item_no = i.member_item_no
+      INNER join
+         mini_market_member m
+      ON
+         m.member_unique_no = c.member_unique_no
+      WHERE 
+         c.member_id = #{memberId}
+   </select>
+   -->
+   <!-- 채팅방 바로가기(채팅방 no값 구하기)
+   <select id="selectMaxNum" resultType="int">
+      SELECT 
+         max(chatroom_no)
+      FROM 
+         mini_market_chatroom
+   </select>
+   -->
+   <!-- 채팅방 추가하기 -->
+   <insert id="insertChatRoom" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
+      INSERT INTO mini_market_chatroom(
+         nickname,
+         member_unique_no,
+         member_id,
+         chatroom_active,
+         member_item_no
+      ) VALUES (
+         #{nickName},
+         #{memberUniqueNo},
+         #{memberId},
+         #{chatroomActive},
+         #{memberItemNo}
+      )
+   </insert>
 </mapper>

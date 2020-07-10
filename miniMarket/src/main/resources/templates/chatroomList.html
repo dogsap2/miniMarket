@@ -11,6 +11,13 @@
 		
 	});
 </script>
+<style>
+	#href {
+	pointer-events: none;
+	cursor: default;
+	color: black;
+	}
+</style>
 </head>
 <body style="">
 	<h1>채팅방 리스트</h1>
@@ -23,6 +30,7 @@
 				<td>활성화 여부</td>
 				<td>채팅방 상태</td>
 				<td>판매 / 구매</td>
+				<td>채팅내역</td>
 			</tr>
 			<tr th:each="list : ${list}">
 				<td th:text="${list.chatroomNo}"></td>
@@ -30,7 +38,10 @@
 				<td th:if="${list.chatroomActive} == connect">
 				<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickName} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 				</td>
-				<td th:unless="${list.chatroomActive} == connect" th:text="${list.memberNickname}"></td>
+				<td th:unless="${list.chatroomActive} == connect">
+				<a href="#" id="href" th:text="${list.memberId == memberId} ? ${list.nickName} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
+				</td>
+				
 				
 				<!-- 연결 상태별 -->
 				<td th:if="${list.chatroomActive} == connect">채팅 활성</td>
@@ -38,12 +49,16 @@
 				
 				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect"><button type="button" disabled="disabled">구매중</button></td>
 				<td th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect"><button type="button" disabled="disabled">연결대기</button></td>
-				
 				<td th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect"><a th:href="@{modifyChatroomActive(chatroomNo = ${list.chatroomNo})}" class="btn">채팅연결</a></td>
 				<td th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} == connect"><button type="button" disabled="disabled">판매중</button></td>	
 				
+				
 				<td th:if="${list.memberUniqueNo == memberUniqueNo}">구매</td>
 				<td th:if="${list.memberUniqueNo != memberUniqueNo}">판매</td>
+				
+				<td th:if="${list.chatroomActive} == disconnect"><a th:href="@{chatList(chatroomNo = ${list.chatroomNo})}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;">내역보기</a></td>
+				<td th:unless="${list.chatroomActive} == disconnect">내역보기</td>
+			
 			</tr>
 		</table>
 	</form>

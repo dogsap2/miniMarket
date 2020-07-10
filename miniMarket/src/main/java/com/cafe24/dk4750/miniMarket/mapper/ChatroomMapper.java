@@ -9,13 +9,23 @@ import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 
 @Mapper
 public interface ChatroomMapper {
-	public int updateSoldOutItem(int memberItemNo);
-	public List<Chatroom> selectCustomerList(int memberItemNo);
-	public int selectChatRoomCheck(Chatroom chatroom);
-	public List<Chatroom> selectChatRoomByMemberId(Chatroom chatroom);
-	public int insertChatRoom(Chatroom chatroom);
-	public int selectMaxNum();
-	public Chatroom selectChatroomOne(int chatroomNo);
-	public int updateChatroomDisconnect(Chatroom chatroom);
-	public List<Chatroom> selectChatRoomByMemberUniqueNo(String memberId);
+   public int updateSoldOutItem(int memberItemNo);
+   // 구매자 리스트 
+   public List<Chatroom> selectCustomerList(int memberItemNo);
+   // 채팅방 유무 체크
+   public int selectChatRoomCheck(Chatroom chatroom);
+   //채팅방 리스트
+   public List<Chatroom> selectChatRoomByMemberId(Chatroom chatroom);
+   //채팅방 추가
+   public int insertChatRoom(Chatroom chatroom);
+   /*채팅방 최고 넘버 구하기
+   public int selectMaxNum();
+   */
+   //채팅방 상세 정보
+   public Chatroom selectChatroomOne(int chatroomNo);
+   //채팅방 활성화 상태 변경
+   public int updateChatroomDisconnect(Chatroom chatroom);
+   //상대방 유니크 넘버 구하기
+   public List<Chatroom> selectChatRoomByMemberUniqueNo(String memberId);
+   
 }
