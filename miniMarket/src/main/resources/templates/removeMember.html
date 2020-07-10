@@ -55,22 +55,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p>mini market 작업중 ^_^ <a href="products.html">SHOP NOW</a></p>
+				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
-					<li><a href="registered.html"> Create Account </a></li>
-					<li th:if="${session.loginMember != null}">
-						<a th:href="@{/logoutMember}" >로그아웃</a>
+					<li>
+						<a th:href="@{/logoutMember}">로그아웃</a>
 					</li>
-					<li th:if="${session.loginMember != null}">
-						<a th:href="@{/memberMyPage}" >마이페이지</a>
-					</li>
-					<li th:if="${session.loginMember == null}">
-						<a th:href="@{/loginMember}" >로그인</a>
-					</li>
-					<li th:if="${session.loginMember == null}">	
-						<a th:href="@{/addMember}">회원가입</a>
+					<li>
+						<a th:href="@{/memberMyPage}">마이페이지(회원)</a>
 					</li>
 					<li><a href="contact.html">Help</a></li>
 					
@@ -91,12 +84,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>이슬민,엄미선,한윤아,서일태,정유석,김동희 Order online or call us : (+0123) 234 567</li>
+					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
 					
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.html">Mini Market</a></h1>
+				<h1><a th:href="@{index}">Mini Market</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="#" method="post">
