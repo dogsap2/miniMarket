@@ -317,33 +317,6 @@ public class MemberController {
 		return "redirect:/index";				
 	}
 	
-	//index 홈 
-	@GetMapping("/index")
-	public String index() {
-		return "index";		
-	}
-	
-	//전체 회원가입 폼 
-	@GetMapping("/addMemberAndCompany")
-	public String addMemberAndCompany(HttpSession session) {
-		if(session.getAttribute("loginMember")!= null){
-			return "redirect:/index";
-		}		
-		return "addMemberAndCompany";
-		
-	}
-	
-	//전체 회원가입 폼 
-		@GetMapping("/loginMemberAndCompany")
-		public String loginMemberAndCompany(HttpSession session) {
-			if(session.getAttribute("loginMemberAndCompany")!= null){
-				return "redirect:/index";
-			}		
-			return "loginMemberAndCompany";
-			
-		}
-	
-
 	//나의 정보보기
 	@GetMapping("/getMemberOne")
 	public String getMemberOne(HttpSession session, Model model) {
@@ -356,5 +329,31 @@ public class MemberController {
 		model.addAttribute("member",member);
 		return "getMemberOne";		
 	}
+	
+	//index 홈 
+	@GetMapping("/index")
+	public String index() {
+		return "index";		
+	}
+	
+	//전체(업체,회원) 회원가입 폼 
+	@GetMapping("/addMemberAndCompany")
+	public String addMemberAndCompany(HttpSession session) {
+		if(session.getAttribute("loginMember")!= null || session.getAttribute("loginCompany")!= null){
+			return "redirect:/index";
+		}		
+		return "addMemberAndCompany";
+		
+	}
+	
+	//전체(업체,회원) 로그인 폼
+		@GetMapping("/loginMemberAndCompany")
+		public String loginMemberAndCompany(HttpSession session) {
+			if(session.getAttribute("loginMember")!= null || session.getAttribute("loginCompany")!= null){
+				return "redirect:/index";
+			}		
+			return "loginMemberAndCompany";
+			
+		}
 	
 }
