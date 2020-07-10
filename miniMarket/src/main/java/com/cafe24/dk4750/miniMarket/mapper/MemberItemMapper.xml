@@ -45,7 +45,21 @@
 		WHERE member_item_no = #{memberItemNo}
 	</update>
 	
-	<!-- 멤버 아이템 수정을 위한 기존 값 가져오기 -->
+	<!-- 멤버 아이템 수정을 위한 기존 값 가져오기 상세보기 -->
+	<select id="selectMemberItemOneForUpdate" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItem" parameterType="int">
+      SELECT 
+         member_item_no AS memberItemNo,
+         member_unique_no AS memberUniqueNo,
+         member_item_title AS memberItemTitle,
+         category_name AS categoryName,
+         member_item_price AS memberItemPrice,
+         member_item_content AS memberItemContent,
+         member_item_date AS memberItemDate,
+         member_item_state AS memberItemState
+      FROM mini_market_member_item
+      WHERE member_item_no = #{memberItemNo}
+   </select>
+	
 	<!-- 멤버 아이템 상세보기 -->
 	<select id="selectMemberItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike" parameterType="int">
 		SELECT 

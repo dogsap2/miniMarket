@@ -19,6 +19,7 @@ import com.cafe24.dk4750.miniMarket.vo.Category;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
@@ -29,6 +30,23 @@ public class MemberItemController {
 	@Autowired private CheckLikeService checkLikeService;
 	@Autowired private CategoryService categoryService;
 
+	// 아이템 상세보기 겟매핑
+	@GetMapping("/getItemOne")
+	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 아이템 상세보기 불러오기
+		MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getItemOne = memberItemService.getMemberItemOne(memberItemNo);
+		
+		// 모델에 담아주기
+		model.addAttribute("getItemOne", getItemOne);
+		
+		return "getItemOne";
+	}
+	
 	// 판매완료 
     @PostMapping("/soldOutComplete")
     public String soldOutComplete(@RequestParam("memberItemNo") int memberItemNo , @RequestParam("memberUniqueNo") String memberUniqueNo) {
@@ -136,7 +154,7 @@ public class MemberItemController {
 		
 		// 임시 넘버
 		int memberItemNo = 1;
-		String memberUniqueNo = "test1";
+		String memberUniqueNo = "m000001";
 		
 		MemberItemLike memberItemLike = new MemberItemLike();
 		memberItemLike.setMemberItemNo(memberItemNo);
@@ -146,7 +164,7 @@ public class MemberItemController {
 		System.out.println(check + " <== check");
 		
 		// 기존 정보 불러오기
-		Map<String, Object> map = memberItemService.getMemberItemOne(memberItemNo);
+		Map<String, Object> map = memberItemService.getMemberItemOneForUpdate(memberItemNo);
 		MemberItemPic memberItemPic = (MemberItemPic)map.get("memberItemPic");
 		MemberItem memberItem = (MemberItem)map.get("memberItem");
 		System.out.println(memberItemPic + " <== Controller memberItemPic");

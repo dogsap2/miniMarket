@@ -24,6 +24,7 @@ import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
@@ -36,6 +37,14 @@ public class MemberItemService {
 	@Autowired private ChatroomMapper chatroomMapper;
 	@Value("D:\\spring_work\\maven.1593421934386\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 아이템 상세보기 겟매핑.. 정보 넘겨주기
+	public MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getMemberItemOne(int memberItemNo) {
+		
+		MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getItemOne = memberItemMapper.selectMemberItemOne(memberItemNo);
+		
+		return getItemOne;
+	}
 	
 	
 	// 구매자의 구매완료 리스트
@@ -310,14 +319,14 @@ public class MemberItemService {
 	}
 	
 	// 한개의 멤버 아이템 정보 가져오기
-	public Map<String, Object> getMemberItemOne(int memberItemNo) {
+	public Map<String, Object> getMemberItemOneForUpdate(int memberItemNo) {
 		System.out.println(memberItemNo + " <== 멤버 아이템 서비스/한개의 멤버 아이템 정보 가져오기/멤버 아이템 넘버 디버깅");
 		
 		// 리턴타입 map 생성
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		// map에 담을 정보들
 		MemberItemPic memberItemPic = memberItemPicMapper.selectMemberItemPicName(memberItemNo);
-		MemberItem memberItem = memberItemMapper.selectMemberItemOne(memberItemNo);
+		MemberItem memberItem = memberItemMapper.selectMemberItemOneForUpdate(memberItemNo);
 		// map에 담아주기
 		map.put("memberItemPic", memberItemPic);
 		map.put("memberItem", memberItem);

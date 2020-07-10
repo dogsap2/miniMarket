@@ -19,7 +19,7 @@
 		<tbody>
 			<tr th:each="list : ${list}">
 				<td>
-					<img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150">
+					<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}"><img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150"></a>
 				</td>
 				<td th:text="${list.memberItemTitle}"></td>
 				<td th:text="${list.memberItemPrice}"></td>

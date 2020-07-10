@@ -9,18 +9,22 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPicAndMemberItemLike;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 
 @Mapper
 public interface MemberItemMapper {
+	
+	// 게시글 상세보기
+	public MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike selectMemberItemOne(int memberItemNo);
+	
+	// 수정을위해 멤버 아이템 상세보기 가져오기
+	public MemberItem selectMemberItemOneForUpdate(int memberItemNo);
 	
 	// 판매자의 판매중인 아이템 판매완료로 수정
 	public int itemSalesComplete(MemberItem memberItem);
 	
 	// 멤버 아이템 추가
 	public int insertMemberItem(MemberItem memberItem);
-	
-	// 한 멤버 아이템 정보 출력하기
-	public MemberItem selectMemberItemOne(int memberItemNo);
 	
 	// 멤버 아이템 수정 액션
 	public int updateMemberItem(MemberItem memberItem);
