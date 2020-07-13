@@ -20,6 +20,7 @@ import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPicAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
@@ -30,6 +31,27 @@ public class MemberItemController {
 	@Autowired private MemberItemService memberItemService;
 	@Autowired private CheckLikeService checkLikeService;
 	@Autowired private CategoryService categoryService;
+	
+	// 내가 좋아요한 리스트 보기
+	@GetMapping("/getMyLikeItem")
+	public String getMyLikeItem(HttpSession session, Model model) {
+		System.out.println("getMyLikeItem 겟매핑 시작");
+		
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 리스트 받아오기
+		List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> list = memberItemService.getMyLikeItem(session);
+		System.out.println(list + " <== 내 좋아요 목록 리스트");
+		
+		// 모델에 리스트 담아주기
+		model.addAttribute("list", list);
+		
+		// 페이지요청
+		return "getMyLikeItem";
+	}
 	
 	// 관심동네 아이템 리스트 보기
 	@GetMapping("/getItemListByPlace")

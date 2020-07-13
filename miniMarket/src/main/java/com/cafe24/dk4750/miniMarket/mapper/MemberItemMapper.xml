@@ -274,7 +274,7 @@
 	    INNER JOIN mini_market_member_item_like AS mil
 	    ON mi.member_item_no = mil.member_item_no
 	    WHERE mil.member_unique_no = #{memberUniqueNo}
-	    AND mil.like_active = '0'
+	    AND mil.like_active = '1'
 	    ORDER BY mil.like_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

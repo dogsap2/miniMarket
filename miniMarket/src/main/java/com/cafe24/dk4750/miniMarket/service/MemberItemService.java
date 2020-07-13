@@ -28,6 +28,7 @@ import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPicAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
@@ -42,6 +43,27 @@ public class MemberItemService {
 	@Autowired private MemberInterestPlaceMapper memberInterestPlaceMapper;
 	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 내가 좋아요 한 아이템 리스트 출력
+	public List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> getMyLikeItem(HttpSession session) {
+		System.out.println("getMyLikeItem 서비스 시작");
+		// 리스트 출력을위해 멤버 유니크넘버 보내주기
+		String memberUniqueNo = (String)((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
+		int beginRow = 0;
+		int rowPerPage = 10;
+		
+		// 임시로 값을 담아줄 map 생성
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberUniqueNo", memberUniqueNo);
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		
+		// map을 매개변수로 보내주고 리스트 리턴받기
+		List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> list = memberItemMapper.selectMyLikeItem(map);
+		
+		// 리턴
+		return list;
+	}
 	
 	// 관심동네 아이템 리스트 보기
 	public List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> getItemListByPlace(HttpSession session) {

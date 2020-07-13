@@ -2,17 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>내동네 아이템 목록</title>
+<title>내 관심 아이템 목록</title>
 </head>
 <body>
-	<!-- 홈으로 링크 -->
-	<a th:href="@{/index}">home</a><br>
-	<!-- 카테고리별 -->
-	<a th:href="@{/getItemListByCategory(categoryName='노트북')}">노트북</a><br>
-	<!-- 관심동네 리스트 -->
-	<a th:href="@{/getItemListByPlace}">관심동네 중고물품</a><br>
-	<!-- 내 관심목록 아이템 -->
-	<a th:href="@{/getMyLikeItem}">내 관심상품 목록</a>
 	<table border="1">
 		<thead>
 			<tr>
