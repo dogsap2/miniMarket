@@ -144,15 +144,15 @@
 		FROM mini_market_member_item AS mi
 		INNER JOIN mini_market_member AS m
 		ON mi.member_unique_no = m.member_unique_no
-		INNER JOIN mini_market_interest_place ip
+		INNER JOIN mini_market_member_interest_place ip
 		ON ip.sigungu = m.member_sigungu AND ip.bname = m.member_bname
 		INNER JOIN mini_market_member_item_pic AS mip
 		ON mi.member_item_no = mip.member_item_no
 		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
 		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND mi.member_item_state = "판매중"
-		AND m.member_sigungu = ip.sigungu
-		AND m.member_bname = ip.bname
+		AND m.member_sigungu = #{memberSigungu}
+		AND m.member_bname = #{memberBname}
 		ORDER BY mi.member_item_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

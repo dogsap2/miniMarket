@@ -18,6 +18,7 @@ import com.cafe24.dk4750.miniMarket.service.MemberItemService;
 import com.cafe24.dk4750.miniMarket.vo.Category;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
@@ -30,11 +31,37 @@ public class MemberItemController {
 	@Autowired private CheckLikeService checkLikeService;
 	@Autowired private CategoryService categoryService;
 	
+	// 관심동네 아이템 리스트 보기
+	@GetMapping("/getItemListByPlace")
+	public String getItemListByPlace(HttpSession session, Model model) {
+		System.out.println("getItemListByPlace 컨트롤러 시작");
+		
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 리스트 가져오기
+		List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> list = memberItemService.getItemListByPlace(session);
+		System.out.println(list);
+		
+		// 모델에 담아주기
+		model.addAttribute("list", list);
+		
+		// 페이지요청
+		return "getItemListByPlace";
+	}
+	
 	// 카테고리별 동네 아이템 보기
 	@GetMapping("/getItemListByCategory")
 	public String getItemListByCategory(HttpSession session, Model model, String categoryName) {
 		System.out.println("getItemListByCategory 겟매핑 시작");
 		System.out.println(categoryName + " <== 카테고리 네임 디버깅");
+		
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
 		
 		// 리스트 받아오기
 		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListByCategory(session, categoryName);

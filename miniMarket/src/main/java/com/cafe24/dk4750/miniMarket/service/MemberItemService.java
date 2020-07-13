@@ -17,13 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.dk4750.miniMarket.mapper.ChatroomMapper;
+import com.cafe24.dk4750.miniMarket.mapper.MemberInterestPlaceMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemPicMapper;
 import com.cafe24.dk4750.miniMarket.mapper.SoldoutMapper;
 import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
+import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
@@ -36,11 +39,40 @@ public class MemberItemService {
 	@Autowired private MemberItemPicMapper memberItemPicMapper;
 	@Autowired private SoldoutMapper soldoutMapper;
 	@Autowired private ChatroomMapper chatroomMapper;
+	@Autowired private MemberInterestPlaceMapper memberInterestPlaceMapper;
 	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
 	// 관심동네 아이템 리스트 보기
-	
+	public List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> getItemListByPlace(HttpSession session) {
+		System.out.println("getItemListByPlace 서비스 시작");
+		String searchWord = "";
+		int beginRow = 0;
+		int rowPerPage = 10;
+		
+		// 멤버 관심동네 가져오기
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		System.out.println(memberId + " <== getItemListByPlace 멤버 아이디 디버깅");
+		// 멤버 아이디로 관심동네 가져오기
+		MemberInterestPlace mip = memberInterestPlaceMapper.selectMemberInterestPlace(memberId);
+		String memberSigungu = mip.getSigungu();
+		String memberBname = mip.getBname();
+		System.out.println(memberSigungu);
+		System.out.println(memberBname);
+		
+		// 임시 map타입 생성
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchWord", searchWord);
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("memberSigungu", memberSigungu);
+		map.put("memberBname", memberBname);
+		
+		// 리스트 받아오기
+		List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> list = memberItemMapper.selectItemListByPlace(map);
+		
+		return list;
+	}
 	
 	// 카테고리별 내동네 아이템 보기
 	public List<MemberItemAndMemberAndMemberItemPic> getItemListByCategory(HttpSession session, String categoryName) {
