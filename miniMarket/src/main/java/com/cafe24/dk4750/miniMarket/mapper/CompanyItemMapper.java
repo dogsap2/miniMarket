@@ -7,15 +7,25 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic;
+import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic;
 
 @Mapper
 public interface CompanyItemMapper {
+	
+	// 내 업체 아이템 상세보기
+	public CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic selectCompanyMyItemOne(String companyUniqueNo);
+	
+	// 업체 아이템 상세보기
+	public CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic selectCompanyItemOne(int companyItemNo);
 	
 	// 업체 아이템 수정 (폼)
 	public CompanyItem selectCompanyItemOneForUpdate(int companyItemNo);
 	
 	// 업체 아이템 수정 액션
 	public int updateCompanyItem(CompanyItem companyItem);
+	
+	// 끌어올리기
+	public int companyItemPullUp(String companyUniqueNo);
 	
 	// 업체 아이템 있는 지 없는지 체크
 	public int selectCompanyItemCheck(String companyUniqueNo);
@@ -31,6 +41,9 @@ public interface CompanyItemMapper {
 	
 	// 내가 좋아요 한 업체 아이템 리스트 출력
 	public List<CompanyItemAndCompanyAndCompanyItemPic> selectMyLikeCompanyItem(Map<String, Object> map);
+	
+	// 관심동네로 설정한 업체 아이템 리스트 출력
+	public List<CompanyItemAndCompanyAndCompanyItemPic> selectPlaceByCompanyItemList(Map<String, Object> map);
 	
 	// 다음 업체 아이템의 넘버를 알기위해서 현재 업체 아이템넘버 max+1 값 구해오기
 	public int selectMaxPlusCompanyItemNo();

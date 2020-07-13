@@ -46,6 +46,6 @@
 			company_item_pic3 = #{companyItemPic3},
 			company_item_pic4 = #{companyItemPic4},
 			company_item_pic5 = #{companyItemPic5}
-		WHERE company_item_no  #{companyItemNo}	
+		WHERE company_item_no = #{companyItemNo}	
 	</update>
 </mapper>

@@ -1,6 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,13 +17,87 @@ import com.cafe24.dk4750.miniMarket.service.CompanyItemService;
 import com.cafe24.dk4750.miniMarket.vo.Category;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic;
+import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
+import com.cafe24.dk4750.miniMarket.vo.CompanyItemPic;
 import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
 
 @Controller
 public class CompanyItemController {
 	@Autowired private CompanyItemService companyItemService;
 	@Autowired private CategoryService categoryService;
+	
+	// 나의 업체 아이템 수정
+	@GetMapping("/modifyCompanyItem")
+	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginCompany") == null) {
+			return "index";
+		}
+		//카테고리 목록
+		List<Category> categoryList = categoryService.getCompanyCategory();
+		
+		// 기존 정보 불러오기
+		Map<String, Object> map = companyItemService.getCompanyItemOneForUpdate(companyItemNo);
+		CompanyItem companyItem = (CompanyItem)map.get("companyItem");
+		CompanyItemPic companyItemPic = (CompanyItemPic)map.get("companyItemPic");
+		System.out.println(companyItem + "<-----컴퍼니 아이템 컨트롤러 수정 폼 겟멥핑 아이템 값 확인");
+		System.out.println(companyItemPic + "<--컴퍼니 아이템 컨트롤러 수정 폼 겟멥핑 아이템사진 값 확인");
+		
+		model.addAttribute("companyItem", companyItem);
+		model.addAttribute("companyItemPic", companyItemPic);
+		model.addAttribute("categoryList", categoryList);
+		return "modifyCompanyItem";
+	}
+	
+	// 업체 아이템 수정 액션
+	@PostMapping("/modifyCompanyItem") 
+	public String modifyCompanyItem(CompanyItemForm companyItemForm) {
+		// 넘어온 값으로 companyItemNo 값 담아주기
+		int companyItemNo = companyItemForm.getCompanyItemNo();
+		
+		companyItemForm.setCompanyItemNo(companyItemNo);
+		System.out.println(companyItemNo+"<============컴퍼니 아이템 넘버 포스트 맵핑 수정");
+		// 업데이트 실행
+		companyItemService.modifyCompanyItem(companyItemForm);
+		
+		// 페이지 요청
+		return "redirect:/getCompanyItemList";
+	}
+	// 끌어 올리기
+	@GetMapping("/companyItemPullUp")
+	public String companyItemPullUp(HttpSession session, String companyUniqueNo) {
+		companyItemService.companyItemPullUp(session, companyUniqueNo);
+		return "redirect:/getCompanyItemList";
+	}
+	
+	// 나의 업체 아이템 상세보기
+	@GetMapping("/getCompanyMyItemOne")
+	public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo);
+		model.addAttribute("myCompanyItemOne", myCompanyItemOne);
+		System.out.println(companyUniqueNo+"<-=-0-=0-=0=-0=-0=-0-=0=-0-=0=");
+		System.out.println(myCompanyItemOne+"<====해당업체의 정보들");
+		return "getCompanyMyItemOne";
+	}
+	
+	// 업체 아이템 상세보기
+	@GetMapping("/getCompanyItemOne")
+	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
+		model.addAttribute("companyItemOne", companyItemOne);
+		System.out.println(companyItemNo+"<-=-0-=0-=0=-0=-0=-0-=0=-0-=0=");
+		System.out.println(companyItemOne+"<====해당업체의 정보들");
+		return "getCompanyItemOne";
+	}
 	
 	// 홍보중인 업체 아이템 카테고리별 출력하기
 	@GetMapping("/getCompanyItemListByCategory")
@@ -54,7 +129,9 @@ public class CompanyItemController {
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		
+		// 세션값 모델로 넘기기 위해서
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
+
 		//카테고리 목록
 		List<Category> categoryList = categoryService.getCompanyCategory();
 		
@@ -64,10 +141,29 @@ public class CompanyItemController {
 		// 리스트 모델에 담아서 페이지로 보내주기
 		model.addAttribute("list", list);
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("loginCompany", loginCompany);
 		System.out.println(list+"<---리스트 정보");
 		
 		//페이지 요청
 		return "getCompanyItemList";
+	}
+	
+	// 내가 좋아요한 업체 아이템 리스트 출력하기
+	@GetMapping("/getMyLikeCompanyItem")
+	public String getMyLikeCompanyItem(HttpSession session, Model model) {
+		
+		System.out.println("getMyLikeCompanyItem<==겟메핑 시작");
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		
+		// 좋아요한 아이템 리스트 출력하기
+		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemService.getMyLikeCompanyItem(session);
+		
+		model.addAttribute("list", list);
+		
+		return "getMyLikeCompanyItem";
 	}
 	
 	// 업체 추가하기 겟매핑. 페이지요청. 폼
@@ -75,7 +171,7 @@ public class CompanyItemController {
 	public String addCompanyItem(HttpSession session, Model model) {
 		System.out.println("addCompanyItem 겟매핑 시작");
 		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginCompany") == null) {
 			return "index";
 		}
 		// 세션값의 유니크넘버 가져오기

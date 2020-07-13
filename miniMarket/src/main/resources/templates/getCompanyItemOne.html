@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>홍보사진1</th>
+				<th>홍보사진2</th>
+				<th>홍보사진3</th>
+				<th>홍보사진4</th>
+				<th>홍보사진5</th>
+				<th>제목</th>
+				<th>카테고리</th>
+				<th>업체상표</th>
+				<th>업체대표</th>
+				<th>문의메일</th>
+				<th>업체번호</th>
+				<th>업체 사진</th>
+				<th>업체 홍보 가격</th>
+				<th>업체 홍보 내용</th>
+				<th>업체 관심자수</th>
+				<th>아이템 올린 날짜</th>
+				<th>판매지역</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<img th:src="@{'/images/'+${companyItemOne.companyItemPic1}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemOne.companyItemPic2}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemOne.companyItemPic3}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemOne.companyItemPic4}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemOne.companyItemPic5}}" width="300" height="150">
+				</td>
+				<td th:text="${companyItemOne.companyItemTitle}"></td>
+				<td th:text="${companyItemOne.categoryName}"></td>
+				<td th:text="${companyItemOne.companyName}"></td>
+				<td th:text="${companyItemOne.companyCeoName}"></td>
+				<td th:text="${companyItemOne.companyEmail}"></td>
+				<td th:text="${companyItemOne.companyPhone}"></td>
+				<td th:text="${companyItemOne.profilePic}"></td>
+				<td th:text="${companyItemOne.companyItemPrice}"></td> 
+				<td th:text="${companyItemOne.companyItemContent}"></td>
+				<td th:text="${companyItemOne.likeActive}"></td>
+				<td th:text="${companyItemOne.companyItemDate}"></td>
+				<td th:text="${companyItemOne.companyBname}"></td>
+				<td>
+					<a th:href="@{/disabledCompanyItem(companyItemNo=${companyItemOne.companyItemNo})}">삭제</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

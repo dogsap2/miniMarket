@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+	$(document).ready(function() {
+		$('#btn').click(function() {
+			$('#modifyForm').submit();
+		});
+	});
+</script>
+<body>
+	<form method="post" th:action="@{/modifyCompanyItem}" enctype="multipart/form-data" id="modifyForm">
+		<table border="1">
+			<tr>
+				<th>제목</th>
+				<th>카테고리 이름</th>
+				<th>가격</th>
+				<th>번호</th>
+				<th>내용</th>
+				<th>사진1</th>
+				<th>사진2</th>
+				<th>사진3</th>
+				<th>사진4</th>
+				<th>사진5</th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="companyItemTitle" id="companyItemTitle" th:value="${companyItem.companyItemTitle}">
+				</td>
+				<td>
+					<select name="categoryName" id="categoryName">
+						<option selected value="">상품의 카테고리를 선택해주세요.</option>
+						<option th:each="categoryList : ${categoryList}" th:value="${categoryList.categoryName}" th:text="${categoryList.categoryName}">
+					</select>
+				</td>
+				<td>
+					<input type="text" name="companyItemPrice" id="companyItemPrice" th:value="${companyItem.companyItemPrice}">
+				</td>
+				<td>
+					<input type="text" name="companyPhone" id="companyPhone" th:value="${companyItem.companyPhone}">
+				</td>
+				<td>
+					<textarea rows="5" cols="10" name="companyItemContent" id="companyItemContent" th:value="${companyItem.companyItemContent}"></textarea>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemPic.companyItemPic1}}" width="300" height="150"></img><br>
+					<input type="file" name="companyItemPic1" id="companyItemPic1" th:value="${companyItemPic.companyItemPic1}"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemPic.companyItemPic2}}" width="300" height="150"><br>
+					<input type="file" name="companyItemPic2" id="companyItemPic2" th:value="${companyItemPic.companyItemPic2}"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemPic.companyItemPic3}}" width="300" height="150"><br>
+					<input type="file" name="companyItemPic3" id="companyItemPic3" th:value="${companyItemPic.companyItemPic3}"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemPic.companyItemPic4}}" width="300" height="150"><br>
+					<input type="file" name="companyItemPic4" id="companyItemPic4" th:value="${companyItemPic.companyItemPic4}"><br>
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${companyItemPic.companyItemPic5}}" width="300" height="150"><br>
+					<input type="file" name="companyItemPic5" id="companyItemPic5" th:value="${companyItemPic.companyItemPic5}"><br>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button type="submit" id="btn">수정</button>
+				</td>
+			</tr>
+		</table>
+		<div>
+			<input type="text" name="companyItemNo" th:value="${companyItem.companyItemNo}" id="companyItemNo">
+		</div>
+	</form>
+</body>
+</html>

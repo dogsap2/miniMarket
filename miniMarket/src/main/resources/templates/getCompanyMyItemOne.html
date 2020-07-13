@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>홍보사진1</th>
+				<th>홍보사진2</th>
+				<th>홍보사진3</th>
+				<th>홍보사진4</th>
+				<th>홍보사진5</th>
+				<th>제목</th>
+				<th>카테고리</th>
+				<th>업체상표</th>
+				<th>업체대표</th>
+				<th>문의메일</th>
+				<th>업체번호</th>
+				<th>업체 사진</th>
+				<th>업체 홍보 가격</th>
+				<th>업체 홍보 내용</th>
+				<th>업체 관심자수</th>
+				<th>아이템 올린 날짜</th>
+				<th>판매지역</th>
+				<th>삭제</th>
+				<th>수정</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic1}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic2}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic3}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic4}}" width="300" height="150">
+				</td>
+				<td>
+					<img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic5}}" width="300" height="150">
+				</td>
+				<td th:text="${myCompanyItemOne.companyItemTitle}"></td>
+				<td th:text="${myCompanyItemOne.categoryName}"></td>
+				<td th:text="${myCompanyItemOne.companyName}"></td>
+				<td th:text="${myCompanyItemOne.companyCeoName}"></td>
+				<td th:text="${myCompanyItemOne.companyEmail}"></td>
+				<td th:text="${myCompanyItemOne.companyPhone}"></td>
+				<td th:text="${myCompanyItemOne.profilePic}"></td>
+				<td th:text="${myCompanyItemOne.companyItemPrice}"></td> 
+				<td th:text="${myCompanyItemOne.companyItemContent}"></td>
+				<td th:text="${myCompanyItemOne.likeActive}"></td>
+				<td th:text="${myCompanyItemOne.companyItemDate}"></td>
+				<td th:text="${myCompanyItemOne.companyBname}"></td>
+				<td>
+					<a th:href="@{/disabledCompanyItem(companyItemNo=${myCompanyItemOne.companyItemNo})}">삭제</a>
+				</td>
+				<td>
+					<a th:href="@{/modifyCompanyItem(companyItemNo=${myCompanyItemOne.companyItemNo})}">수정</a>
+				</td>
+				<td>
+					<a th:href="@{companyItemPullUp}" th:text="끌어올리기"></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

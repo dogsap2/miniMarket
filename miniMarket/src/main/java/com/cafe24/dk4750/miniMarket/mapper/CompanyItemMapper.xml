@@ -4,13 +4,86 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.CompanyItemMapper">
 	
+	
 	<!-- 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기 -->
 	<select id="selectMaxPlusCompanyItemNo" resultType="int">
 		SELECT IFNULL(MAX(company_item_no)+1, 1) FROM mini_market_company_item
 	</select>
 	
+ 	<!-- 나의 업체아이템 상세보기  -->
+	<select id="selectCompanyMyItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic" parameterType="String">
+		SELECT 
+			ci.company_item_no AS companyItemNo,
+			ci.company_unique_no AS companyUniqueNo,
+			ci.company_item_title AS companyItemTitle,
+			c.company_sigungu AS companySigungu,
+			c.company_bname AS companyBname,
+			ci.category_name AS categoryName,
+			c.company_name AS companyName,
+			c.company_ceo_name AS companyCeoName,
+			c.company_email AS companyEmail,
+			c.company_phone AS companyPhone,
+			cp.profile_pic AS profilePic,
+			ci.company_item_price AS companyItemPrice,
+			ci.company_item_content AS companyItemContent,
+			ci.company_item_date AS companyItemDate,
+			(SELECT COUNT(cil.like_active) FROM mini_market_company_item_like AS cil WHERE cil.like_active = '1' ) AS likeActive,
+			cip.company_item_pic1 AS companyItemPic1,
+			cip.company_item_pic2 AS companyItemPic2,
+			cip.company_item_pic3 AS companyItemPic3,
+			cip.company_item_pic4 AS companyItemPic4,
+			cip.company_item_pic5 AS companyItemPic5
+		FROM mini_market_company_item AS ci
+		INNER JOIN mini_market_company AS c
+		ON ci.company_unique_no = c.company_unique_no
+		INNER JOIN mini_market_company_item_pic AS cip
+		ON ci.company_item_no = cip.company_item_no
+		INNER JOIN mini_market_company_item_like AS cil
+		ON cil.company_item_no = ci.company_item_no
+		INNER JOIN mini_market_company_pic AS cp
+		ON cp.company_id = c.company_id
+		WHERE ci.company_unique_no = #{companyUniqueNo}
+		GROUP BY ci.company_item_no   		
+	</select> 
+	
+	<!-- 업체아이템 상세보기 -->
+	<select id="selectCompanyItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic" parameterType="int">
+		SELECT 
+			ci.company_item_no AS companyItemNo,
+			ci.company_unique_no AS companyUniqueNo,
+			ci.company_item_title AS companyItemTitle,
+			c.company_sigungu AS companySigungu,
+			c.company_bname AS companyBname,
+			ci.category_name AS categoryName,
+			c.company_name AS companyName,
+			c.company_ceo_name AS companyCeoName,
+			c.company_email AS companyEmail,
+			c.company_phone AS companyPhone,
+			cp.profile_pic AS profilePic,
+			ci.company_item_price AS companyItemPrice,
+			ci.company_item_content AS companyItemContent,
+			ci.company_item_date AS companyItemDate,
+			(SELECT COUNT(cil.like_active) FROM mini_market_company_item_like AS cil WHERE cil.like_active = '1' ) AS likeActive,
+			cip.company_item_pic1 AS companyItemPic1,
+			cip.company_item_pic2 AS companyItemPic2,
+			cip.company_item_pic3 AS companyItemPic3,
+			cip.company_item_pic4 AS companyItemPic4,
+			cip.company_item_pic5 AS companyItemPic5
+		FROM mini_market_company_item AS ci
+		INNER JOIN mini_market_company AS c
+		ON ci.company_unique_no = c.company_unique_no
+		INNER JOIN mini_market_company_item_pic AS cip
+		ON ci.company_item_no = cip.company_item_no
+		INNER JOIN mini_market_company_item_like AS cil
+		ON cil.company_item_no = ci.company_item_no
+		INNER JOIN mini_market_company_pic AS cp
+		ON cp.company_id = c.company_id
+		WHERE ci.company_item_no = #{companyItemNo}
+		GROUP BY ci.company_item_no   		
+	</select>
+	
 	<!-- 업체아이템 끌어올리기 -->
-	<update id="" parameterType="int">
+	<update id="companyItemPullUp" parameterType="String">
 		UPDATE mini_market_company_item
 			SET 
 				company_item_date = NOW()
@@ -62,6 +135,7 @@
 			company_unique_no AS companyUniqueNo,
 			company_item_title AS companyItemTitle,
 			category_name AS categoryName,
+			company_phone AS companyPhone,
 			company_item_price AS companyItemPrice,
 			company_item_content AS companyItemContent,
 			company_item_state AS companyItemState,
@@ -80,6 +154,31 @@
 			company_item_content = #{companyItemContent}
 		WHERE company_item_no = #{companyItemNo}
 	</update>
+	
+	<!-- 관심동네 홍보중인 업체 리스트-->
+	<select id="selectPlaceByCompanyItemList" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic" parameterType="Map">
+		SELECT 
+			ci.company_item_no AS companyItemNo,
+			ci.company_item_title AS companyItemTitle,
+			ci.company_phone AS companyPhone,
+			ci.company_item_date AS companyItemDate,
+			ci.company_unique_no AS companyUniqueNo,
+			c.company_sigungu AS companySigungu,
+			c.company_bname AS companyBname,
+			cip.company_item_pic1 AS companyItemPic1
+		FROM mini_market_company_item AS ci
+		INNER JOIN mini_market_company AS c
+		ON ci.company_unique_no = c.company_unique_no
+		INNER JOIN mini_market_company_item_pic AS cip
+		ON ci.company_item_no = cip.company_item_no
+		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND ci.company_item_state = "홍보"
+		AND c.company_sigungu = #{companySigungu}
+		AND c.company_bname = #{companyBname}
+		ORDER BY ci.company_item_no DESC
+		LIMIt #{beginRow}, #{rowPerPage}
+	</select>
 	
 	<!-- 홍보중인  업체 리스트 -->
 	<select id="selectCompanyItemList" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic" parameterType="Map">
@@ -153,9 +252,8 @@
 		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
 		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND ci.company_item_state = "홍보"
-		AND c.company_sigungu = #{companySigungu}
-		AND c.company_bname = #{companyBname}
 		AND cil.like_active = '1'
+		AND cil.member_unique_no = #{memberUniqueNo}
 		ORDER BY ci.company_item_no DESC
 		LIMIt #{beginRow}, #{rowPerPage}
 	</select>
