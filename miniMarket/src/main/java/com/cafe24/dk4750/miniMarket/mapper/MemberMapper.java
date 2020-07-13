@@ -4,11 +4,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
+import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 
 @Mapper
 public interface MemberMapper {	
-		
+	//관심동네 추가하기  
+	public int insertMemberInterestPlace(MemberInterestPlace memberInterestPlace);
+	
 	//고유번호 가져오기(카운트후  m+1)
 	public String selectMemberUniqueNo();
 	

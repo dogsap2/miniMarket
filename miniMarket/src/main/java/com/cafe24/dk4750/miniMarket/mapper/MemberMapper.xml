@@ -283,17 +283,17 @@
 	
 	<!--관심동네  등록하기 -->
 	<insert id="insertMemberInterestPlace" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace">
-		INSERT INTO mini_market_member(
+		INSERT INTO mini_market_member_interest_place(
          member_id,
          sido,
          sigungu,
          bname,
-         date               
+         interest_place_date               
       ) VALUES (
          #{memberId},
-         #{Sido},
-         #{Sigungu},
-         #{Bname},         
+         #{sido},
+         #{sigungu},
+         #{bname},         
          now()
       )
 	</insert>	

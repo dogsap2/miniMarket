@@ -37,7 +37,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>	
+
+	
+
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            	console.log(data.sido);
+                console.log(data.sigungu);
+                console.log(data.bname);
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
+                }
+                document.getElementById("address").value = addr;
+                $('#memberSido').val(data.sido);
+                $('#memberSigungu').val(data.sigungu); 
+                $('#memberBname').val(data.bname); 
+            }
+        }).open();
+    }
+  
+          
+</script>
 </head>
+
+	
 <body>
 <!-- header -->
 	<div class="agileits_header">
@@ -46,12 +81,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
-				<ul>					
-					<li><a th:href="@{/loginMemberAndCompany}">로그인</a></li>
-					<li th:if="${session.loginMember == null || session.loginCompany == null}">	
-						<a th:href="@{/addMemberAndCompany}">회원가입</a>
-					</li>
-					<li><a href="">문의게시판</a></li>						
+				<ul>
+					<li>
+						<a th:href="@{/logoutMember}" >로그아웃</a>
+					</li>					
+					<li>
+						<a th:href="@{/memberMyPage}">마이페이지(회원)</a>
+					</li>					
+					<li><a href="">문의게시판</a></li>
+					
 				</ul>
 			</div>
 			<div class="product_list_header">  
@@ -69,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
-						
+					
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
@@ -144,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 				<li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">로그인</li>
+				<li class="active">나의 관심동네</li>
 			</ol>
 		</div>
 	</div>
@@ -152,15 +190,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- register -->
 	<div class="register">
 		<div class="container">
-			<h2>로그인</h2>
-			<div class="login-form-grids">
-				<h4 align="center"><strong> </strong></h4>
-				<br>
-				<!-- 회원가입 아이디 체크 -->
-				<div align="center">
-					<a class="btn btn-warning" th:href="@{/loginMember}" style="width:200px; height:45px; font-size:20px;" ><strong>일반 회원 로그인</strong> </a>
-					<a class="btn btn-success" th:href="@{/loginCompany}" style="width:200px; height:45px; font-size:20px;"><strong>업체 회원 로그인</strong></a>
-				</div>
+			<h2>나의 관심동네</h2>
+			<div class="login-form-grids">				
+				<br>				
+				<form id="idForm" method="post" th:action="@{/addMemberInterestPlace}" >								
+					<!-- 나의 이름과 동네 주소 -->	
+					<div align="center">					 
+					 관심동네:<input style="width: 270px; display:inline;" type="text" id="address" placeholder="나의 관심 동네를 선택하세요" name="memberAdress" readonly="readonly">
+					 </div>
+					<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="동네검색" name=""><br>
+					
+					<!-- 동네 주소값 히든으로 받아 넘기기  -->
+					<input type ="hidden" name="sido" id="memberSido">
+               	 	<input type ="hidden" name="sigungu" id="memberSigungu">
+                	<input type ="hidden" name="bname" id="memberBname">
+					
+					<input type="submit" id="Form123" value="관심동네 추가">
+				</form>
 			</div>
 			<div class="register-home">
 				<a th:href="@{/index}">Home</a>

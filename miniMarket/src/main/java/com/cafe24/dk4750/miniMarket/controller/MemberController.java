@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
+import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 
 
@@ -22,7 +23,33 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 @Controller
 public class MemberController {
 	@Autowired private MemberService memberService; 
-
+	//관심동네 설정하기 폼 
+	   @GetMapping("/addMemberInterestPlace")
+	   public String addMmebrinterestPlace(HttpSession session) {
+	      //로그인 상태가 아니면
+	      if(session.getAttribute("loginMember")== null){ 
+	         return "redirect:/index";
+	      }            
+	      return "addMemberInterestPlace";
+	   }
+	
+	//관심동네 추가하기 
+	@PostMapping("/addMemberInterestPlace")   
+	public String addMmebrinterestPlace(HttpSession session, MemberInterestPlace memberInterestPlace) {
+	      //로그인 상태가 아니면
+	      if(session.getAttribute("loginMember")== null){ 
+	         return "redirect:/index";
+	      }  
+	     LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+	     String memberId= loginMember.getMemberId();
+	     memberInterestPlace.setMemberId(memberId);
+	      //받아온값 확인하기 
+	      System.out.println(memberInterestPlace + "<----memberInterestPlace");	      
+	      memberService.addMemberInterestPlace(memberInterestPlace);
+	      
+	      return "redirect:/index";
+	   }   
+	   
 	//회원탈퇴
 	@GetMapping("/removeMember")
 	public String removeMember(HttpSession session) {

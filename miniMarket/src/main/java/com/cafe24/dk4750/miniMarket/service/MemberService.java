@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cafe24.dk4750.miniMarket.mapper.MemberMapper;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
+import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 
@@ -30,7 +31,12 @@ public class MemberService {
 	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
-	
+	//회원 관심지역 추가 
+	public int addMemberInterestPlace( MemberInterestPlace memberInterestPlace) {
+		int row = memberMapper.insertMemberInterestPlace(memberInterestPlace);
+		return row;		
+	}
+
 	//회원탈퇴 
 	public String removeMember(LoginMember loginMember) {
 		String check = memberMapper.selectMemberPw(loginMember);
