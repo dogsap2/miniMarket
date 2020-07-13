@@ -29,7 +29,23 @@ public class MemberItemController {
 	@Autowired private MemberItemService memberItemService;
 	@Autowired private CheckLikeService checkLikeService;
 	@Autowired private CategoryService categoryService;
-
+	
+	// 카테고리별 동네 아이템 보기
+	@GetMapping("/getItemListByCategory")
+	public String getItemListByCategory(HttpSession session, Model model, String categoryName) {
+		System.out.println("getItemListByCategory 겟매핑 시작");
+		System.out.println(categoryName + " <== 카테고리 네임 디버깅");
+		
+		// 리스트 받아오기
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListByCategory(session, categoryName);
+		System.out.println(list + " <== 컨트롤러로 돌아온 카테고리별 리스트 디버깅");
+		
+		// model에 담기
+		model.addAttribute("list", list);
+		
+		return "getItemListByCategory";
+	}
+	
 	// 아이템 상세보기 겟매핑
 	@GetMapping("/getItemOne")
 	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo, @RequestParam(value="pageCheck", defaultValue = "0") int pageCheck) {

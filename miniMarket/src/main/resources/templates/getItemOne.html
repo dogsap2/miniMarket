@@ -114,5 +114,6 @@
 	<button type="submit" id="btn"><img id="img" th:src="@{'/images/emptyheart.png'}" width="50" height="50"></button><br>
 	<div id="check" style="display:none" th:text="${check}"></div>
 	<a th:if="${session.loginMember.memberUniqueNo == getItemOne.memberUniqueNo}and${pageCheck}==1" th:href="@{/modifyMemberItem(memberItemNo=${getItemOne.memberItemNo})}">수정</a>
+	<a th:if="${session.loginMember.memberUniqueNo == getItemOne.memberUniqueNo}and${pageCheck}==1" th:href="@{/disabledMemberItem(memberItemNo=${getItemOne.memberItemNo})}">삭제</a>
 </body>
 </html>

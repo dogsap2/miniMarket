@@ -2,6 +2,7 @@ package com.cafe24.dk4750.miniMarket.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,44 @@ public class MemberItemService {
 	@Autowired private ChatroomMapper chatroomMapper;
 	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 관심동네 아이템 리스트 보기
+	
+	
+	// 카테고리별 내동네 아이템 보기
+	public List<MemberItemAndMemberAndMemberItemPic> getItemListByCategory(HttpSession session, String categoryName) {
+		System.out.println("카테고리별 list 서비스 시작");
+		
+		// beginRow, rowPerPage 임의로 정해주기
+		int beginRow = 0;
+		int rowPerPage = 10;
+		
+		// 세션에서 값 꺼내오기
+		String sigungu = ((LoginMember)session.getAttribute("loginMember")).getMemberSigungu();
+		String bname = ((LoginMember)session.getAttribute("loginMember")).getMemberBname();
+		String searchWord = "";
+		
+		System.out.println(categoryName);
+		System.out.println(sigungu);
+		System.out.println(bname);
+		
+		// 여러 값을 담아줄 임시 map 생성
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberSigungu", sigungu);
+		map.put("memberBname", bname);
+		map.put("categoryName", categoryName);
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		
+		// 리스트 불러오기
+		List<MemberItemAndMemberAndMemberItemPic> list = new ArrayList<MemberItemAndMemberAndMemberItemPic>();
+		list = memberItemMapper.selectItemListByCategory(map);
+		System.out.println(list);
+		
+		// 리턴
+		return list;
+	}
 	
 	// 아이템 상세보기 겟매핑.. 정보 넘겨주기
 	public MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getMemberItemOne(int memberItemNo) {

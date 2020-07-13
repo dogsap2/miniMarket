@@ -5,7 +5,12 @@
 <title>내동네 아이템 목록</title>
 </head>
 <body>
-	<a th:href="@{/index}">home</a>
+	<!-- 홈으로 링크 -->
+	<a th:href="@{/index}">home</a><br>
+	<!-- 카테고리별 -->
+	<a th:href="@{/getItemListByCategory(categoryName='노트북')}">노트북</a><br>
+	<!-- 관심동네 리스트 -->
+	<a th:href="@{/}"></a>
 	<table border="1">
 		<thead>
 			<tr>

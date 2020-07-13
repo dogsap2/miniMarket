@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>카테고리별 아이템 리스트</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<th>사진</th>
+			<th>아이템 제목</th>
+			<th>가격</th>
+			<th>아이템 등록 날짜</th>
+			<th>동네</th>
+		</tr>
+		<tr th:each="list : ${list}">
+			<td>
+				<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}"><img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150"></a>
+			</td>
+			<td th:text="${list.memberItemTitle}"></td>
+			<td th:text="${list.memberItemPrice}"></td>
+			<td th:text="${list.memberItemDate}"></td>
+			<td th:text="${list.memberBname}"></td>
+		</tr>
+	</table>
+</body>
+</html>

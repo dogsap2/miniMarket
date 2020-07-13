@@ -161,6 +161,7 @@
 	<select id="selectItemListByCategory" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic">
 		SELECT
 			 mip.member_item_pic1 AS memberItemPic1,
+			 mi.member_item_no AS memberItemNo,
 	         mi.member_item_title AS memberItemTitle,
 	         mi.member_item_price AS memberItemPrice,
 	         mi.member_item_date AS memberItemDate,
@@ -272,7 +273,7 @@
 	    ON mi.member_item_no = mip.member_item_no
 	    INNER JOIN mini_market_member_item_like AS mil
 	    ON mi.member_item_no = mil.member_item_no
-	    WHERE mil.member_unique_no = #{memberUniqueNo} 
+	    WHERE mil.member_unique_no = #{memberUniqueNo}
 	    AND mil.like_active = '0'
 	    ORDER BY mil.like_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
