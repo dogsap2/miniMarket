@@ -1524,7 +1524,7 @@ input#amount {
 /*-- //products --*/
 /*-- about --*/
 .about,.about-team, .contact,.codes {
-    padding: 5em 0;
+    padding: 3em 0;
 }
 h3.w3_agile_header,h2.w3_agile_header {
     text-align: center;
@@ -1536,7 +1536,7 @@ h3.w3_agile_header,h2.w3_agile_header {
 }
 h3.w3_agile_header:after,h2.w3_agile_header:after{
     content: '';
-    background: #3FBF1A;
+    background: #ffc229;
     height: 2px;
     width: 15%;
     position: absolute;
@@ -1568,7 +1568,7 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
     margin: 1em 0 2.5em;
 }
 .about .grid-top p.top {
-    margin: 1em 0;
+    margin: 0;
 }
 .offic-time {
     text-align: center;
@@ -1876,14 +1876,15 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
 }
 /*-- team-agileitsinfo --*/
 .team-agileitsinfo {
-    margin-top: 4em;
+	max-width: 950px;
+    margin: 4em auto 0;
 }
 .about-team-grids {
-    background: #3FBF1A;
+    background: #FFD100;
     padding: 2em 1em;
-    margin-left: 5px;
-    width: 24.5%;
+    margin: 20px 0;
 }
+
 .about-team-grids img {
 	width: 100%;
 }
@@ -1909,7 +1910,7 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
     font-size: 14PX;
     line-height: 1.8em;
     font-weight: 400;
-    margin-top: 1em;
+    margin-top: 0em;
 }
 .about-grid1 .thumb .caption {
     float: left;
@@ -3054,9 +3055,6 @@ h3.w3_agile_header, h2.w3_agile_header {
     width: 70%;
 }
 .about-team-grids {
-    width: 65%;
-    float: none;
-    margin: 0 auto 20px;
 }
 .about-slid h2 {
     font-size: 1.7em;
