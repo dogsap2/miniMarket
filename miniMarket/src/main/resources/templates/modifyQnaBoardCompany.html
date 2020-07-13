@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+			console.log("준비 완료");
+			$('#modifyBtn').click(function(){
+				console.log("클릭");
+				if($('#qnaTitle').val().length < 5) {
+					alert("5자 이상 적어주세요");
+					return;
+				}
+				if($('#qnaContent').val().length < 5) {
+					alert("내용을 상세하게 적어주세요");
+					return;
+				}
+				$('#modifyQnaBoardCompanyForm').submit();
+			});
+		});
+</script>
+</head>
+<body>
+	<h1 th:text="${qnaOne.qnaBoardCompanyNo} + '번 글 수정'"></h1>
+	
+	<form method="post" th:action="@{modifyQnaBoardCompany}" id="modifyQnaBoardCompanyForm">
+		<input type="hidden" th:value="${qnaOne.qnaBoardCompanyNo}" name="qnaBoardCompanyNo">
+		<div>
+			<label>제목</label>
+			<input type="text" th:value="${qnaOne.qnaBoardCompanyTitle}" placeholder="제목" name="qnaBoardCompanyTitle" id="qnaTitle">
+		</div>
+		<div>
+			<label>내용</label>
+			<textarea rows="5" cols="50" placeholder="내용" name="qnaBoardCompanyContent" id="qnaContent" th:text="${qnaOne.qnaBoardCompanyContent}"></textarea>
+		</div>
+		<div>
+			<button type="button" id="modifyBtn">수정!!</button>
+		</div>
+	</form>
+</body>
+</html>

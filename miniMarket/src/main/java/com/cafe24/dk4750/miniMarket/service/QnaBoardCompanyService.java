@@ -10,12 +10,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.dk4750.miniMarket.mapper.QnaBoardCompanyMapper;
 import com.cafe24.dk4750.miniMarket.vo.QnaBoardCompany;
+import com.cafe24.dk4750.miniMarket.vo.QnaBoardCompanyAndCompany;
 
 @Service
 @Transactional
 public class QnaBoardCompanyService {
 	@Autowired
 	private QnaBoardCompanyMapper qnaBoardCompanyMapper;
+	
+	// QnA 수정
+	public int modifyQnaBoardCompany(QnaBoardCompany qnaBoardCompany) {
+		return qnaBoardCompanyMapper.updateQnaBoardCompany(qnaBoardCompany);
+	}
+	// QnA 입력
+	public int addQnaBoardCompany(QnaBoardCompany qnaBoardCompany) {
+		return qnaBoardCompanyMapper.insertQnaBoardCompany(qnaBoardCompany);
+	}
+	// QnA리스트 상세보기
+	public QnaBoardCompanyAndCompany getQnaBoardCompanyOne(int qnaBoardCompanyNo) {
+		return qnaBoardCompanyMapper.selectQnaBoardCompanyOne(qnaBoardCompanyNo);
+	}
 	// QnA리스트 출력
 	public Map<String, Object> getQnaBoardCompanyList(int currentPage) {
 		int rowPerPage = 10;
@@ -30,7 +44,7 @@ public class QnaBoardCompanyService {
 			lastPage += 1;
 		}
 		// list와 lastPage를 Map에 담는다
-		List<QnaBoardCompany> qnaBoardCompanyBoardList = qnaBoardCompanyMapper.selectCompanyBoardQnAList(map);
+		List<QnaBoardCompanyAndCompany> qnaBoardCompanyBoardList = qnaBoardCompanyMapper.selectQnaBoardCompanyList(map);
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("qnaBoardCompanyBoardList", qnaBoardCompanyBoardList);
 		map2.put("lastPage", lastPage);

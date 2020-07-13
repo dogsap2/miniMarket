@@ -5,9 +5,8 @@ public class QnaCommentCompany {
 	private int qnaCompanyBoardNo;
 	private String qnaCommentCompany;
 	private String qnaCommentCompanyDate;
-	private String companyUniqueNo;
+	private String adminId;
 	
-	// 겟터 셋터
 	public int getQnaCommentCompanyNo() {
 		return qnaCommentCompanyNo;
 	}
@@ -32,18 +31,16 @@ public class QnaCommentCompany {
 	public void setQnaCommentCompanyDate(String qnaCommentCompanyDate) {
 		this.qnaCommentCompanyDate = qnaCommentCompanyDate;
 	}
-	public String getCompanyUniqueNo() {
-		return companyUniqueNo;
+	public String getAdminId() {
+		return adminId;
 	}
-	public void setCompanyUniqueNo(String companyUniqueNo) {
-		this.companyUniqueNo = companyUniqueNo;
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
 	}
-	
-	// toString
 	@Override
 	public String toString() {
 		return "QnaCommentCompany [qnaCommentCompanyNo=" + qnaCommentCompanyNo + ", qnaCompanyBoardNo="
 				+ qnaCompanyBoardNo + ", qnaCommentCompany=" + qnaCommentCompany + ", qnaCommentCompanyDate="
-				+ qnaCommentCompanyDate + ", companyUniqueNo=" + companyUniqueNo + "]";
+				+ qnaCommentCompanyDate + ", adminId=" + adminId + "]";
 	}
 }
