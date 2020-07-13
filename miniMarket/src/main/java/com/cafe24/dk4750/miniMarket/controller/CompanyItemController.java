@@ -21,6 +21,7 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAnd
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemPic;
 import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 
 @Controller
 public class CompanyItemController {
@@ -107,6 +108,8 @@ public class CompanyItemController {
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
 			return "index";
 		}
+		// 업체로그인 웹으로
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		
 		//카테고리 목록
 		List<Category> categoryList = categoryService.getCompanyCategory();
@@ -115,6 +118,7 @@ public class CompanyItemController {
 		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemService.getCompanyItemListByCategory(session, categoryName);
 		System.out.println(categoryName+"<-----카테고리 네임값");
 		//모델에 값넘기기
+		model.addAttribute("loginCompany", loginCompany);
 		model.addAttribute("list", list);
 		model.addAttribute("categoryList", categoryList);
 		System.out.println(list+"<===카테고리별 아이템 리스트 목록 컨트롤러");
@@ -148,10 +152,24 @@ public class CompanyItemController {
 		return "getCompanyItemList";
 	}
 	
+	// 관심동네중에 홍보중인 업체 아이템 리스트 출력하기
+	@GetMapping("/getPlaceByCompanyItemList")
+	public String getPlaceByCompanyItemList(HttpSession session, Model model) {
+		System.out.println("getPlaceByCompanyItemList<==겟맵핑 시작");
+		// 세션이 없다면 인덱스로 
+		if(session.getAttribute("loginMember") == null) {
+			return "index";
+		}
+		// 관심동네중에 홍보중인 업체 아이템 리스트 출력
+		List<CompanyItemAndCompanyAndCompanyItemPic> list  =  companyItemService.getPlaceByCompanyItemList(session);
+		
+		model.addAttribute("list", list);
+		return "getPlaceByCompanyItemList";
+	}
+	
 	// 내가 좋아요한 업체 아이템 리스트 출력하기
 	@GetMapping("/getMyLikeCompanyItem")
 	public String getMyLikeCompanyItem(HttpSession session, Model model) {
-		
 		System.out.println("getMyLikeCompanyItem<==겟메핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {

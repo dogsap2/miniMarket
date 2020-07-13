@@ -11,13 +11,9 @@
 		</li>
 	</ul>
 	<!-- 세션으로 업체일경우 업체등록이 보이게... -->
-<!-- 	<h1>
+	<h1>
 		<a th:href="${loginCompany} !=null ? @{/addCompanyItem} : ''" th:text="${loginCompany} !=null ? 업체추가 :'' "></a>
 	</h1>
- -->
- 	<div>
-		<a th:href="${loginCompany} !=null ? @{/getCompanyMyItemOne(companyItemNo=${list.companyItemNo})} : '' ">나의 업체상세보기</a>
-	</div> 
 	<table border="1">
 		<thead>
 			<tr>
@@ -39,7 +35,7 @@
 				<td th:text="${list.companyItemDate}"></td>
 				<td th:text="${list.companyBname}"></td>
 				<td>
-					<a th:href="@{/getCompanyItemOne(companyItemNo=${list.companyItemNo})}" th:text="상세보기"></a>
+					<a th:href="@{getCompanyItemOne(companyItemNo=${list.companyItemNo})}" th:text="상세보기"></a>
 				</td>
 			</tr>
 		</tbody>

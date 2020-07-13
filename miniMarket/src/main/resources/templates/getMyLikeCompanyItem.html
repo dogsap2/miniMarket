@@ -5,6 +5,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<ul>
+		<li>
+			<a th:href="@{/getCompanyItemListByCategory(categoryName='업체홍보')}" th:text="업체홍보"></a>
+		</li>
+	</ul>
+	<!-- 세션으로 업체일경우 업체등록이 보이게... -->
 	<table border="1">
 		<thead>
 			<tr>
@@ -13,6 +19,7 @@
 				<th>업체 번호</th>
 				<th>아이템 올린 날짜</th>
 				<th>판매지역</th>
+				<th>상세보기</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,6 +31,9 @@
 				<td th:text="${list.companyPhone}"></td>
 				<td th:text="${list.companyItemDate}"></td>
 				<td th:text="${list.companyBname}"></td>
+				<td>
+					<a th:href="@{getCompanyItemOne(companyItemNo=${list.companyItemNo})}" th:text="상세보기"></a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

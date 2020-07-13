@@ -347,8 +347,8 @@ public class CompanyItemService {
 			
 			// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
 			if(session.getAttribute("loginCompany") == null) {
-				companyBname = loginMember.getMemberBname();
-				companySigungu = loginMember.getMemberSigungu();
+				companyBname = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getBname();
+				companySigungu = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getSigungu();
 			} else {
 				companyBname = loginCompany.getCompanyBname();
 				companySigungu = loginCompany.getCompanySigungu();
@@ -406,7 +406,7 @@ public class CompanyItemService {
 	// 내가 좋아요한 업체아이템 리스트 출력
 	public List<CompanyItemAndCompanyAndCompanyItemPic> getMyLikeCompanyItem(HttpSession session) {
 		// 세션의 로그인한 유저의 유니크넘버 가져오기
-			LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		
 		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
