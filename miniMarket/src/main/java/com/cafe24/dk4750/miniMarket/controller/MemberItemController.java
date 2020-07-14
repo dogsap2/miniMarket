@@ -1,5 +1,6 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -117,7 +118,12 @@ public class MemberItemController {
 		
 		// 아이템 상세보기 불러오기
 		MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getItemOne = memberItemService.getMemberItemOne(memberItemNo);
-		
+		int price = Integer.parseInt(getItemOne.getMemberItemPrice());
+		System.out.println(price + " <== 아이템 가격");
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		String memberItemPrice = formatter.format(price);
+		System.out.println(memberItemPrice + " <== 아이템 가격 컴마 찍힌거");
+		getItemOne.setMemberItemPrice(memberItemPrice);
 		// 모델에 담아주기
 		model.addAttribute("getItemOne", getItemOne);
 		model.addAttribute("check", check);
