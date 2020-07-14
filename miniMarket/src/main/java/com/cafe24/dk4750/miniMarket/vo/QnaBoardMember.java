@@ -6,6 +6,8 @@ public class QnaBoardMember {
 	private String qnaBoardMemberTitle;
 	private String qnaBoardMemberContent;
 	private String qnaBoardMemberDate;
+	private int qnaBoardMemberActive;
+	private String memberNickname;
 	
 	// 겟터 셋터
 	public int getQnaBoardMemberNo() {
@@ -39,11 +41,26 @@ public class QnaBoardMember {
 		this.qnaBoardMemberDate = qnaBoardMemberDate;
 	}
 	
-	// toString
+	public int getQnaBoardMemberActive() {
+		return qnaBoardMemberActive;
+	}
+	public void setQnaBoardMemberActive(int qnaBoardMemberActive) {
+		this.qnaBoardMemberActive = qnaBoardMemberActive;
+	}
+	
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
 	@Override
 	public String toString() {
 		return "QnaBoardMember [qnaBoardMemberNo=" + qnaBoardMemberNo + ", memberUniqueNo=" + memberUniqueNo
 				+ ", qnaBoardMemberTitle=" + qnaBoardMemberTitle + ", qnaBoardMemberContent=" + qnaBoardMemberContent
-				+ ", qnaBoardMemberDate=" + qnaBoardMemberDate + "]";
+				+ ", qnaBoardMemberDate=" + qnaBoardMemberDate + ", qnaBoardMemberActive=" + qnaBoardMemberActive
+				+ ", memberNickname=" + memberNickname + "]";
 	}
+	
+	
 }

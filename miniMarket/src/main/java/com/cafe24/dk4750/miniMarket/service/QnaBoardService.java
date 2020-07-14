@@ -21,6 +21,15 @@ public class QnaBoardService {
 	private QnaBoardMapper qnaBoardMapper;
 	@Autowired
 	private QnaCommentMapper qnaCommentMapper;
+	
+	//게시글 비활성화
+	public int modifyQnaBoardMemberByActive(int qnaBoardMemberNo) {
+		return qnaBoardMapper.updateQnaBoardMemberByActive(qnaBoardMemberNo);
+	}
+	//게시글 수정
+	public int modifyQnaBoardMember(QnaBoardMember qnaBoardMember) {
+		return qnaBoardMapper.updateQnaBoardMember(qnaBoardMember);
+	}
 	//게시글 추가
 	public int addQnaBoardMember(QnaBoardMember qnaBoardMember) {
 		return qnaBoardMapper.insertQnaBoardMember(qnaBoardMember);
@@ -37,33 +46,42 @@ public class QnaBoardService {
 		System.out.println(list + "<---service One LIST");
 		QnaBoardMember qnaBoardMember = qnaBoardMapper.selectQnaBoardMemberOne(qnaBoardMemberNo);
 		System.out.println(qnaBoardMember +"<---service qnaBOardMember");
-		int totalRow = qnaCommentMapper.totalCountQnaCommentMember();
+		int totalRow = qnaCommentMapper.totalCountQnaCommentMember(qnaBoardMemberNo);
 		System.out.println(totalRow +"<-- 게시글 총합 수");
 		int lastPage = totalRow / rowPerPage;
-		if(totalRow / rowPerPage != 0) {
+		if(totalRow % rowPerPage != 0) {
 			lastPage += 1;
 		}
+		System.out.println(lastPage);
 		map2.put("list", list);
 		map2.put("qnaBoardMember", qnaBoardMember);
 		map2.put("lastPage", lastPage);
 		return map2;
 	}
-	
-	public Map<String, Object> getQnaBoardMemberList(int beginRow , int rowPerPage){
+	//게시글 리스트  + 페이징 + 검색
+	public Map<String, Object> getQnaBoardMemberList(int beginRow , int rowPerPage, String qnaBoardMemberTitle){
 		Map<String, Object> map1 = new HashMap<>();
 		//현재 페이지
 		map1.put("beginRow", beginRow);
 		//페이지 당 몇개의 리스트
 		map1.put("rowPerPage", rowPerPage);
 		//페이징 + 리스트
-		List<QnaBoardMember> list = qnaBoardMapper.selectQnaBoardMember(beginRow, rowPerPage);
-		System.out.println(list + "<---qnaBoardService list");
-		//리스트의 토탈 카운트 수
-		int totalRow = qnaBoardMapper.totalQnaBoard();
+		map1.put("qnaBoardMemberTitle", qnaBoardMemberTitle);
+		//리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(qnaBoardMemberTitle.equals("")) {
+			totalRow = qnaBoardMapper.totalQnaBoard();
+		}else {
+			totalRow = qnaBoardMapper.totalQnaBoardBySearch(qnaBoardMemberTitle);
+		}
+		System.out.println(totalRow+"<---게시물 총합 수");
+		List<QnaBoardMember> list = qnaBoardMapper.selectQnaBoardMember(beginRow, rowPerPage, qnaBoardMemberTitle);
+		System.out.println(list.size() + "<---qnaBoardService list.size");
+		
 		System.out.println(totalRow+"<---service totalRow");
 		//마지막 페이지 번호 + 나머지 값이 있을경우 마지막 페이지 값 +1
 		int lastPage = totalRow / rowPerPage;
-		if(totalRow / rowPerPage != 0) {
+		if(totalRow % rowPerPage != 0) {
 			lastPage += 1;
 		}
 		

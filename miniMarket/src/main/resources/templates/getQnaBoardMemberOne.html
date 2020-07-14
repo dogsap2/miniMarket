@@ -36,56 +36,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 		
-		
-		
-		let one = $("#itemOne");
-		let two = $("#itemTwo");
-		let three = $("#itemThree");
-		let four = $("#itemFour");
-		let five = $(".item5");
-		$('#qnaMemberList').trigger('click');
-		one.hide();
-		two.hide();
-		three.hide();
-		four.hide();
-		five.hide();
-		
-		$("#qnaMember").click(function(){
-			one.show();
-			two.hide();
-			three.hide();
-			four.hide();
-			five.hide();
-		});
-		$("#qnaTrade").click(function(){
-			one.hide();
-			two.show();
-			three.hide();
-			four.hide();
-			five.hide();
-		});
-		$("#qnaTradeItemByManner").click(function(){
-			one.hide();
-			two.hide();
-			three.show();
-			four.hide();
-			five.hide();
-		});
-		$("#qnaReport").click(function(){
-			one.hide();
-			two.hide();
-			three.hide();
-			four.show();
-			five.hide();
-		});
-		$("#qnaMemberList").click(function(){
-			one.hide();
-			two.hide();
-			three.hide();
-			four.hide();
-			five.show();
+		$("#updateBtn").click(function(){
+			if($("#qnaBoardMemberTitle").val() == ""){
+				alert("수정할 제목을 입력해주세요!");
+				$("#qnaBoardMemberTitle").focus();
+				return;
+			}else if($("#qnaBoardMemberContent").val() == ""){
+				alert("수정할 내용을 입력해주세요!");
+				$("#qnaBoardMemberContent").focus();
+				return;
+			}else if($("#qnaBoardMemberTitle").val() == $("#qnaBoardMemberTitle2").val() & $("#qnaBoardMemberContent").val() == $("#qnaBoardMemberContent2").val()){
+				alert("수정된 값이 없습니다!");
+				$("#qnaBoardMemberTitle").focus();
+				return;
+			}
+			$("#updateForm").submit();
 		});
 		
+		$("#addBtn").click(function(){
+			if($("#qnaCommentMember").val() == ""){
+				alert("댓글을 입력해주세요!")
+				$("#qnaCommentMember").focus();
+				return;
+			}
+			$("#addForm").submit();
+		});
+		$("#deleteBtn").click(function(){
+			$("#deleteForm").submit();
+		});
 	});
 </script>
 <!-- start-smoth-scrolling -->
@@ -278,210 +256,107 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //breadcrumbs -->
 <!-- help-page -->
 	<!--brands-->
-   <div class="brands">
-      <div class="container">
-      <h3>Brand Store</h3>
-         <div class="brands-agile">
-         	<input class="form-control" id="myInput" name="searchWord" type="text" placeholder="Search..">
-            <div class="col-md-2 w3layouts-brand">
-               <div class="brands-w3l">
-                  <p><a href="#" id="qnaMember">계정/인증</a></p>
-               </div>
-            </div>
-            <div class="col-md-2 w3layouts-brand">
-               <div class="brands-w3l">
-                  <p><a href="#" id="qnaTrade">구매/판매</a></p>
-               </div>
-            </div>
-            <div class="col-md-2 w3layouts-brand">
-               <div class="brands-w3l">
-                  <p><a href="#" id="qnaTradeItemByManner">거래 품목/ 거래 매너</a></p>
-               </div>
-            </div>
-            
-            <div class="col-md-2 w3layouts-brand">
-               <div class="brands-w3l">
-                  <p><a href="#" id="qnaReport">이용 제재</a></p>
-               </div>
-            </div>
-            <div class="col-md-2 w3layouts-brand">
-               <div class="brands-w3l">
-                  <p><a href="#" id="qnaMemberList">기타(회원 질문 리스트)</a></p>
-               </div>
-            </div>
-
-            <div class="clearfix"></div>
-         </div>
-      </div>
-   </div>   
+   
 <!--//brands-->
 	<div class="faq-w3agile" id="myQna">
 		<div class="container"> 
-			<h2 class="w3_agile_header">자주 묻는 질문 ?</h2> 
-			<form method="get" th:action="@{qnaBoardMember}" class="d-flex justify-content-center" id="form">
-				<input type="text" name="boardTitle" id="boardTitle">
-				<button type="button" class="btn btn-secondary" id="btn">검색</button>
-				<span id="title"></span>
-			</form>
-			<!-- 계정/인증 -->
-			<ul class="faq" id="itemOne">
-				<li class="item1"><a href="#" title="click here">탈퇴는 어떻게 하나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item2"><a href="#" title="click here">프로필 사진과 닉네임을 변경하고 싶어요</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item3"><a href="#" title="click here">회원 정보 변경은 어디서 하나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item4"><a href="#" title="click here">닉네임 외 다른 방법으로 사용자를 찾을 수 있나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li> 
-				<li class="item5"><a href="#" title="click here">동네인증을 왜 해야 하나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item5"><a href="#" title="click here">가입한 적이 없는데 계정이 있다고 하네요</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-			</ul>
-			<!-- 구매/판매 -->
-			<ul class="faq" id="itemTwo">
-				<li class="item1"><a href="#" title="click here">중고거래 게시판 거래 및 환불 정책</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item2"><a href="#" title="click here">사진을 첨부하여 판매글을 작성하고 싶어요. 어떻게 하나요? (판매글 작성하는 방법)</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item3"><a href="#" title="click here">끌어올리기(끌올) 어떻게 하나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item4"><a href="#" title="click here">거래 후기는 어떻게 쓰나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li> 
-				<li class="item5"><a href="#" title="click here">게시글은 어떻게 삭제하나요? (게시글 삭제하기)</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item6"><a href="#" title="click here">관심 있는 물건만 따로 모아보고 싶어요!</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-			</ul> 
-			<!-- 거래 매너 / 품목 -->
-			<ul class="faq" id="itemThree">
-				<li class="item1"><a href="#" title="click here">판매금지 물품 </a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item2"><a href="#" title="click here">반려동물을 무료로 분양할 수 있나요? </a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item3"><a href="#" title="click here">어떤 경우에 이용정지 되나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item4"><a href="#" title="click here">가품, 전문판매업자 글이 있는데 보기 싫어요. 어떻게 해야 하나요? </a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li> 
-				<li class="item5"><a href="#" title="click here">프로필 옆에 표시되는 매너온도와 웃는 얼굴에 대해서 알려주세요. </a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item6"><a href="#" title="click here">비매너 평가를 하면 상대방이 알 수 있나요? </a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item7"><a href="#" title="click here">매너온도란?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-			</ul> 
-			<!-- 이용제재-->
-			<ul class="faq" id="itemFour">
-				<li class="item1"><a href="#" title="click here">거래약속 불이행 사유로 경고 및 이용정지 된 이유가 궁금해요</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item2"><a href="#" title="click here">'전문판매업자같아요' 신고를 받으면 어떻게 되나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-				<li class="item3"><a href="#" title="click here">어떤 경우에 이용정지 되나요?</a>
-					<ul>
-						<li class="subitem1"><p>ㅎㅎㅎㅎㅎ</p></li>										
-					</ul>
-				</li>
-			</ul> 
-			<!-- 기타 사유 -->
-			<div th:each="list : ${list}">
-				<div class="item5">
-					<a th:href="@{qnaBoardMemberOne(qnaBoardMemberNo=${list.qnaBoardMemberNo})}" th:text="${list.qnaBoardMemberTitle}"></a>
+			<div class="col-md-12 w3_agileits_contact_grid_right">
+				<h2 class="w3_agile_header">질문 상세보기</h2>
+				<!-- 관리자 or 게시글 올린사람만 -->
+				<div th:if="${qnaBoardMember.memberUniqueNo == memberUniqueNo}">
+					<form method="post" th:action="@{modifyQnaBoardMember}" id="updateForm">
+						<table class="table table-bordered">
+					        <tbody>
+					            <tr>
+					            	<th>게시글 번호</th>
+					                <td th:text="${qnaBoardMember.qnaBoardMemberNo}"></td>
+					                <th>제목</th>
+					                <td>
+					                	<input type="text" th:value="${qnaBoardMember.qnaBoardMemberTitle}" name="qnaBoardMemberTitle" id="qnaBoardMemberTitle">
+					                	<input type="hidden" th:value="${qnaBoardMember.qnaBoardMemberTitle}" id="qnaBoardMemberTitle2">
+					                </td>
+					            </tr>
+					            <tr>
+					                <th>작성자</th>
+					                <td th:text="${qnaBoardMember.memberNickname}"></td>
+					                <th>작성시간</th>
+					                <td th:text="${qnaBoardMember.qnaBoardMemberDate}"></td>
+					            </tr>
+					            <tr>
+					                <th>내용</th>
+					                <td colspan="3">
+					                	<textarea name="qnaBoardMemberContent" th:text="${qnaBoardMember.qnaBoardMemberContent}" id="qnaBoardMemberContent"></textarea>
+					                	<input type="hidden" th:value="${qnaBoardMember.qnaBoardMemberContent}" id="qnaBoardMemberContent2">
+					                </td>
+					            </tr>
+					        </tbody>
+					    </table>
+					    <input type="hidden" th:value="${qnaBoardMember.qnaBoardMemberNo}" name="qnaBoardMemberNo">
+					    <button type="button" class="btn btn-danger" id="updateBtn">수정</button>
+					    <button type="button" class="btn btn-success" id="deleteBtn">삭제</button>
+				    </form>
+				    <form method="post" th:action="@{modifyQnaBoardMemberByActive}" id="deleteForm">
+				    	<input type="hidden" th:value="${qnaBoardMember.qnaBoardMemberNo}" name="qnaBoardMemberNo" id="active">
+				    </form>
+			    </div>
+			    <!-- 일반 회원 -->
+			    <div th:unless="${qnaBoardMember.memberUniqueNo == memberUniqueNo}">
+			    	<table class="table table-bordered">
+			        <tbody>
+			            <tr>
+			            	<th>게시글 번호</th>
+			                <td th:text="${qnaBoardMember.qnaBoardMemberNo}"></td>
+			                <th>제목</th>
+			                <td th:text="${qnaBoardMember.qnaBoardMemberTitle}"></td>
+			            </tr>
+			            <tr>
+			                <th>작성자</th>
+			                <td th:text="${qnaBoardMember.memberUniqueNo}"></td>
+			                <th>작성시간</th>
+			                <td th:text="${qnaBoardMember.qnaBoardMemberDate}"></td>
+			            </tr>
+			            <tr>
+			                <th>내용</th>
+			                <td colspan="3" th:text="${qnaBoardMember.qnaBoardMemberContent}"> 
+			                </td>
+			            </tr>
+			        </tbody>
+			    </table>
+			    </div>
+				    <form method="post" th:action="@{addQnaBoardCommentMember}" class="form-group" id="addForm">
+						<input type="hidden" name="qnaBoardMemberNo" th:value="${qnaBoardMember.qnaBoardMemberNo}">
+						<div class="input-group mb-3">
+							<textarea rows="1" cols="50" class="form-control" name="qnaCommentMember" id="qnaCommentMember"></textarea>
+							<div class="input-group-append">
+								<button type="button" class="btn btn-danger" id="addBtn">댓글 입력</button>
+							</div>
+						</div>
+					</form>
+				<div>
+					<table class="table table-striped">
+						<tr>
+							<td>작성자</td>
+							<td>내용</td>
+							<td>시간</td>
+							<td>삭제</td>
+						</tr>
+						<tr th:each="c : ${CommentList}">
+							<td>
+								<span th:if="${#strings.equals(#strings.substring(c.qnaCommentMemberDate,0,10),day)}" class="badge badge-warning">new</span>
+								<label th:text="${c.adminId}"></label>
+							</td>
+							<td th:text="${c.qnaCommentMember}"></td>
+							<td th:text="${c.qnaCommentMemberDate}"></td>
+							<td th:text="${lastPage}"></td>
+							<td><a th:href="@{removeQnaCommentMember(qnaCommentMemberNo=${c.qnaCommentMemberNo},qnaBoardMemberNo=${qnaBoardMember.qnaBoardMemberNo})}" th:class="${qnaBoardMember.memberUniqueNo == memberUniqueNo} ? 'btn btn-danger' : 'btn btn-dark disabled'">삭제</a></td>
+						</tr>
+					</table>
+					<div class="d-flex">
+						<a th:if="${currentPage} != 1" th:href="@{qnaBoardMemberOne(currentPage=${currentPage-1},qnaBoardMemberNo=${qnaBoardMember.qnaBoardMemberNo})}" class="btn btn-primary mr-auto">이전</a>
+						<a th:if="${currentPage} != ${lastPage}" th:href="@{qnaBoardMemberOne(currentPage=${currentPage+1},qnaBoardMemberNo=${qnaBoardMember.qnaBoardMemberNo})}" class="btn btn-primary">다음</a>
+					</div>
 				</div>
 			</div>
-			<a th:href="@{addQnaBoardMember}">추가하기</a>
-			<div >
-				<a th:if="${currentPage} != 1" th:href="@{qnaBoardMember(currentPage=${currentPage-1})}" class="btn btn-primary mr-auto" onclick="$('#qnaMemberList').trigger('click');" id="minusBtn">이전</a>
-				<a th:if="${currentPage} != ${lastPage}" th:href="@{qnaBoardMember(currentPage=${currentPage+1})}" class="btn btn-primary" onclick="$('#qnaMemberList').trigger('click');"id="plusBtn">다음</a>
-			</div>
-			<!-- script for tabs -->
-			<script type="text/javascript">
-				$(function() {
-				
-					var menu_ul = $('.faq > li > ul'),
-						   menu_a  = $('.faq > li > a');
-					
-					menu_ul.hide();
-				
-					menu_a.click(function(e) {
-						e.preventDefault();
-						if(!$(this).hasClass('active')) {
-							menu_a.removeClass('active');
-							menu_ul.filter(':visible').slideUp('normal');
-							$(this).addClass('active').next().stop(true,true).slideDown('normal');
-						} else {
-							$(this).removeClass('active');
-							$(this).next().stop(true,true).slideUp('normal');
-						}
-					});
-					
-				
-				
-				});
-			</script>
-			<!-- script for tabs -->   
 		</div>
 	</div>
 <!-- //footer -->

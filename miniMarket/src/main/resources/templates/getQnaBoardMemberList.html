@@ -35,20 +35,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
-		
-		$("#addBtn").click(function(){
-			if($("#input-25").val() == ""){
-				alert("제목을 입력해주세요");
-				$("#input-25").focus();
-				return;
-			}else if($("#qnaBoardMemberContent").val() == ""){
-				alert("내용을 입력해주세요");
-				$("#qnaBoardMemberContent").focus();
+		$("#searchBtn").click(function(){
+			if($("#qnaBoardMemberTitle").val() == ""){
+				alert("검색어를 입력해주세요");
+				$("#qnaBoardMemberTitle").focus();
 				return;
 			}
-			$("#addForm").submit();
-		});
-	});
+			$("#searchForm").submit();
+		})
+
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -237,28 +232,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</ol>
 		</div>
 	</div>
-<!-- //breadcrumbs -->
-<!-- help-page -->
-	<!--brands-->
-   
-<!--//brands-->
 	<div class="faq-w3agile" id="myQna">
 		<div class="container"> 
-			<div class="col-md-11 w3_agileits_contact_grid_right">
-				<h2 class="w3_agile_header">질문 추가하기</h2>
-
-				<form th:action="@{addQnaBoardMember}" method="post" id="addForm">
-					<span class="input input--ichiro">
-						<input class="input__field input__field--ichiro" type="text" id="input-25" name="qnaBoardMemberTitle" />
-						<label class="input__label input__label--ichiro" for="input-25">
-							<span class="input__label-content input__label-content--ichiro" >제목 :</span>
-						</label>
-					</span>
-					<textarea name="qnaBoardMemberContent" id="qnaBoardMemberContent"></textarea>
-					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNo}">
-					<input type="button" value="추가" id="addBtn">
-				</form>
+			<h2 class="w3_agile_header">자주 묻는 질문 ?</h2> 
+			<form method="get" th:action="@{getQnaBoardMemberList}" class="d-flex justify-content-center" id="searchForm">
+				<input type="text" name="qnaBoardMemberTitle" id="qnaBoardMemberTitle">
+				<button type="button" class="btn btn-secondary" id="searchBtn">검색</button>
+				<span id="title"></span>
+			</form>
+			<div>
+				<div class="item5">
+					<table class="table table-bordered">
+						<tr>
+							<th>질문 제목</th>
+							<th>작성자</th>
+						</tr>
+						<tr th:each="list : ${list}">
+							<td th:if="${list.qnaBoardMemberActive == 0}"><a th:href="@{getQnaBoardMemberOne(qnaBoardMemberNo=${list.qnaBoardMemberNo})}" th:text="${list.qnaBoardMemberTitle}"></a></td>
+							<td th:unless="${list.qnaBoardMemberActive == 0}" th:text="'[삭제글]'+${list.qnaBoardMemberTitle}"></td>
+							<td th:text="${list.memberNickname}"></td>
+						</tr>
+					</table>
+					
+				</div>
 			</div>
+			<a th:href="@{addQnaBoardMember}">추가하기</a>
+			<div >
+				<a th:if="${currentPage} != 1" th:href="@{getQnaBoardMemberList(currentPage=${currentPage-1},qnaBoardMemberTitle=${qnaBoardMemberTitle})}" class="btn btn-primary mr-auto" onclick="$('#qnaMemberList').trigger('click');" id="minusBtn">이전</a>
+				<a th:if="${currentPage} != ${lastPage}" th:href="@{getQnaBoardMemberList(currentPage=${currentPage+1},qnaBoardMemberTitle=${qnaBoardMemberTitle})}" class="btn btn-primary" onclick="$('#qnaMemberList').trigger('click');"id="plusBtn">다음</a>
+			</div>
+			<!-- script for tabs -->
+			<script type="text/javascript">
+				$(function() {
+				
+					var menu_ul = $('.faq > li > ul'),
+						   menu_a  = $('.faq > li > a');
+					
+					menu_ul.hide();
+				
+					menu_a.click(function(e) {
+						e.preventDefault();
+						if(!$(this).hasClass('active')) {
+							menu_a.removeClass('active');
+							menu_ul.filter(':visible').slideUp('normal');
+							$(this).addClass('active').next().stop(true,true).slideDown('normal');
+						} else {
+							$(this).removeClass('active');
+							$(this).next().stop(true,true).slideUp('normal');
+						}
+					});
+					
+				
+				
+				});
+			</script>
+			<!-- script for tabs -->   
 		</div>
 	</div>
 <!-- //footer -->

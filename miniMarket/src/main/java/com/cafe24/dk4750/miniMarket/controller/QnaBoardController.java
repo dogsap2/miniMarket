@@ -22,7 +22,35 @@ public class QnaBoardController {
 	@Autowired
 	private QnaBoardService qnaBoardService;
 	@Autowired QnaCommentService qnaCommentService;
-	
+	@GetMapping("/getQnaBoardMemberHtml")
+	public String getQnaBoardMemberHtml(HttpSession session) {
+		if(session.getAttribute("loginMember") == null) {
+	         return "redirect:/index";
+	      }
+		return "getQnaBoardMemberHtml";
+	}
+	//댓글 삭제
+	@GetMapping("/removeQnaCommentMember")
+	public String removeQnaCommentMember(QnaCommentMember qnaCommentMember) {
+		System.out.println(qnaCommentMember+"<---삭제 컨트롤러");
+		qnaCommentService.removeQnaCommentMember(qnaCommentMember.getQnaCommentMemberNo());
+		return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaCommentMember.getQnaBoardMemberNo();
+	}
+	@PostMapping("/modifyQnaBoardMemberByActive")
+	//질문 비활성화
+	public String modifyQnaBoardMemberByActive(@RequestParam("qnaBoardMemberNo") int qnaBoardMemberNo) {
+		System.out.println(qnaBoardMemberNo);
+		qnaBoardService.modifyQnaBoardMemberByActive(qnaBoardMemberNo);
+		return "redirect:/getQnaBoardMemberList";
+	}
+	//질문 수정
+	@PostMapping("/modifyQnaBoardMember")
+	public String modifyQnaBoardMember(QnaBoardMember qnaBoardMember) {
+		System.out.println(qnaBoardMember);
+		qnaBoardService.modifyQnaBoardMember(qnaBoardMember);
+		return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaBoardMember.getQnaBoardMemberNo();
+	}
+	//댓글 추가
 	@PostMapping("/addQnaBoardCommentMember")
 	public String addQnaCommentMember(HttpSession session ,QnaCommentMember qnaCommentMember) {
 		if(session.getAttribute("loginMember") == null) {
@@ -31,28 +59,29 @@ public class QnaBoardController {
 		System.out.println(qnaCommentMember + "<---controller qnaCommentMember");
 		qnaCommentService.addQnaCommentMember(qnaCommentMember);
 		System.out.println(qnaCommentMember.getQnaBoardMemberNo());
-		return "redirect:/qnaBoardMemberOne?qnaBoardMemberNo="+qnaCommentMember.getQnaBoardMemberNo();
+		return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaCommentMember.getQnaBoardMemberNo();
 	}
-	//자주 묻는 질문 리스트 + 페이징 + 검색 예정
-	@GetMapping("/qnaBoardMember")
-	public String getQnaBoardMemberList(HttpSession session , Model model , @RequestParam(value= "currentPage", defaultValue = "1") int currentPage){
+	//자주 묻는 질문 리스트 + 페이징 + 검색
+	@GetMapping("/getQnaBoardMemberList")
+	public String getQnaBoardMemberList(HttpSession session , Model model , @RequestParam(value= "currentPage", defaultValue = "1") int currentPage, @RequestParam(value= "qnaBoardMemberTitle", defaultValue = "") String qnaBoardMemberTitle){
 		System.out.println(currentPage + "<---페이지 초기 번호");
+		System.out.println(qnaBoardMemberTitle+"<---검색어");
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		System.out.println(beginRow+"<---beginRow");
 		
-		Map<String , Object> map = qnaBoardService.getQnaBoardMemberList(beginRow, rowPerPage);
+		Map<String , Object> map = qnaBoardService.getQnaBoardMemberList(beginRow, rowPerPage, qnaBoardMemberTitle);
 		
 		//페이지 초기 번호
 		model.addAttribute("currentPage", currentPage);
 		//자주 묻는 질문 리스트 + 페이징
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
-		
-		return "qnaBoardMember";
+		model.addAttribute("qnaBoardMemberTitle", qnaBoardMemberTitle);
+		return "getQnaBoardMemberList";
 	}
 	// 상세보기
-	@GetMapping("/qnaBoardMemberOne")
+	@GetMapping("/getQnaBoardMemberOne")
 	public String getQnaBoardMemberOne(HttpSession session , Model model , @RequestParam(value= "currentPage", defaultValue = "1") int currentPage ,@RequestParam("qnaBoardMemberNo") int qnaBoardMemberNo) {
 		if(session.getAttribute("loginMember") == null) {
 	         return "redirect:/index";
@@ -72,7 +101,7 @@ public class QnaBoardController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("memberUniqueNo", memberUniqueNo);
 		
-		return "qnaBoardMemberOne";
+		return "getQnaBoardMemberOne";
 	}
 	// 자주 묻는 질문 추가
 	@GetMapping("/addQnaBoardMember")
@@ -90,6 +119,6 @@ public class QnaBoardController {
 		System.out.println(qnaBoardMember);
 		qnaBoardService.addQnaBoardMember(qnaBoardMember);
 		
-		return "redirect:/qnaBoardMember";
+		return "redirect:/getQnaBoardMemberList";
 	}
 }

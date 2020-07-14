@@ -11,6 +11,11 @@ import com.cafe24.dk4750.miniMarket.vo.QnaCommentMember;
 @Transactional
 public class QnaCommentService {
 	@Autowired QnaCommentMapper qnaCommentMapper;
+	//댓글 삭제
+	public int removeQnaCommentMember(int qnaCommentMemberNo) {
+		System.out.println(qnaCommentMemberNo+"<----삭제 qnaCommentMemberNo 값");
+		return qnaCommentMapper.deleteQnaCommentMember(qnaCommentMemberNo);
+	}
 	//댓글 추가
 	public int addQnaCommentMember(QnaCommentMember qnaCommentMember) {
 		String adminId = "admin";
