@@ -258,12 +258,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<tr>
 		<td style="color:gray;">
 			<img id="img" th:src="@{'/images/h.png'}" width="40px" height="40px">
-			<span>관심 등록</span><br><br>
+			<span>관심 등록 click!!</span><br><br>
 		</td>
 	</tr>
 	<tr>
 		<td style="color:gray;">
-			<span th:text="${getItemOne.LikeActive}" style="color:gray;"></span> 명의 회원이 관심등록을 했습니다.<br><br>
+			<span th:text="${getItemOne.LikeActive}" style="color:gray;"></span>명의 회원이 관심등록 했습니다.<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="text-align:left;">
+				<a th:href="@{/}" class="btn btn-info btn-lg">채팅으로 거래하기</a>
+			</div>
 		</td>
 	</tr>
 	<tr>
