@@ -5,9 +5,7 @@ public class QnaCommentMember {
 	private int qnaBoardMemberNo;
 	private String qnaCommentMember;
 	private String qnaCommentMemberDate;
-	private String memberUniqueNo;
-	
-	// 겟터 셋터
+	private String adminId;
 	public int getQnaCommentMemberNo() {
 		return qnaCommentMemberNo;
 	}
@@ -32,18 +30,18 @@ public class QnaCommentMember {
 	public void setQnaCommentMemberDate(String qnaCommentMemberDate) {
 		this.qnaCommentMemberDate = qnaCommentMemberDate;
 	}
-	public String getMemberUniqueNo() {
-		return memberUniqueNo;
+	public String getAdminId() {
+		return adminId;
 	}
-	public void setMemberUniqueNo(String memberUniqueNo) {
-		this.memberUniqueNo = memberUniqueNo;
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
 	}
-	
-	// toString
 	@Override
 	public String toString() {
 		return "QnaCommentMember [qnaCommentMemberNo=" + qnaCommentMemberNo + ", qnaBoardMemberNo=" + qnaBoardMemberNo
 				+ ", qnaCommentMember=" + qnaCommentMember + ", qnaCommentMemberDate=" + qnaCommentMemberDate
-				+ ", memberUniqueNo=" + memberUniqueNo + "]";
+				+ ", adminId=" + adminId + "]";
 	}
+	
+	
 }
