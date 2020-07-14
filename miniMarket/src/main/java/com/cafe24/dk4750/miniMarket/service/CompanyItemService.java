@@ -347,8 +347,13 @@ public class CompanyItemService {
 			
 			// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
 			if(session.getAttribute("loginCompany") == null) {
-				companyBname = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getBname();
-				companySigungu = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getSigungu();
+				if(memberInterestPlaceMapper.selectMemberInterestPlace(memberId)== null ) {
+					companyBname = loginMember.getMemberBname();
+					companySigungu = loginMember.getMemberSigungu();
+				} else {
+					companyBname = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getBname();
+					companySigungu = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getSigungu();
+				}
 			} else {
 				companyBname = loginCompany.getCompanyBname();
 				companySigungu = loginCompany.getCompanySigungu();
