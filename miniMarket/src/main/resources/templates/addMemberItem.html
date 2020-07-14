@@ -89,55 +89,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div>
 <!-- //header -->
 <!-- navigation -->
-   <div class="navigation-agileits">
-      <div class="container">
-         <nav class="navbar navbar-default">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header nav_2">
-               <button type="button"
-                  class="navbar-toggle collapsed navbar-toggle1"
-                  data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-                  <span class="sr-only">Toggle navigation</span> <span
-                     class="icon-bar"></span> <span class="icon-bar"></span> <span
-                     class="icon-bar"></span>
-               </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-               <ul class="nav navbar-nav">
-                  <li class="active"><a th:href="@{/index}" class="act">Home</a></li>
-                  <!-- Mega Menu -->
-                  <li class="dropdown"><a href="#" class="dropdown-toggle"
-                     data-toggle="dropdown">중고물품 관련<b class="caret"></b></a>
-                     <ul class="dropdown-menu multi-column columns-3">
-                        <div class="row">
-                           <div class="multi-gd-img">
-                              <ul class="multi-column-dropdown">
-                                 <h6>중고물품 관련</h6>
-                                 <li><a th:href="@{/addMemberItem}">중고아이템 판매</a></li>
-                                 <li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
-                                 <li><a th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
-                                 <li><a th:href="@{/getBuyListByMember}">내가 구매한 아이템 목록</a></li>
-                                 <li><a th:href="@{/modifyMemberItem}">내 아이템 수정 ---------- 상세보기 완료 후 생성</a></li>
-                                 <li><a th:href="@{/getItemListBySaleMyItem}">내 판매완료 아이템 목록</a></li>
-                              </ul>
-                           </div>
-                        </div>
-                     </ul></li>
-
-                  <li><!-- 채팅방 버튼 -->
-                     <a th:href="@{/button}">채팅방</a>
-                  </li>
-                  <li>
-                     <a th:href>공지사항</a>
-                  </li>
-                  <li>
-                     <a th:href>about</a>
-                  </li>
-            </div>
-         </nav>
-      </div>
-   </div>
-      
+	<div class="navigation-agileits">
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header nav_2">
+					<button type="button"
+						class="navbar-toggle collapsed navbar-toggle1"
+						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+					<ul class="nav navbar-nav">
+						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
+						<!-- Mega Menu -->
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">중고물품 관련<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>중고물품 관련</h6>
+											<li><a th:href="@{/addMemberItem}">중고아이템 판매</a></li>
+											<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
+											<li><a th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
+											<li><a th:href="@{/getBuyListByMember}">내가 구매한 아이템 목록</a></li>
+											<li><a th:href="@{/modifyMemberItem}">내 아이템 수정 ---------- 상세보기 완료 후 생성</a></li>
+											<li><a th:href="@{/getItemListBySaleMyItem}">내 판매완료 아이템 목록</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+							<!-- 업체 메뉴 -->
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">업체 메뉴<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>업체 관련 메뉴</h6>
+											<li><a th:href="@{/addCompanyItem}">업체 홍보하기</a></li>
+											<li><a th:href="@{/getCompanyItemList}">우리동네 홍보 목록</a></li>
+											<li><a th:href="@{/getCompanyMyItemOne}">내 홍보중인 아이템 상세보기</a></li>
+											<li><a th:href="@{/getMyLikeCompanyItem}">내가 관심등록한 업체 아이템 목록</a></li>
+											<li><a th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+						<li><!-- 채팅방 버튼 -->
+							<a th:href="@{/button}">채팅방</a>
+						</li>
+						<li>
+							<a>공지사항</a>
+						</li>
+						<li>
+							<a th:href="@{/about}">about</a>
+						</li>
+				</div>
+			</nav>
+		</div>
+	</div>
+		
 <!-- //navigation -->
 <!-- breadcrumbs -->
    <div class="breadcrumbs">
@@ -150,52 +166,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div>
 <!-- //breadcrumbs -->
 <!-- 아이템 추가 -->
-   <div class="login">
-      <div class="container">
-            <form method="post" th:action="@{/addMemberItem}" enctype="multipart/form-data" id="form">
-      <table border="1"  class="table table-bordered">
-         <tr>
-            <th>제목</th>
-            <th>카테고리 이름</th>
-            <th>가격</th>
-            <th>내용</th>
-            <th>사진</th>
-         </tr>
-         <tr>
-            <td>
-               <input  type="text" name="memberItemTitle" id="memberItemTitle">
-            </td>
-            <td>
-               <select name="categoryName" id="categoryName">
-                  <option selected value="">상품의 카테고리를 선택해주세요.</option>
-                  <option th:each="list : ${list}" th:value="${list.categoryName}" th:text="${list.categoryName}">
-               </select>
-            </td>
-            <td>
-               <input type="text" name="memberItemPrice" id="memberItemPrice">
-            </td>
-            <td>
-               <textarea rows="10" cols="30" name="memberItemContent" id="memberItemContent"></textarea>
-            </td>
-            <td>
-               <input type="file" name="memberItemPic1" id="memberItemPic1"><br>
-               <input type="file" name="memberItemPic2" id="memberItemPic2"><br>
-               <input type="file" name="memberItemPic3" id="memberItemPic3"><br>
-               <input type="file" name="memberItemPic4" id="memberItemPic4"><br>
-               <input type="file" name="memberItemPic5" id="memberItemPic5">
-            </td>
-         </tr>
-         <tr>
-            <td colspan="5">
-               <button type="button" class="btn btn-warning" id="btn">추가</button>
-            </td>
-         </tr>
-      </table>
-      <br>
-   </form>
-         
-      </div>
-   </div>   
+
+      <div class="container" align="center">
+			<form method="post" th:action="@{/addMemberItem}"
+				enctype="multipart/form-data" id="form">
+				<br>
+				<br>
+				<table border="1" class="table table-bordered" style="align: center; width: 1000px;">
+					<tr>
+						<th>
+							<input class="form-control" style="width: 980px; height: 45px;" type="text"
+							name="memberItemTitle" id="memberItemTitle" placeholder="제목을 입력해주세요">
+						</th>
+					</tr>
+					<tr>
+						<th>카테고리 이름 
+							<select class="btn btn-warning dropdown-toggle"	data-toggle="dropdown" name="categoryName" id="categoryName">
+								<option selected value="">상품의 카테고리를 선택해주세요.</option>
+								<option th:each="list : ${list}" th:value="${list.categoryName}" th:text="${list.categoryName}">
+							</select>
+						</th>
+					</tr>
+					<tr>
+						<th>사진 <br> 
+							<input style="display: inline;" type="file" name="memberItemPic1" id="memberItemPic1"> 
+							<input style="display: inline;" type="file" name="memberItemPic2" id="memberItemPic2"> 
+							<input style="display: inline;" type="file" name="memberItemPic3" id="memberItemPic3">
+							&emsp;<input style="display: inline;" type="file" name="memberItemPic4" id="memberItemPic4"> 
+							<input style="display: inline;" type="file" name="memberItemPic5" id="memberItemPic5">
+						</th>
+					</tr>
+					<tr>
+						<th>
+							<input style="width: 400px; height: 35px;" class="form-control" type="text" name="memberItemPrice" id="memberItemPrice" placeholder="가격을 입력해주세요">
+						</th>
+					</tr>
+					<tr>
+						<td align="center">
+							<textarea class="form-control" rows="10" cols="120" name="memberItemContent" id="memberItemContent" placeholder="내용을 입력해주세요"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">							
+							<button type="button" class="btn btn-warning" id="btn">아이템 추가글 올리기</button>							
+						</td>
+					</tr>
+				</table>				
+			</form>
+		</div>
+		<br>
+		<br>
+
 <!-- //아이템 추가 -->
 
 <!-- //footer -->
