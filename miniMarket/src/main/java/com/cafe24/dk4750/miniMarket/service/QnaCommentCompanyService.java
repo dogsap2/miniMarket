@@ -17,17 +17,23 @@ public class QnaCommentCompanyService {
 	@Autowired
 	private QnaCommentCompanyMapper qnaCommentCompanyMapper;
 	
+	
+	// 댓글 삭제
+	public int removeCommentCompany(int qnaCommentCompanyNo) {
+		return qnaCommentCompanyMapper.deletQnaCommentCompany(qnaCommentCompanyNo);
+	}
 	// QnA 댓글 입력
 	public int addQnaCommentCompany(QnaCommentCompany qnaCommentCompany) {
 		return qnaCommentCompanyMapper.insertQnaCommentCompany(qnaCommentCompany);
 	}
 	// QnA 댓글 리스트 출력
-	public Map<String, Object> getQnaCommentCompanyList(int currentPage) {
+	public Map<String, Object> getQnaCommentCompanyList(int currentPage, int qnaBoardCompanyNo) {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("qnaBoardCompanyNo", qnaBoardCompanyNo);
 		// lastPage
 		int totalRow = qnaCommentCompanyMapper.getTotalRow();
 		int lastPage = totalRow/rowPerPage;

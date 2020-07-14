@@ -146,46 +146,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- help-page -->
 	<div class="faq-w3agile">
 		<div class="container"> 
-			<div id="title1">
-				<h2 class="w3_agile_header">자주 묻는 질문</h2> 
-				<ul class="faq">
-					<li class="item1"><a href="#" title="click here">당근마켓 지역광고 운영정책</a>
-						<ul>
-							<li class="subitem1"><p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li>
-					<li class="item2"><a href="#" title="click here">지역광고 등록하는 방법을 알려주세요</a>
-						<ul>
-							<li class="subitem1"><p> Tincidunt ut laoreet dolore At vero eos et Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  consectetuer adipiscing elit, sed diam nonummy nibh euismod accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li>
-					<li class="item3"><a href="#" title="click here">동네홍보 게시글의 동네를 변경할 수 있나요?</a>
-						<ul>
-							<li class="subitem1"><p>Dincidunt ut laoreet dolore At vero eos et Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  consectetuer adipiscing elit, sed diam nonummy nibh euismod accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li>
-					<li class="item4"><a href="#" title="click here">당근마켓 지역광고에 대해 알려주세요</a>
-						<ul>
-							<li class="subitem1"><p>At vero eos et Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  consectetuer adipiscing elit, sed diam nonummy nibh euismod accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li> 
-					<li class="item5"><a href="#" title="click here">내가 등록한 동네업체 정보를 수정하고 싶어요</a>
-						<ul>
-							<li class="subitem1"><p>At vero eos et Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  consectetuer adipiscing elit, sed diam nonummy nibh euismod accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li>
-					<li class="item6"><a href="#" title="click here">구인구직, 과외/클래스 모집 등의 게시글을 올려도 되나요?</a>
-						<ul>
-							<li class="subitem1"><p>At vero eos et Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  consectetuer adipiscing elit, sed diam nonummy nibh euismod accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li>
-					<li class="item7"><a href="#" title="click here">내가 운영하는 동네업체를 등록하고 싶어요. 동네업체는 어떻게 등록하나요?</a>
-						<ul>
-							<li class="subitem1"><p>At vero eos et Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod  consectetuer adipiscing elit, sed diam nonummy nibh euismod accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p></li>										
-						</ul>
-					</li>
-				</ul> 
-				<a th:href="@{getQnaBoardCompanyList}">더 알아보러 갈사람?</a>
+			<div id="title2" align="center">
+				<h2 class="w3_agile_header">QnA</h2>
+				<br>
+				<a th:href="@{addQnaBoardCompany}">글쓰기(업체회원만)</a>
+				<br>
+				<table border="1">
+					<tr>
+						<td>no</td>
+						<td>작성자</td>
+						<td>title</td>
+						<td>date</td>
+					</tr>
+					<tr th:each="list : ${list}">
+						<td th:text="${list.qnaBoardCompanyNo}"></td>
+						<td th:text="${list.companyId}"></td>
+						<td th:if="${list.qnaBoardCompanyActive} == 0">
+							<a th:href="@{getQnaBoardCompanyOne(qnaBoardCompanyNo = ${list.qnaBoardCompanyNo})}" th:text="${list.qnaBoardCompanyTitle}"></a>
+						</td>
+						<td th:unless="${list.qnaBoardCompanyActive} == 0" th:text="'[삭제된 글]'+${list.qnaBoardCompanyTitle}"></td>
+						<td th:text="${#strings.substring(list.qnaBoardCompanyDate,0,10)}"></td>
+					</tr>
+				</table>
+				<form method="post" action="">
+					<div>
+						<input type="text" placeholder="제목 검색">
+						<button type="button">검색</button>
+					</div>
+				</form>
+				<div th:if="${currentPage > 1}">
+					<a th:href="@{getQnaBoardCompany(currentPage=${currentPage - 1})}" id="previous">이전</a>
+				</div>
+				<div th:if="${currentPage < lastPage}">
+					<a th:href="@{getQnaBoardCompany(currentPage=${currentPage + 1})}" id="next">다음</a>
+				</div>
+			</div>
 			</div>
 			<!-- script for tabs -->
 			<script type="text/javascript">

@@ -37,18 +37,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 	$(document).ready(function(){
-		$('#title1').hide();
-		$('#title2').hide();
-		$('#companyBtn').click(function(){
-			console.log('클릭');
-			location.replace('http://localhost/getQnaBoardCompany');
-			$('#title1').show();
-			$('#title2').hide();
-		});
-		$('#companyBtn2').click(function(){
-			console.log('클릭2');
-			$('#title1').hide();
-			$('#title2').show();
+		$('#commentBtn').click(function(){
+			console.log('댓글클릭');
+			if($('#comment').val().length < 5) {
+				alert("댓글작성합시다");
+				return;
+			}
+			$('#commentForm').submit();
 		});
 	});
 </script>
@@ -238,10 +233,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<td colspan="2">작성 일</td>
 						<td colspan="2" th:text="${#strings.substring(qnaOne.qnaBoardCompanyDate,0,10)}"></td>
 					</tr>
+					<tr align="right">
+						<td colspan="4"><a th:href="@{modifyQnaBoardCompanyActive(qnaBoardCompanyNo=${qnaOne.qnaBoardCompanyNo})}" class="btn">삭제</a></td>
+					</tr>
 				</table>
+				<br><br>
 				<div>
-					<a th:href="@{modifyQnaBoardCompany(qnaBoardCompanyNo = ${qnaOne.qnaBoardCompanyNo})}">수정</a>
-					<a th:href="@{removeQnaBoardCompany(qnaBoardCompanyNo = ${qnaOne.qnaBoardCompanyNo})}">삭제</a>
+					<h4>댓글 입력</h4>
+					<form method="post" th:action="@{addQnaCommentCompany}" id="commentForm">
+						<div>
+							<input type="hidden" name="qnaBoardCompanyNo" th:value="${qnaBoardCompanyNo}">
+							<textarea rows="2" cols="30" placeholder="댓글내용 입력" id="comment" name="qnaCommentCompany"></textarea>
+							<button type="button" id="commentBtn">입력</button>
+						</div>
+					</form>
+					<h4>댓글 리스트</h4>
+					<table border="1">
+						<tr>
+							<td>작성자</td>
+							<td>내용</td>
+							<td>작성일</td>
+							<td>삭제</td>
+						</tr>
+						<tr th:each="list : ${list}">
+							<td th:text="${list.adminId}"></td>
+							<td th:text="${list.qnaCommentCompany}"></td>
+							<td th:text="${#strings.substring(list.qnaCommentCompanyDate,0,10)}"></td>
+							<td><a th:href="@{removeQnaCommentCompany(qnaCommentCompanyNo=${list.qnaCommentCompanyNo}, qnaBoardCompanyNo=${list.qnaBoardCompanyNo})}" class="btn">삭제</a></td>
+						</tr>
+					</table>
+					<div th:if="${currentPage > 1}">
+						<a th:href="@{getQnaBoardCompanyOne(currentPage=${currentPage - 1}, qnaBoardCompanyNo=${qnaBoardCompanyNo})}" id="previous">이전</a>
+					</div>
+					<div th:if="${currentPage < lastPage}">
+						<a th:href="@{getQnaBoardCompanyOne(currentPage=${currentPage + 1}, qnaBoardCompanyNo=${qnaBoardCompanyNo})}" id="next">다음</a>
+					</div>
 				</div>
 			</div>
 			<!-- script for tabs -->

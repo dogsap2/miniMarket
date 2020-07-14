@@ -2,22 +2,21 @@ package com.cafe24.dk4750.miniMarket.vo;
 
 public class QnaCommentCompany {
 	private int qnaCommentCompanyNo;
-	private int qnaCompanyBoardNo;
+	private int qnaBoardCompanyNo;
 	private String qnaCommentCompany;
 	private String qnaCommentCompanyDate;
 	private String adminId;
-	
 	public int getQnaCommentCompanyNo() {
 		return qnaCommentCompanyNo;
 	}
 	public void setQnaCommentCompanyNo(int qnaCommentCompanyNo) {
 		this.qnaCommentCompanyNo = qnaCommentCompanyNo;
 	}
-	public int getQnaCompanyBoardNo() {
-		return qnaCompanyBoardNo;
+	public int getQnaBoardCompanyNo() {
+		return qnaBoardCompanyNo;
 	}
-	public void setQnaCompanyBoardNo(int qnaCompanyBoardNo) {
-		this.qnaCompanyBoardNo = qnaCompanyBoardNo;
+	public void setQnaBoardCompanyNo(int qnaBoardCompanyNo) {
+		this.qnaBoardCompanyNo = qnaBoardCompanyNo;
 	}
 	public String getQnaCommentCompany() {
 		return qnaCommentCompany;
@@ -39,8 +38,9 @@ public class QnaCommentCompany {
 	}
 	@Override
 	public String toString() {
-		return "QnaCommentCompany [qnaCommentCompanyNo=" + qnaCommentCompanyNo + ", qnaCompanyBoardNo="
-				+ qnaCompanyBoardNo + ", qnaCommentCompany=" + qnaCommentCompany + ", qnaCommentCompanyDate="
+		return "QnaCommentCompany [qnaCommentCompanyNo=" + qnaCommentCompanyNo + ", qnaBoardCompanyNo="
+				+ qnaBoardCompanyNo + ", qnaCommentCompany=" + qnaCommentCompany + ", qnaCommentCompanyDate="
 				+ qnaCommentCompanyDate + ", adminId=" + adminId + "]";
 	}
+	
 }

@@ -6,8 +6,7 @@ public class QnaBoardCompany {
 	private String qnaBoardCompanyTitle;
 	private String qnaBoardCompanyContent;
 	private String qnaBoardCompanyDate;
-	
-	// 겟터 셋터
+	private int qnaBoardCompanyActive;
 	public int getQnaBoardCompanyNo() {
 		return qnaBoardCompanyNo;
 	}
@@ -38,12 +37,17 @@ public class QnaBoardCompany {
 	public void setQnaBoardCompanyDate(String qnaBoardCompanyDate) {
 		this.qnaBoardCompanyDate = qnaBoardCompanyDate;
 	}
-	
-	// toString
+	public int getQnaBoardCompanyActive() {
+		return qnaBoardCompanyActive;
+	}
+	public void setQnaBoardCompanyActive(int qnaBoardCompanyActive) {
+		this.qnaBoardCompanyActive = qnaBoardCompanyActive;
+	}
 	@Override
 	public String toString() {
 		return "QnaBoardCompany [qnaBoardCompanyNo=" + qnaBoardCompanyNo + ", companyUniqueNo=" + companyUniqueNo
 				+ ", qnaBoardCompanyTitle=" + qnaBoardCompanyTitle + ", qnaBoardCompanyContent="
-				+ qnaBoardCompanyContent + ", qnaBoardCompanyDate=" + qnaBoardCompanyDate + "]";
+				+ qnaBoardCompanyContent + ", qnaBoardCompanyDate=" + qnaBoardCompanyDate + ", qnaBoardCompanyActive="
+				+ qnaBoardCompanyActive + "]";
 	}
 }

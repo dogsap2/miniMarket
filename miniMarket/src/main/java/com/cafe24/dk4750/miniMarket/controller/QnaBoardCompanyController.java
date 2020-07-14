@@ -21,7 +21,17 @@ public class QnaBoardCompanyController {
 	@Autowired
 	private QnaCommentCompanyService qnaCommentCompanyService;
 	
-	// QnA 수정 액셩
+	// QnA 리스트 비 활성화
+	@GetMapping("modifyQnaBoardCompanyActive")
+	public String modifyQnaBoardCompanyActive(@RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+		// 내가 쓴글만 접근 허용 및 삭제 버튼 활성화
+		
+
+		qnaBoardCompanyService.modifyQnaBoardCompanyActive(qnaBoardCompanyNo);
+		
+		return "redirect:/getQnaBoardCompany";
+	}
+	// QnA 수정 액션
 	@PostMapping("modifyQnaBoardCompany")
 	public String modifyQnaBoardCompany(QnaBoardCompany qnaBoardCompany) {
 		// 내가 쓴글만 접근 가능 하게 세션 companyUniqueNo 와 글의 companyUniqueNo의 값을 비교
@@ -55,17 +65,25 @@ public class QnaBoardCompanyController {
 	}
 	// QnA상세보기 페이지 요청, 댓글(페이징) 입력
 	@GetMapping("getQnaBoardCompanyOne")
-	public String qnaBoardCompanyOne(Model model, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+	public String qnaBoardCompanyOne(Model model, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		System.out.println(qnaBoardCompanyNo + "<--getQnaBoardCompanyOne: qnaBoardCompanyNo");
 		QnaBoardCompanyAndCompany qnaBoardCompanyAndCompany = qnaBoardCompanyService.getQnaBoardCompanyOne(qnaBoardCompanyNo);
 		model.addAttribute("qnaOne", qnaBoardCompanyAndCompany);
+		// 댓글 리스트
+		Map<String, Object> map = qnaCommentCompanyService.getQnaCommentCompanyList(currentPage, qnaBoardCompanyNo);
+		System.out.println(map.get("qnaCommentCompanyList") + "qnaCommentCompanyList List");
+		System.out.println(map.get("lastPage") + "qnaBoardCompanyOne: lastPage");
+		model.addAttribute("list", map.get("qnaCommentCompanyList"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("qnaBoardCompanyNo", qnaBoardCompanyNo);
 		
 		return "getQnaBoardCompanyOne";
 	}
-	// 업체 자주묻는 질문 및 QnA
-	@GetMapping("getQnaBoardCompany")
-	public String qnaBoardCompanyList(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
-		// Qna 리스트 출력 및 페이징
+	// QnA 리스트 출력
+	@GetMapping("getQnaBoardCompanyList")
+	public String qnaBoardCompanyListAll(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		// QnA 리스트 출력 및 페이징
 		System.out.println(currentPage + "<--qnaBoardCompanyList currentPage");
 		Map<String, Object> map = qnaBoardCompanyService.getQnaBoardCompanyList(currentPage);
 		System.out.println(map.get("qnaBoardCompanyBoardList") + "qnaBoardCompanyList List");
@@ -73,6 +91,12 @@ public class QnaBoardCompanyController {
 		model.addAttribute("list", map.get("qnaBoardCompanyBoardList"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("currentPage", currentPage);
+		
+		return "getQnaBoardCompanyList";
+	}
+	// 업체 자주묻는 질문 및 QnA
+	@GetMapping("getQnaBoardCompany")
+	public String qnaBoardCompanyList() {
 		
 		return "getQnaBoardCompany";
 	}

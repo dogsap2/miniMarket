@@ -10,6 +10,10 @@ import com.cafe24.dk4750.miniMarket.vo.QnaBoardCompanyAndCompany;
 
 @Mapper
 public interface QnaBoardCompanyMapper {
+	// 검색시 글 토탈 수
+	public int totalQnaBoardCompanyBySearch(String qnaBoardCompanyTitle);
+	// 삭제시 active가 1로 수정하여 비활성화
+	public int updateQnaBoardCompanyActive(int qnaBoardCompanyNo);
 	// QnA 수정
 	public int updateQnaBoardCompany(QnaBoardCompany qnaBoardCompany);
 	// QnA 입력

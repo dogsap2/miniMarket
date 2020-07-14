@@ -9,6 +9,8 @@ import com.cafe24.dk4750.miniMarket.vo.QnaCommentCompany;
 
 @Mapper
 public interface QnaCommentCompanyMapper {
+	// 댓글 삭제
+	public int deletQnaCommentCompany(int qnaCommentCompanyNo);
 	// 댓글 입력
 	public int insertQnaCommentCompany(QnaCommentCompany qnaCommentCompany);
 	// 댓글 페이지

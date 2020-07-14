@@ -7,6 +7,7 @@ public class QnaBoardCompanyAndCompany {
 	private String qnaBoardCompanyContent;
 	private String qnaBoardCompanyDate;
 	private String companyId;
+	private int qnaBoardCompanyActive;
 	
 	public int getQnaBoardCompanyNo() {
 		return qnaBoardCompanyNo;
@@ -44,11 +45,17 @@ public class QnaBoardCompanyAndCompany {
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
+	public int getQnaBoardCompanyActive() {
+		return qnaBoardCompanyActive;
+	}
+	public void setQnaBoardCompanyActive(int qnaBoardCompanyActive) {
+		this.qnaBoardCompanyActive = qnaBoardCompanyActive;
+	}
 	@Override
 	public String toString() {
 		return "QnaBoardCompanyAndCompany [qnaBoardCompanyNo=" + qnaBoardCompanyNo + ", companyUniqueNo="
 				+ companyUniqueNo + ", qnaBoardCompanyTitle=" + qnaBoardCompanyTitle + ", qnaBoardCompanyContent="
 				+ qnaBoardCompanyContent + ", qnaBoardCompanyDate=" + qnaBoardCompanyDate + ", companyId=" + companyId
-				+ "]";
+				+ ", qnaBoardCompanyActive=" + qnaBoardCompanyActive + "]";
 	}
 }

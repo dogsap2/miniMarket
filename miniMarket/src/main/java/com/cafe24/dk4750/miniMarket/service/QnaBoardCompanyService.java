@@ -18,6 +18,10 @@ public class QnaBoardCompanyService {
 	@Autowired
 	private QnaBoardCompanyMapper qnaBoardCompanyMapper;
 	
+	// QnA 리스트에서 삭제시 비활성화
+	public int modifyQnaBoardCompanyActive(int qnaBoardCompanyNo) {
+		return qnaBoardCompanyMapper.updateQnaBoardCompanyActive(qnaBoardCompanyNo);
+	}
 	// QnA 수정
 	public int modifyQnaBoardCompany(QnaBoardCompany qnaBoardCompany) {
 		return qnaBoardCompanyMapper.updateQnaBoardCompany(qnaBoardCompany);
@@ -37,6 +41,7 @@ public class QnaBoardCompanyService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
+		
 		// lastPage
 		int totalRow = qnaBoardCompanyMapper.getTotalRow();
 		int lastPage = totalRow/rowPerPage;
