@@ -2,23 +2,15 @@ package com.cafe24.dk4750.miniMarket.vo;
 
 public class Notice {
 	private int noticeNo;
-	private String memberUniqueNo;
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeDate;
-	
-	// 겟터 셋터
+	private String adminName;
 	public int getNoticeNo() {
 		return noticeNo;
 	}
 	public void setNoticeNo(int noticeNo) {
 		this.noticeNo = noticeNo;
-	}
-	public String getMemberUniqueNo() {
-		return memberUniqueNo;
-	}
-	public void setMemberUniqueNo(String memberUniqueNo) {
-		this.memberUniqueNo = memberUniqueNo;
 	}
 	public String getNoticeTitle() {
 		return noticeTitle;
@@ -38,11 +30,17 @@ public class Notice {
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
-	
-	// toString
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", memberUniqueNo=" + memberUniqueNo + ", noticeTitle=" + noticeTitle
-				+ ", noticeContent=" + noticeContent + ", noticeDate=" + noticeDate + "]";
+		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
+				+ ", noticeDate=" + noticeDate + ", adminName=" + adminName + "]";
 	}
+	
+	
 }

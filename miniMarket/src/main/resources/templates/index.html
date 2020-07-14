@@ -56,7 +56,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li th:if="${session.loginCompany != null }">
 						<a th:href="@{/logoutCompany}">로그아웃</a>					
 					</li>
-
+					<li th:if="${session.loginAdmin != null }">
+						<a th:href="@{/logoutAdmin}">로그아웃</a>					
+					</li>
 					<li th:if="${session.loginMember != null}">
 						<a th:href="@{/memberMyPage}">마이페이지(회원)</a>
 					</li>
@@ -152,6 +154,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<li><a th:href="@{/getCompanyMyItemOne}">내 홍보중인 아이템 상세보기</a></li>
 											<li><a th:href="@{/getMyLikeCompanyItem}">내가 관심등록한 업체 아이템 목록</a></li>
 											<li><a th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+							<!-- QNA 메뉴 -->
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">업체 메뉴<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>자주 묻는 질문</h6>
+											<li><a th:href="@{/getQnaBoardMemberHtml}">멤버 자주 묻는 질문</a></li>
+											<li><a th:href="@{/getQnaBoardCompany}">업체 자주 묻는 질문</a></li>
+											
 										</ul>
 									</div>
 								</div>

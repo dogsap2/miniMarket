@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항 입력</title>
+</head>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script>
+   $(document).ready(function(){
+      $('#btn').click(function(){
+            $('#form').submit();
+         });
+      });
+</script>
+<body>
+	<form method="post" th:action="@{/addNotice}" id="form">
+	<table border="1">
+		<thead>
+			<tr>
+				<th>제목</th>
+				<th>내용</th>
+				<th>작성자</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<input type="text" name="noticeTitle" id="noticeTitle">
+				</td>
+				<td>
+					<textarea rows="4" cols="20" name="noticeContent" id="noticeContent"></textarea>
+				</td>
+				<td>
+					<input type="text" readonly="readonly" th:value="${adminName}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button type="button" id="btn">작성하기</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+</head>
+<body>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>제목</th>
+				<th>내용</th>
+				<th>작성날짜</th>
+				<th>작성자</th>
+				<th>수정</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${notice.noticeTitle}"></td>
+				<td th:text="${notice.noticeContent}"></td>
+				<td th:text="${notice.noticeDate}"></td>
+				<td th:text="${notice.adminName}"></td>
+				<td>
+					<a th:href="@{/modifyNotice(noticeNo=${notice.noticeNo})}">수정하기</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,8 +1,7 @@
 package com.cafe24.dk4750.miniMarket.vo;
 
-public class Admin {
+public class LoginAdmin {
 	private String adminId;
-	private String adminPw;
 	private String adminName;
 	
 	// 게터 세터
@@ -11,12 +10,6 @@ public class Admin {
 	}
 	public void setAdminId(String adminId) {
 		this.adminId = adminId;
-	}
-	public String getAdminPw() {
-		return adminPw;
-	}
-	public void setAdminPw(String adminPw) {
-		this.adminPw = adminPw;
 	}
 	public String getAdminName() {
 		return adminName;
@@ -28,6 +21,7 @@ public class Admin {
 	// toString
 	@Override
 	public String toString() {
-		return "Admin [adminId=" + adminId + ", adminPw=" + adminPw + ", adminName=" + adminName + "]";
+		return "LoginAdmin [adminId=" + adminId + ", adminName=" + adminName + "]";
 	}
+	
 }
