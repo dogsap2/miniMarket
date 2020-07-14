@@ -7,8 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-
 <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,16 +38,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- start-smoth-scrolling -->
-
 <style>
-.rounded {
-  background: silver;
-  border-radius: 200px;
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+.about-agileinfo w3layouts{
+ 	font
 }
 </style>
-
 </head>
-	
 <body>
 <!-- header -->
 	<div class="agileits_header">
@@ -58,47 +54,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
-				<ul>					
-					<li>
-						<a th:href="@{/logoutMember}" >로그아웃</a>
+				<ul>
+					<li th:if="${session.loginMember != null }">
+						<a th:href="@{/logoutMember}">로그아웃</a>
 					</li>
-					<li>
+					<li th:if="${session.loginCompany != null }">
+						<a th:href="@{/logoutCompany}">로그아웃</a>					
+					</li>
+					<li th:if="${session.loginMember != null}">
 						<a th:href="@{/memberMyPage}">마이페이지(회원)</a>
+					</li>
+					<li th:if="${session.loginCompany != null}">
+						<a th:href="@{/companyMyPage}">마이페이지(업체)</a>
 					</li>					
-					<li><a href="">문의게시판</a></li>					
+					<li	th:if="${session.loginMember == null && session.loginCompany ==null}">
+						<a th:href="@{/loginMemberAndCompany}">로그인</a>
+					</li>
+					<li th:if="${session.loginMember == null && session.loginCompany ==null}">
+						<a th:href="@{/addMemberAndCompany}">회원가입</a>
+					</li>
+					<li><a href="">문의게시판</a></li>
 				</ul>
 			</div>
 			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
+				<form action="#" method="post" class="last"> 
+					<input type="hidden" name="cmd" value="_cart">
+					<input type="hidden" name="display" value="1">
+					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</form>  
 			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-
 	<div class="logo_products">
 		<div class="container">
-		<div class="w3ls_logo_products_left1">
-				<ul class="phone_email">
-					
-				</ul>
+			<div class="w3ls_logo_products_left1">
 			</div>
 			<div class="w3ls_logo_products_left">
 				<h1><a th:href="@{/index}">Mini Market</a></h1>
 			</div>
-		<div class="w3l_search">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="Search for a Product..." required="">
-				<button type="submit" class="btn btn-default search" aria-label="Left Align">
-					<i class="fa fa-search" aria-hidden="true"> </i>
-				</button>
-				<div class="clearfix"></div>
-			</form>
-		</div>
-			
+			<div class="w3l_search">
+				<form action="#" method="post">
+					<input type="search" name="Search" placeholder="Search for a Product..." required="">
+					<button type="submit" class="btn btn-default search" aria-label="Left Align">
+						<i class="fa fa-search" aria-hidden="true"> </i>
+					</button>
+					<div class="clearfix"></div>
+				</form>
+			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
@@ -138,12 +141,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</ul></li>
-
 						<li><!-- 채팅방 버튼 -->
 							<a th:href="@{/button}">채팅방</a>
-						</li>
-						<li>
-							<a th:href>공지사항</a>
 						</li>
 						<li>
 							<a th:href>about</a>
@@ -154,34 +153,161 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 		
 <!-- //navigation -->
-<div class="breadcrumbs">
-<div align="center">
-	<!-- 프로필 사진 -->
-	<br>
-	<br>
-	<div>	
-	<img th:src="@{${'/images/'+memberPic}}" width="200" height="200" class='rounded'>	
+<!-- breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+				<li class="active">About</li>
+			</ol>
+		</div>
 	</div>
-	<br>
-	<h4>닉네임<br>
-	<span th:text="${memberNick}"></span></h4>
-	<br>
-	<a class="btn btn-warning" th:href="@{/getMemberOne}">내정보</a>
-	<a class="btn btn-warning" th:href="@{/modifyMemberNickAndPic}">프로필 사진 수정</a>
-	<!-- 관심지역이 없으면 추가하기 있으면 수정하기  -->
-	<span th:if="${interest1 != null}">
-	<a class="btn btn-warning" th:href="@{/addMemberInterestPlace}">관심 동네(추가)</a>
-	</span>
-	<span th:if="${interest1 == null}">
-	<a class="btn btn-warning" th:href="@{/modifyMemberInterestPlace}">관심 동네(수정)</a>
-	</span>
-	<a class="btn btn-warning" th:href="@{/removeMember}">회원 탈퇴</a>
-	
+<!-- //breadcrumbs -->
+<!-- about -->
+	<div class="about">
+		<div class="container">
+			<h3 class="w3_agile_header">About</h3>
+			<div class="about-agileinfo w3layouts">
+				<div class="col-md-12 about-wthree-grids grid-top" align="center">
+					<h4>미니마켓 프로젝트</h4>
+					<br>
+					<p class="top">미니마켓은 지역 기반 중고거래 스마트폰 애플리케이션인 당근마켓을 베이스로
+ 					6명의 팀원이 서로 협업하여 제작한 팀 프로젝트 입니다.</p>	
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
 	</div>
-	<br>
-	<br>
-
-</div>		
+<!-- //about -->
+<!-- about -->
+	<div class="about">
+		<div class="container">
+			<h3 class="w3_agile_header">Development tools</h3>
+			<div class="about-agileinfo w3layouts">
+				<div class="col-md-12 about-wthree-grids grid-top" align="center">
+					<h4>개발환경</h4>
+					<br>
+					<p class="top">
+					FRONT-END:HTML5,CSS3,BootStrap4<br>
+					BACK-END:Spring boot(2.3.1.RELEASE),Thymeleaf<br>
+					LANGUAGE:Java,javaScript(JQuery 3.5.1)<br>
+					TOOL:STS4,MySql(Heidi SQL)<br>
+					DB:MariaDB 10.1<br>
+					OS:WINDOW 10<br>	
+					</p>	
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+<!-- //about -->
+	<!-- about-team -->
+	<div class="about-team"> 
+		<div class="container">
+			<h3 class="w3_agile_header">Team member</h3>
+			<div class="row">
+			<div class="team-agileitsinfo">
+				<!-- 0 -->
+				<div class="col-md-4">
+				<div class="about-team-grids">
+					<img src="images/t1.jpg" alt=""/>
+					<div class="team-w3lstext">
+						<h4><span>이슬민</span>팀장</h4>
+						<p><strong></strong></p>
+					</div>
+					<div class="social-icons caption"> 
+						<ul>
+							<li><a href="https://github.com/dk4750/mini_market" class="fa fa-github" aria-hidden="true"></a></li>
+						</ul>
+						<div class="clearfix"> </div>  
+					</div>
+				</div>
+				</div>
+				<!-- 1 -->
+				<div class="col-md-4">
+				<div class="about-team-grids">
+					<img src="images/t2.jpg" alt=""/>
+					<div class="team-w3lstext">
+						<h4><span>한윤아</span>팀원</h4>
+						<p><strong></strong></p>
+					</div>
+					<div class="social-icons caption"> 
+						<ul>
+							<li><a href="https://github.com/dk4750/mini_market" class="fa fa-github" aria-hidden="true"></a></li> 
+						</ul>
+						<div class="clearfix"> </div>  
+					</div>
+				</div>
+				</div>
+				<!-- 2 -->
+				<div class="col-md-4">
+				<div class="about-team-grids">
+					<img src="images/t4.jpg" alt=""/>
+					<div class="team-w3lstext">
+						<h4><span>서일태</span>팀원</h4>				
+						<p><strong></strong></p>
+					</div>
+					<div class="social-icons caption"> 
+						<ul>
+							<li><a href="https://github.com/dk4750/mini_market" class="fa fa-github" aria-hidden="true"></a></li> 
+						</ul>
+						<div class="clearfix"> </div>  
+					</div>
+				</div>
+				</div>
+				<!-- 3 -->
+				<div class="col-md-4">
+				<div class="about-team-grids">
+					<img src="images/t3.jpg" alt=""/>
+					<div class="team-w3lstext">
+						<h4><span>엄미선</span>팀원</h4>
+						<p><strong></strong></p>
+					</div>
+					<div class="social-icons caption"> 
+						<ul>
+							<li><a href="https://github.com/dk4750/mini_market" class="fa fa-github fa-2x" aria-hidden="true"></a></li>
+						</ul>
+						<div class="clearfix"> </div>  
+					</div>
+				</div>
+				</div>
+				<!-- 4 -->
+				<div class="col-md-4">
+				<div class="about-team-grids">
+					<img src="images/t3.jpg" alt=""/>
+					<div class="team-w3lstext">
+						<h4><span>정유석</span>팀원</h4>
+						<p><strong></strong></p>
+					</div>
+					<div class="social-icons caption"> 
+						<ul>
+							<li><a href="https://github.com/dk4750/mini_market" class="fa fa-github" aria-hidden="true"></a></li> 
+						</ul>
+						<div class="clearfix"></div>  
+					</div>
+				</div>
+				</div>
+				<!-- 5 -->
+				<div class="col-md-4">
+				<div class="about-team-grids">
+					<img src="images/t3.jpg" alt=""/>
+					<div class="team-w3lstext">
+						<h4><span>김동희</span>팀원</h4>
+						<p><strong></strong></p>
+					</div>
+					<div class="social-icons caption"> 
+						<ul>
+							<li><a href="https://github.com/dk4750/mini_market" class="fa fa-github" aria-hidden="true"></a></li>
+						</ul>
+						<div class="clearfix"></div>  
+					</div>
+				</div>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	<!-- //about-team -->
 
 <!-- //footer -->
 <div class="footer">		
@@ -197,7 +323,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="container">
 				<div class="w3layouts-foot">
 					<ul>			
-						<li><a href="https://github.com/dk4750/mini_market" target="_blank" class="w3_agile_dribble" ><i class="fa fa-github" aria-hidden="true"></i></a></li>
+						<li><a href="https://github.com/dk4750/mini_market" class="w3_agile_dribble"><i class="fa fa-github" aria-hidden="true"></i></a></li>
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
@@ -209,7 +335,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //footer -->
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">

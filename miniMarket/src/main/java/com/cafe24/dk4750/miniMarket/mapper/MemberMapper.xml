@@ -268,13 +268,25 @@
 	CONCAT('m',(SELECT LPAD(COUNT(*)+1,6,'0')
 	FROM mini_market_member))
 	</select>
-
+	
+	<!--관심동네  수정하기 -->
+	<update id="updateMemberInterestPlace" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace">
+		UPDATE mini_market_member_interest_place
+		SET 
+			sido = #{sido},
+		    sigungu = #{sigungu},
+		    bname = #{bname},
+		    interest_place_date = now()
+		WHERE
+			member_id = #{memberId}	
+	</update>
+	
 	<!--관심동네  불러오기 -->
 	 <select id="selectMemberInterestPlace" parameterType="string" resultType="com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace">
 		SELECT
-			sido,
-			sigungu,
-			bname			
+			sido as sido,
+			sigungu as sigungu,
+			bname as bname			
 		FROM
 			mini_market_member_interest_place
 		WHERE 

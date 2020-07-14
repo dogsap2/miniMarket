@@ -2,6 +2,7 @@ package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,53 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 @Controller
 public class MemberController {
 	@Autowired private MemberService memberService; 
+	
+	//어바웃
+	   @GetMapping("/about")
+	   public String about() {            
+	      return "about";
+	   }
+	
+	
+	//관심동네 수정하기 폼
+	   @GetMapping("/modifyMemberInterestPlace")
+	   public String modifyMemberInterestPlace(HttpSession session,Model model) {
+	      //로그인 상태면
+	      if(session.getAttribute("loginMember")== null){ 
+	         return "redirect:/index";
+	      }            
+	      
+	      LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+	      String memberId= loginMember.getMemberId();
+	      System.out.println(memberId+"<-----modifyMemberInterestPlace memberId");
+	      MemberInterestPlace member = memberService.getMemberInterestPlace(memberId);
+	      
+	      System.out.println(member+"<-----modifyMemberInterestPlace member");
+	      model.addAttribute("member",member);
+	      return "modifyMemberInterestPlace";
+	   }
+	   
+	//관심동네 수정하기 액션
+	   @PostMapping("/modifyMemberInterestPlace")
+	   public String modifyMemberInterestPlace(HttpSession session,MemberInterestPlace memberInterestPlace) {
+	      //로그인 상태면
+	      if(session.getAttribute("loginMember")== null){ 
+	         return "redirect:/index";
+	      }            
+	      
+	      LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+	      String memberId= loginMember.getMemberId();
+	      memberInterestPlace.setMemberId(memberId);
+	      
+	      //서비스
+	      memberService.modifyMemberInterestPlace(memberInterestPlace);
+	      return "redirect:/memberMyPage";
+	   }
+	   
+	
 	//관심동네 설정하기 폼 
 	   @GetMapping("/addMemberInterestPlace")
-	   public String addMmebrinterestPlace(HttpSession session) {
+	   public String addMemberInterestPlace(HttpSession session) {
 	      //로그인 상태가 아니면
 	      if(session.getAttribute("loginMember")== null){ 
 	         return "redirect:/index";
@@ -35,7 +80,7 @@ public class MemberController {
 	
 	//관심동네 추가하기 
 	@PostMapping("/addMemberInterestPlace")   
-	public String addMmebrinterestPlace(HttpSession session, MemberInterestPlace memberInterestPlace) {
+	public String addMemberInterestPlace(HttpSession session, MemberInterestPlace memberInterestPlace) {
 	      //로그인 상태가 아니면
 	      if(session.getAttribute("loginMember")== null){ 
 	         return "redirect:/index";
@@ -203,8 +248,19 @@ public class MemberController {
 			return "redirect:/index";
 		}				
 		LoginMember memberId = (LoginMember)(session.getAttribute("loginMember"));
+		String interest = memberId.getMemberId();
+		
 		//사진 닉네임 불러오기
 		Map<String,Object> map = memberService.getMemberNickAndPic(memberId);
+		
+		//관심지역 설정 구분
+		MemberInterestPlace a = memberService.getMemberInterestPlace(interest);
+		//만약 관심지역 설정이 안되어있으면
+		if(a == null) {
+		String interest1 = "no";
+		//model에 interest1 값을 넣어 보낼거임 그러면 interest1값이 있으면 설정 안되어있음. 없으면 설정 되어있음.
+		model.addAttribute("interest1",interest1);
+		}
 		
 		model.addAttribute("memberPic",map.get("memberPic"));
 		model.addAttribute("memberNick",map.get("memberNick"));

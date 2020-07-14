@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.dk4750.miniMarket.mapper.MemberInterestPlaceMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberMapper;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
@@ -30,6 +31,17 @@ public class MemberService {
 	@Autowired private JavaMailSender javaMailSender;//@Conponent	
 	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	//관심지역 수정하기
+	public int modifyMemberInterestPlace (MemberInterestPlace memberInterestPlace) {
+		return memberMapper.updateMemberInterestPlace(memberInterestPlace);
+	}
+	
+	
+	//관심지역 불러오기
+	public MemberInterestPlace getMemberInterestPlace (String memberld) {
+		return memberMapper.selectMemberInterestPlace(memberld);
+	}
 	
 	//회원 관심지역 추가 
 	public int addMemberInterestPlace( MemberInterestPlace memberInterestPlace) {

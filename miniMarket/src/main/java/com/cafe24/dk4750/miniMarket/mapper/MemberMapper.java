@@ -9,6 +9,13 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 
 @Mapper
 public interface MemberMapper {	
+	
+	//관심동네 수정하기
+	public int updateMemberInterestPlace(MemberInterestPlace memberInterestPlace);
+	
+	//관심동네 불러오기
+	public MemberInterestPlace selectMemberInterestPlace(String memberId);
+	
 	//관심동네 추가하기  
 	public int insertMemberInterestPlace(MemberInterestPlace memberInterestPlace);
 	
