@@ -11,7 +11,7 @@ import com.cafe24.dk4750.miniMarket.vo.QnaBoardCompanyAndCompany;
 @Mapper
 public interface QnaBoardCompanyMapper {
 	// 검색시 글 토탈 수
-	public int totalQnaBoardCompanyBySearch(String qnaBoardCompanyTitle);
+	public int totalQnaBoardCompanyBySearch(String searchWord);
 	// 삭제시 active가 1로 수정하여 비활성화
 	public int updateQnaBoardCompanyActive(int qnaBoardCompanyNo);
 	// QnA 수정
@@ -22,6 +22,6 @@ public interface QnaBoardCompanyMapper {
 	public QnaBoardCompanyAndCompany selectQnaBoardCompanyOne(int qnaBoardCompanyNo);
 	// 총 페이지 (lastPage)
 	public int getTotalRow();
-	// QnA리스트 출력 (페이징)
+	// QnA리스트 출력 (페이징, 검색)
 	public List<QnaBoardCompanyAndCompany> selectQnaBoardCompanyList(Map<String, Object> map);
 }

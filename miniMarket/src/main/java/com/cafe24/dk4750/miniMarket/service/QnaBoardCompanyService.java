@@ -35,15 +35,16 @@ public class QnaBoardCompanyService {
 		return qnaBoardCompanyMapper.selectQnaBoardCompanyOne(qnaBoardCompanyNo);
 	}
 	// QnA리스트 출력
-	public Map<String, Object> getQnaBoardCompanyList(int currentPage) {
+	public Map<String, Object> getQnaBoardCompanyList(int currentPage, String searchWord) {
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
 		
 		// lastPage
-		int totalRow = qnaBoardCompanyMapper.getTotalRow();
+		int totalRow = qnaBoardCompanyMapper.totalQnaBoardCompanyBySearch(searchWord);
 		int lastPage = totalRow/rowPerPage;
 		if(totalRow%rowPerPage != 0) {
 			lastPage += 1;

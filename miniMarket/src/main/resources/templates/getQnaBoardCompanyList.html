@@ -37,7 +37,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 	$(document).ready(function(){
-
+		$('#searchBtn').click(function(){
+			console.log('검색');
+			$('#searchWordForm').submit();
+		});
 	});
 </script>
 <!-- start-smoth-scrolling -->
@@ -165,20 +168,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<a th:href="@{getQnaBoardCompanyOne(qnaBoardCompanyNo = ${list.qnaBoardCompanyNo})}" th:text="${list.qnaBoardCompanyTitle}"></a>
 						</td>
 						<td th:unless="${list.qnaBoardCompanyActive} == 0" th:text="'[삭제된 글]'+${list.qnaBoardCompanyTitle}"></td>
-						<td th:text="${#strings.substring(list.qnaBoardCompanyDate,0,10)}"></td>
+						<td th:text="${#strings.substring(list.qnaBoardCompanyDate,0,10)}" id="notSearch"></td>
 					</tr>
 				</table>
-				<form method="post" action="">
+				<form method="get" th:action="@{getQnaBoardCompanyList}" id="searchWordForm">
 					<div>
-						<input type="text" placeholder="제목 검색">
-						<button type="button">검색</button>
+						<input type="text" placeholder="제목 검색" name="searchWord" id="searchWord">
+						<button type="button" id="searchBtn">검색</button>
 					</div>
 				</form>
 				<div th:if="${currentPage > 1}">
-					<a th:href="@{getQnaBoardCompany(currentPage=${currentPage - 1})}" id="previous">이전</a>
+					<a th:href="@{getQnaBoardCompanyList(currentPage=${currentPage - 1},searchWord=${searchWord})}" id="previous">이전</a>
 				</div>
 				<div th:if="${currentPage < lastPage}">
-					<a th:href="@{getQnaBoardCompany(currentPage=${currentPage + 1})}" id="next">다음</a>
+					<a th:href="@{getQnaBoardCompanyList(currentPage=${currentPage + 1},searchWord=${searchWord})}" id="next">다음</a>
 				</div>
 			</div>
 			</div>

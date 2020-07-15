@@ -56,7 +56,7 @@
 		FROM
 			mini_market_qna_board_company
 		WHERE
-			qna_board_company_title LIKE CONCAT('%',#{qnaBoardCompanyTitle},'%')
+			qna_board_company_title LIKE CONCAT('%',#{searchWord},'%')
 	</select>
 	<!-- 총 리스트 갯수(페이징) -->
 	<select id="getTotalRow" resultType="int">

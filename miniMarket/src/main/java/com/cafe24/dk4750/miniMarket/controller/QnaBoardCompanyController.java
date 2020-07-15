@@ -82,15 +82,18 @@ public class QnaBoardCompanyController {
 	}
 	// QnA 리스트 출력
 	@GetMapping("getQnaBoardCompanyList")
-	public String qnaBoardCompanyListAll(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	public String qnaBoardCompanyListAll(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		// QnA 리스트 출력 및 페이징
 		System.out.println(currentPage + "<--qnaBoardCompanyList currentPage");
-		Map<String, Object> map = qnaBoardCompanyService.getQnaBoardCompanyList(currentPage);
+		System.out.println(searchWord + "<--qnaBoardCompanyList searchWord");
+		Map<String, Object> map = qnaBoardCompanyService.getQnaBoardCompanyList(currentPage, searchWord);
 		System.out.println(map.get("qnaBoardCompanyBoardList") + "qnaBoardCompanyList List");
 		System.out.println(map.get("lastPage") + "qnaBoardCompanyList: lastPage");
 		model.addAttribute("list", map.get("qnaBoardCompanyBoardList"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("currentPage", currentPage);
+		// 검색한 화면 페이징하기위해
+		model.addAttribute("searchWord", searchWord);
 		
 		return "getQnaBoardCompanyList";
 	}
