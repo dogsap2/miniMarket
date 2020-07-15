@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cafe24.dk4750.miniMarket.service.MannerService;
+import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.ItemSoldoutAndMemberItemAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Manner;
@@ -16,11 +17,13 @@ import com.cafe24.dk4750.miniMarket.vo.Manner;
 @Controller
 public class MannerController {
 	@Autowired private MannerService mannerService;
+	@Autowired private MemberService memberService;
 	
 	//매너 평가 하기 겟맵핑 (폼)
 	@GetMapping("/addManner")
 	public String addManner(HttpSession session, Model model, ItemSoldoutAndMemberItemAndMemberItemPic itemSoldoutAndMemberItemAndMemberItemPic) {
 		System.out.println("addManner Controller start..");
+		System.out.println(itemSoldoutAndMemberItemAndMemberItemPic + " <== 들어온 값 디버깅");
 			
 		int memberItemNo = itemSoldoutAndMemberItemAndMemberItemPic.getMemberItemNo();
 		String memberUniqueNo = itemSoldoutAndMemberItemAndMemberItemPic.getMemberUniqueNo();
@@ -28,7 +31,15 @@ public class MannerController {
 		System.out.println(memberUniqueNo + " <== subUnique 디버깅");
 		System.out.println(memberUniqueNoSale + " <== subUniqueSale 디버깅");
 		System.out.println(memberItemNo + " <== memberItemNo 디버깅");
+		
+		// 세션에서 구매자인 내 닉네임 가져오기
+		String memberNickname = (String)((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
+		// 판매자 유니크넘버로 닉네임 가져오기
+		String memberNicknameSale = memberService.getMemberNickname(memberUniqueNoSale);
+		
 		model.addAttribute("memberItemNo", memberItemNo);
+		model.addAttribute("memberNickname", memberNickname);
+		model.addAttribute("memberNicknameSale", memberNicknameSale);
 		model.addAttribute("memberUniqueNo", memberUniqueNo);
 		model.addAttribute("memberUniqueNoSale", memberUniqueNoSale);
 		

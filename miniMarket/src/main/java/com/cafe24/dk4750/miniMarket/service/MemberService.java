@@ -22,8 +22,6 @@ import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 
-
-
 @Service
 @Transactional
 public class MemberService {
@@ -31,6 +29,16 @@ public class MemberService {
 	@Autowired private JavaMailSender javaMailSender;//@Conponent	
 	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 멤버 유니크넘버로 멤버 닉네임 구하기
+	public String getMemberNickname(String memberUniqueNo) {
+		System.out.println("멤버 닉네임 구하기 서비스 시작");
+		System.out.println(memberUniqueNo);
+		
+		String memberNickname = memberMapper.selectMemberNickname(memberUniqueNo);
+		
+		return memberNickname;
+	}
 	
 	//관심지역 수정하기
 	public int modifyMemberInterestPlace (MemberInterestPlace memberInterestPlace) {
