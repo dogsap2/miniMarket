@@ -9,17 +9,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cafe24.dk4750.miniMarket.service.MemberReviewService;
+import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.MemberReview;
 
 @Controller
 public class MemberReviewController {
 	@Autowired private MemberReviewService memberReviewService;
+	@Autowired private MemberService memberService;
 	
 	//리뷰 인서트  겟 맵핑
 	@GetMapping("/addReview")
 	public String addReview(MemberReview memberReview, Model model) {
 		System.out.println(memberReview +"<== 리뷰 작성 하기 겟맵핑 값확인");
+		// 판매자의 유니크넘버 구하기
+		String memberUniqueNo = memberReview.getMemberUniqueNoSale();
+		// 판매자의 유니크넘버로 닉네임구하기
+		String memberNickname = memberService.getMemberNickname(memberUniqueNo);
 		
+		model.addAttribute("memberNickname", memberNickname);
 		model.addAttribute("memberReview", memberReview);
 		
 		return "addReview";
