@@ -23,4 +23,9 @@ public class CategoryService {
 	public List<Category> getCompanyCategory() {
 		return categoryMapper.selectCategoryListByCompany();
 	}
+	
+	// 카테고리 추가하기 (관리자)
+	public int addCategory(Category category) {
+		return categoryMapper.insertCategory(category);
+	}
 }

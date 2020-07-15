@@ -11,9 +11,6 @@ public interface CategoryMapper {
 	
 	// 카테고리 추가
 	public int insertCategory(Category category); 
-
-	// 카테고리 삭제
-	public int deleteCategory(String categroyName);
 	
 	// 멤버 카테고리 리스트 출력
 	public List<Category> selectCategoryListByMember();

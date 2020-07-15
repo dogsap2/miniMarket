@@ -16,12 +16,6 @@
 			)
 	</insert>
 	
-	<!-- 카테고리 삭제 -->
-	<delete id="deleteCategory" parameterType="String">
-		DELETE FROM mini_market_category
-		WHERE category_name = #{categoryName}
-	</delete>
-	
 	<!-- 카테고리 타입에 따른 리스트(멤버) -->
 	<select id="selectCategoryListByMember" resultType="com.cafe24.dk4750.miniMarket.vo.Category">
 		SELECT 

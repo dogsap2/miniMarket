@@ -10,6 +10,12 @@ import com.cafe24.dk4750.miniMarket.vo.Notice;
 @Mapper
 public interface NoticeMapper {
 	
+	// 글의 총갯수
+	public int totalNotice();
+	
+	// 검색어의 총갯수
+	public int totalNoticeBySearch(String searchWord);
+	
 	// 공지사항 리스트
 	public List<Notice> selectNoticeList(Map<String, Object> map);
 

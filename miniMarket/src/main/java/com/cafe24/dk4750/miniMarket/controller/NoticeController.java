@@ -1,7 +1,8 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.NoticeService;
 import com.cafe24.dk4750.miniMarket.vo.LoginAdmin;
-import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Notice;
 
 
@@ -23,18 +23,27 @@ public class NoticeController {
 	@Autowired private NoticeService noticeService;
 	// 공지사항 목록
 	@GetMapping("/getNoticeList")
-	public String getNoticeList(HttpSession session, Model model) {
+	public String getNoticeList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null && session.getAttribute("loginAdmin") == null) {
 			return "index";
 		}
 		LoginAdmin loginAdmin = (LoginAdmin)session.getAttribute("loginAdmin");
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
+		System.out.println(beginRow +"<-----beginRow");
 		
 		// 공지사항 리스트
-		List<Notice> list = noticeService.getNoticeList();
+		Map<String , Object> map = noticeService.getNoticeList(beginRow, rowPerPage, searchWord);
 		
 		// 모델로 리스트 넘겨주기
-		model.addAttribute("list", list);
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("currentPage", currentPage);
+		System.out.println(map.get("lastPage")+"<---라스트페이지 값 확인하기");
 		return "getNoticeList";
 	}
 	

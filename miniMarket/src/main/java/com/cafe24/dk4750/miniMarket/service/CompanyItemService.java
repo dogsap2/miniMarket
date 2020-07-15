@@ -40,7 +40,6 @@ public class CompanyItemService {
 		// 세션값 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		companyUniqueNo = loginCompany.getCompanyUniqueNo();
-		
 		return companyItemMapper.selectCompanyMyItemOne(companyUniqueNo);
 	}
 	
@@ -297,14 +296,27 @@ public class CompanyItemService {
 	}
 	
 	// 홍보중인 카테고리별 업체 아이템 리스트 출력
-	public List<CompanyItemAndCompanyAndCompanyItemPic> getCompanyItemListByCategory(HttpSession session, String categoryName) {
+	public Map<String, Object> getCompanyItemListByCategory(HttpSession session, String categoryName, int beginRow, int rowPerPage, String searchWord) {
 		// 세션값 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		
 		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
-		int beginRow = 0;
-		int rowPerPage = 10;
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 몇번째부터..
+		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
+		map.put("rowPerPage", rowPerPage);
+		// 검색어!
+		map.put("searchWord", searchWord);
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = companyItemMapper.totalCompanyItem();
+		} else {
+			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
+		}
+		System.out.println(totalRow+"<----게시물 총합 수");
 		String companyBname;
 		String companySigungu;
 		// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
@@ -315,76 +327,109 @@ public class CompanyItemService {
 			companyBname = loginCompany.getCompanyBname();
 			companySigungu = loginCompany.getCompanySigungu();
 		}
-		String searchWord = "";
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage", rowPerPage);
+		System.out.println(companyBname+"<------getCompanyItemListByCategory service 로그인한 세션의 비네임 주소");
+		System.out.println(companySigungu+"<------getCompanyItemListByCategory service 로그인한 세션의 시군구 주소");
 		map.put("companyBname", companyBname);
 		map.put("companySigungu", companySigungu);
-		map.put("searchWord", searchWord);
-		map.put("categoryName", categoryName);
-		System.out.println(categoryName+"<-----맵에 담긴 카테고리 네임 값");
 		//리스트 담기
 		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemListByCategory(map);
-		return list;
+		
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);		
+		map2.put("categoryName", categoryName);
+		System.out.println(categoryName+"<-----맵에 담긴 카테고리 네임 값");
+		return map2;
 	}
 	
 	// 관심동네 중에 홍보중인 업체 아이템 리스트 출력
-		public List<CompanyItemAndCompanyAndCompanyItemPic> getPlaceByCompanyItemList(HttpSession session) {
-			// 세션값 가져오기
-			LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
-			LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
-			
-			// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
-			int beginRow = 0;
-			int rowPerPage = 10;
-			String companyBname;
-			String companySigungu;
-			String memberId = loginMember.getMemberId();
-			
-			//  관심동네 설정한 값 가져오기
-			memberInterestPlaceMapper.selectMemberInterestPlace(memberId);
-			
-			// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
-			if(session.getAttribute("loginCompany") == null) {
-				if(memberInterestPlaceMapper.selectMemberInterestPlace(memberId)== null ) {
-					companyBname = loginMember.getMemberBname();
-					companySigungu = loginMember.getMemberSigungu();
-				} else {
-					companyBname = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getBname();
-					companySigungu = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getSigungu();
-				}
-			} else {
-				companyBname = loginCompany.getCompanyBname();
-				companySigungu = loginCompany.getCompanySigungu();
-			}
-			String searchWord = "";
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("beginRow", beginRow);
-			map.put("rowPerPage", rowPerPage);
-			map.put("companyBname", companyBname);
-			map.put("companySigungu", companySigungu);
-			map.put("searchWord", searchWord);
-			
-			// 리스트 받아오기
-			List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemList(map);
-			
-			// 리스트 리턴
-			return list;
-		}
-	
-	// 홍보중인 업체 아이템 리스트 출력
-	public List<CompanyItemAndCompanyAndCompanyItemPic> getCompanyItemList(HttpSession session) {
+	public Map<String, Object> getPlaceByCompanyItemList(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
 		// 세션값 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		
-		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
-		int beginRow = 0;
-		int rowPerPage = 10;
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 몇번째부터..
+		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
+		map.put("rowPerPage", rowPerPage);
+		// 검색어!
+		map.put("searchWord", searchWord);
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = companyItemMapper.totalCompanyItem();
+		} else {
+			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
+		}
+		System.out.println(totalRow+"<----게시물 총합 수");
 		String companyBname;
 		String companySigungu;
+		String memberId = loginMember.getMemberId();
 		
+		//  관심동네 설정한 값 가져오기
+		memberInterestPlaceMapper.selectMemberInterestPlace(memberId);
+		
+		// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
+		if(session.getAttribute("loginCompany") == null) {
+			// 로그인한 멤버가 관심주소를 등록하지 않을 경우와 관심주소를 등록 했을 경우
+			if(memberInterestPlaceMapper.selectMemberInterestPlace(memberId)== null ) {
+				companyBname = loginMember.getMemberBname();
+				companySigungu = loginMember.getMemberSigungu();
+			} else {
+				companyBname = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getBname();
+				companySigungu = memberInterestPlaceMapper.selectMemberInterestPlace(memberId).getSigungu();
+			}
+		} else {
+			companyBname = loginCompany.getCompanyBname();
+			companySigungu = loginCompany.getCompanySigungu();
+		}
+		map.put("companyBname", companyBname);
+		map.put("companySigungu", companySigungu);
+		// 리스트 받아오기
+		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemList(map);
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+
+		// 리스트 리턴
+		return map2;
+	}
+	
+	// 홍보중인 업체 아이템 리스트 출력
+	public Map<String, Object> getCompanyItemList(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
+		// 세션값 가져오기
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 몇번째부터..
+		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
+		map.put("rowPerPage", rowPerPage);
+		// 검색어!
+		map.put("searchWord", searchWord);
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = companyItemMapper.totalCompanyItem();
+		} else {
+			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
+		}
+		String companyBname;
+		String companySigungu;
 		// 로그인이 업체일 경우와 멤버일 경우의 주소값 넣기
 		if(session.getAttribute("loginCompany") == null) {
 			companyBname = loginMember.getMemberBname();
@@ -393,42 +438,65 @@ public class CompanyItemService {
 			companyBname = loginCompany.getCompanyBname();
 			companySigungu = loginCompany.getCompanySigungu();
 		}
-		String searchWord = "";
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage", rowPerPage);
 		map.put("companyBname", companyBname);
 		map.put("companySigungu", companySigungu);
-		map.put("searchWord", searchWord);
 		
 		// 리스트 받아오기
 		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemList(map);
+		System.out.println(list+"<===맵에 넣기전 리스트정보들");
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
 		
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+		System.out.println(lastPage+"<=====마지막페이지 수");
+		System.out.println(map2+"<----맵에 들어간 정보들");
+		System.out.println(map2.get("list")+"<------맵에 들어간 리스트");
 		// 리스트 리턴
-		return list;
+		return map2;
 	}
 	
 	// 내가 좋아요한 업체아이템 리스트 출력
-	public List<CompanyItemAndCompanyAndCompanyItemPic> getMyLikeCompanyItem(HttpSession session) {
+	public Map<String, Object> getMyLikeCompanyItem(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
 		// 세션의 로그인한 유저의 유니크넘버 가져오기
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		
-		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
-		int beginRow = 0;
-		int rowPerPage = 10;
-		String searchWord = "";
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberUniqueNo", memberUniqueNo);
+		// 몇번째부터..
 		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
 		map.put("rowPerPage", rowPerPage);
+		// 검색어!
 		map.put("searchWord", searchWord);
-		
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = companyItemMapper.totalCompanyItem();
+		} else {
+			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
+		}
+		map.put("memberUniqueNo", memberUniqueNo);
 		// 리스트 받아오기
 		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectMyLikeCompanyItem(map);
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("beginRow", beginRow);
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
 		
 		// 리스트 리턴
-		return list;
+		return map2;
 	}
 	
 	// 업체 아이템 추가

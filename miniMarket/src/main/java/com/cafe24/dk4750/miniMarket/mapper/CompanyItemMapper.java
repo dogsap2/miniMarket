@@ -12,6 +12,12 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAnd
 @Mapper
 public interface CompanyItemMapper {
 	
+	// 글의 총 갯수
+	public int totalCompanyItem();
+	
+	// 검색한글의 총 갯수
+	public int totalCompanyItemBySerach(String searchWord);
+	
 	// 내 업체 아이템 상세보기
 	public CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic selectCompanyMyItemOne(String companyUniqueNo);
 	

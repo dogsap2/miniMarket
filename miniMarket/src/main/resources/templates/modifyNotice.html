@@ -15,7 +15,7 @@
 <body>
 	<form method="post" th:action="@{/modifyNotice}" id="form">
 	<div>
-		<input type="text" th:value="${notice.noticeNo}" name="noticeNo">
+		<input type="hidden" th:value="${notice.noticeNo}" name="noticeNo">
 	</div>
 	<table border="1">
 		<thead>

@@ -12,7 +12,7 @@
 				<th>내용</th>
 				<th>작성날짜</th>
 				<th>작성자</th>
-				<th>수정</th>
+				<th th:if="${session.loginAdmin} !=null">수정</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,8 +21,8 @@
 				<td th:text="${notice.noticeContent}"></td>
 				<td th:text="${notice.noticeDate}"></td>
 				<td th:text="${notice.adminName}"></td>
-				<td>
-					<a th:href="@{/modifyNotice(noticeNo=${notice.noticeNo})}">수정하기</a>
+				<td th:if="${session.loginAdmin} !=null">
+					<a  th:href="@{/modifyNotice(noticeNo=${notice.noticeNo})}">수정하기</a>
 				</td>
 			</tr>
 		</tbody>

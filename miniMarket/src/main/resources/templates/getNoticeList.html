@@ -2,14 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#searchBtn').click(function(){
+			if($('#searchWord').val() == ""){
+				alert("검색어를 입력해주세요");
+				$("#searchWord").focus();
+				return;
+			}
+			$("#searchForm").submit();
+		});
+	});
+</script>
 <title>공지사항</title>
 </head>
 <body>
+	<form method="get" th:action="@{/getNoticeList}" id="searchForm">
 	<div>
-		<a th:href="@{/addNotice}">입력하기</a>
+		<a th:if="${currentPage} != 1" th:href="@{/getNoticeList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getNoticeList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
 	</div>
 	<table border="1">
 		<thead>
+			<tr>
+				<td>
+					<input type="text" name="searchWord" id="searchWord">
+					<button type="button" id="searchBtn">검색</button>
+				</td>
+			</tr>
 			<tr>
 				<th>제목</th>
 				<th>작성날짜</th>
@@ -28,5 +49,6 @@
 			</tr>
 		</tbody>
 	</table>
+	</form>
 </body>
 </html>

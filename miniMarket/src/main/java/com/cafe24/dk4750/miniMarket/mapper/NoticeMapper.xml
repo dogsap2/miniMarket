@@ -3,6 +3,21 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.NoticeMapper">
+	<!-- 글의 총갯수 -->
+	<select id="totalNotice" resultType="int" parameterType="String">
+		SELECT
+			COUNT(*)
+		FROM mini_market_notice
+	</select>
+	
+	<!-- 검색어의 총 갯수 -->
+	<select id="totalNoticeBySearch" resultType="int" parameterType="String">
+		SELECT
+			COUNT(*)
+		FROM mini_market_notice
+		WHERE (notice_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR notice_content LIKE CONCAT('%', #{searchWord}, '%'))		
+	</select>
 	
 	<!-- 공지사항 목록 출력 -->
 	<select id="selectNoticeList" resultType="com.cafe24.dk4750.miniMarket.vo.Notice" parameterType="Map">
