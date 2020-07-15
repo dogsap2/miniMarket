@@ -36,6 +36,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
+	$(document).ready(function(){
+		$('#StateBtn').click(function(){
+			console.log('조회');
+			$('#reportStateForm').submit();
+		});
+	});
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -56,11 +62,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 			</div>
 			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
+				<form action="#" method="post" class="last"> 
+					<input type="hidden" name="cmd" value="_cart">
+					<input type="hidden" name="display" value="1">
+					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</form>  
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -135,50 +141,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- top-brands -->
 	<div class="top-brands">
 		<div class="container">
-		<h2>댓글 신고하기</h2>
-			<div class="grid_3 grid_5">
-				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-					<ul id="myTab" class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions">댓글 신고</a></li>
-					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
-							<div align="center">
-								<h3>' ' 회원 댓글 신고</h3>
-								<br><br>
-							<form method="post" action="/companyByMemberReport" id="memberByCompanyItemReportForm">
-							<div id="title">
-                              <div id="title1">
-                                 <button type="button" class="titlebtn"value="광고를 해요" name="reportTitle">광고를 해요</button>
-                              </div>
-                              <div id="title2">
-                                 <button type="button" class="titlebtn" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
-                              </div>
-                              <div id="title3">
-                                 <button type="button" class="titlebtn" value="도배를 해요" name="reportTitle">도배를 해요</button>
-                              </div>
-                              <div id="title4">
-                                 <button type="button" class="titlebtn" value="음란성 댓글을 올려요" name="reportTitle">음란성 댓글을 올려요</button>
-                              </div>
-                              <div id="title5">
-                                 <button type="button" class="titlebtn" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
-                              </div>
-                              <input type="hidden" id="reportTitle" name="reportTitle">
-                           </div>
-                           		<div id="content">
-	                              <h3>상세 신고 내용 작성</h3>
-	                              <div>내부적으로 검토하여 신고 항목 개선에 활용됩니다.</div>
-									<textarea rows="10" cols="70" name="reportContent" placeholder="정확한 내용을 입력해 주세요" id="reportContent"></textarea>
-	                           </div>
-									<div>
-										<button type="button" id="preBtn">이전</button>
-										<button type="button" id="submitBtn">전송</button>
-									</div>
-								</form>
-							</div>
-						</div>
+		<h2>회원 -> 회원 신고 List</h2>
+			<div class="grid_3 grid_5" align="center">
+				<br>
+				<form method="get" th:action="@{getReportMemberByMemberList}" id="reportStateForm">
+					<div>
+						<select name="reportState">
+						    <option value="">상태 선택</option>
+						    <option value="">전체 보기</option>
+						    <option value="신고중">신고중</option>
+						    <option value="신고확인">신고확인</option>
+						    <option value="신고취소">신고취소</option>
+						</select>
+						<button type="button" id="StateBtn">조회</button>
 					</div>
-				</div>			
+				</form>
+				<br>
+				<table border="1">
+					<tr>
+						<td>번호</td>
+						<td>제목</td>
+						<td>신고 날</td>
+						<td>신고 상태</td>
+					</tr>
+					<tr th:each="list : ${list}">
+						<td th:text="${list.reportNo}"></td>
+						<td><a th:href="@{getReportMemberByMemberListOne(reportNo = ${list.reportNo})}" th:text="${list.reportTitle}"></a></td>
+						<td th:text="${#strings.substring(list.reportDate,0,10)}"></td>
+						<td th:text="${list.reportState}"></td>
+					</tr>
+				</table>
+				<br>
+				<a th:if="${currentPage > 1}" th:href="@{getReportMemberByMemberList(currentPage=${currentPage - 1},reportState=${reportState})}" id="previous">이전</a>
+				<a th:if="${currentPage < lastPage}" th:href="@{getReportMemberByMemberList(currentPage=${currentPage + 1},reportState=${reportState})}" id="next">다음</a>			
 			</div>
 		</div>
 	</div>
@@ -259,63 +254,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
-		// title 값을 저장할 변수
-		let title = "";
-		// content 값을 저장할 변수
-		let content = "";
-        $(document).ready(function() {
-            //title의 메뉴만 보여주고 나머지는 다 숨김
-            $("#title").show();
-            $("#content").hide();
-            $("#memo").hide();
-            $("#preBtn").hide();
-            $("#submitBtn").hide();
-            $("#desc").hide();
-            //title 메뉴 버튼 값 선택시
-            $(".titlebtn").click(function(){
-            	//title 변수에 #title의 value값을 저장해줌
-            	let title = $(this).val();
-            	console.log(title);
-            	$("#title").hide();
-            	//title 버튼 선택에 따라 그에 맞는 content 메뉴를 보여줌
-           		$("#content").show();
-            	//이전 버튼 보여줌
-            	$("#preBtn").show();
-            	// 전송버튼 보여줌
-            	$("#submitBtn").show();
-            	// 전송버튼 클릭시
-            	$("#submitBtn").click(function(){
-            		let content = $("#reportContent").val();
-            		console.log(title);
-            		console.log(content);
-            		$("#reportTitle").val(title);
-            		// reportContent 유효성 검사
-            		if($("#reportContent").val() == "") {
-            			alert("내용을 입력해주세요.");
-            			return;
-            		}else if($("#reportContent").val().length < 5){
-            			alert("내용을 자세히 입력해주세요.");
-            			return;
-            		}
-            		$("#memberByCompanyItemReportForm").submit();
-            	});
-            	//이전 버튼 클릭시
-            	$("#preBtn").click(function(){
-            		//이전 버튼 클릭시 textarea안에 내용을 다 지워줌
-            		let content = $("#reportContent").val();
-            		console.log(content);
-            		$("#reportContent").val("");
-            		$("#title").show();
-                    $("#content").hide();
-                    $("#preBtn").hide();
-                    $("#submitBtn").hide();
-                   
-            	});
-            });       
-        });
-
-    </script>
-	<script type="text/javascript">
 		$(document).ready(function() {
 			/*
 				var defaults = {
@@ -344,7 +282,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 <!-- main slider-banner -->
 <script src="js/skdslider.min.js"></script>
-<link href="css/skdslider.css" rel="stylesheet">
 <script type="text/javascript">
 		jQuery(document).ready(function(){
 			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});

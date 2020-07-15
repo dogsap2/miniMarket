@@ -177,12 +177,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<button type="button" id="searchBtn">검색</button>
 					</div>
 				</form>
-				<div th:if="${currentPage > 1}">
-					<a th:href="@{getQnaBoardCompanyList(currentPage=${currentPage - 1},searchWord=${searchWord})}" id="previous">이전</a>
-				</div>
-				<div th:if="${currentPage < lastPage}">
-					<a th:href="@{getQnaBoardCompanyList(currentPage=${currentPage + 1},searchWord=${searchWord})}" id="next">다음</a>
-				</div>
+				<a th:if="${currentPage > 1}" th:href="@{getQnaBoardCompanyList(currentPage=${currentPage - 1},searchWord=${searchWord})}" id="previous">이전</a>
+				<a th:if="${currentPage < lastPage}" th:href="@{getQnaBoardCompanyList(currentPage=${currentPage + 1},searchWord=${searchWord})}" id="next">다음</a>
 			</div>
 			</div>
 			<!-- script for tabs -->

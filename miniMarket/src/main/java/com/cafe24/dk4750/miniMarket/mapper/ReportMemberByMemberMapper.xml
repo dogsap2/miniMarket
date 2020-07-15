@@ -4,61 +4,50 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ReportMemberByMemberMapper">
 	<!-- 신고 상태 수정 -->
-	<update id="updateReportCompanyByMemberState" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
+	<update id="updateReportMemberByMemberState" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
 		UPDATE mini_market_report_m_by_m
 		SET report_state = #{reportState}
 		WHERE report_no = #{reportNo}
 	</update>
-   <!-- 신고 상태별 totalRow -->
-   <select id="getStateTotalRow" parameterType="String" resultType="int">
+   <!-- totalRow -->
+   <select id="getTotalRow" parameterType="String" resultType="int">
       SELECT
          COUNT(*)
       FROM mini_market_report_m_by_m
-      WHERE report_state = #{reportState}
-   </select>
-   <!-- 신고 상태별 List -->
-   <select id="selectReportMemberByMemberStateList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
-      SELECT
-         report_no as reportNo,
-         member_id as memberId,
-         report_title as reportTitle,
-         report_state as reportState,
-         report_date as reportDate
-      FROM mini_market_report_m_by_m
-      WHERE report_state = #{reportState}
-      ORDER BY reprot_date DESC
-      LIMIT #{beginRow}, #{rowPerPage}
-   </select>
-   <!-- totalList Count -->
-   <select id="getTotalRow" resultType="int">
-      SELECT
-         COUNT(*)
-      FROM mini_market_report_m_by_m
+      WHERE report_state LIKE CONCAT('%',#{reportState},'%')
    </select>
    <!-- 신고 totalList -->
-   <select id="selectReportMemberByMemberAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
-      SELECT
-         report_no as reportNo,
-         member_id as memberId,
-         report_title as reportTitle,
-         report_state as reportState,
-         report_date as reportDate
-      FROM mini_market_report_m_by_m
-      ORDER BY report_date DESC
-      LIMIT #{beginRow}, #{rowPerPage}
+   <select id="selectReportMemberByMemberAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberAndMember">
+     SELECT 
+		r.report_no AS reportNo,
+		r.report_title AS reportTitle,
+		r.report_content AS reportContent,
+		r.member_id AS toMemberId,
+		m.member_id AS fromMemberId,
+		r.report_state AS reportState,
+		r.report_date AS reportDate
+	FROM mini_market_report_m_by_m r
+	INNER JOIN mini_market_member m
+	ON r.member_unique_no = m.member_unique_no
+	WHERE r.report_state LIKE CONCAT('%',#{reportState},'%')
+	ORDER BY r.report_state ASC, 
+			 r.report_date DESC
+	LIMIT #{beginRow}, #{rowPerPage}
    </select>
    <!-- 신고 상세페이지 -->
-   <select id="selectReportMemberByMemberOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
-      SELECT
-         report_no as reportNo,
-         report_title as reportTitle,
-         report_content as reportContent,
-         member_id as memberId,
-         member_unique_no as memberUniqueNo,
-         report_state as reportState,
-         report_date as reportDate
-      FROM mini_market_report_m_by_m
-      WHERE report_no = #{reportNo}
+   <select id="selectReportMemberByMemberOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberAndMember">
+	SELECT
+		r.report_no AS reportNo,
+		r.report_title AS reportTitle,
+		r.report_content AS reportContent,
+		r.member_id AS toMemberId,
+		m.member_id AS fromMemberId,
+		r.report_state AS reportState,
+		r.report_date AS reportDate
+	FROM mini_market_report_m_by_m r
+	INNER JOIN mini_market_member m
+	ON r.member_unique_no = m.member_unique_no
+	WHERE r.report_no = #{reportNo}
    </select>
    <!-- 신고 하기 접수 -->
    <insert id="insertReportMemberByMember" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMember">
