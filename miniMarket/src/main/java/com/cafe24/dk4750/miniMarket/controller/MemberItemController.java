@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.CategoryService;
+import com.cafe24.dk4750.miniMarket.service.ChatroomService;
 import com.cafe24.dk4750.miniMarket.service.CheckLikeService;
 import com.cafe24.dk4750.miniMarket.service.MemberItemService;
 import com.cafe24.dk4750.miniMarket.vo.Category;
+import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic;
@@ -32,6 +34,7 @@ public class MemberItemController {
 	@Autowired private MemberItemService memberItemService;
 	@Autowired private CheckLikeService checkLikeService;
 	@Autowired private CategoryService categoryService;
+	@Autowired private ChatroomService chatroomService;
 	
 	// 내가 좋아요한 리스트 보기
 	@GetMapping("/getMyLikeItem")
@@ -107,6 +110,16 @@ public class MemberItemController {
 		// 세션에서 내 유니크넘버 받아오기
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
+		//페이지에 넘겨줄 세션 아이디 값
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		System.out.println(memberId);
+		//채팅방 존재 유무
+		Chatroom chatroom = new Chatroom();
+		chatroom.setMemberItemNo(memberItemNo);
+		chatroom.setMemberUniqueNo(memberUniqueNo);
+		int chatRoomCheck = chatroomService.getChatroomCheck(chatroom);
+		System.out.println(chatRoomCheck+"<---chatroomCheck 채팅방 유무 체크");
+		
 		
 		// 내가 좋아요 한 적이 있는지 체크
 		MemberItemLike memberItemLike = new MemberItemLike();
@@ -124,9 +137,13 @@ public class MemberItemController {
 		String memberItemPrice = formatter.format(price);
 		System.out.println(memberItemPrice + " <== 아이템 가격 컴마 찍힌거");
 		getItemOne.setMemberItemPrice(memberItemPrice);
+		
+		
 		// 모델에 담아주기
+		model.addAttribute("chatRoomCheck", chatRoomCheck);
 		model.addAttribute("getItemOne", getItemOne);
 		model.addAttribute("check", check);
+		model.addAttribute("LoginMemberId", memberId);
 		System.out.println(getItemOne + " <== getItemOne");
 		
 		// 거래완료, 리스트에서는 수정이 안나오게끔... 이유는 판매하고 정보를 바꿔버릴수도 있기 때문에

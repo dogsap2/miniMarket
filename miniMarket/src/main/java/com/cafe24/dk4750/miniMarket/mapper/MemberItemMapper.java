@@ -13,7 +13,6 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberI
 
 @Mapper
 public interface MemberItemMapper {
-	
 	// 게시글 상세보기
 	public MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike selectMemberItemOne(int memberItemNo);
 	

@@ -38,17 +38,15 @@ public class ChatroomService {
       list = chatroomMapper.selectChatRoomByMemberId(chatroom);
       return list;
    }
+   //채팅방 체크
+   public int getChatroomCheck(Chatroom chatroom) {
+	   int checkroom = chatroomMapper.selectChatRoomCheck(chatroom);
+	   return checkroom;
+   }
    //채팅방 추가
    public int addChatRoom(Chatroom chatroom) {
       System.out.println(chatroom);
-      int checkroom = chatroomMapper.selectChatRoomCheck(chatroom);
-      System.out.println(checkroom + "채팅방 유무 체크");
-      if(checkroom > 0) {
-         return 0;
-      }else {
-         
-         return chatroomMapper.insertChatRoom(chatroom);
-      }
+      return chatroomMapper.insertChatRoom(chatroom);
        
    }
 }

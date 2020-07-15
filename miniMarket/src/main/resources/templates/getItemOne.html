@@ -269,7 +269,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<tr>
 		<td>
 			<div style="text-align:left;">
-				<a th:href="@{/}" class="btn btn-info btn-lg">채팅으로 거래하기</a>
+				<!-- 
+					조건 1 : 내 게시물이면 채팅 버튼 없앰
+					조건 2 : 상대방 게시물이고 현재 채팅하고 있는 게시물이 아니라면 채팅으로 거래하기 버튼 생성
+					조건 3 : 상대방 게시물이고 현재 채팅중 or 채팅신청 상태면 상대방과 거래중입니다 버튼 생성(버튼 클릭 잠김)
+				 -->
+				<form method="post" th:action="@{/chatroom}" th:if="${LoginMemberId != getItemOne.memberId} AND ${chatRoomCheck < 1}">
+					<input type="hidden" name="memberId" th:value="${getItemOne.memberId}">
+					<input type="hidden" name="memberItemNo" th:value="${getItemOne.memberItemNo}">
+					<button type="submit" class="btn btn-info btn-lg">채팅으로 거래하기</button>
+				</form>
+				<form method="post" action="{#}" th:if="${LoginMemberId != getItemOne.memberId} AND ${chatRoomCheck > 0}">
+					<button type="submit" class="btn btn-info btn-danger" disabled="disabled">상대방과 거래중입니다.</button>
+				</form>
 			</div>
 		</td>
 	</tr>

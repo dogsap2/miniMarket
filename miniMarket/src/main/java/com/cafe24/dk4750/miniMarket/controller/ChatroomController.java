@@ -66,28 +66,28 @@ public class ChatroomController {
    }
    //채팅방 생성 액션
    @PostMapping("/chatroom")
-   public String addChatRoom(/*세션으로 받*/ @RequestParam("memberId") String memberId/*받는 사람*/, Model model, HttpSession session) {
+   public String addChatRoom(/*세션으로 받*/ @RequestParam("memberId") String memberId/*받는 사람*/, @RequestParam("memberItemNo") int memberItemNo , Model model, HttpSession session) {
       String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
-      String nickName = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
+      String nickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
       System.out.println(memberUniqueNo);
       System.out.println(memberId);
+      System.out.println(memberItemNo);
+      System.out.println(nickname + "-------------내 세션 memberUniqueNo , memberId , memberItemNo ,nickname------------------");
       //임의로 아이템 번호 만들어줌
-      int memberItemNo = 5;
+      
       //채팅방 생성시 초기값을 disconnect로 설정
       String active = "disconnect"; 
       Chatroom chatroom = new Chatroom();
-      chatroom.setMemberNickname(nickName);
+      chatroom.setMemberItemNo(memberItemNo);
+      chatroom.setNickname(nickname);
       chatroom.setMemberItemNo(memberItemNo);
       chatroom.setMemberUniqueNo(memberUniqueNo);
       chatroom.setMemberId(memberId);
       chatroom.setChatroomActive(active);
+      System.out.println(chatroom);
       //채팅방 유무 체크 후 채팅방이 존재시 msg를 model로 보내줌 존재하지않으면 추가 
-      int chatRoomCheck = chatroomService.addChatRoom(chatroom);
-      if(chatRoomCheck == 0) {
-         model.addAttribute("msg", "이미 채팅방이 존재합니다.");
-         return "button";
-      }else {
+      chatroomService.addChatRoom(chatroom);
          return "redirect:/chatroomList";
-      }
+      
    }
 }

@@ -61,8 +61,6 @@
          member_item_no = #{memberItemNo}
       AND
          member_unique_no = #{memberUniqueNo}
-      AND
-         member_id = #{memberId}
    </select>
    <!-- 채팅방 리스트 뿌리기 -->
    <select id="selectChatRoomByMemberId" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
@@ -125,7 +123,7 @@
          chatroom_active,
          member_item_no
       ) VALUES (
-         #{nickName},
+         #{nickname},
          #{memberUniqueNo},
          #{memberId},
          #{chatroomActive},

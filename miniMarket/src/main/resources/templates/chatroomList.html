@@ -36,10 +36,10 @@
 				<td th:text="${list.chatroomNo}"></td>
 				<td th:text="${list.memberItemTitle}"></td>
 				<td th:if="${list.chatroomActive} == connect" >
-				<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickName} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
+				<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 				</td>
 				<td th:unless="${list.chatroomActive} == connect">
-				<a href="#" id="href" th:text="${list.memberId == memberId} ? ${list.nickName} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
+				<a href="#" id="href" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 				</td>
 				
 				
