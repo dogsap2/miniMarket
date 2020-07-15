@@ -136,11 +136,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div>
 <!-- //breadcrumbs -->
 	<!-- 카테고리별 -->
-	<br>
-	<br>
-	<br>
+	<div class="register">
 	<div class="container" align="center">
-	<h2>내동네 중고물품 목록</h2>
+	<h2>나의 관심동네</h2>
 	<br>
 	<!--<a th:href="@{/getItemListByCategory(categoryName='노트북')}">노트북</a><br>-->
 	<!-- 관심동네 리스트 -->
@@ -151,7 +149,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<br>
 	<div class="snipcart-thumb">
 	<table border="1">
-		<thead>
+			<tr>	
+				<!-- 인덱스 번호가 0이 아니고 3으로 나눠서 0이면 밑으로 내리고싶
+				<th:block th:if="${list.index !=0 && list.index%3 ==0}">
+				</th:block> -->
+				<td th:each="ltem,list:${list}">
+				<!-- 3개이상 보여주면 아래로 내려야함 -->
+					<div>
+						<a th:href="@{/getItemOne(memberItemNo=${ltem.memberItemNo})}"><img th:src="@{'/images/'+${ltem.memberItemPic1}}" width="300" height="150"></a>
+					</div>
+					<div align="center">
+					    <strong><span th:text="${ltem.memberItemTitle}"></span></strong><br>
+						 <span th:text="${ltem.memberItemPrice}"></span>원<br>
+						 <span th:text="${ltem.memberItemDate}"></span><br>
+						 <span th:text="${ltem.memberBname}"></span><br>	 
+					</div>
+				</td>
+			</tr>
+	
+	<!-- 	<thead>
 			<tr>
 				<th>사진</th>
 				<th>제목</th>
@@ -170,8 +186,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<td th:text="${list.memberItemDate}"></td>
 				<td th:text="${list.memberBname}"></td>	
 			</tr>	
-		</tbody>
+		</tbody> -->
 	</table>
+	</div>
 	</div>
 	</div>
 	<br>
