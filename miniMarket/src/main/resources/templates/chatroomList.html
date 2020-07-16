@@ -273,7 +273,7 @@
 						<li class="active">
 							<div class="d-flex bd-highlight">
 								<div class="img_cont">
-									<img th:src="@{/images/}+${list.profilePic}" class="rounded-circle user_img">
+									<img th:src="@{/images/}+default.jpg" class="rounded-circle user_img">
 									<span th:class="${list.chatroomActive} == connect ? online_icon : offline_icon"></span>
 								</div>
 								<div>
@@ -302,6 +302,7 @@
 									</div>
 									<div th:if="${list.chatroomActive} == disconnect" class="right"><a th:href="@{chatList(chatroomNo = ${list.chatroomNo})}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;">내역보기</a></div>
 									<div th:unless="${list.chatroomActive} == disconnect" class="right">내역보기</div>
+									
 								</div>
 							</div>
 						</li>
