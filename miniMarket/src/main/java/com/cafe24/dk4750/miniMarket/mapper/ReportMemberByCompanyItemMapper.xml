@@ -9,56 +9,47 @@
 		SET report_state = #{reportState}
 		WHERE report_no = #{reportNo}
 	</update>
-	<!-- 신고 상태별 totalRow -->
-	<select id="getStateTotalRow" parameterType="String" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM mini_market_report_m_by_citem
-		WHERE report_state = #{reportState}
-	</select>
-	<!-- 신고 상태별 List -->
-	<select id="selectReportMemberByCompanyItemStateList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem">
-		SELECT
-			report_no as reportNo,
-			member_id as memberId,
-			report_title as reportTitle,
-			report_state as reportState,
-			report_date as reportDate
-		FROM mini_market_report_m_by_citem
-		WHERE report_state = #{reportState}
-		ORDER BY report_date DESC
-		LIMIT #{beginRow}, #{rowPerPage}
-	</select>
 	<!-- totalList Count -->
 	<select id="getTotalRow" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM mini_market_report_m_by_citem
+		WHERE report_state LIKE CONCAT('%',#{reportState},'%')
 	</select>
 	<!-- 신고 totalList -->
-	<select id="selectReportMemberByCompanyItemAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem">
+	<select id="selectReportMemberByCompanyItemAll" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItemAndCompanyItem">
 		SELECT
-			report_no as reportNo,
-			member_id as memberId,
-			report_title as reportTitle,
-			report_state as reportState,
-			report_date as reportDate
-		FROM mini_market_report_m_by_citem
-		ORDER BY report_date DESC
+			r.report_no AS reportNo,
+			r.report_title AS reportTitle,
+			r.report_content AS reportContent,
+			r.member_id AS memberId,
+			r.company_item_no AS companyItemNo,
+			c.company_item_title AS companyItemTitle,
+			r.report_state AS reportState,
+			r.report_date AS reportDate
+		FROM mini_market_report_m_by_citem r
+		INNER JOIN mini_market_company_item c
+		ON r.company_item_no = c.company_item_no
+		WHERE r.report_state LIKE CONCAT('%',#{reportState},'%')
+		ORDER BY r.report_state ASC, 
+			 	 r.report_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 신고 상세페이지 -->
-	<select id="selectReportMemberByCompanyItemOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem">
+	<select id="selectReportMemberByCompanyItemOne" parameterType="int" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItemAndCompanyItem">
 		SELECT
-			report_no as reportNo,
-			report_title as reportTitle,
-			report_content as reportContent,
-			member_id as memberId,
-			company_item_no as companyItemNo,
-			report_state as reportState,
-			report_date as reportDate
-		FROM mini_market_report_m_by_citem
-		WHERE report_no = #{reportNo}
+			r.report_no AS reportNo,
+			r.report_title AS reportTitle,
+			r.report_content AS reportContent,
+			r.member_id AS memberId,
+			r.company_item_no AS companyItemNo,
+			c.company_item_title AS companyItemTitle,
+			r.report_state AS reportState,
+			r.report_date AS reportDate
+		FROM mini_market_report_m_by_citem r
+		INNER JOIN mini_market_company_item c
+		ON r.company_item_no = c.company_item_no
+		WHERE r.report_no = #{reportNo}
 	</select>
 	<!-- 신고 하기 접수 -->
 	<insert id="insertReportMemberByCompanyItem" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem">

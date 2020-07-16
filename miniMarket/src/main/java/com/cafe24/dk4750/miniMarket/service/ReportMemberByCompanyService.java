@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.dk4750.miniMarket.mapper.ReportMemberByCompanyMapper;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompany;
+import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyAndCompany;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem;
 
 @Service
@@ -18,8 +19,8 @@ public class ReportMemberByCompanyService {
 	@Autowired
 	private ReportMemberByCompanyMapper reportMemberByCompanyMapper;
 	
-	// 상태별 신고리스트(패이징)
-		public Map<String, Object> getReportMemberByCompanyStateList(int currentPage, String reportState) {
+		// 신고 total 리스트 (페이징)
+		public Map<String, Object> getReportMemberByCompanyList(int currentPage, String reportState) {
 			int rowPerPage = 10;
 			int beginRow = (currentPage-1)*rowPerPage;
 			Map<String, Object> map = new HashMap<>();
@@ -27,28 +28,7 @@ public class ReportMemberByCompanyService {
 			map.put("rowPerPage", rowPerPage);
 			map.put("reportState", reportState);
 			// lastPage
-			int totalRow = reportMemberByCompanyMapper.getStateTotalRow(reportState);
-			int lastPage = totalRow/rowPerPage;
-			if(totalRow%rowPerPage != 0) {
-				lastPage += 1;
-			}
-			// list와 lastPage Map에 담는다
-			List<ReportMemberByCompany> reportMemberByCompanyStateList = reportMemberByCompanyMapper.selectReportMemberByCompanyStateList(map, reportState);
-			Map<String, Object> map2 = new HashMap<>();
-			map2.put("reportMemberByCompanyStateList", reportMemberByCompanyStateList);
-			map2.put("lastPage", lastPage);
-			
-			return map2;
-		}
-		// 신고 total 리스트 (페이징)
-		public Map<String, Object> getReportMemberByCompanyList(int currentPage) {
-			int rowPerPage = 10;
-			int beginRow = (currentPage-1)*rowPerPage;
-			Map<String, Object> map = new HashMap<>();
-			map.put("beginRow", beginRow);
-			map.put("rowPerPage", rowPerPage);
-			// lastPage
-			int totalRow = reportMemberByCompanyMapper.getTotalRow();
+			int totalRow = reportMemberByCompanyMapper.getTotalRow(reportState);
 			int lastPage = totalRow/rowPerPage;
 			if(totalRow%rowPerPage != 0) {
 				lastPage += 1;
@@ -62,7 +42,7 @@ public class ReportMemberByCompanyService {
 			return map2;
 		}
 		// 신고내용 상세보기
-		public ReportMemberByCompany getReportMemberByCompanyOne(int reportNo) {
+		public ReportMemberByCompanyAndCompany getReportMemberByCompanyOne(int reportNo) {
 			return reportMemberByCompanyMapper.selectReportMemberByCompanyOne(reportNo);
 		}
 		// 신고 접수

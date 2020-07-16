@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem;
+import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItemAndCompanyItem;
 
 @Mapper
 public interface ReportMemberByCompanyItemMapper {
@@ -14,13 +15,9 @@ public interface ReportMemberByCompanyItemMapper {
 	// 신고 total리스트 출력
 	public List<ReportMemberByCompanyItem> selectReportMemberByCompanyItemAll(Map<String, Object> map);
 	// 신고 total리스트 페이징
-	public int getTotalRow();
+	public int getTotalRow(String reportState);
 	// 신고 내용 상세보기
-	public ReportMemberByCompanyItem selectReportMemberByCompanyItemOne(int reportNo);
-	// 신고 상태별 리스트
-	public List<ReportMemberByCompanyItem> selectReportMemberByCompanyItemStateList(Map<String, Object> map, String reportState);
-	// 신고 상태별 페이징
-	public int getStateTotalRow(String reportState);
+	public ReportMemberByCompanyItemAndCompanyItem selectReportMemberByCompanyItemOne(int reportNo);
 	// 신고 상태 수정
-	public int updateReportMemberByCompanyState(ReportMemberByCompanyItem reportMemberByCompanyItem);
+	public int updateReportMemberByCompanyItemState(ReportMemberByCompanyItem reportMemberByCompanyItem);
 }
