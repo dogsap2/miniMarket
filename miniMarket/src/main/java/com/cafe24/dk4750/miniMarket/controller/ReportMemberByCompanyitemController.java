@@ -53,7 +53,10 @@ public class ReportMemberByCompanyitemController {
 		return "getReportMemberByCompanyItemList";
 	}
 	@GetMapping("/memberByCompanyItemReport")
-	public String addReport(@RequestParam("companyItemNo") int companyItemNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam("companyItemNo") int companyItemNo, Model model) {
+		 if(session.getAttribute("loginMember") == null) {
+	         return "redirect:login";
+	      }
 		System.out.println(companyItemNo+"<---no 값 확인");
 		model.addAttribute("companyItemNo", companyItemNo);
 		return "memberByCompanyReport";

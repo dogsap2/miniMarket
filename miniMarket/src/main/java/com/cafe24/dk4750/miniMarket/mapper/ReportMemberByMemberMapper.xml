@@ -31,7 +31,7 @@
 		r.report_no AS reportNo,
 		r.report_title AS reportTitle,
 		r.report_content AS reportContent,
-		r.member_id AS toMemberId,
+		r.member_id  AS toMemberId,
 		m.member_id AS fromMemberId,
 		r.report_state AS reportState,
 		r.report_date AS reportDate

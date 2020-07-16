@@ -57,7 +57,10 @@ public class ReportMemberByMemberitemController {
 	}
 	
 	@GetMapping("/memberByMemberItemReport")
-	public String addReport(@RequestParam("memberItemNo") String memberItemNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam("memberItemNo") String memberItemNo, Model model) {
+		 if(session.getAttribute("loginMember") == null) {
+	         return "redirect:login";
+	      }
 		System.out.println(memberItemNo+"<---memberItemNo 신고하려는 게시물 번호");
 		model.addAttribute("memberItemNo", memberItemNo);
 		return "memberByMemberReport";

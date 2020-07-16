@@ -56,7 +56,10 @@ public class ReportMemeberByCompanyController {
 		return "getReportMemberByCompanyList";
 	}
 	@GetMapping("/memberByCompanyReport")
-	public String addReport(@RequestParam("companyUniqueNo") String companyUniqueNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam("companyUniqueNo") String companyUniqueNo, Model model) {
+		 if(session.getAttribute("loginMember") == null) {
+	         return "redirect:login";
+	      }
 		System.out.println(companyUniqueNo+"<---신고당한 업체 고유 번호");
 		String companyName = reportMemberByCompanyService.getCompanyName(companyUniqueNo);
 		System.out.println(companyName);

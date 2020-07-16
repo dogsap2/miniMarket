@@ -52,7 +52,10 @@ public class ReportMemberByMemberController {
 		return "getReportMemberByMemberList";
 	}
 	@GetMapping("/memberByMemberReport")
-	public String addReport(@RequestParam("memberUniqueNo") String memberUniqueNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam("memberUniqueNo") String memberUniqueNo, Model model) {
+		if(session.getAttribute("loginMember") == null) {
+	         return "redirect:login";
+	      }
 		System.out.println(memberUniqueNo +"<--신고하려는 상대 고유 번호");
 		String memberNickname = reportMemberByMemberService.getMemberName(memberUniqueNo);
 		System.out.println(memberNickname+"<---memberNickname");

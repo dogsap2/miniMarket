@@ -25,12 +25,50 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="js/easing.js"></script>
 <script>
    $(document).ready(function(){
+	   
+	  //금액 유효성 검사에 사용할 숫자값 변수
+	  let regexp = /^[0-9]*$/;
+	  //파일 선택 값
+	  let i = $("#allInput > :input"); 
+	  $('#memberItemPic2').hide();
+	  $('#memberItemPic3').hide();
+	  $('#memberItemPic4').hide();
+	  $('#memberItemPic5').hide();
+	  
+	  $("#memberItemPic1").click(function(){
+			  $('#memberItemPic2').show();
+			  $('#memberItemPic3').show();
+			  $('#memberItemPic4').show();
+			  $('#memberItemPic5').show();
+	  })
+	   
       $('#btn').click(function(){
-         if($('#categoryName').val() == "") {
+    	  
+    	  if($("#memberItemTitle").val() == ""){
+         	 alert("제목을 입력해주세요.");
+         	 $('#memberItemTitle').focus();
+              return ;
+          }else if($('#categoryName').val() == "") {
             alert("카테고리 종류를 선택해주세요.");
-         } else {
-            $('#form').submit();
+            $('#categoryName').focus();
+            return ;
+         } else if($("#memberItemPrice").val() == ""){
+        	 alert("가격을 입력해주세요.");
+        	 $('#memberItemPrice').focus();
+        	 return ;
+         } else if(!regexp.test($("#memberItemPrice").val())){
+        	 alert("가격 입력시 숫자만 입력해주세요.");
+        	 $('#memberItemPrice').focus();
+        	 return ;
+         } else if($("#memberItemContent").val() == ""){
+        	 alert("내용을 입력해주세요.");
+        	 $('#memberItemContent').focus();
+        	 return ;
+         } else if(i.val() == ""){
+        	 alert("최소 하나의 사진은 추가해주세요.");
+        	 return;
          }
+         $('#form').submit();
       });
    });
 </script>
@@ -189,12 +227,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</th>
 					</tr>
 					<tr>
-						<th>사진 <br> 
-							<input style="display: inline;" type="file" name="memberItemPic1" id="memberItemPic1"> 
-							<input style="display: inline;" type="file" name="memberItemPic2" id="memberItemPic2"> 
-							<input style="display: inline;" type="file" name="memberItemPic3" id="memberItemPic3">
-							&emsp;<input style="display: inline;" type="file" name="memberItemPic4" id="memberItemPic4"> 
-							<input style="display: inline;" type="file" name="memberItemPic5" id="memberItemPic5">
+						<th>사진 <br>
+							<div id="allInput"> 
+								<input style="display: inline;" type="file" name="memberItemPic1" id="memberItemPic1"> 
+								<input style="display: inline;" type="file" name="memberItemPic2" id="memberItemPic2"> 
+								<input style="display: inline;" type="file" name="memberItemPic3" id="memberItemPic3">
+								&emsp;<input style="display: inline;" type="file" name="memberItemPic4" id="memberItemPic4"> 
+								<input style="display: inline;" type="file" name="memberItemPic5" id="memberItemPic5">
+							</div>
 						</th>
 					</tr>
 					<tr>

@@ -16,7 +16,7 @@
 			height: 100%;
 			margin: 0;
 			background: #7F7FD5;
-	       background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	       	background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 		}
 
@@ -276,10 +276,10 @@
 								</div>
 								<div class="user_info">
 									<div th:if="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px; "id="user">
-										<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
+										<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=600,height=850,left=500px,top=200px, scrollbars=yes');return false;"></a>
 									</div>
 									<div th:unless="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;" id="user">
-									<a href="#" id="href" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" style="color: rgba(255,255,255,0.6);" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
+									<a href="#" id="href" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" style="color: rgba(255,255,255,0.6);" onclick="window.open(this.href,'_blank','width=600,height=850,left=400px,top=200px, scrollbars=yes');return false;"></a>
 									</div>
 									<!-- 연결 상태별 -->
 									<p th:if="${list.chatroomActive} == connect" class="p">채팅 활성</p>
