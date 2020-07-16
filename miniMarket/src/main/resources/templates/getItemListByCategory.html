@@ -5,6 +5,10 @@
 <title>카테고리별 아이템 리스트</title>
 </head>
 <body>
+	<div >
+		<a th:if="${currentPage} > 1" th:href="@{/getItemListByCategory(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListByCategory(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+	</div>
 	<table border="1">
 		<tr>
 			<th>사진</th>

@@ -25,8 +25,8 @@
 	</ul>
 	<form method="get" th:action="@{/getMyLikeCompanyItem}" id="searchForm">
 	<div >
-		<a th:if="${currentPage} != 1" th:href="@{/getMyLikeCompanyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getMyLikeCompanyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+		<a th:if="${currentPage} > 1" th:href="@{/getMyLikeCompanyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getMyLikeCompanyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
 	</div>
 	<!-- 세션으로 업체일경우 업체등록이 보이게... -->
 	<table border="1">

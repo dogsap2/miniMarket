@@ -25,8 +25,8 @@
 	</ul>
 	<form method="get" th:action="@{/getPlaceByCompanyItemList}" id="searchForm">
 	<div >
-		<a th:if="${currentPage} != 1" th:href="@{/getPlaceByCompanyItemList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getPlaceByCompanyItemList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+		<a th:if="${currentPage} > 1" th:href="@{/getPlaceByCompanyItemList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getPlaceByCompanyItemList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
 	</div>
 	<table border="1">
 		<thead>

@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
+	<div >
+		<a th:if="${currentPage} > 1" th:href="@{/getCompanyItemListByCategory(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getCompanyItemListByCategory(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+	</div>
 	<table border="1">
 		<thead>
 			<tr>

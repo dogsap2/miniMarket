@@ -153,8 +153,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<br>
 	<form method="get" th:action="@{/getItemListBySaleMyItem}" id="searchForm">
 	<div>
-		<a th:if="${currentPage} != 1" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+		<a th:if="${currentPage} > 1" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
 	</div>
 	<table border="1">
 		<thead>

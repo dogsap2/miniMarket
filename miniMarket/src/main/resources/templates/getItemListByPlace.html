@@ -5,6 +5,10 @@
 <title>관심동네 중고물품</title>
 </head>
 <body>
+	<div >
+		<a th:if="${currentPage} > 1" th:href="@{/getItemListByPlace(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListByPlace(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+	</div>
 	<table border="1">
 		<tr>
 			<th>사진</th>

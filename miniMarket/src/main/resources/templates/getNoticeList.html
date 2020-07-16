@@ -20,8 +20,8 @@
 <body>
 	<form method="get" th:action="@{/getNoticeList}" id="searchForm">
 	<div>
-		<a th:if="${currentPage} != 1" th:href="@{/getNoticeList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getNoticeList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+		<a th:if="${currentPage} > 1" th:href="@{/getNoticeList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getNoticeList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
 	</div>
 	<table border="1">
 		<thead>
