@@ -188,8 +188,6 @@
 		ON mi.member_unique_no = m.member_unique_no
 		INNER JOIN mini_market_member_item_pic AS mip
 		ON mi.member_item_no = mip.member_item_no
-		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND mi.member_item_state = "판매중"
 		AND m.member_sigungu = #{memberSigungu}
 		AND m.member_bname = #{memberBname}

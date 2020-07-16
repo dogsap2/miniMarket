@@ -123,18 +123,17 @@ public class CompanyItemController {
 		List<Category> categoryList = categoryService.getCompanyCategory();
 		
 		//아이템 리스트
-		Map<String , Object> map = companyItemService.getCompanyItemListByCategory(session, categoryName, beginRow, rowPerPage, searchWord);
-		
-		System.out.println(categoryName+"<-----카테고리 네임값");
+		Map<String , Object> map2 = companyItemService.getCompanyItemListByCategory(session, categoryName, beginRow, rowPerPage);
+		System.out.println(map2+"키테고리별 아이템 서비스 맵");
+		System.out.println(categoryName+"<-----카테고리 네임값 컨트롤러러러러");
 		//모델에 값넘기기
 		model.addAttribute("loginCompany", loginCompany);
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list", map2.get("list"));
 		model.addAttribute("categoryList", categoryList);
-		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("lastPage", map2.get("lastPage"));
 		model.addAttribute("currentPage", currentPage);
-		System.out.println(map.get("list")+"<===카테고리별 아이템 리스트 목록 컨트롤러");
-		System.out.println(map.get("lastPage")+"<---라스트페이지 값 확인하기");
+		System.out.println(map2.get("list")+"<===카테고리별 아이템 리스트 목록 컨트롤러");
+		System.out.println(map2.get("lastPage")+"<---라스트페이지 값 확인하기");
 		return "getCompanyItemListByCategory";
 	}
 	
@@ -153,9 +152,10 @@ public class CompanyItemController {
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		// 리스트 받아오기
 		Map<String , Object> map2 = companyItemService.getCompanyItemList(session, beginRow, rowPerPage, searchWord);
+		
 		//카테고리 목록
 		List<Category> categoryList = categoryService.getCompanyCategory();
-		
+
 		
 		// 리스트 모델에 담아서 페이지로 보내주기
 		model.addAttribute("totalRow", map2.get("totalRow"));

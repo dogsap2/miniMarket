@@ -24,9 +24,7 @@ public class QnaBoardController {
 	@Autowired QnaCommentService qnaCommentService;
 	@GetMapping("/getQnaBoardMemberHtml")
 	public String getQnaBoardMemberHtml(HttpSession session) {
-		if(session.getAttribute("loginMember") == null) {
-	         return "redirect:/index";
-	      }
+		
 		return "getQnaBoardMemberHtml";
 	}
 	//댓글 삭제

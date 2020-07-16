@@ -236,8 +236,6 @@
 		ON ci.company_unique_no = c.company_unique_no
 		INNER JOIN mini_market_company_item_pic AS cip
 		ON ci.company_item_no = cip.company_item_no
-		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND ci.company_item_state = "홍보"
 		AND c.company_sigungu = #{companySigungu}
 		AND c.company_bname = #{companyBname}

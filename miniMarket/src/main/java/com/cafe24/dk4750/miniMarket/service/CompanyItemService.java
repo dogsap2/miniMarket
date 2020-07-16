@@ -296,7 +296,7 @@ public class CompanyItemService {
 	}
 	
 	// 홍보중인 카테고리별 업체 아이템 리스트 출력
-	public Map<String, Object> getCompanyItemListByCategory(HttpSession session, String categoryName, int beginRow, int rowPerPage, String searchWord) {
+	public Map<String, Object> getCompanyItemListByCategory(HttpSession session, String categoryName, int beginRow, int rowPerPage) {
 		// 세션값 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
@@ -308,14 +308,9 @@ public class CompanyItemService {
 		// 페이지당 갯수..
 		map.put("rowPerPage", rowPerPage);
 		// 검색어!
-		map.put("searchWord", searchWord);
 		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
 		int totalRow = 0;
-		if(searchWord.equals("")) {
-			totalRow = companyItemMapper.totalCompanyItem();
-		} else {
-			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
-		}
+		totalRow = companyItemMapper.totalCompanyItem();
 		System.out.println(totalRow+"<----게시물 총합 수");
 		String companyBname;
 		String companySigungu;
@@ -331,9 +326,10 @@ public class CompanyItemService {
 		System.out.println(companySigungu+"<------getCompanyItemListByCategory service 로그인한 세션의 시군구 주소");
 		map.put("companyBname", companyBname);
 		map.put("companySigungu", companySigungu);
+		map.put("categoryName", categoryName);
 		//리스트 담기
 		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemListByCategory(map);
-		
+		System.out.println(list+"CompanyItemService list 목록 확인");
 		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
 		int lastPage = totalRow / rowPerPage;
 		if(totalRow % rowPerPage !=0) {
@@ -342,9 +338,9 @@ public class CompanyItemService {
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("list", list);
 		map2.put("lastPage", lastPage);
-		map2.put("totalRow", totalRow);		
-		map2.put("categoryName", categoryName);
-		System.out.println(categoryName+"<-----맵에 담긴 카테고리 네임 값");
+		map2.put("totalRow", totalRow);	
+		
+		System.out.println(map2.get("list")+"<-----map2에 담긴 리스트값");
 		return map2;
 	}
 	
