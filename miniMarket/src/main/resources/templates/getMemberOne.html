@@ -161,28 +161,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<h2>나의 정보</h2>			
 			<div class="login-form-grids animated wow slideInUp"data-wow-delay=".5s">
-				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyMember}">수정하기</a></p>
-				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyMemberPw}">비밀번호 변경</a></p><br>
-				아이디 :
-				<div style="display: inline;" th:text="${member.memberId}"></div><br>
-				이름 :
-				<div style="display: inline;" th:text="${member.memberName}"></div><br>
-				닉네임 :
-				<div style="display: inline;" th:text="${member.memberNickname}"></div><br>
-				주소 :
-				<div
-					style="display: inline;" th:text="${member.memberSido}+${member.memberSigungu}+${member.memberBname}"></div><br>
-				이메일 :
-				<div style="display: inline;" th:text="${member.memberEmail}"></div><br>
-				고유번호:
-				<div style="display: inline;" th:text="${member.memberUniqueNo}"></div><br>
-				핸드폰번호 :
-				<div style="display: inline;" th:text="${member.memberPhone}"></div><br>
-				가입날짜 :
-				<div style="display: inline;" th:text="${member.memberDate}"></div><br>				
-			</div>
-			
-			<p>(Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+				<div style="font-size:large; font-weight:bold;">
+					아이디
+					<input type="text" readonly="readonly" th:value="${member.memberId}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					이름
+					<input type="text" readonly="readonly" th:value="${member.memberName}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					닉네임
+					<input type="text" readonly="readonly" th:value="${member.memberNickname}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					주소
+					<input type="text" readonly="readonly" th:value="${member.memberSido}+' '+${member.memberSigungu}+' '+${member.memberBname}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					이메일
+					<input type="text" readonly="readonly" th:value="${member.memberEmail}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					핸드폰번호
+					<input type="text" readonly="readonly" th:value="${member.memberPhone}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					고유번호
+					<input type="text" readonly="readonly" th:value="${member.memberUniqueNo}" class="form-control">
+				</div>
+				<div style="font-size:large; font-weight:bold;">
+					가입날짜
+					<input type="text" readonly="readonly" th:value="${member.memberDate}" class="form-control">
+				</div><br>
+				<p><a style="color:black;"  class="btn btn-primary btn-lg btn-block" th:href="@{/modifyMember}">수정하기</a></p><br>
+				<p><a style="color:black;"  class="btn btn-danger btn-lg btn-block" th:href="@{/modifyMemberPw}">비밀번호 변경</a></p>
 		</div>
 	</div>
 <!-- //login -->

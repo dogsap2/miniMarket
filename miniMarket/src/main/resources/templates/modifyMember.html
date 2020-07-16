@@ -262,29 +262,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h2>나의 정보 수정</h2>
 			<form method="post" th:action="@{/modifyMember}">
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-						아이디 : <span th:text="${member.memberId}"></span><br>
-						<input type ="hidden" name="memberId" id="memberId" th:value="${member.memberId}"> 
-						고유번호: <span th:text="${member.memberUniqueNo}"></span><br>
-						이메일 : <span th:text="${member.memberEmail}"></span><br>
-						이름:<input type="text" style="width: 270px; display:inline;" th:value="${member.memberName}" name="memberName"><br>
-						핸드폰번호 :<input id="checkMemberPhone"  name="memberPhone" style="width:270px; display:inline;" type="text" th:value="${member.memberPhone}"><br>				
-						<span id="memberPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>					
-						 동네:
-						 <input style="width: 270px; display:inline;" type="text" id="address"
-						 th:value="${member.memberSido}+${member.memberSigungu}+${member.memberBname}" name="memberAdress">
-						<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="동네검색" name=""><br>
-						<!-- 이메일 일단은 수정불가 -->
-						
-						
-						<!-- 동네 주소값 히든으로 받아 넘기기  -->
-						<input type ="hidden" name="memberSido" id="memberSido"   th:value="${member.memberSido}">
-               	 		<input type ="hidden" name="memberSigungu" id="memberSigungu" th:value="${member.memberSigungu}">
-                		<input type ="hidden" name="memberBname" id="memberbname" th:value="${member.memberBname}">
-                		
-                		<input type="submit" id="Form123" value="수정완료">
+				<div style="font-size:large; font-weight:bold;">이름
+					<input type="text" style="display:inline;" th:value="${member.memberName}" name="memberName" class="form-control">
+				</div><br>
+				<div style="font-size:large; font-weight:bold;">핸드폰번호
+					 <input id="checkMemberPhone"  name="memberPhone" style="display:inline;" type="text" th:value="${member.memberPhone}" class="form-control">
+				</div>
+				<span id="memberPhoneCheckHelper"></span><!-- 공백일경우 메세지 안내뜸 --><br>				
+				<div style="font-size:large; font-weight:bold;">동네
+					<input class="form-control" style="display:inline;" type="text" id="address" th:value="${member.memberSido}+' '+${member.memberSigungu}+' '+${member.memberBname}" name="memberAdress">
+				</div>
+				
+				<input style="display:inline;" type="button" onclick="execDaumPostcode()" value="동네검색" name=""><br>
+				<!-- 이메일 일단은 수정불가 -->
+				<!-- 동네 주소값 히든으로 받아 넘기기  -->
+				<input type ="hidden" name="memberSido" id="memberSido"   th:value="${member.memberSido}">
+      	 		<input type ="hidden" name="memberSigungu" id="memberSigungu" th:value="${member.memberSigungu}">
+           		<input type ="hidden" name="memberBname" id="memberbname" th:value="${member.memberBname}">
+           		<input type="submit" id="Form123" value="수정완료">
 			</div>
 			</form>
-			<p><a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->
