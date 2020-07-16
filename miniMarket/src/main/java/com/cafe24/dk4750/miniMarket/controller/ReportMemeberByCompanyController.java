@@ -53,7 +53,12 @@ public class ReportMemeberByCompanyController {
 		return "getReportMemberByCompanyList";
 	}
 	@GetMapping("/memberByCompanyReport")
-	public String addReport() {
+	public String addReport(@RequestParam("companyUniqueNo") String companyUniqueNo, Model model) {
+		System.out.println(companyUniqueNo+"<---신고당한 업체 고유 번호");
+		String companyName = reportMemberByCompanyService.getCompanyName(companyUniqueNo);
+		System.out.println(companyName);
+		
+		model.addAttribute("companyUniqueNo", companyUniqueNo);
 		return "memberByCompanyReport";
 	}
 	@PostMapping("/memberByCompanyReport")

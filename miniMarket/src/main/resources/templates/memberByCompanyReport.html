@@ -6,7 +6,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html>
 <head>
 <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
 <!-- for-mobile-apps -->
@@ -251,6 +250,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	                              <div>내부적으로 검토하여 신고 항목 개선에 활용됩니다.</div>
 									<textarea rows="10" cols="70" name="reportContent" placeholder="정확한 내용을 입력해 주세요" id="reportContent"></textarea>
 	                           </div>
+	                           		<input type="hidden" name="companyItemNo" th:value="${companyItemNo}">
 									<div>
 										<button type="button" id="preBtn">이전</button>
 										<button type="button" id="submitBtn">전송</button>
@@ -260,7 +260,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 							<div align="center">
-								<h3>멤버 ' '를 신고하는 이유를 선택해주세요</h3>
+								<h3>업체 '  '를 신고하는 이유를 선택해주세요</h3>
 								<br><br>
 								<form method="post" action="/memberByCompanyReport" id="memberByMemberReportForm">
 									<div id="merberTitle">
@@ -322,7 +322,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                           	 			
                           	 		</div>
                           	 		<div>
-                          	 			
+                       					<input type="hidden" name="companyUniqueNo" th:value="${companyUniqueNo}">
                           	 			<button type="button" id="memSubmitBtn">전송</button>
                           	 		</div>
 								</form>

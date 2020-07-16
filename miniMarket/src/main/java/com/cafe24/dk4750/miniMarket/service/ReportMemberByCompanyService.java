@@ -18,7 +18,11 @@ import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem;
 public class ReportMemberByCompanyService {
 	@Autowired
 	private ReportMemberByCompanyMapper reportMemberByCompanyMapper;
-	
+		//멤버 네임 불러오기
+		public String getCompanyName(String companyUniqueNo) {
+			String companyName = reportMemberByCompanyMapper.selectCompanyName(companyUniqueNo);
+			return companyName;
+		}
 		// 신고 total 리스트 (페이징)
 		public Map<String, Object> getReportMemberByCompanyList(int currentPage, String reportState) {
 			int rowPerPage = 10;

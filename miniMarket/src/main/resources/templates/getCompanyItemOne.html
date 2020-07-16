@@ -60,5 +60,15 @@
 			</tr>
 		</tbody>
 	</table>
+	<!-- 업체 홍보글 신고하기 버튼 업체글 번호 넘김-->
+	<div>
+		<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo})}" class="btn">업체게시글 신고하기</a>
+		<label th:text="${companyItemOne.companyItemNo}"></label>
+	</div>
+	<!-- 업체 신고하기 버튼 업체 유니크 넘버 넘김-->
+	<div>
+		<a th:href="@{/memberByCompanyReport(companyUniqueNo=${companyItemOne.companyUniqueNo})}" class="btn">업체 신고하기</a>
+		<label th:text="${companyItemOne.companyUniqueNo}"></label>
+	</div>
 </body>
 </html>

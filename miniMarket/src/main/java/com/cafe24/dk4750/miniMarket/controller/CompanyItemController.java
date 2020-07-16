@@ -74,6 +74,7 @@ public class CompanyItemController {
 	@GetMapping("/getCompanyMyItemOne")
 	public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo) {
 		// 세션이 없다면 index로 리턴
+		System.out.println(companyUniqueNo+"<---상세보기 유니크 넘버");
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
 			return "index";
 		}
@@ -94,7 +95,10 @@ public class CompanyItemController {
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
+		
+		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
+		companyItemOne.setCompanyItemNo(companyItemNo);
+		companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
 		model.addAttribute("companyItemOne", companyItemOne);
 		System.out.println(companyItemNo+"<-=-0-=0-=0=-0=-0=-0-=0=-0-=0=");
 		System.out.println(companyItemOne+"<====해당업체의 정보들");

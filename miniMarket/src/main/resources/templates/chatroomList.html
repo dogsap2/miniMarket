@@ -274,11 +274,11 @@
 									<img th:src="@{/images/}+${list.profilePic}" class="rounded-circle user_img">
 									<span th:class="${list.chatroomActive} == connect ? online_icon : offline_icon"></span>
 								</div>
-								<div class="user_info" id="user">
-									<div th:if="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
+								<div class="user_info">
+									<div th:if="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px; "id="user">
 										<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 									</div>
-									<div th:unless="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
+									<div th:unless="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;" id="user">
 									<a href="#" id="href" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" style="color: rgba(255,255,255,0.6);" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 									</div>
 									<!-- 연결 상태별 -->
@@ -314,7 +314,7 @@
 		$(document).ready(function() {
 	        $("#keyword").on("keyup", function() {
 	        	 var k = $(this).val().toLowerCase();
-	        	 $("#user #href").filter(function() {
+	        	 $("#user a").filter(function() {
 				    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 				 });
 	        });

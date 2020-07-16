@@ -10,6 +10,8 @@ import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyAndCompany;
 
 @Mapper
 public interface ReportMemberByCompanyMapper {
+	//업체 네임 불러오기
+	public String selectCompanyName(String companyUniqueNo);
 	// 멤버가 업체 신고시
 	public int insertReportMemberByCompany(ReportMemberByCompany reportMemberByCompany);
 	// 신고 total리스트 출력

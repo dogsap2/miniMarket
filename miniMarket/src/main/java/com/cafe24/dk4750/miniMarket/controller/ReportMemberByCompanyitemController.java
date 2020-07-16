@@ -2,6 +2,8 @@ package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.ReportMemberByCompanyItemService;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyItemAndCompanyItem;
 
@@ -50,12 +53,18 @@ public class ReportMemberByCompanyitemController {
 		return "getReportMemberByCompanyItemList";
 	}
 	@GetMapping("/memberByCompanyItemReport")
-	public String addReport() {
+	public String addReport(@RequestParam("companyItemNo") int companyItemNo, Model model) {
+		System.out.println(companyItemNo+"<---no 값 확인");
+		model.addAttribute("companyItemNo", companyItemNo);
 		return "memberByCompanyReport";
 	}
 	@PostMapping("/memberByCompanyItemReport")
-	public String addReport(ReportMemberByCompanyItem reportMemberByCompanyItem) {
+	public String addReport(HttpSession session , ReportMemberByCompanyItem reportMemberByCompanyItem) {
 		System.out.println(reportMemberByCompanyItem);
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		reportMemberByCompanyItem.setMemberId(memberId);
+		reportMemberByCompanyItemService.addReportMemberByCompanyItem(reportMemberByCompanyItem);
+		
 		return "redirect:/memberByCompanyReport";
 	}
 }
