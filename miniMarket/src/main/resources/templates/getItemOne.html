@@ -217,9 +217,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 		<td colspan="2"><br><br>
 			<hr>
-			<img class='rounded' th:src="@{'/images/'+${getItemOne.profilePic}}" width="70" height="70">
-			&nbsp;&nbsp;<span th:text="${getItemOne.memberNickname}" style="font-weight:bold; font-size:x-large"></span>
-			<span th:text="${getItemOne.memberBname}"></span>
+			<a th:href="@{/getProfile(memberUniqueNo=${getItemOne.memberUniqueNo}, memberId=${getItemOne.memberId})}" style="color: black">
+				<img class='rounded' th:src="@{'/images/'+${getItemOne.profilePic}}" width="70" height="70">
+				&nbsp;&nbsp;<span th:text="${getItemOne.memberNickname}" style="font-weight:bold; font-size:x-large"></span>
+				<span th:text="${getItemOne.memberBname}"></span>
+			</a>
 			<hr>
 		</td>
 		<td colspan="1" style="text-align:left; font-weight:bold;">매너온도

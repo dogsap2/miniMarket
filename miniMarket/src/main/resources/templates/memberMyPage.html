@@ -159,12 +159,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- 프로필 사진 -->
 	<br>
 	<br>
-	<div>	
+	<div>
 	<img th:src="@{${'/images/'+memberPic}}" width="200" height="200" class='rounded'>	
 	</div>
 	<br>
 	<h4>닉네임<br>
-	<span th:text="${memberNick}"></span></h4>
+	<span th:text="${memberNick}"></span></h4><br>
+	<a th:href="@{/getProfile(memberUniqueNo=${session.loginMember.memberUniqueNo}, memberId=${session.loginMember.memberId})}" class="btn btn-primary" style="width:300px">프로필 보기</a><br><br>
 	<br>
 	<a class="btn btn-warning" th:href="@{/getMemberOne}">내정보</a>
 	<a class="btn btn-warning" th:href="@{/modifyMemberNickAndPic}">프로필 사진 수정</a>

@@ -18,12 +18,41 @@ import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
 import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
+import com.cafe24.dk4750.miniMarket.vo.MemberTempTotal;
 
 
 
 @Controller
 public class MemberController {
 	@Autowired private MemberService memberService; 
+	
+	// 회원의 프로필 보기
+	@GetMapping("/getProfile")
+	public String getProfile(Model model, @RequestParam(value="memberUniqueNo") String memberUniqueNo, @RequestParam(value="memberId") String memberId) {
+		System.out.println("getProfile 시작");
+		System.out.println(memberUniqueNo + " <== 멤버 유니크넘버 넘어온 값");
+		System.out.println(memberId + " <== 멤버 아이디 넘어온 값");
+		
+		// 닉네임 불러오기
+		String memberNickname = memberService.getMemberNickname(memberUniqueNo);
+		System.out.println(memberNickname + " <== 멤버 닉네임 디버깅");
+		// 멤버 프로필사진 가져오기
+		String profilePic = memberService.getMemberProfile(memberId);
+		System.out.println(profilePic + " <== 멤버 프로필사진");
+		// 멤버의 현재 매너온도 가져오기
+		double tempTotal = memberService.getTempTotalNow(memberUniqueNo);
+		System.out.println(tempTotal + " <== 매너온도");
+		// 매너 카운트 구해오기
+		Map<String, Object> map = memberService.getMannerContentCount(memberUniqueNo);
+		
+		// 모델에 담기
+		model.addAttribute("tempTotal", tempTotal);
+		model.addAttribute("memberNickname", memberNickname);
+		model.addAttribute("profilePic", profilePic);
+		model.addAttribute("map", map);
+		
+		return "getProfile";
+	}
 	
 	//어바웃
 	   @GetMapping("/about")

@@ -3,6 +3,8 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberReviewMapper">
+	<!--  -->
+	
 	
 	<!-- 인설트 리뷰 -->
 	<insert id="insertReview" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberReview">

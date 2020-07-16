@@ -14,8 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cafe24.dk4750.miniMarket.mapper.MemberInterestPlaceMapper;
+import com.cafe24.dk4750.miniMarket.mapper.MannerMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberMapper;
+import com.cafe24.dk4750.miniMarket.mapper.MemberTempTotalMapper;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
 import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
@@ -26,9 +27,43 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 @Transactional
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
+	@Autowired private MemberTempTotalMapper memberTempTotalMapper;
+	@Autowired private MannerMapper mannerMapper;
 	@Autowired private JavaMailSender javaMailSender;//@Conponent	
 	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 멤버 매너평가 콘텐츠 갯수 가져오기
+	public Map<String, Object> getMannerContentCount(String memberUniqueNo) {
+		
+		int count1 = mannerMapper.selectMannerContentCount1(memberUniqueNo);
+		int count2 = mannerMapper.selectMannerContentCount2(memberUniqueNo);
+		int count3 = mannerMapper.selectMannerContentCount3(memberUniqueNo);
+		int count4 = mannerMapper.selectMannerContentCount4(memberUniqueNo);
+		int count5 = mannerMapper.selectMannerContentCount5(memberUniqueNo);
+		int count6 = mannerMapper.selectMannerContentCount6(memberUniqueNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count1", count1);
+		map.put("count2", count2);
+		map.put("count3", count3);
+		map.put("count4", count4);
+		map.put("count5", count5);
+		map.put("count6", count6);
+		
+		return map;
+	}
+	
+	// 멤버 템프 토탈 가져오기
+	public double getTempTotalNow(String memberUniqueNo) {
+		return memberTempTotalMapper.selectTempTotalNow(memberUniqueNo);
+	}
+	
+	// 멤버아이디로 프로필사진 구하기
+	public String getMemberProfile(String memberId) {
+			
+		return memberMapper.selectMemberProfile(memberId);
+	}
 	
 	// 멤버 유니크넘버로 멤버 닉네임 구하기
 	public String getMemberNickname(String memberUniqueNo) {

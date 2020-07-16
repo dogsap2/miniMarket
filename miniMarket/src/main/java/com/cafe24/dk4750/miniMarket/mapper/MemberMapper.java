@@ -9,6 +9,9 @@ import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
 
 @Mapper
 public interface MemberMapper {	
+	// 멤버아이디로 사진 구하기
+	public String selectMemberProfile(String memberId);
+	
 	// 멤버 유니크넘버로 멤버 닉네임 가져오기
 	public String selectMemberNickname(String memberUniqueNo);
 	
