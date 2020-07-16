@@ -10,6 +10,7 @@ public class Chatroom {
    private String memberItemTitle;
    private String memberNickname;
    private String memberItemState;
+   private String profilePic;
 public int getChatroomNo() {
 	return chatroomNo;
 }
@@ -64,13 +65,21 @@ public String getMemberItemState() {
 public void setMemberItemState(String memberItemState) {
 	this.memberItemState = memberItemState;
 }
+public String getProfilePic() {
+	return profilePic;
+}
+public void setProfilePic(String profilePic) {
+	this.profilePic = profilePic;
+}
 @Override
 public String toString() {
 	return "Chatroom [chatroomNo=" + chatroomNo + ", nickname=" + nickname + ", memberUniqueNo=" + memberUniqueNo
 			+ ", memberId=" + memberId + ", chatroomActive=" + chatroomActive + ", memberItemNo=" + memberItemNo
 			+ ", memberItemTitle=" + memberItemTitle + ", memberNickname=" + memberNickname + ", memberItemState="
-			+ memberItemState + "]";
+			+ memberItemState + ", profilePic=" + profilePic + "]";
 }
+   
+   
   
    
 }
