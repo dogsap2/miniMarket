@@ -115,6 +115,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li class="active"><a th:href="@{index}" class="act">Home</a></li>	
 						<!-- Mega Menu -->
 						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">회원 관리<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>회원 / 업체</h6>
+											<li><a th:href="@{getAdminMemberList}">회원</a></li>
+											<li><a th:href="@{getAdminCompanyList}">업체</a></li>
+										</ul>
+									</div>	
+								</div>
+							</ul>
+						</li>
+						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">신고 리스트<b class="caret"></b></a>
 							<ul class="dropdown-menu multi-column columns-3">
 								<div class="row">

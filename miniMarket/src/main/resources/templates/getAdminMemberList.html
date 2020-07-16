@@ -37,9 +37,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 	$(document).ready(function(){
-		$('#StateBtn').click(function(){
-			console.log('조회');
-			$('#reportStateForm').submit();
+		$('#searchBtn').click(function(){
+			console.log('변경');
+			$('#searchForm').submit();
 		});
 	});
 </script>
@@ -121,8 +121,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
 											<h6>회원 / 업체</h6>
-											<li><a th:href="@{getAdminMemberList}">회원</a></li>
-											<li><a th:href="@{getAdminCompanyList}">업체</a></li>
+											<li><a th:href="@{getReportMemberByMemberList}">회원</a></li>
+											<li><a th:href="@{getReportMemberByMemberItemList}">업체</a></li>
 										</ul>
 									</div>	
 								</div>
@@ -155,39 +155,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- top-brands -->
 	<div class="top-brands">
 		<div class="container">
-		<h2>회원 -> 회원 아이템 신고 List</h2>
+		<h2>회원 관리</h2>
 			<div class="grid_3 grid_5" align="center">
-				<br>
-				<form method="get" th:action="@{getReportMemberByMemberItemList}" id="reportStateForm">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>이메일</th>
+							<th>가입날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="memberList : ${memberList}">
+							<td><a th:href="@{getAdminMemberListOne(memberId=${memberList.memberId})}" th:text="${memberList.memberId}"></a></td>
+							<td th:text="${memberList.memberEmail}"></td>
+							<td th:text="${#strings.substring(memberList.memberDate,0,10)}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 검색 -->
+				<form method="get" th:action="@{getAdminMemberList}" id="searchForm">
 					<div>
-						<select name="reportState">
-						    <option value="">상태 선택</option>
-						    <option value="">전체 보기</option>
-						    <option value="신고중">신고중</option>
-						    <option value="신고확인">신고확인</option>
-						    <option value="신고취소">신고취소</option>
-						</select>
-						<button type="button" id="StateBtn">조회</button>
+						<input type="text" name="searchWord" placeholder="아이디 검색">
+						<button type="button" id="searchBtn">검색</button>
 					</div>
 				</form>
 				<br>
-				<table border="1">
-					<tr>
-						<td>번호</td>
-						<td>제목</td>
-						<td>신고 날</td>
-						<td>신고 상태</td>
-					</tr>
-					<tr th:each="list : ${list}">
-						<td th:text="${list.reportNo}"></td>
-						<td><a th:href="@{getReportMemberByMemberItemListOne(reportNo = ${list.reportNo})}" th:text="${list.reportTitle}"></a></td>
-						<td th:text="${#strings.substring(list.reportDate,0,10)}"></td>
-						<td th:text="${list.reportState}"></td>
-					</tr>
-				</table>
-				<br>
-				<a th:if="${currentPage > 1}" th:href="@{getReportMemberByMemberItemList(currentPage=${currentPage - 1},reportState=${reportState})}" id="previous">이전</a>
-				<a th:if="${currentPage < lastPage}" th:href="@{getReportMemberByMemberItemList(currentPage=${currentPage + 1},reportState=${reportState})}" id="next">다음</a>			
+				<a th:if="${currentPage > 1}" th:href="@{getAdminMemberList(currentPage=${currentPage - 1},searchWord=${searchWord})}" id="previous">이전</a>
+				<a th:if="${currentPage < lastPage}" th:href="@{getAdminMemberList(currentPage=${currentPage + 1},searchWord=${searchWord})}" id="next">다음</a>
 			</div>
 		</div>
 	</div>

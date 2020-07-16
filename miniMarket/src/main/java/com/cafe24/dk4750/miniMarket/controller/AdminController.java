@@ -1,5 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +9,67 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.AdminService;
 import com.cafe24.dk4750.miniMarket.vo.Admin;
+import com.cafe24.dk4750.miniMarket.vo.Company;
 import com.cafe24.dk4750.miniMarket.vo.LoginAdmin;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
+import com.cafe24.dk4750.miniMarket.vo.Member;
 
 @Controller
 public class AdminController {
 	@Autowired private AdminService adminService;
 	
+	// 업체 목록 상세
+	@GetMapping("getAdminCompanyListOne")
+	public String getAdminCompanyListOne(Model model, @RequestParam(value="companyId") String companyId) {
+		Company company = adminService.getAdminCompanyListOne(companyId);
+		model.addAttribute("list", company);
+		
+		return "getAdminCompanyListOne";
+	}
+	// 회원 목록 상세
+	@GetMapping("getAdminMemberListOne")
+	public String getAdminMemberListOne(Model model, @RequestParam(value="memberId") String memberId) {
+		Member member = adminService.getAdminMemberListOne(memberId);
+		model.addAttribute("list", member);
+		
+		return "getAdminMemberListOne";
+	}
+	// 관리자용 업체 목록
+	@GetMapping("getAdminCompanyList")
+	public String getAdminCompanyList(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
+		System.out.println(currentPage + "<--getAdminCompanyList currentPage");
+		System.out.println(searchWord + "<--getAdminCompanyList searchWord");
+		Map<String, Object> map = adminService.getAdminCompanyList(currentPage, searchWord);
+		System.out.println(map.get("companyList") + "<--getAdminCompanyList companyList");
+		System.out.println(map.get("lastPage") + "<-- lastPage");
+		model.addAttribute("companyList", map.get("companyList"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("searchWord", searchWord);
+		
+		return "getAdminCompanyList";
+	}
+	// 관리자용 회원 목록
+	@GetMapping("getAdminMemberList")
+	public String getAdminMemberList(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
+		// 관리자만 접근 가능
+		
+		System.out.println(currentPage + "<--getAdminMemberList currentPage");
+		System.out.println(searchWord + "<--getAdminMemberList searchWord");
+		Map<String, Object> map = adminService.getAdminMemberList(currentPage, searchWord);
+		System.out.println(map.get("memberList") + "<--getAdminMemberList memberList");
+		System.out.println(map.get("lastPage") + "<-- lastPage");
+		model.addAttribute("memberList", map.get("memberList"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("searchWord", searchWord);
+		
+		return "getAdminMemberList";
+	}
 	// 로그인 폼 겟맵핑
 	@GetMapping("loginAdmin")
 	public String loginAdmin(HttpSession session) {
