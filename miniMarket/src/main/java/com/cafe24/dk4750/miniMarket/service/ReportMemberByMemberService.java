@@ -18,6 +18,12 @@ public class ReportMemberByMemberService {
 	@Autowired
 	private ReportMemberByMemberMapper reportMemberByMemberMapper;
 	
+	//멤버 이름 불러오기
+	public String getMemberName(String memberUniqueNo) {
+		String memberNickname = reportMemberByMemberMapper.selectMemberName(memberUniqueNo);
+		System.out.println(memberNickname);
+		return memberNickname;
+	}
 	// 신고 total 리스트 (페이징)
 	public Map<String, Object> getReportMemberByMemberList(int currentPage, String reportState) {
 		int rowPerPage = 10;

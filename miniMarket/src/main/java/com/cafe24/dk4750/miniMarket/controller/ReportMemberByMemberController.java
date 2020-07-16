@@ -2,6 +2,8 @@ package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,12 +52,22 @@ public class ReportMemberByMemberController {
 		return "getReportMemberByMemberList";
 	}
 	@GetMapping("/memberByMemberReport")
-	public String addReport() {
+	public String addReport(@RequestParam("memberUniqueNo") String memberUniqueNo, Model model) {
+		System.out.println(memberUniqueNo +"<--신고하려는 상대 고유 번호");
+		String memberNickname = reportMemberByMemberService.getMemberName(memberUniqueNo);
+		System.out.println(memberNickname+"<---memberNickname");
+		
+		model.addAttribute("memberNickname", memberNickname);
+		model.addAttribute("memberUniqueNo", memberUniqueNo);
 		return "memberByMemberReport";
 	}
 	@PostMapping("/memberByMemberReport")
-	public String addReport(ReportMemberByMember reportMemberByMember) {
+	public String addReport(HttpSession session , ReportMemberByMember reportMemberByMember) {
 		System.out.println(reportMemberByMember);
-		return "redirect:/memberByMemberReport";
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		reportMemberByMember.setMemberId(memberId);
+		reportMemberByMemberService.addReportMemberByMember(reportMemberByMember);
+		
+		return "redirect:/getMemberItemList";
 	}
 }

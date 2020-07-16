@@ -2,6 +2,8 @@ package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.ReportMemberByMemberItemService;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItem;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItemAndMemberItem;
 
@@ -54,12 +57,17 @@ public class ReportMemberByMemberitemController {
 	}
 	
 	@GetMapping("/memberByMemberItemReport")
-	public String addReport() {
+	public String addReport(@RequestParam("memberItemNo") String memberItemNo, Model model) {
+		System.out.println(memberItemNo+"<---memberItemNo 신고하려는 게시물 번호");
+		model.addAttribute("memberItemNo", memberItemNo);
 		return "memberByMemberReport";
 	}
 	@PostMapping("/memberByMemberItemReport")
-	public String addReport(ReportMemberByMemberItem reportMemberByMemberItem) {
+	public String addReport(HttpSession session , ReportMemberByMemberItem reportMemberByMemberItem) {
 		System.out.println(reportMemberByMemberItem);
-		return "redirect:/memberByMemberReport";
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		reportMemberByMemberItem.setMemberId(memberId);
+		reportMemberByMemberItemService.addReportMemberByMemberItem(reportMemberByMemberItem);
+		return "redirect:/getMemberItemList";
 	}
 }

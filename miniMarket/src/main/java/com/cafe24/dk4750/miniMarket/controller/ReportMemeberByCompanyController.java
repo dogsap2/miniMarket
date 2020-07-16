@@ -2,6 +2,8 @@ package com.cafe24.dk4750.miniMarket.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.ReportMemberByCompanyService;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompany;
 import com.cafe24.dk4750.miniMarket.vo.ReportMemberByCompanyAndCompany;
 
@@ -59,11 +62,15 @@ public class ReportMemeberByCompanyController {
 		System.out.println(companyName);
 		
 		model.addAttribute("companyUniqueNo", companyUniqueNo);
+		model.addAttribute("companyName", companyName);
 		return "memberByCompanyReport";
 	}
 	@PostMapping("/memberByCompanyReport")
-	public String addReport(ReportMemberByCompany reportMemberByCompany) {
+	public String addReport(HttpSession session , ReportMemberByCompany reportMemberByCompany) {
 		System.out.println(reportMemberByCompany);
-		return "redirect:/memberByCompanyReport";
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		reportMemberByCompany.setMemberId(memberId);
+		reportMemberByCompanyService.addReportMemberByCompany(reportMemberByCompany);
+		return "redirect:/getCompanyItemList";
 	}
 }

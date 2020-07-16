@@ -158,6 +158,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><!-- 채팅방 버튼 -->
 							<a th:href="@{/button}">채팅방</a>
 						</li>
+						
 						<li>
 							<a th:href>about</a>
 						</li>
@@ -281,9 +282,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="hidden" name="memberItemNo" th:value="${getItemOne.memberItemNo}">
 					<button type="submit" class="btn btn-info btn-lg">채팅으로 거래하기</button>
 				</form>
+
 				<form method="post" action="{#}" th:if="${LoginMemberId != getItemOne.memberId} AND ${chatRoomCheck > 0}">
 					<button type="submit" class="btn btn-info btn-danger" disabled="disabled">상대방과 거래중입니다.</button>
 				</form>
+				
+				<div>
+					<a th:href="@{memberByMemberItemReport(memberItemNo=${getItemOne.memberItemNo})}">게시물 신고하기</a>
+					<label th:text="${getItemOne.memberItemNo}"></label>
+				</div>
+				<div>
+					<a th:href="@{memberByMemberReport(memberUniqueNo=${getItemOne.memberUniqueNo})}">회원 신고하기 </a>
+					<label th:text="${getItemOne.memberUniqueNo}"></label>
+				</div>
 			</div>
 		</td>
 	</tr>
