@@ -11,8 +11,8 @@
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<!------ Include the above in your HEAD tag ---------->
-	<style>
-			body,html{
+<style>
+				body,html{
 			height: 100%;
 			margin: 0;
 			background: #7F7FD5;
@@ -133,33 +133,21 @@
 		right: 0.4em;
 		border:1.5px solid white;
 	}
-	.offline_icon{
-		position: absolute;
-		height: 15px;
-		width:15px;
+	.offline{
 		background-color: #c23616 !important;
-		border-radius: 50%;
-		bottom: 0.2em;
-		right: 0.4em;
-		border:1.5px solid white;
 	}
 	.user_info{
-		margin-top: auto; margin-bottom: auto; margin-left: 15px;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: 15px;
 	}
-	.span{
+	.user_info span{
 		font-size: 20px;
 		color: white;
 	}
-	.p{
-	margin-top: auto; margin-bottom: auto; margin-left: 15px;
+	.user_info p{
 	font-size: 10px;
 	color: rgba(255,255,255,0.6);
-	}
-	.right{
-		margin-right: 15px;
-		text-align: right;
-		font-size: 10px;
-		color: rgba(255,255,255,0.6);
 	}
 	.video_cam{
 		margin-left: 50px;
@@ -248,12 +236,7 @@
 		margin-bottom: 15px !important;
 	}
 	}
-	#href {
-	pointer-events: none;
-	cursor: default;
-	color: black;
-	}
-	</style>
+		</style>
 	</head>
 	<!--Coded With Love By Mutiullah Samim-->
 	<body>
@@ -268,15 +251,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="card-body contacts_body" th:each="list : ${list}">
+					<div class="card-body contacts_body">
 						<ui class="contacts">
-						<li class="active">
+						<li class="active" th:each="list : ${list}">
 							<div class="d-flex bd-highlight">
 								<div class="img_cont">
 									<img th:src="@{/images/}+default.jpg" class="rounded-circle user_img">
 									<span th:class="${list.chatroomActive} == connect ? online_icon : offline_icon"></span>
 								</div>
-								<div>
+								<div class="user_info">
 									<div th:if="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
 										<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 									</div>
@@ -302,7 +285,6 @@
 									</div>
 									<div th:if="${list.chatroomActive} == disconnect" class="right"><a th:href="@{chatList(chatroomNo = ${list.chatroomNo})}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;">내역보기</a></div>
 									<div th:unless="${list.chatroomActive} == disconnect" class="right">내역보기</div>
-									
 								</div>
 							</div>
 						</li>
