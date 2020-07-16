@@ -147,81 +147,74 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       </div>
    </div>
 <!-- //breadcrumbs -->
-	<!-- 카테고리별 -->
-	<div class="register">
-	<div class="container" align="center">
-	<h2>나의 관심동네</h2>
-	<br>
-	<!--<a th:href="@{/getItemListByCategory(categoryName='노트북')}">노트북</a><br>-->
-	<!-- 관심동네 리스트 -->
-	<a class = "btn btn-warning" th:href="@{/getItemListByPlace}">관심동네 중고물품</a>
-	<!-- 내 관심목록 아이템 -->
-	<a class = "btn btn-warning" th:href="@{/getMyLikeItem}">내 관심상품 목록</a>
-	<br>
-	<br>
-	<div class="snipcart-thumb">
-	<form method="get" th:action="@{/getMemberItemList}" id="searchForm">
-	<div>
-		<a th:if="${currentPage} != 1" th:href="@{/getMemberItemList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getMemberItemList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
-	</div>
-	<table border="1">
-			<tr>
-				<td>
-					<input type="text" name="searchWord" id="searchWord">
-					<button type="button" id="searchBtn">검색</button>
-				</td>
-			</tr>
-			<tr>	
-				<!-- 인덱스 번호가 0이 아니고 3으로 나눠서 0이면 밑으로 내리고싶
-				<th:block th:if="${list.index !=0 && list.index%3 ==0}">
-				</th:block> -->
-				<td th:each="ltem,list:${list}">
-				<!-- 3개이상 보여주면 아래로 내려야함 -->
-					<div>
-						<a th:href="@{/getItemOne(memberItemNo=${ltem.memberItemNo})}"><img th:src="@{'/images/'+${ltem.memberItemPic1}}" width="300" height="150"></a>
-					</div>
-					<div align="center">
-					    <strong><span th:text="${ltem.memberItemTitle}"></span></strong><br>
-						 <span th:text="${ltem.memberItemPrice}"></span>원<br>
-						 <span th:text="${ltem.memberItemDate}"></span><br>
-						 <span th:text="${ltem.memberBname}"></span><br>	 
-					</div>
-				</td>
-			</tr>
-	
-	<!-- 	<thead>
-			<tr>
-				<th>사진</th>
-				<th>제목</th>
-				<th>아이템가격</th>
-				<th>아이템 올린 날짜</th>
-				<th>판매지역</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="list:${list}">
-				<td>
-					<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}"><img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150"></a>
-				</td>
-				<td th:text="${list.memberItemTitle}"></td>
-				<td th:text="${list.memberItemPrice}"></td>
-				<td th:text="${list.memberItemDate}"></td>
-				<td th:text="${list.memberBname}"></td>	
-			</tr>	
-		</tbody> -->
-	</table>
-	</form>
-	</div>
-	</div>
-	</div>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-<!-- //footer -->
+   <!-- top-brands -->
+   <div class="top-brands">
+      <div class="container">
+      <h2>내동네 중고물품 목록</h2>
+      	<div align="center">
+      	<br>
+      	<a class = "btn btn-warning" th:href="@{/getItemListByPlace}">관심동네 중고물품</a>
+		<!-- 내 관심목록 아이템 -->
+		<a class = "btn btn-warning" th:href="@{/getMyLikeItem}">내 관심상품 목록</a>
+		</div>
+         <div class="grid_3 grid_5">
+         
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+               <ul  class="nav nav-tabs">
+               </ul>
+            <form method="get" th:action="@{/getMemberItemList}" id="searchForm">
+               <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+ 						<!-- 검색창 -->
+	                    <div align="right">
+							<input type="text" name="searchWord" id="searchWord">
+							<button class= "btn btn-warning" type="button" id="searchBtn">검색</button>
+						</div>
+                     <div class="agile_top_brands_grids">
+                        <div class="col-md-12 top_brand_center" align="center">
+                           <div class="hover14 column">
+                              <div class="agile_top_brand_left_grid">
+                                 <div class="agile_top_brand_left_grid1">
+                                    <figure>
+                                       <div class="snipcart-item block" >
+                                          <div class="snipcart-thumb" th:each=" list : ${list}">
+                                             <br>                                             
+                                             <br>
+                                             <a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
+                                                <img th:src="@{'/images/'+${list.memberItemPic1}}"
+                                                width="700" height="400">
+                                             </a>
+                                             <!-- <div th:text="${index.index}"></div> -->
+                                             <br>
+                                             <h2 style=" font-size: xx-large;" th:text="${list.memberItemTitle}"></h2>
+                                             <br>
+                                             <p style="color:#DF7401; display:inline;" th:text="${list.memberBname}"></p>
+                                             <p style="display:inline;" th:text="${list.memberItemDate}"></p>
+                                             <br>
+                                             <p style="display:inline;">판매금액</p>
+                                             <h4 style="display:inline; font-weight: bold; "th:text="${list.memberItemPrice}+원"></h4>
+                                             <hr> 
+                                          </div>
+                                          <div>
+												<a class= "btn btn-warning" th:if="${currentPage} != 1" th:href="@{/getMemberItemList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+												<a class= "btn btn-warning" th:if="${currentPage} != ${lastPage}" th:href="@{/getMemberItemList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+										  </div>                                          
+                                       </div>
+                                    </figure>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>                        
+                        
+                        <div class="clearfix"> </div>
+                     </div>
+                  </div>
+               </div>
+              </form>
+            </div>
+         </div>
+      </div>
+   </div>
 <div class="footer">      
       <div class="footer-copy">
          
