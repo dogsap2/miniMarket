@@ -38,41 +38,54 @@ public class MemberItemController {
 	
 	// 내가 좋아요한 리스트 보기
 	@GetMapping("/getMyLikeItem")
-	public String getMyLikeItem(HttpSession session, Model model) {
+	public String getMyLikeItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("getMyLikeItem 겟매핑 시작");
 		
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
+		System.out.println(beginRow +"<-----beginRow");
 		// 리스트 받아오기
-		List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> list = memberItemService.getMyLikeItem(session);
-		System.out.println(list + " <== 내 좋아요 목록 리스트");
+		Map<String , Object> map = memberItemService.getMyLikeItem(session, searchWord, beginRow, rowPerPage);
+		System.out.println(map + " <== 내 좋아요 목록 리스트");
 		
 		// 모델에 리스트 담아주기
-		model.addAttribute("list", list);
-		
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("currentPage", currentPage);
 		// 페이지요청
 		return "getMyLikeItem";
 	}
 	
 	// 관심동네 아이템 리스트 보기
 	@GetMapping("/getItemListByPlace")
-	public String getItemListByPlace(HttpSession session, Model model) {
+	public String getItemListByPlace(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("getItemListByPlace 컨트롤러 시작");
 		
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		
+		// rowPerPage, beginRow 설정
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
 		// 리스트 가져오기
-		List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> list = memberItemService.getItemListByPlace(session);
-		System.out.println(list);
+		Map<String , Object> map = memberItemService.getItemListByPlace(session, beginRow, rowPerPage, searchWord);
+		System.out.println(map+"값이 제대로 오는 확인하는 것");
 		
-		// 모델에 담아주기
-		model.addAttribute("list", list);
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("currentPage", currentPage);
 		
 		// 페이지요청
 		return "getItemListByPlace";
@@ -80,22 +93,27 @@ public class MemberItemController {
 	
 	// 카테고리별 동네 아이템 보기
 	@GetMapping("/getItemListByCategory")
-	public String getItemListByCategory(HttpSession session, Model model, String categoryName) {
+	public String getItemListByCategory(HttpSession session, Model model, String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getItemListByCategory 겟매핑 시작");
 		System.out.println(categoryName + " <== 카테고리 네임 디버깅");
-		
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		
+		// row
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
 		// 리스트 받아오기
-		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListByCategory(session, categoryName);
-		System.out.println(list + " <== 컨트롤러로 돌아온 카테고리별 리스트 디버깅");
+		Map<String , Object> map = memberItemService.getItemListByCategory(session, categoryName, beginRow, rowPerPage);
+		System.out.println(map + " <== 컨트롤러로 돌아온 카테고리별 리스트 디버깅");
 		
-		// model에 담기
-		model.addAttribute("list", list);
-		
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		System.out.println(map.get("totalRow")+"<----토탈로우 값 카테고리별 아이템 컨트롤러");
+		System.out.println(map.get("list"));
 		return "getItemListByCategory";
 	}
 	
@@ -169,25 +187,31 @@ public class MemberItemController {
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		
 		return "getBuyListByMember"; 
 	}
 	 
 	
 	// 나의 판매완료 아이템 리스트
 	@GetMapping("/getItemListBySaleMyItem")
-	public String getItemListBySaleMyItem(HttpSession session, Model model) {
+	public String getItemListBySaleMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
 		
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
 		// 내 판매완료 아이템 리스트 받아오기
-		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getItemListBySaleMyItem(session);
+		Map<String , Object> map = memberItemService.getItemListBySaleMyItem(session, beginRow, rowPerPage, searchWord);
 		
-		// 모델에 담아서 보내주기
-		model.addAttribute("list", list);
-		
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("currentPage", currentPage);
+
 		return "getItemListBySaleMyItem";
 	}
 	
@@ -299,18 +323,24 @@ public class MemberItemController {
 	
 	// 판매중인 동네 아이템 리스트 출력하기
 	@GetMapping("/getMemberItemList")
-	public String getMemberItemList(HttpSession session, Model model) {
+	public String getMemberItemList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("getMemberItemList 겟매핑 시작");
 		// 세션이 널일시 인덱스로 이동
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
-		
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
 		// 리스트 받아오기
-		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getMemberItemList(session);
+		Map<String , Object> map = memberItemService.getMemberItemList(session, beginRow, rowPerPage, searchWord);
 		
-		// list 모델에 담아서 페이지로 보내주기
-		model.addAttribute("list", list);
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("currentPage", currentPage);
 		
 		// 페이지 요청
 		return "getMemberItemList";

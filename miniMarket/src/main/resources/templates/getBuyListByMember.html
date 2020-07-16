@@ -6,13 +6,32 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+	/* <div>
+		<a th:if="${currentPage} != 1" th:href="@{/getNoticeList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getNoticeList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+	</div> */
+	/* <td>
+		<input type="text" name="searchWord" id="searchWord">
+		<button type="button" id="searchBtn">검색</button>
+	</td> */
+	
 	// list 뿌리기
 	$.ajax({
 		url:'/getBuyListByMember2',
 		type:'get',
 		success : function(data) {
-				$.each(data, function(index, item){
+				$.each(data.currentPage, function(index, c) {
+					$.each(data.lastPage, function(index, l) {
+						$.each(data.searchWord, function(index, search) {
+							$('#div').append('<a if="'+c.currentPage+'!=1'"  '>');
+							$('#div').append('이전</a>')
+						})
+					});
+				});
+				
+				$.each(data.list, function(index, item){
 					if(index%3 == 0) {
+						
 						$('#table').append('<tr>');
 						$('#table').append('<td><a href="/getItemOne?memberItemNo='+item.memberItemNo+'"><img width="300" height="150" src='+/images/+item.memberItemPic1+'></a></td>');
 						$('#table').append('<td>'+item.memberItemTitle+'</td>')

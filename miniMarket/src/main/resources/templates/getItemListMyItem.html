@@ -19,7 +19,7 @@
 			$('#table').append('<th>'+"아이템 올린 날짜"+'</th>');
 			$('#table').append('<th>'+"판매지역"+'</th>');
 			$('#table').append('</tr>');
-			$.each(data, function(index, item){
+			$.each(data.list, function(index, item){
 				$('#table').append('<tr>');
 				$('#table').append('<td><a href="/getItemOne?memberItemNo='+item.memberItemNo+'&pageCheck='+1+'"><img width="300" height="150" src='+/images/+item.memberItemPic1+'></a></td>');
 				$('#table').append('<td>'+item.memberItemTitle+'</td>')
@@ -36,5 +36,6 @@
 	<a th:href="@{/index}">home</a>
 	<table border="1" id="table">
 	</table>
+	
 </body>
 </html>

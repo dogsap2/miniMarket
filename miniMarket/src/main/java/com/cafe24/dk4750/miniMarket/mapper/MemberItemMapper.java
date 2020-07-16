@@ -13,6 +13,12 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberI
 
 @Mapper
 public interface MemberItemMapper {
+	// 멤버아이템의 총 갯수
+	public int totalMemberItem();
+	
+	// 검색한 멤버아이템의 갯수
+	public int totalMemberItemBySearch(String searchWord);
+	
 	// 게시글 상세보기
 	public MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike selectMemberItemOne(int memberItemNo);
 	

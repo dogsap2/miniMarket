@@ -45,33 +45,60 @@ public class MemberItemService {
 	private String path;
 	
 	// 내가 좋아요 한 아이템 리스트 출력
-	public List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> getMyLikeItem(HttpSession session) {
+	public Map<String, Object> getMyLikeItem(HttpSession session, String searchWord, int beginRow, int rowPerPage) {
 		System.out.println("getMyLikeItem 서비스 시작");
 		// 리스트 출력을위해 멤버 유니크넘버 보내주기
 		String memberUniqueNo = (String)((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
-		int beginRow = 0;
-		int rowPerPage = 10;
 		
 		// 임시로 값을 담아줄 map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberUniqueNo", memberUniqueNo);
+		// 몇번째부터..
 		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
 		map.put("rowPerPage", rowPerPage);
+		// 검색어!
+		map.put("searchWord", searchWord);
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = memberItemMapper.totalMemberItem();
+		} else {
+			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+		}
+		System.out.println(totalRow+"<----게시물 총합 수");
 		
-		// map을 매개변수로 보내주고 리스트 리턴받기
 		List<MemberItemAndMemberAndMemberItemPicAndMemberItemLike> list = memberItemMapper.selectMyLikeItem(map);
-		
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+		System.out.println(map2+"<-------멤버 아이템 서비스에 맵2값!!");
 		// 리턴
-		return list;
+		return map2;
 	}
 	
 	// 관심동네 아이템 리스트 보기
-	public List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> getItemListByPlace(HttpSession session) {
-		System.out.println("getItemListByPlace 서비스 시작");
-		String searchWord = "";
-		int beginRow = 0;
-		int rowPerPage = 10;
-		
+	public Map<String, Object> getItemListByPlace(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 몇번째부터..
+		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
+		map.put("rowPerPage", rowPerPage);
+		// 검색어!
+		map.put("searchWord", searchWord);
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = memberItemMapper.totalMemberItem();
+		} else {
+			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+		}
+		System.out.println(totalRow+"<----게시물 총합 수");
 		// 멤버 관심동네 가져오기
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		System.out.println(memberId + " <== getItemListByPlace 멤버 아이디 디버깅");
@@ -81,54 +108,61 @@ public class MemberItemService {
 		String memberBname = mip.getBname();
 		System.out.println(memberSigungu);
 		System.out.println(memberBname);
-		
-		// 임시 map타입 생성
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("searchWord", searchWord);
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage", rowPerPage);
 		map.put("memberSigungu", memberSigungu);
 		map.put("memberBname", memberBname);
-		
 		// 리스트 받아오기
 		List<MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic> list = memberItemMapper.selectItemListByPlace(map);
 		
-		return list;
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		// 임시 map타입 생성
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+
+		return map2;
 	}
 	
 	// 카테고리별 내동네 아이템 보기
-	public List<MemberItemAndMemberAndMemberItemPic> getItemListByCategory(HttpSession session, String categoryName) {
+	public Map<String, Object> getItemListByCategory(HttpSession session, String categoryName, int beginRow, int rowPerPage) {
 		System.out.println("카테고리별 list 서비스 시작");
-		
-		// beginRow, rowPerPage 임의로 정해주기
-		int beginRow = 0;
-		int rowPerPage = 10;
-		
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 몇번째부터..
+		map.put("beginRow", beginRow);
+		// 페이지당 갯수..
+		map.put("rowPerPage", rowPerPage);
+		int totalRow = 0;
+		totalRow = memberItemMapper.totalMemberItem();
 		// 세션에서 값 꺼내오기
 		String sigungu = ((LoginMember)session.getAttribute("loginMember")).getMemberSigungu();
 		String bname = ((LoginMember)session.getAttribute("loginMember")).getMemberBname();
-		String searchWord = "";
 		
 		System.out.println(categoryName);
 		System.out.println(sigungu);
 		System.out.println(bname);
-		
-		// 여러 값을 담아줄 임시 map 생성
-		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberSigungu", sigungu);
 		map.put("memberBname", bname);
 		map.put("categoryName", categoryName);
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage", rowPerPage);
-		map.put("searchWord", searchWord);
-		
 		// 리스트 불러오기
-		List<MemberItemAndMemberAndMemberItemPic> list = new ArrayList<MemberItemAndMemberAndMemberItemPic>();
-		list = memberItemMapper.selectItemListByCategory(map);
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListByCategory(map);
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		// 여러 값을 담아줄 임시 map 생성
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
 		System.out.println(list);
 		
 		// 리턴
-		return list;
+		return map2;
 	}
 	
 	// 아이템 상세보기 겟매핑.. 정보 넘겨주기
@@ -141,34 +175,44 @@ public class MemberItemService {
 	
 	
 	// 구매자의 구매완료 리스트
-	public List<ItemSoldout> getBuyListByMember(HttpSession session) {
+	public Map<String, Object> getBuyListByMember(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
 		
 		// 세션에서 받아온 유니크넘버
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
 		
-		int beginRow = 0;
-		int rowPerPage = 10;
-		String searchWord = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
 		map.put("searchWord", searchWord);
 		map.put("memberUniqueNo", memberUniqueNo);
-		
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = memberItemMapper.totalMemberItem();
+		} else {
+			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+		}
 		// 구매자의 구매완료 리스트
 		List<ItemSoldout> list = soldoutMapper.selectBuyListByMember(map);
-		
-		return list;
+		System.out.println(list+"구매자의 구매완료 리스트 서비스");
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+		System.out.println(map2+"맵2안에 리스트가 들어가는지 확인 구매자의 구매완료 리스트 서비스");
+		System.out.println(map+"맵안에 들어있는 정보들 구매완료 리스트 서비스");
+		return map2;
 	}
 	
 	// 나의 판매완료 목록 리스트
-	public List<MemberItemAndMemberAndMemberItemPic> getItemListBySaleMyItem(HttpSession session) {
+	public Map<String, Object> getItemListBySaleMyItem(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
 		
-		// 임시로 설정한 유니크넘버 번호
-		int beginRow = 0;
-		int rowPerPage = 10;
-		String searchWord = "";
 		// 세션에서 유니크넘버꺼내주기
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
@@ -177,11 +221,25 @@ public class MemberItemService {
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
 		map.put("searchWord", searchWord);
-		
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = memberItemMapper.totalMemberItem();
+		} else {
+			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+		}
 		// 리스트 불러오기
 		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListBySaleMyItem(map);
-		
-		return list;
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+		System.out.println(memberUniqueNo+"<--------판매자가 판매완료된 판매자의 고유 번호 나의판매완료 목록리스트 서비스");
+		System.out.println(list+"<-----------------------------판매자가 판매완료목록  나의판매완료 목록리스트 서비스");
+		return map2;
 	}
 	
 	// 판매자의 판매중인 아이템 판매완료로 수정
@@ -213,11 +271,8 @@ public class MemberItemService {
 		
 	
 	// 나의 판매중인 아이템 리스트 출력
-	public List<MemberItemAndMemberAndMemberItemPic> getItemListMyItem(HttpSession session) {
+	public Map<String, Object> getItemListMyItem(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
 		
-		int beginRow = 0;
-		int rowPerPage = 10;
-		String searchWord = "";
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -225,10 +280,22 @@ public class MemberItemService {
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
 		map.put("searchWord", searchWord);
-		
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = memberItemMapper.totalMemberItem();
+		} else {
+			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+		}
 		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListMyItem(map);
-		
-		return list;
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
+		return map2;
 	}
 	
 	// 멤버 아이템 추가
@@ -672,26 +739,37 @@ public class MemberItemService {
 	}
 	
 	// 판매중인 동네 아이템 리스트 출력
-	public List<MemberItemAndMemberAndMemberItemPic> getMemberItemList(HttpSession session) {
+	public Map<String, Object> getMemberItemList(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
 		// beginRow, rowPerPage, bname, sigungu 등 입력할 데이터 담아서 보내주기.
-		int beginRow = 0;
-		int rowPerPage = 10;
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberBname = loginMember.getMemberBname();
 		String memberSigungu = loginMember.getMemberSigungu();
-		String searchWord = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
 		map.put("memberBname", memberBname);
 		map.put("memberSigungu", memberSigungu);
 		map.put("searchWord", searchWord);
-		
+		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
+		int totalRow = 0;
+		if(searchWord.equals("")) {
+			totalRow = memberItemMapper.totalMemberItem();
+		} else {
+			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+		}
 		// 리스트 받아오기
 		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemList(map);
-		
+		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
+		int lastPage = totalRow / rowPerPage;
+		if(totalRow % rowPerPage !=0) {
+			lastPage += 1;
+		}
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("list", list);
+		map2.put("lastPage", lastPage);
+		map2.put("totalRow", totalRow);
 		// 리스트 리턴
-		return list;
+		return map2;
 	}
 	
 	

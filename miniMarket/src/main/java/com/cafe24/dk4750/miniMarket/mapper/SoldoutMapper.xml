@@ -38,6 +38,7 @@
 		ON i.member_item_no = ip.member_item_no
 		WHERE iso.member_unique_no = #{memberUniqueNo}
 		ORDER BY iso.soldout_no DESC
+		
 	</select>
 	
 	<!-- 구매완료 상품 리스트에서 삭제 -->

@@ -23,6 +23,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#searchBtn').click(function(){
+			if($('#searchWord').val() == ""){
+				alert("검색어를 입력해주세요");
+				$("#searchWord").focus();
+				return;
+			}
+			$("#searchForm").submit();
+		});
+	});
+</script>
 </head>
 <body>
 <!-- header -->
@@ -139,8 +151,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container" align="center">
 	<h2>내 판매완료 아이템 목록</h2>
 	<br>
+	<form method="get" th:action="@{/getItemListBySaleMyItem}" id="searchForm">
+	<div>
+		<a th:if="${currentPage} != 1" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+	</div>
 	<table border="1">
 		<thead>
+			<tr>
+				<td>
+					<input type="text" name="searchWord" id="searchWord">
+					<button type="button" id="searchBtn">검색</button>
+				</td>
+			</tr>
 			<tr>
 				<th>사진</th>
 				<th>제목</th>
@@ -161,6 +184,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</tr>
 		</tbody>
 	</table>
+	</form>
 	</div>
 	</div>
 		<br>

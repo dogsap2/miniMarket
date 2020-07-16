@@ -23,6 +23,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#searchBtn').click(function(){
+			if($('#searchWord').val() == ""){
+				alert("검색어를 입력해주세요");
+				$("#searchWord").focus();
+				return;
+			}
+			$("#searchForm").submit();
+		});
+	});
+</script>
 </head>
 <body>
    <!-- header -->
@@ -164,6 +176,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 					</ul>
 					<div id="myTabContent" class="tab-content">
+					<form method="get" th:action="@{/getMyLikeItem}" id="searchForm">
+						<div>
+							<a th:if="${currentPage} != 1" th:href="@{/getMyLikeItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+							<a th:if="${currentPage} != ${lastPage}" th:href="@{/getMyLikeItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+						</div>
+						<div>
+							<input type="text" name="searchWord" id="searchWord">
+							<button type="button" id="searchBtn">검색</button>
+						</div>
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
 							<div class="agile-tp">
 								
@@ -205,6 +226,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="clearfix"> </div>
 							</div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -229,7 +251,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<br>	
 				<br>
 			</div>
-		</div>		
+		</div>	
 	</div>
 	
 	

@@ -1,7 +1,6 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -25,10 +24,7 @@ public class NoticeController {
 	@GetMapping("/getNoticeList")
 	public String getNoticeList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null && session.getAttribute("loginAdmin") == null) {
-			return "index";
-		}
+		
 		LoginAdmin loginAdmin = (LoginAdmin)session.getAttribute("loginAdmin");
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
