@@ -4,38 +4,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#searchBtn').click(function(){
-			if($('#searchWord').val() == ""){
-				alert("검색어를 입력해주세요");
-				$("#searchWord").focus();
-				return;
-			}
-			$("#searchForm").submit();
-		});
-	});
-</script>
 </head>
 <body>
-	<ul>
-		<li>
-			<a th:href="@{/getCompanyItemListByCategory(categoryName='업체홍보')}" th:text="업체홍보"></a>
-		</li>
-	</ul>
-	<form method="get" th:action="@{/getPlaceByCompanyItemList}" id="searchForm">
 	<div >
 		<a th:if="${currentPage} > 1" th:href="@{/getPlaceByCompanyItemList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
 		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getPlaceByCompanyItemList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
 	</div>
 	<table border="1">
 		<thead>
-			<tr>
-				<td>
-					<input type="text" name="searchWord" id="searchWord">
-					<button type="button" id="searchBtn">검색</button>
-				</td>
-			</tr>
 			<tr>
 				<th>사진</th>
 				<th>제목</th>
@@ -60,6 +36,5 @@
 			</tr>
 		</tbody>
 	</table>
-	</form>
 </body>
 </html>

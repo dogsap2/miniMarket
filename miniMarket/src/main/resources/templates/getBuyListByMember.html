@@ -6,32 +6,22 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	/* <div>
-		<a th:if="${currentPage} != 1" th:href="@{/getNoticeList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} != ${lastPage}" th:href="@{/getNoticeList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
-	</div> */
-	/* <td>
-		<input type="text" name="searchWord" id="searchWord">
-		<button type="button" id="searchBtn">검색</button>
-	</td> */
-	
+/* 			$('#table').append('<tr>');
+			if(data.currentPage !=1) {
+				$('#table').append('<td><a href="/getBuyListByMember?currentPage='+(data.currentPage-1)+'">이전</a></td>');	
+			}
+			if(data.currentPage != data.lastPage) {
+				$('#table').append('<td><a href="/getBuyListByMember?currentPage='+(data.currentPage+1)+'">다음</a></td>');	
+			}  */
 	// list 뿌리기
 	$.ajax({
 		url:'/getBuyListByMember2',
+		
 		type:'get',
+		
 		success : function(data) {
-				$.each(data.currentPage, function(index, c) {
-					$.each(data.lastPage, function(index, l) {
-						$.each(data.searchWord, function(index, search) {
-							$('#div').append('<a if="'+c.currentPage+'!=1'"  '>');
-							$('#div').append('이전</a>')
-						})
-					});
-				});
-				
 				$.each(data.list, function(index, item){
 					if(index%3 == 0) {
-						
 						$('#table').append('<tr>');
 						$('#table').append('<td><a href="/getItemOne?memberItemNo='+item.memberItemNo+'"><img width="300" height="150" src='+/images/+item.memberItemPic1+'></a></td>');
 						$('#table').append('<td>'+item.memberItemTitle+'</td>')
@@ -46,9 +36,6 @@
 						$('#table').append('<td>'+item.memberItemDate+'</td>')
 						$('#table').append('<td><button type="button" id="mannerBtn'+item.memberItemNo+'" onclick="window.open(\'/addManner?memberItemNo='+item.memberItemNo+'&memberUniqueNo='+item.memberUniqueNo+'&memberUniqueNoSale='+item.memberUniqueNoSale+'\', \'매너평가\', \'width=510,height=750,location=no,status=no,scrollbars=yes\')">매너평가하기</button><br><button type="button" id="reviewBtn'+item.memberItemNo+'"  onclick="window.open(\'/addReview?memberItemNo='+item.memberItemNo+'&memberUniqueNo='+item.memberUniqueNo+'&memberUniqueNoSale='+item.memberUniqueNoSale+'\', \'매너평가\', \'width=510,height=750,location=no,status=no,scrollbars=yes\')">리뷰작성하기</button></td>')
 					}
-					
-					
-					
 					// manner 평가 했는지 check.
 					$.ajax({
 						url:'/mannerCheck',
@@ -98,5 +85,6 @@
 <body>
 	<table id="table">
 	</table>
+	
 </body>
 </html>

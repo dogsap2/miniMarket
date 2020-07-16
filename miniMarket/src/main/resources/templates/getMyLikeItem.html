@@ -23,18 +23,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#searchBtn').click(function(){
-			if($('#searchWord').val() == ""){
-				alert("검색어를 입력해주세요");
-				$("#searchWord").focus();
-				return;
-			}
-			$("#searchForm").submit();
-		});
-	});
-</script>
 </head>
 <body>
    <!-- header -->
@@ -176,14 +164,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 					</ul>
 					<div id="myTabContent" class="tab-content">
-					<form method="get" th:action="@{/getMyLikeItem}" id="searchForm">						
-						<div align="right">
-							<input  style="width: 300px; height: 35px; display: inline;" class="form-control"  type="text" name="searchWord" id="searchWord" placeholder="검색어를 입력해주세요">
-							<button   class="btn btn-warning" style="display: inline;" type="button" id="searchBtn">검색</button>
-						</div>
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
 							<div class="agile-tp">
-								
 							</div>
 							<div class="agile_top_brands_grids">
 								<div class="col-md-12 top_brand_center" align="center">
@@ -223,7 +205,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="clearfix"> </div>									
 							</div>
 						</div>
-						</form>
 					</div>
 				</div>
 			</div>
