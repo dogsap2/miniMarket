@@ -223,9 +223,10 @@ public class MemberItemService {
 		map.put("searchWord", searchWord);
 		int totalRow = 0;
 		if(searchWord.equals("")) {
-			totalRow = memberItemMapper.totalMemberItem();
+			totalRow = memberItemMapper.totalSoldMemberItem();
+			System.out.println(totalRow+"<=====total");
 		} else {
-			totalRow = memberItemMapper.totalMemberItemBySearch(searchWord);
+			totalRow = memberItemMapper.totalSoldMemberItemBySearch(searchWord);
 		}
 		// 리스트 불러오기
 		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListBySaleMyItem(map);
@@ -233,6 +234,7 @@ public class MemberItemService {
 		if(totalRow % rowPerPage !=0) {
 			lastPage += 1;
 		}
+		System.out.println(lastPage+"<=====lastPage");
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("list", list);
 		map2.put("lastPage", lastPage);
