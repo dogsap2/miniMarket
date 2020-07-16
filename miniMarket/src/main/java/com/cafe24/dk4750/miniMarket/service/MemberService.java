@@ -3,6 +3,7 @@ package com.cafe24.dk4750.miniMarket.service;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,12 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.dk4750.miniMarket.mapper.MannerMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberMapper;
+import com.cafe24.dk4750.miniMarket.mapper.MemberReviewMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberTempTotalMapper;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
 import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic2;
+import com.cafe24.dk4750.miniMarket.vo.MemberReview;
 
 @Service
 @Transactional
@@ -29,9 +32,18 @@ public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private MemberTempTotalMapper memberTempTotalMapper;
 	@Autowired private MannerMapper mannerMapper;
+	@Autowired private MemberReviewMapper memberReviewMapper;
 	@Autowired private JavaMailSender javaMailSender;//@Conponent	
 	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
+	
+	// 멤버 리뷰 리스트 가져오기
+	public List<MemberReview> getReviewAll(String memberUniqueNo) {
+		
+		List<MemberReview> list = memberReviewMapper.selectReviewAll(memberUniqueNo);
+		
+		return list;
+	}
 	
 	// 멤버 매너평가 콘텐츠 갯수 가져오기
 	public Map<String, Object> getMannerContentCount(String memberUniqueNo) {

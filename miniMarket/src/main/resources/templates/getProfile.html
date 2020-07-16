@@ -238,7 +238,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   		<h1 style="font-size:large; font-weight:bold; font-size:xx-large; width:300px;">받은 리뷰 후기</h1><br>
   	</div>
   	<table style="margin-left: auto; margin-right: auto;">
-  		<tr>
+  		<tr th:each="list : ${list}">
+  			<td>
+  				<div style="background-color:#FAECC5; width:700px"><br>
+	  				<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  					<span th:text="${list.memberReviewContent}" style="font-weight:bold; font-size:x-large;"></span>
+	  				</div>
+	  				<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  					<span th:text="${list.memberReviewDate}" style="font-weight:bold;"></span>
+	  				</div><br>
+  				</div><br>
+  			</td>
+  		</tr>
   	</table>
 </body>
 <!-- //footer -->

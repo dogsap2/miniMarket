@@ -1,8 +1,8 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import java.util.List;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
 import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
-import com.cafe24.dk4750.miniMarket.vo.MemberTempTotal;
+import com.cafe24.dk4750.miniMarket.vo.MemberReview;
 
 
 
@@ -28,8 +28,12 @@ public class MemberController {
 	
 	// 회원의 프로필 보기
 	@GetMapping("/getProfile")
-	public String getProfile(Model model, @RequestParam(value="memberUniqueNo") String memberUniqueNo, @RequestParam(value="memberId") String memberId) {
+	public String getProfile(Model model, @RequestParam(value="memberUniqueNo") String memberUniqueNo, @RequestParam(value="memberId") String memberId, HttpSession session) {
 		System.out.println("getProfile 시작");
+		 // 세션이 널일경우
+	     if(session.getAttribute("loginMember") == null){ 
+	    	 return "redirect:/index";
+	     }   
 		System.out.println(memberUniqueNo + " <== 멤버 유니크넘버 넘어온 값");
 		System.out.println(memberId + " <== 멤버 아이디 넘어온 값");
 		
@@ -45,11 +49,14 @@ public class MemberController {
 		// 매너 카운트 구해오기
 		Map<String, Object> map = memberService.getMannerContentCount(memberUniqueNo);
 		
+		List<MemberReview> list = memberService.getReviewAll(memberUniqueNo);
+		
 		// 모델에 담기
 		model.addAttribute("tempTotal", tempTotal);
 		model.addAttribute("memberNickname", memberNickname);
 		model.addAttribute("profilePic", profilePic);
 		model.addAttribute("map", map);
+		model.addAttribute("list", list);
 		
 		return "getProfile";
 	}
