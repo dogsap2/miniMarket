@@ -107,8 +107,7 @@ public class CompanyItemController {
 	
 	// 홍보중인 업체 아이템 카테고리별 출력하기
 	@GetMapping("/getCompanyItemListByCategory")
-	public String getCompanyItemListByCategory(HttpSession session, Model model, @RequestParam("categoryName") String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+	public String getCompanyItemListByCategory(HttpSession session, Model model, @RequestParam("categoryName") String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage){
 		System.out.println("getCompanyItemListByCategory<==겟메핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
@@ -173,8 +172,7 @@ public class CompanyItemController {
 	
 	// 관심동네중에 홍보중인 업체 아이템 리스트 출력하기
 	@GetMapping("/getPlaceByCompanyItemList")
-	public String getPlaceByCompanyItemList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+	public String getPlaceByCompanyItemList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getPlaceByCompanyItemList<==겟맵핑 시작");
 		// 세션이 없다면 인덱스로 
 		if(session.getAttribute("loginMember") == null) {
@@ -183,19 +181,17 @@ public class CompanyItemController {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 관심동네중에 홍보중인 업체 아이템 리스트 출력
-		Map<String , Object> map  =  companyItemService.getPlaceByCompanyItemList(session, beginRow, rowPerPage, searchWord);
+		Map<String , Object> map  =  companyItemService.getPlaceByCompanyItemList(session, beginRow, rowPerPage);
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 		return "getPlaceByCompanyItemList";
 	}
 	
 	// 내가 좋아요한 업체 아이템 리스트 출력하기
 	@GetMapping("/getMyLikeCompanyItem")
-	public String getMyLikeCompanyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+	public String getMyLikeCompanyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getMyLikeCompanyItem<==겟메핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
@@ -204,13 +200,12 @@ public class CompanyItemController {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 좋아요한 아이템 리스트 출력하기
-		Map<String , Object> map2 = companyItemService.getMyLikeCompanyItem(session, beginRow, rowPerPage, searchWord);
+		Map<String , Object> map2 = companyItemService.getMyLikeCompanyItem(session, beginRow, rowPerPage);
 		
 		// 모델로 리스트 넘겨주기
 		model.addAttribute("totalRow", map2.get("totalRow"));
 		model.addAttribute("list", map2.get("list"));
 		model.addAttribute("lastPage", map2.get("lastPage"));
-		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 		System.out.println(map2.get("lastPage")+"<---라스트페이지 값 확인하기");
 		

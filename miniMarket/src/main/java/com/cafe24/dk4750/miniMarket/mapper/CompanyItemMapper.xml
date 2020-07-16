@@ -9,6 +9,7 @@
 		SELECT
 			COUNT(*)
 		FROM mini_market_company_item	
+		WHERE company_item_state = '홍보'
 	</select>
 	
 	<!-- 검색어의 총 갯수 -->
@@ -18,6 +19,7 @@
 		FROM mini_market_company_item
 		WHERE (company_item_title LIKE CONCAT('%', #{searchWord}, '%')
 		OR company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND company_item_state = '홍보'
 	</select>
 	
 	<!-- 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기 -->

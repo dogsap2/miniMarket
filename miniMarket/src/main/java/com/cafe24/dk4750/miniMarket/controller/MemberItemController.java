@@ -35,8 +35,7 @@ public class MemberItemController {
 	
 	// 내가 좋아요한 리스트 보기
 	@GetMapping("/getMyLikeItem")
-	public String getMyLikeItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+	public String getMyLikeItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getMyLikeItem 겟매핑 시작");
 		
 		// 세션이 없다면 index로 리턴
@@ -47,14 +46,13 @@ public class MemberItemController {
 		int beginRow = (currentPage-1)*rowPerPage;
 		System.out.println(beginRow +"<-----beginRow");
 		// 리스트 받아오기
-		Map<String , Object> map = memberItemService.getMyLikeItem(session, searchWord, beginRow, rowPerPage);
+		Map<String , Object> map = memberItemService.getMyLikeItem(session, beginRow, rowPerPage);
 		System.out.println(map + " <== 내 좋아요 목록 리스트");
 		
 		// 모델에 리스트 담아주기
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 		// 페이지요청
 		return "getMyLikeItem";
@@ -62,8 +60,7 @@ public class MemberItemController {
 	
 	// 관심동네 아이템 리스트 보기
 	@GetMapping("/getItemListByPlace")
-	public String getItemListByPlace(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+	public String getItemListByPlace(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getItemListByPlace 컨트롤러 시작");
 		
 		// 세션이 없다면 index로 리턴
@@ -74,14 +71,13 @@ public class MemberItemController {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 리스트 가져오기
-		Map<String , Object> map = memberItemService.getItemListByPlace(session, beginRow, rowPerPage, searchWord);
+		Map<String , Object> map = memberItemService.getItemListByPlace(session, beginRow, rowPerPage);
 		System.out.println(map+"값이 제대로 오는 확인하는 것");
 		
 		// 모델로 리스트 넘겨주기
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 		
 		// 페이지요청
@@ -183,8 +179,7 @@ public class MemberItemController {
 	
 	// 나의 판매완료 아이템 리스트
 	@GetMapping("/getItemListBySaleMyItem")
-	public String getItemListBySaleMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+	public String getItemListBySaleMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
@@ -193,13 +188,12 @@ public class MemberItemController {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 내 판매완료 아이템 리스트 받아오기
-		Map<String , Object> map = memberItemService.getItemListBySaleMyItem(session, beginRow, rowPerPage, searchWord);
+		Map<String , Object> map = memberItemService.getItemListBySaleMyItem(session, beginRow, rowPerPage);
 		
 		// 모델로 리스트 넘겨주기
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 
 		return "getItemListBySaleMyItem";

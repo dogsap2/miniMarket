@@ -9,6 +9,8 @@ import com.cafe24.dk4750.miniMarket.vo.ItemSoldout;
 
 @Mapper
 public interface SoldoutMapper {
+	// 테이블에 있는 데이터의 총 갯수
+	public int totalSoldout();
 	
 	// 판매완료 상품 추가
 	public int insertSoldoutItem(ItemSoldout itemSoldout);

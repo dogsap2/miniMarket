@@ -345,7 +345,7 @@ public class CompanyItemService {
 	}
 	
 	// 관심동네 중에 홍보중인 업체 아이템 리스트 출력
-	public Map<String, Object> getPlaceByCompanyItemList(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
+	public Map<String, Object> getPlaceByCompanyItemList(HttpSession session, int beginRow, int rowPerPage) {
 		// 세션값 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
@@ -355,15 +355,9 @@ public class CompanyItemService {
 		map.put("beginRow", beginRow);
 		// 페이지당 갯수..
 		map.put("rowPerPage", rowPerPage);
-		// 검색어!
-		map.put("searchWord", searchWord);
 		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
 		int totalRow = 0;
-		if(searchWord.equals("")) {
 			totalRow = companyItemMapper.totalCompanyItem();
-		} else {
-			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
-		}
 		System.out.println(totalRow+"<----게시물 총합 수");
 		String companyBname;
 		String companySigungu;
@@ -458,7 +452,7 @@ public class CompanyItemService {
 	}
 	
 	// 내가 좋아요한 업체아이템 리스트 출력
-	public Map<String, Object> getMyLikeCompanyItem(HttpSession session, int beginRow, int rowPerPage, String searchWord) {
+	public Map<String, Object> getMyLikeCompanyItem(HttpSession session, int beginRow, int rowPerPage) {
 		// 세션의 로그인한 유저의 유니크넘버 가져오기
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		
@@ -468,15 +462,9 @@ public class CompanyItemService {
 		map.put("beginRow", beginRow);
 		// 페이지당 갯수..
 		map.put("rowPerPage", rowPerPage);
-		// 검색어!
-		map.put("searchWord", searchWord);
 		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
 		int totalRow = 0;
-		if(searchWord.equals("")) {
 			totalRow = companyItemMapper.totalCompanyItem();
-		} else {
-			totalRow = companyItemMapper.totalCompanyItemBySerach(searchWord);
-		}
 		map.put("memberUniqueNo", memberUniqueNo);
 		// 리스트 받아오기
 		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectMyLikeCompanyItem(map);

@@ -25,7 +25,8 @@
 	<select id="totalMemberItem" resultType="int" parameterType="String">
 		SELECT
 			COUNT(*)
-		FROM mini_market_member_item	
+		FROM mini_market_member_item
+		WHERE member_item_state = '판매중'	
 	</select>
 	<!-- 검색어의 따른 글의 총갯수 -->
 	<select id="totalMemberItemBySearch" resultType="int" parameterType="String">
@@ -34,6 +35,7 @@
 		FROM mini_market_member_item
 		WHERE (member_item_title LIKE CONCAT('%', #{searchWord}, '%')
 		OR member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND member_item_state = '판매중' 
 	</select>
 	
 	<!-- 다음 멤버 아이템의 넘버를 알기위해서 현재 멤버 아이템넘버 max+1 값 구해오기 -->
@@ -181,8 +183,6 @@
 		ON ip.sigungu = m.member_sigungu AND ip.bname = m.member_bname
 		INNER JOIN mini_market_member_item_pic AS mip
 		ON mi.member_item_no = mip.member_item_no
-		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND mi.member_item_state = "판매중"
 		AND m.member_sigungu = #{memberSigungu}
 		AND m.member_bname = #{memberBname}
@@ -230,8 +230,6 @@
 		ON mi.member_unique_no = m.member_unique_no
 		INNER JOIN mini_market_member_item_pic AS mip
 		ON mi.member_item_no = mip.member_item_no
-		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND mi.member_item_state = "판매중"
 		AND m.member_unique_no = #{memberUniqueNo}
 		ORDER BY mi.member_item_no DESC
@@ -254,8 +252,6 @@
 		ON mi.member_unique_no = m.member_unique_no
 		INNER JOIN mini_market_member_item_pic AS mip
 		ON mi.member_item_no = mip.member_item_no
-		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND mi.member_item_state = "판매완료"
 		AND m.member_unique_no = #{memberUniqueNo}
 		ORDER BY mi.member_item_no DESC
@@ -304,8 +300,6 @@
 	    ON mi.member_item_no = mip.member_item_no
 	    INNER JOIN mini_market_member_item_like AS mil
 	    ON mi.member_item_no = mil.member_item_no
-	    WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 	    AND mil.member_unique_no = #{memberUniqueNo}
 	    AND mil.like_active = '1'
 	    ORDER BY mil.like_no DESC
