@@ -146,13 +146,6 @@ public class MemberItemController {
 		
 		// 아이템 상세보기 불러오기
 		MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getItemOne = memberItemService.getMemberItemOne(memberItemNo);
-		int price = Integer.parseInt(getItemOne.getMemberItemPrice());
-		System.out.println(price + " <== 아이템 가격");
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		String memberItemPrice = formatter.format(price);
-		System.out.println(memberItemPrice + " <== 아이템 가격 컴마 찍힌거");
-		getItemOne.setMemberItemPrice(memberItemPrice);
-		
 		
 		// 모델에 담아주기
 		model.addAttribute("chatRoomCheck", chatRoomCheck);
@@ -246,7 +239,14 @@ public class MemberItemController {
 	@PostMapping("/addMemberItem")
 	public String addMemberItem(HttpSession session, MemberItemForm memberItemForm) {
 		System.out.println("addMemberItem 포스트매핑 시작");
-
+		// 가격 들어온거 디버깅
+		int price = Integer.parseInt(memberItemForm.getMemberItemPrice());
+		System.out.println(price);
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		String memberItemPrice = formatter.format(price);
+		System.out.println(memberItemPrice + " <== 아이템 가격 컴마 찍힌거");
+		memberItemForm.setMemberItemPrice(memberItemPrice);
+		
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
