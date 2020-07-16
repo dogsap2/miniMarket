@@ -189,18 +189,23 @@
 	<!-- 로그인 유효성 검사,세션에 담기 -->
 	<select id="selectLoginMember" parameterType="com.cafe24.dk4750.miniMarket.vo.LoginMember" resultType="com.cafe24.dk4750.miniMarket.vo.LoginMember">
 		SELECT
-			member_id as memberId,
+			m.member_id as memberId,
 			member_pw as memberPw,
-			member_unique_no as memberUniqueNo,
+			m.member_unique_no as memberUniqueNo,
 			member_nickname as memberNickname,
 			member_sido as memberSido,
 		    member_sigungu as memberSigungu,
-		    member_bname as memberBname
+		    member_bname as memberBname,
+		    p.profile_pic AS profilePic
 		FROM
-			mini_market_member
+			mini_market_member m
+		INNER join
+			mini_market_member_pic p
+		on
+			m.member_id = p.member_id
 		WHERE 
-			member_id = #{memberId}
-		AND member_pw = PASSWORD(#{memberPw})		
+			m.member_id = #{memberId}
+		AND member_pw = PASSWORD(#{memberPw})	
 	</select>
 	
 	<!--회원 가입시 온도 추가 -->

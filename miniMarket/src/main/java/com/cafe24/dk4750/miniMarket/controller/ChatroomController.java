@@ -52,6 +52,7 @@ public class ChatroomController {
       String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
       String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
       String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
+      String profilePic = ((LoginMember)session.getAttribute("loginMember")).getProfilePic();
       //저장한 세션값을 객채에 넣어줌
       Chatroom chatRoom = new Chatroom();
       chatRoom.setMemberId(memberId);
@@ -62,6 +63,7 @@ public class ChatroomController {
       model.addAttribute("memberId", memberId);// 세션 id
       model.addAttribute("memberUniqueNo", memberUniqueNo);//세션 uniqueNo
       model.addAttribute("memberNickname", memberNickname);//세션 닉네임
+      model.addAttribute("profilePic", profilePic);//세션 사진
       return "chatroomList";
    }
    //채팅방 생성 액션

@@ -8,6 +8,7 @@ public class LoginMember {
 	private String memberSido;
 	private String memberSigungu;
 	private String memberBname;
+	private String profilePic;
 	public String getMemberId() {
 		return memberId;
 	}
@@ -50,11 +51,19 @@ public class LoginMember {
 	public void setMemberBname(String memberBname) {
 		this.memberBname = memberBname;
 	}
+	
+	public String getProfilePic() {
+		return profilePic;
+	}
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
 	@Override
 	public String toString() {
 		return "LoginMember [memberId=" + memberId + ", memberPw=" + memberPw + ", memberUniqueNo=" + memberUniqueNo
 				+ ", memberNickname=" + memberNickname + ", memberSido=" + memberSido + ", memberSigungu="
-				+ memberSigungu + ", memberBname=" + memberBname + "]";
+				+ memberSigungu + ", memberBname=" + memberBname + ", profilePic=" + profilePic + "]";
 	}
+	
 	
 }

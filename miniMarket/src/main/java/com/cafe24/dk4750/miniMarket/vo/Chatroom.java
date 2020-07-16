@@ -11,6 +11,7 @@ public class Chatroom {
    private String memberNickname;
    private String memberItemState;
    private String profilePic;
+   private String profilePick;
 public int getChatroomNo() {
 	return chatroomNo;
 }
@@ -71,13 +72,21 @@ public String getProfilePic() {
 public void setProfilePic(String profilePic) {
 	this.profilePic = profilePic;
 }
+
+public String getProfilePick() {
+	return profilePick;
+}
+public void setProfilePick(String profilePick) {
+	this.profilePick = profilePick;
+}
 @Override
 public String toString() {
 	return "Chatroom [chatroomNo=" + chatroomNo + ", nickname=" + nickname + ", memberUniqueNo=" + memberUniqueNo
 			+ ", memberId=" + memberId + ", chatroomActive=" + chatroomActive + ", memberItemNo=" + memberItemNo
 			+ ", memberItemTitle=" + memberItemTitle + ", memberNickname=" + memberNickname + ", memberItemState="
-			+ memberItemState + ", profilePic=" + profilePic + "]";
+			+ memberItemState + ", profilePic=" + profilePic + ", profilePick=" + profilePick + "]";
 }
+
    
    
   

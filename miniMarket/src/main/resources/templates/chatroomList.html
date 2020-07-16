@@ -133,7 +133,14 @@
 		right: 0.4em;
 		border:1.5px solid white;
 	}
-	.offline{
+	.offline_icon{
+		position: absolute;
+		height: 15px;
+		width:15px;
+		border-radius: 50%;
+		bottom: 0.2em;
+		right: 0.4em;
+		border:1.5px solid white;
 		background-color: #c23616 !important;
 	}
 	.user_info{
@@ -250,21 +257,24 @@
 				<div class="col-md-4 col-xl-3 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">
 					<div class="card-header">
 						<div class="input-group">
-							<input type="text" placeholder="Search..." name="" class="form-control search">
-							<div class="input-group-prepend">
-								<span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-							</div>
+							<input type="text" placeholder="Search..." id="keyword" class="form-control search">
 						</div>
 					</div>
 					<div class="card-body contacts_body">
 						<ui class="contacts">
 						<li class="active" th:each="list : ${list}">
 							<div class="d-flex bd-highlight">
-								<div class="img_cont">
-									<img th:src="@{/images/}+default.jpg" class="rounded-circle user_img">
+								<!-- 판매중 -->
+								<div class="img_cont" th:if="${profilePic == list.profilePic}">
+									<img th:src="@{/images/}+${list.profilePick}" class="rounded-circle user_img">
 									<span th:class="${list.chatroomActive} == connect ? online_icon : offline_icon"></span>
 								</div>
-								<div class="user_info">
+								<!-- 구매중 -->
+								<div class="img_cont" th:if="${profilePic == list.profilePick}">
+									<img th:src="@{/images/}+${list.profilePic}" class="rounded-circle user_img">
+									<span th:class="${list.chatroomActive} == connect ? online_icon : offline_icon"></span>
+								</div>
+								<div class="user_info" id="user">
 									<div th:if="${list.chatroomActive} == connect" style="margin-top: auto; margin-bottom: auto; margin-left: 15px;">
 										<a th:href="@{chatroom(chatroomNo = ${list.chatroomNo})}" th:text="${list.memberId == memberId} ? ${list.nickname} : ${list.memberNickname}" target="_blank" onclick="window.open(this.href,'_blank','width=550,height=800,left=400px,top=100px, scrollbars=yes');return false;"></a>
 									</div>
@@ -300,4 +310,14 @@
 			</div>
 		</div>
 	</body>
+	<script>
+		$(document).ready(function() {
+	        $("#keyword").on("keyup", function() {
+	        	 var k = $(this).val().toLowerCase();
+	        	 $("#user #href").filter(function() {
+				    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				 });
+	        });
+	    })
+	</script>
 </html>

@@ -64,7 +64,7 @@
    </select>
    <!-- 채팅방 리스트 뿌리기 -->
    <select id="selectChatRoomByMemberId" parameterType="com.cafe24.dk4750.miniMarket.vo.Chatroom" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
-      SELECT
+     SELECT
          c.chatroom_no AS chatroomNo,
          c.member_unique_no AS memberUniqueNo,
          c.nickname as nickName,
@@ -73,7 +73,8 @@
          i.member_item_title AS memberItemTitle,
          m.member_nickname AS memberNickname,
          i.member_item_state AS memberItemState,
-         p.profile_pic AS profilePic
+         p.profile_pic AS profilePic,
+         up.profile_pic AS profilePick
       FROM
          mini_market_chatroom c
       INNER JOIN
@@ -88,6 +89,10 @@
       	mini_market_member_pic p
       on
       	m.member_id = p.member_id AND p.member_id = c.member_id
+      INNER join
+      	mini_market_member_pic up
+      on
+      	c.member_unique_no = up.member_unique_no
       WHERE 
          c.member_unique_no = #{memberUniqueNo}
       OR
