@@ -160,18 +160,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="container">
          <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
             <li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">아이템 추가하기</li>
+            <li class="active">상품 판매하기</li>
          </ol>
       </div>
    </div>
 <!-- //breadcrumbs -->
 <!-- 아이템 추가 -->
-
+<div class="login">	 
       <div class="container" align="center">
-			<form method="post" th:action="@{/addMemberItem}"
-				enctype="multipart/form-data" id="form">
-				<br>
-				<br>
+       <h2>상품 판매하기</h2>
+       <br>
+        <br>	
+			<form method="post" th:action="@{/addMemberItem}" enctype="multipart/form-data" id="form">
+		
 				<table border="1" class="table table-bordered" style="align: center; width: 1000px;">
 					<tr>
 						<th>
@@ -216,7 +217,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<br>
 		<br>
-
+</div>
 <!-- //아이템 추가 -->
 
 <!-- //footer -->
