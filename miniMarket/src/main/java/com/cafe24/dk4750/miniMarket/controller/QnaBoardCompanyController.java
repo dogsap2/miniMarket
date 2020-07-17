@@ -105,7 +105,7 @@ public class QnaBoardCompanyController {
 	// QnA 리스트 출력
 	@GetMapping("getQnaBoardCompanyList")
 	public String qnaBoardCompanyListAll(HttpSession session, Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
-		if(session.getAttribute("loginCompany") == null || session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}else if(session.getAttribute("loginMember") != null) {
 			return "redirect:/";

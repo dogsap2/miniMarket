@@ -38,27 +38,39 @@ public class ChatController {
 	    }else if(session.getAttribute("loginCompany") != null || session.getAttribute("loginAdmin") != null) {
 			System.out.println("업체 혹은 관리자 로그인 시");
 			return "redirect:/index";
-		  }
+		}
 		
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
 		System.out.println(chatroomNo);
+		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		List<String> list = chatService.getChatMemberId(chatroomNo);
 		System.out.println(list + "<--출력");
 		Chatroom chatroom = chatroomService.getChatRoomOne(chatroomNo);
+		System.out.println(chatroom +"<----세션 확인");
 		System.out.println(chatroom.getMemberId() + "<---controller getmemberId");
-		/*채팅중인 상대 혹은 나 와 아이디가 다른 사람이 접근시
-		if(((LoginMember)session.getAttribute("loginMember")).getMemberId() != chatroom.getMemberId()) {
-			System.out.println("채팅중인 상대 혹은 나 와 아이디가 다른 사람 접근제한");
-			return "redirect:/index";
-		}*/
+		System.out.println(memberId);
+		System.out.println(memberUniqueNo);
+		System.out.println(chatroom.getMemberUniqueNo());
+		// 현재 채팅중인 상대가 아닌 사람이 채팅방을 확인하려 할 때 메인페이지로 이동
+		if(memberId.equals(chatroom.getMemberId()) ) {
+			if(memberUniqueNo.equals(chatroom.getMemberUniqueNo())) {
+				System.out.println("실패");
+				return "redirect:/index";
+			}
+		}
+		System.out.println("성공");
 		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("memberNickname", memberNickname);
 		model.addAttribute("memberId", memberId);
 		model.addAttribute("MymemberId", chatroom.getMemberId());
 		model.addAttribute("list", list);
-
 		return "chatList";
+		/*채팅중인 상대 혹은 나 와 아이디가 다른 사람이 접근시
+		if(((LoginMember)session.getAttribute("loginMember")).getMemberId() != chatroom.getMemberId()) {
+			System.out.println("채팅중인 상대 혹은 나 와 아이디가 다른 사람 접근제한");
+			return "redirect:/index";
+		}*/
 	}
 	//채팅 페이지 
 	@GetMapping("/chatroom")
@@ -73,10 +85,17 @@ public class ChatController {
 		
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		String memberNickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
+		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		System.out.println(chatroomNo);
 		Chatroom chatroom = chatroomService.getChatRoomOne(chatroomNo);
 		System.out.println(memberId+"<--memberId");
 		System.out.println(chatroom.getMemberId()+"<--chatroom.getMemberId()");
+		if(memberId.equals(chatroom.getMemberId()) ) {
+			if(memberUniqueNo.equals(chatroom.getMemberUniqueNo())) {
+				System.out.println("실패");
+				return "redirect:/index";
+			}
+		}
 		/*
 		if(((LoginMember)session.getAttribute("loginMember")).getMemberId() != chatroom.getMemberId()) {
 			System.out.println("채팅중인 상대 혹은 나 와 아이디가 다른 사람 접근제한");
