@@ -25,7 +25,15 @@ public class ChatroomController {
    
    //채팅방 활성화 상태 변경
    @GetMapping("/modifyChatroomActive")
-   public String modifyChatroom(@RequestParam("chatroomNo") int chatroomNo) {
+   public String modifyChatroom(HttpSession session , @RequestParam("chatroomNo") int chatroomNo) {
+	   
+	   // 비로그인 상태시 로그인 창으로
+	  if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+        return "redirect:/loginMemberAndCompany";
+	  }else if(session.getAttribute("loginCompany") != null || session.getAttribute("loginAdmin") != null) {
+		System.out.println("업체 혹은 관리자 로그인 시");
+		return "redirect:/index";
+	  }
       //채팅방 번호 디버깅(매개변수 받아온 값)
       System.out.println(chatroomNo + "<--chatroomNo modifyChatroomActive");
       //변경하려는 값 추가
@@ -46,8 +54,11 @@ public class ChatroomController {
    @GetMapping("/chatroomList")
    public String getChatRoomListByMemberId(HttpSession session, Model model) {
       if(session.getAttribute("loginMember") == null) {
-         return "redirect:login";
-      }
+         return "redirect:loginMemberAndCompany";
+      }else if(session.getAttribute("loginCompany") != null || session.getAttribute("loginAdmin") != null) {
+  		System.out.println("업체 혹은 관리자 로그인 시");
+  		return "redirect:/index";
+  	  }
       //세션 값을 변수에 저장
       String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
       String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
@@ -69,7 +80,14 @@ public class ChatroomController {
    //채팅방 생성 액션
    @PostMapping("/chatroom")
    public String addChatRoom(/*세션으로 받*/ @RequestParam("memberId") String memberId/*받는 사람*/, @RequestParam("memberItemNo") int memberItemNo , Model model, HttpSession session) {
-      String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
+	  // 비로그인 상태시 로그인 창으로
+	  if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+        return "redirect:/loginMemberAndCompany";
+	  }else if(session.getAttribute("loginCompany") != null || session.getAttribute("loginAdmin") != null) {
+			System.out.println("업체 혹은 관리자 로그인 시");
+			return "redirect:/index";
+	  }
+	  String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
       String nickname = ((LoginMember)session.getAttribute("loginMember")).getMemberNickname();
       System.out.println(memberUniqueNo);
       System.out.println(memberId);
