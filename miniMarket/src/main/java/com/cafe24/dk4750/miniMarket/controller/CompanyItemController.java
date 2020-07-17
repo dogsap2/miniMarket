@@ -96,10 +96,9 @@ public class CompanyItemController {
 	@GetMapping("/getCompanyItemOne")
 	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
 		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginCompany") == null) {
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
 	     }
-		
 		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
 		companyItemOne.setCompanyItemNo(companyItemNo);
 		companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
