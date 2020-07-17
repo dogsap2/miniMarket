@@ -6,36 +6,101 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	//리스트 뿌리기
+</script>
+</head>
+<body>
+	<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>나의 구매완료 아이템</title>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
 	$.ajax({
-		url:'/getItemListMyItem2',
+		url:'/getBuyListByMember2',
+		
 		type:'get',
+		
 		success : function(data) {
-			console.log(data+"<===리스트 뿌린 데이타");
-			$('#table').append('<tr>');
-			$('#table').append('<th>'+"사진"+'</th>');
-			$('#table').append('<th>'+"제목"+'</th>');
-			$('#table').append('<th>'+"아이템가격"+'</th>');
-			$('#table').append('<th>'+"아이템 올린 날짜"+'</th>');
-			$('#table').append('<th>'+"판매지역"+'</th>');
-			$('#table').append('</tr>');
-			$.each(data.list, function(index, item){
-				$('#table').append('<tr>');
-				$('#table').append('<td><a href="/getItemOne?memberItemNo='+item.memberItemNo+'&pageCheck='+1+'"><img width="300" height="150" src='+/images/+item.memberItemPic1+'></a></td>');
-				$('#table').append('<td>'+item.memberItemTitle+'</td>')
-				$('#table').append('<td>'+item.memberItemPrice+'</td>')
-				$('#table').append('<td>'+item.memberItemDate+'</td>')
-				$('#table').append('<td>'+item.memberBname+'</td>')
-				$('#table').append('</tr>');
-			});
-		}
+				$.each(data.list, function(index, item){
+					
+					// manner 평가 했는지 check.
+					$.ajax({
+						url:'/mannerCheck',
+						data:{
+							memberUniqueNo:item.memberUniqueNoSale,
+							memberItemNo:item.memberItemNo
+						},
+						type:'get',
+						success : function(data) {
+							console.log(data + " = mannerCheck data")
+							if(data==1){
+								$('#mannerBtn'+item.memberItemNo).prop("disabled", true);
+							}
+							
+							if(data==0){
+								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+							}
+						}
+					});
+					
+ 					// review 작성 했는지 check
+					$.ajax({
+						url:'/reviewCheck',
+						data:{
+							memberItemNo:item.memberItemNo,
+							memberUniqueNo:item.memberUniqueNo,
+							memberUniqueNoSale:item.memberUniqueNoSale
+						},
+						type:'get',
+						success : function(data) {
+							console.log(data + " = reviewCheck data")
+							console.log(item.memberItemNo + " <== item.memberItemNo");
+							if(data==1){
+								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+							}
+						}
+					}); 
+				});
+			}
+	});
+	
+	$(document).ready(function() {
+		
 	});
 </script>
 </head>
 <body>
-	<a th:href="@{/index}">home</a>
-	<table border="1" id="table">
+	<div>
+		<a th:if="${currentPage} > 1" th:href="@{/getItemListMyItem(currentPage=${currentPage-1})}" >이전</a>
+		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListMyItem(currentPage=${currentPage+1})}">다음</a>
+	</div>
+<table border="1">
+		<thead>
+			
+			<tr>
+				<th>사진</th>
+				<th>제목</th>
+				<th>아이템가격</th>
+				<th>아이템 올린 날짜</th>
+				<th>판매지역</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list : ${list}">
+				<td>
+					<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}"><img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150"></a>
+				</td>
+				<td th:text="${list.memberItemTitle}"></td>
+				<td th:text="${list.memberItemPrice}"></td>
+				<td th:text="${list.memberItemDate}"></td>
+				<td th:text="${list.memberBname}"></td>
+			</tr>
+		</tbody>
 	</table>
+</body>
+</html>
 	
 </body>
 </html>

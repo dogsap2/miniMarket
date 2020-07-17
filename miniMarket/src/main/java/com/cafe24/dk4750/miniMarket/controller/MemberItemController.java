@@ -168,11 +168,22 @@ public class MemberItemController {
     }
 	
 	// 구매자의 구매완료 아이템 리스트
-	@GetMapping("/getBuyListByMember") public String getBuyListByMember(HttpSession session) {
+	@GetMapping("/getBuyListByMember") 
+	public String getBuyListByMember(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
+		// 내 구매리스트 출력해주기.
+		Map<String , Object> map = memberItemService.getBuyListByMember(session, beginRow, rowPerPage);
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		System.out.println(map.get("list")+"<=====리스트 값 확인");
 		return "getBuyListByMember"; 
 	}
 	 
@@ -195,17 +206,24 @@ public class MemberItemController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("currentPage", currentPage);
-
 		return "getItemListBySaleMyItem";
 	}
 	
 	// 나의 판매중인 아이템 리스트
 	@GetMapping("/getItemListMyItem")
-	public String getItemListMyItem(HttpSession session, Model model) {
+	public String getItemListMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null) {
 			return "index";
 		}
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> map = memberItemService.getItemListMyItem(session, beginRow, rowPerPage);
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("totalRow", map.get("totalRow"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
 		
 		return "getItemListMyItem";
 	}

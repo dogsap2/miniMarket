@@ -8,17 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafe24.dk4750.miniMarket.mapper.MemberTempMapper;
+import com.cafe24.dk4750.miniMarket.mapper.MemberTempTotalMapper;
 import com.cafe24.dk4750.miniMarket.mapper.ReportCompanyByMemberMapper;
+import com.cafe24.dk4750.miniMarket.vo.MemberTemp;
 import com.cafe24.dk4750.miniMarket.vo.ReportCompanyByMember;
 import com.cafe24.dk4750.miniMarket.vo.ReportCompanyByMemberAndMember;
-import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItem;
 
 @Service
 @Transactional
 public class ReportCompanyByMemberService {
 	@Autowired
 	private ReportCompanyByMemberMapper reportCompanyByMemberMapper;
-
+	@Autowired private MemberTempMapper memberTempMapper;
+	@Autowired private MemberTempTotalMapper memberTempTotalMapper;
+	
 	// 신고 total 리스트(페이징)
 	public Map<String, Object> getReportCompanyByMemberList(int currentPage, String reportState) {
 		int rowPerPage = 10;
@@ -51,6 +55,11 @@ public class ReportCompanyByMemberService {
 	}
 	//상태 수정
 	public int modifyCompanyByMemberState(ReportCompanyByMember reportCompanyByMember) {
-		return reportCompanyByMemberMapper.updateReportCompanyByMemberState(reportCompanyByMember);
+		String reportState ="신고완료";
+		MemberTemp memberTemp = new MemberTemp();
+		Map<String, Object> map = new HashMap<>();
+		
+		reportCompanyByMemberMapper.updateReportCompanyByMemberState(reportCompanyByMember)
+		return 0;
 	}
 }

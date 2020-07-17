@@ -7,7 +7,7 @@
 	<select id="totalSoldout" resultType="int" parameterType="String">
 		SELECT
 			COUNT(*)
-		FROM mini_market_item_soldout	
+		FROM mini_market_‪item_soldout	
 	</select>
 	
 	<!-- 판매완료 상품 추가 -->

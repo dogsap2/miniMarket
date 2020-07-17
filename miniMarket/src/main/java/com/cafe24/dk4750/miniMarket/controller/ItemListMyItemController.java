@@ -22,7 +22,7 @@ public class ItemListMyItemController {
 			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
-		Map<String, Object> map = memberItemService.getItemListMyItem(session, beginRow, rowPerPage, searchWord);
+		Map<String, Object> map = memberItemService.getItemListMyItem(session, beginRow, rowPerPage);
 		// 모델로 리스트 넘겨주기
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));

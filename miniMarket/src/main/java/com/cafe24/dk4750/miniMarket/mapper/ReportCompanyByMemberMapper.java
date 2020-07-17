@@ -11,6 +11,9 @@ import com.cafe24.dk4750.miniMarket.vo.ReportCompanyByMemberAndMember;
 
 @Mapper
 public interface ReportCompanyByMemberMapper {
+	
+	// 가장 최근의 신고상태가 신고완료로 된 것 가져오기
+	public ReportCompanyByMember selectReportCompanyByMemberDesc(String reportState);
 	// 업체가 멤버 댓글 신고시
 	public int insertReportCompanyByMember(ReportCompanyByMember reportCompanyByMember);
 	// 신고 total리스트 출력
