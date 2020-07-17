@@ -27,7 +27,7 @@ public class ReportMemberByMemberitemController {
 	
 	// 신고 상태 수정
 	@PostMapping("modifyReportStateMemberByMemberItem")
-	public String modifyReportMemberByMemberItemState(HttpSession session, ReportMemberByMemberItem reportMemberByMemberItem, @RequestParam(value="reportNo") int reportNo) {
+	public String modifyReportMemberByMemberItemState(HttpSession session, ReportMemberByMemberItem reportMemberByMemberItem, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 			return "redirect:index";
@@ -41,7 +41,7 @@ public class ReportMemberByMemberitemController {
 	}
 	// 신고내용 상세보기
 	@GetMapping("getReportMemberByMemberItemListOne")
-	public String getReportMemberByMemberItemListOne(HttpSession session, Model model, @RequestParam(value="reportNo") int reportNo) {
+	public String getReportMemberByMemberItemListOne(HttpSession session, Model model, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 			return "redirect:index";
@@ -80,7 +80,7 @@ public class ReportMemberByMemberitemController {
 	}
 	
 	@GetMapping("/memberByMemberItemReport")
-	public String addReport(HttpSession session ,@RequestParam("memberItemNo") String memberItemNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam(value="memberItemNo", defaultValue = "") String memberItemNo, Model model) {
 		 if(session.getAttribute("loginMember") == null) {
 	         return "redirect:/loginMemberAndCompany";
 	      }

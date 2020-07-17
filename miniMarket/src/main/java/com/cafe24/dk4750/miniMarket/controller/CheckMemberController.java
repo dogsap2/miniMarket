@@ -18,7 +18,7 @@ public class CheckMemberController {
 	
 	//비밀번호 중복체크 
 	@PostMapping("/checkMemberPw")
-	public String checkMemberPw(@RequestParam(value="checkMemberPw") String checkMemberPw, HttpSession session ) {
+	public String checkMemberPw(@RequestParam(value="checkMemberPw", defaultValue = "") String checkMemberPw, HttpSession session ) {
 		
 		//세션에 담긴 아이디 빼기 		
 		LoginMember checkIdPw = (LoginMember)(session.getAttribute("loginMember"));
@@ -39,7 +39,7 @@ public class CheckMemberController {
 	
 	//아이디 중복 체크 
 	@GetMapping("/checkId")
-	public String checkMemberId (@RequestParam(value="checkMemberId") String checkMemberId) {
+	public String checkMemberId (@RequestParam(value="checkMemberId", defaultValue = "") String checkMemberId) {
 		System.out.println(checkMemberId+"<-checkMemberId");
 		String resultId="사용불가";
 		
@@ -52,7 +52,7 @@ public class CheckMemberController {
 	
 	//전화번호 중복 체크 
 	@GetMapping("/checkPhone")
-	public String checkMemberPhone (@RequestParam(value="checkMemberPhone") String checkMemberPhone) {
+	public String checkMemberPhone (@RequestParam(value="checkMemberPhone", defaultValue = "") String checkMemberPhone) {
 		System.out.println(checkMemberPhone+"<-checkMemberPhone");
 		String resultPhone="사용불가";
 		
@@ -64,7 +64,7 @@ public class CheckMemberController {
 	
 	//이메일 중복 체크 
 	@GetMapping("/checkEmail")
-	public String checkMemberEmail (@RequestParam(value="checkMemberEmail") String checkMemberEmail) {
+	public String checkMemberEmail (@RequestParam(value="checkMemberEmail", defaultValue = "") String checkMemberEmail) {
 		System.out.println(checkMemberEmail+"<-checkMemberEmail");
 		String resultEmail="사용불가";
 		

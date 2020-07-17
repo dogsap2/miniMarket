@@ -31,7 +31,7 @@ public class ChatController {
 	private ChatService chatService;
 	
 	@GetMapping("/chatList")
-	public String getChatList(HttpSession session, Model model, @RequestParam("chatroomNo") int chatroomNo) {
+	public String getChatList(HttpSession session, Model model, @RequestParam(value = "chatroomNo", defaultValue = "" ) int chatroomNo) {
 		//비로그인시 접근 불가능
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
@@ -62,7 +62,7 @@ public class ChatController {
 	}
 	//채팅 페이지 
 	@GetMapping("/chatroom")
-	public String getChatRoom(HttpSession session, Model model, @RequestParam("chatroomNo") int chatroomNo) {
+	public String getChatRoom(HttpSession session, Model model, @RequestParam(value="chatroomNo", defaultValue = "") int chatroomNo) {
 		//비로그인시 접근 불가능
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
@@ -99,7 +99,7 @@ public class ChatController {
 	//채팅 리스트 받아오기 ajax
 	@RequestMapping("/getAllMessages")
 	@ResponseBody
-	public List<Chat> getAllMessages(@RequestParam("chatroomNo") int chatroomNo){
+	public List<Chat> getAllMessages(@RequestParam(value= "chatroomNo", defaultValue = "") int chatroomNo){
 		System.out.println(chatroomNo+"<--chatroomNo");
 		
 		List<Chat> list = chatService.getChatList(chatroomNo);

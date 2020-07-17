@@ -25,7 +25,7 @@ public class ChatroomController {
    
    //채팅방 활성화 상태 변경
    @GetMapping("/modifyChatroomActive")
-   public String modifyChatroom(HttpSession session , @RequestParam("chatroomNo") int chatroomNo) {
+   public String modifyChatroom(HttpSession session , @RequestParam(value="chatroomNo", defaultValue = "") int chatroomNo) {
 	   
 	   // 비로그인 상태시 로그인 창으로
 	  if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
@@ -79,7 +79,7 @@ public class ChatroomController {
    }
    //채팅방 생성 액션
    @PostMapping("/chatroom")
-   public String addChatRoom(/*세션으로 받*/ @RequestParam("memberId") String memberId/*받는 사람*/, @RequestParam("memberItemNo") int memberItemNo , Model model, HttpSession session) {
+   public String addChatRoom(/*세션으로 받*/ @RequestParam(value="memberId", defaultValue = "") String memberId/*받는 사람*/, @RequestParam(value="memberItemNo", defaultValue = "") int memberItemNo , Model model, HttpSession session) {
 	  // 비로그인 상태시 로그인 창으로
 	  if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
         return "redirect:/loginMemberAndCompany";

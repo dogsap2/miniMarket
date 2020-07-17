@@ -112,7 +112,7 @@ public class MemberItemController {
 	
 	// 아이템 상세보기 겟매핑
 	@GetMapping("/getItemOne")
-	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo, @RequestParam(value="pageCheck", defaultValue = "0") int pageCheck) {
+	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo", defaultValue = "") int memberItemNo, @RequestParam(value="pageCheck", defaultValue = "0") int pageCheck) {
 		// 로그인 안할시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
@@ -159,7 +159,7 @@ public class MemberItemController {
 	
 	// 판매완료 
     @PostMapping("/soldOutComplete")
-    public String soldOutComplete(HttpSession session, @RequestParam("memberItemNo") int memberItemNo , @RequestParam("memberUniqueNo") String memberUniqueNo) {
+    public String soldOutComplete(HttpSession session, @RequestParam(value="memberItemNo", defaultValue = "") int memberItemNo , @RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo) {
     	// 로그인 안할시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
@@ -293,7 +293,7 @@ public class MemberItemController {
 	
 	// 멤버 아이템 수정하기 겟매핑. 페이지요청. 폼
 	@GetMapping("/modifyMemberItem")
-	public String modifyMemberItem(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo) {
+	public String modifyMemberItem(HttpSession session ,Model model, @RequestParam(value="memberItemNo", defaultValue = "") int memberItemNo) {
 		System.out.println("modifyMemberItem 겟매핑 시작");
 		System.out.println(memberItemNo);
 		// 로그인 안할시 로그인 창으로

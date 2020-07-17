@@ -29,19 +29,22 @@ public class QnaBoardController {
 		}
 		return "getQnaBoardMemberHtml";
 	}
-	//댓글 삭제
-	@GetMapping("/removeQnaCommentMember")
-	public String removeQnaCommentMember(HttpSession session, QnaCommentMember qnaCommentMember) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
-			return "redirect:/loginMemberAndCompany";
-		}
-		System.out.println(qnaCommentMember+"<---삭제 컨트롤러");
-		qnaCommentService.removeQnaCommentMember(qnaCommentMember.getQnaCommentMemberNo());
-		return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaCommentMember.getQnaBoardMemberNo();
-	}
+   //댓글 삭제
+    @GetMapping("/removeQnaCommentMember")
+    public String removeQnaCommentMember(HttpSession session, QnaCommentMember qnaCommentMember) {
+       if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+          return "redirect:/loginMemberAndCompany";
+       }
+       if(qnaCommentMember.getQnaBoardMemberNo() == 0) {
+          return "redirect:/index";
+       }
+       System.out.println(qnaCommentMember+"<---삭제 컨트롤러");
+       qnaCommentService.removeQnaCommentMember(qnaCommentMember.getQnaCommentMemberNo());
+       return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaCommentMember.getQnaBoardMemberNo();
+    }
 	@PostMapping("/modifyQnaBoardMemberByActive")
 	//질문 비활성화
-	public String modifyQnaBoardMemberByActive(HttpSession session, @RequestParam("qnaBoardMemberNo") int qnaBoardMemberNo) {
+	public String modifyQnaBoardMemberByActive(HttpSession session, @RequestParam(value="qnaBoardMemberNo", defaultValue = "") int qnaBoardMemberNo) {
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}

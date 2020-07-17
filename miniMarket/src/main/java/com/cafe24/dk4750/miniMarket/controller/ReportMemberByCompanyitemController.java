@@ -24,7 +24,7 @@ public class ReportMemberByCompanyitemController {
 	// 관리자 세션 전부 다
 	// 신고 상태 수정
 	@PostMapping("modifyReportStateMemberByCompanyItem")
-	public String modifyReportStateMemberByCompanyItem(HttpSession session ,ReportMemberByCompanyItem reportMemberByCompanyItem, @RequestParam(value="reportNo") int reportNo) {
+	public String modifyReportStateMemberByCompanyItem(HttpSession session ,ReportMemberByCompanyItem reportMemberByCompanyItem, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 			return "redirect:index";
@@ -38,7 +38,7 @@ public class ReportMemberByCompanyitemController {
 	}
 	// 신고내용 상세보기
 	@GetMapping("getReportMemberByCompanyItemListOne")
-	public String getReportMemberByCompanyItemListOne(HttpSession session ,Model model, @RequestParam(value="reportNo") int reportNo) {
+	public String getReportMemberByCompanyItemListOne(HttpSession session ,Model model, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 			return "redirect:index";
@@ -79,7 +79,7 @@ public class ReportMemberByCompanyitemController {
 		return "getReportMemberByCompanyItemList";
 	}
 	@GetMapping("/memberByCompanyItemReport")
-	public String addReport(HttpSession session ,@RequestParam("companyItemNo") int companyItemNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam(value="companyItemNo", defaultValue = "") int companyItemNo, Model model) {
 		// 비로그인 상태시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";

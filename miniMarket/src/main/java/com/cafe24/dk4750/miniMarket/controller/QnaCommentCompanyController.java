@@ -18,7 +18,7 @@ public class QnaCommentCompanyController {
 	
 	// 댓글 삭제
 	@GetMapping("removeQnaCommentCompany")
-	public String removeCommentCompany(HttpSession session, @RequestParam(value="qnaCommentCompanyNo") int qnaCommentCompanyNo, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+	public String removeCommentCompany(HttpSession session, @RequestParam(value="qnaCommentCompanyNo", defaultValue = "") int qnaCommentCompanyNo, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
 		if(session.getAttribute("loginAdmin") == null) {
 			return "redirect:";
 		}
@@ -31,7 +31,7 @@ public class QnaCommentCompanyController {
 	}
 	// 댓글 입력
 	@PostMapping("addQnaCommentCompany")
-	public String addQnaCommentCompany(HttpSession session, QnaCommentCompany qnaCommentCompany, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+	public String addQnaCommentCompany(HttpSession session, QnaCommentCompany qnaCommentCompany, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "") int qnaBoardCompanyNo) {
 		// 관리자 권한
 		if(session.getAttribute("loginAdmin") == null) {
 			return "redirect:";

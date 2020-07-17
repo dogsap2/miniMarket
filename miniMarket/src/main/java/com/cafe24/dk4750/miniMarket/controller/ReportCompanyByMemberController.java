@@ -24,7 +24,7 @@ public class ReportCompanyByMemberController {
 	// 관리자만 접근가능
 	// 신고 상태 수정
 	@PostMapping("modifyReportStateCompanyByMember")
-	public String modifyReportStateCompanyByMember(HttpSession session , ReportCompanyByMember reportCompanyByMember, @RequestParam(value="reportNo") int reportNo) {
+	public String modifyReportStateCompanyByMember(HttpSession session , ReportCompanyByMember reportCompanyByMember, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 			return "redirect:index";
@@ -39,7 +39,7 @@ public class ReportCompanyByMemberController {
 	}
 	// 신고내용 상세보기
 	@GetMapping("getReportCompanyByMemberListOne")
-	public String getReportCompanyByMemberListOne(HttpSession session , Model model, @RequestParam(value="reportNo") int reportNo) {
+	public String getReportCompanyByMemberListOne(HttpSession session , Model model, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 			return "redirect:index";

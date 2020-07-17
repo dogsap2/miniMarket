@@ -24,7 +24,7 @@ public class AdminController {
 	
 	// 업체 목록 상세
 	@GetMapping("getAdminCompanyListOne")
-	public String getAdminCompanyListOne(HttpSession session, Model model, @RequestParam(value="companyId") String companyId) {
+	public String getAdminCompanyListOne(HttpSession session, Model model, @RequestParam(value="companyId" , defaultValue = "") String companyId) {
 		if(session.getAttribute("loginAdmin") == null){
 			return "redirect:/";
 		}
@@ -35,7 +35,7 @@ public class AdminController {
 	}
 	// 회원 목록 상세
 	@GetMapping("getAdminMemberListOne")
-	public String getAdminMemberListOne(HttpSession session, Model model, @RequestParam(value="memberId") String memberId) {
+	public String getAdminMemberListOne(HttpSession session, Model model, @RequestParam(value="memberId", defaultValue = "") String memberId) {
 		if(session.getAttribute("loginAdmin")== null){
 			return "redirect:/";
 		}

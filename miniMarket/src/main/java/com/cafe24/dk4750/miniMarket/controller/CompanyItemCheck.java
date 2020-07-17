@@ -13,7 +13,7 @@ public class CompanyItemCheck {
 	@Autowired CompanyItemService companyItemService;
 	// 업체 아이템이 이미 추가하였는지 없는지 확인
 	@GetMapping("/CompanyItemCheck")
-	public int getCompanyItemCheck(@RequestParam("companyUniqueNo") String companyUniqueNo ) {
+	public int getCompanyItemCheck(@RequestParam(value="companyUniqueNo", defaultValue = "") String companyUniqueNo ) {
 		return companyItemService.getCompanyItemCheck(companyUniqueNo);
 	}
 }

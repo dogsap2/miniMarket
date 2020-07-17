@@ -45,7 +45,7 @@ public class NoticeController {
 	
 	// 공지사항 자세히 보기
 	@GetMapping("getNoticeOne")
-	public String getNoticeOne(HttpSession session, Model model, @RequestParam("noticeNo") int noticeNo) {
+	public String getNoticeOne(HttpSession session, Model model, @RequestParam(value="noticeNo", defaultValue = "") int noticeNo) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null && session.getAttribute("loginAdmin") == null) {
 			return "index";
@@ -94,7 +94,7 @@ public class NoticeController {
 	
 	// 공지사항 수정하기 겟맵핑 (폼)
 	@GetMapping("modifyNotice")
-	public String modifyNotice(HttpSession session, @RequestParam("noticeNo") int noticeNo, Model model) {
+	public String modifyNotice(HttpSession session, @RequestParam(value="noticeNo", defaultValue = "") int noticeNo, Model model) {
 		 // 관리자 세션이 아니라면 리턴
 		 if(session.getAttribute("loginAdmin") == null) {
 			 	return "index";
@@ -118,7 +118,7 @@ public class NoticeController {
 	
 	// 공지사항 수정하기 포스트맵핑 (액션)
 	@PostMapping("modifyNotice")
-	public String modifyNotice(HttpSession session, Notice notice, @RequestParam("noticeNo") int noticeNo ) {
+	public String modifyNotice(HttpSession session, Notice notice, @RequestParam(value="noticeNo", defaultValue = "") int noticeNo ) {
 		LoginAdmin loginAdmin = (LoginAdmin)session.getAttribute("loginAdmin");
 		
 		// 현재 로그인한 관리자의 네임

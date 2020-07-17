@@ -28,7 +28,7 @@ public class MemberController {
 	
 	// 회원의 프로필 보기
 	@GetMapping("/getProfile")
-	public String getProfile(Model model, @RequestParam(value="memberUniqueNo") String memberUniqueNo, @RequestParam(value="memberId") String memberId, HttpSession session) {
+	public String getProfile(Model model, @RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo, @RequestParam(value="memberId", defaultValue = "") String memberId, HttpSession session) {
 		// 로그인 안할시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
@@ -147,7 +147,7 @@ public class MemberController {
 	}
 	//회원탈퇴 액션
 	@PostMapping("/removeMember")
-	public String removeMember(HttpSession session,@RequestParam(value="memberPw") String memberPw,Model model) {
+	public String removeMember(HttpSession session,@RequestParam(value="memberPw", defaultValue = "") String memberPw,Model model) {
 		// 로그인 안할시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
@@ -239,7 +239,7 @@ public class MemberController {
 	
 	//멤버 정보 수정(비밀번호 수정)액션  
 	@PostMapping("/modifyMemberPw")
-	public String modifyMemberPw(HttpSession session, @RequestParam(value="memberPw") String memberPw) {
+	public String modifyMemberPw(HttpSession session, @RequestParam(value="memberPw", defaultValue = "") String memberPw) {
 		// 로그인 안할시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";

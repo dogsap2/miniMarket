@@ -34,7 +34,7 @@ public class CompanyController {
 	   
 	   //업체 탈퇴 액션
 	   @PostMapping("/removeCompany")
-	   public String removeCompany(HttpSession session,@RequestParam(value="companyPw") String companyPw, Model model) {
+	   public String removeCompany(HttpSession session,@RequestParam(value="companyPw", defaultValue = "") String companyPw, Model model) {
 	      //로그인 상태가 아니면
 	      if(session.getAttribute("loginCompany")== null){ 
 	    	  return "redirect:/loginMemberAndCompany";
@@ -123,7 +123,7 @@ public class CompanyController {
 
 	// 업체 정보 수정(비밀번호 수정)액션
 	@PostMapping("/modifyCompanyPw")
-	public String modifyCompanyPw(HttpSession session, @RequestParam(value = "companyPw") String companyPw) {
+	public String modifyCompanyPw(HttpSession session, @RequestParam(value = "companyPw", defaultValue = "") String companyPw) {
 		//로그인 상태면
 	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
 	       return "redirect:/index";
