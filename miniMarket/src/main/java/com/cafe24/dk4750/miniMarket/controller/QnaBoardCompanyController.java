@@ -29,8 +29,10 @@ public class QnaBoardCompanyController {
 	@GetMapping("modifyQnaBoardCompanyActive")
 	public String modifyQnaBoardCompanyActive(HttpSession session, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "0") int qnaBoardCompanyNo) {
 		// 내가 쓴글만 접근 허용 및 삭제 버튼 활성화
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null) {
 			return "redirect:/loginMemberAndCompany";
+		} else if(qnaBoardCompanyNo == 0) {
+			return "redirect:/";
 		}
 		qnaBoardCompanyService.modifyQnaBoardCompanyActive(qnaBoardCompanyNo);
 		
@@ -50,7 +52,7 @@ public class QnaBoardCompanyController {
 	// QnA 수정 페이지 요청
 	@GetMapping("modifyQnaBoardCompany")
 	public String modifyQnaBoardCompany(HttpSession session, Model model, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "0") int qnaBoardCompanyNo) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		QnaBoardCompanyAndCompany qnaBoardCompanyAndCompany = qnaBoardCompanyService.getQnaBoardCompanyOne(qnaBoardCompanyNo);
@@ -61,7 +63,7 @@ public class QnaBoardCompanyController {
 	// QnA 입력 페이지 액션
 	@PostMapping("addQnaBoardCompany")
 	public String addQnaBoardCompany(HttpSession session, QnaBoardCompany qnaBoardCompany) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		// companyUniqueNo는 세션값으로 받는다
@@ -75,7 +77,7 @@ public class QnaBoardCompanyController {
 	// QnA 입력 페이지 요청
 	@GetMapping("addQnaBoardCompany")
 	public String addQnaBoardCompany(HttpSession session) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		return "addQnaBoardCompany";
@@ -83,7 +85,7 @@ public class QnaBoardCompanyController {
 	// QnA상세보기 페이지 요청, 댓글(페이징) 입력
 	@GetMapping("getQnaBoardCompanyOne")
 	public String qnaBoardCompanyOne(HttpSession session, Model model, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "0") int qnaBoardCompanyNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		System.out.println(qnaBoardCompanyNo + "<--getQnaBoardCompanyOne: qnaBoardCompanyNo");
@@ -103,9 +105,12 @@ public class QnaBoardCompanyController {
 	// QnA 리스트 출력
 	@GetMapping("getQnaBoardCompanyList")
 	public String qnaBoardCompanyListAll(HttpSession session, Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null || session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
+		}else if(session.getAttribute("loginMember") != null) {
+			return "redirect:/";
 		}
+		
 		// QnA 리스트 출력 및 페이징
 		System.out.println(currentPage + "<--qnaBoardCompanyList currentPage");
 		System.out.println(searchWord + "<--qnaBoardCompanyList searchWord");
@@ -123,9 +128,10 @@ public class QnaBoardCompanyController {
 	// 업체 자주묻는 질문 및 QnA
 	@GetMapping("getQnaBoardCompany")
 	public String qnaBoardCompanyList(HttpSession session) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
+		
 		return "getQnaBoardCompany";
 	}
 }

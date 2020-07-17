@@ -32,7 +32,7 @@ public class QnaBoardController {
    //댓글 삭제
     @GetMapping("/removeQnaCommentMember")
     public String removeQnaCommentMember(HttpSession session, QnaCommentMember qnaCommentMember) {
-       if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+       if( session.getAttribute("loginAdmin") == null) {
           return "redirect:/loginMemberAndCompany";
        }
        if(qnaCommentMember.getQnaBoardMemberNo() == 0) {
@@ -65,9 +65,7 @@ public class QnaBoardController {
 	//댓글 추가
 	@PostMapping("/addQnaBoardCommentMember")
 	public String addQnaCommentMember(HttpSession session ,QnaCommentMember qnaCommentMember) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
-			return "redirect:/loginMemberAndCompany";
-		}
+		
 		System.out.println(qnaCommentMember + "<---controller qnaCommentMember");
 		qnaCommentService.addQnaCommentMember(qnaCommentMember);
 		System.out.println(qnaCommentMember.getQnaBoardMemberNo());
@@ -76,8 +74,10 @@ public class QnaBoardController {
 	//자주 묻는 질문 리스트 + 페이징 + 검색
 	@GetMapping("/getQnaBoardMemberList")
 	public String getQnaBoardMemberList(HttpSession session , Model model , @RequestParam(value= "currentPage", defaultValue = "1") int currentPage, @RequestParam(value= "qnaBoardMemberTitle", defaultValue = "") String qnaBoardMemberTitle){
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
+		}else if(session.getAttribute("loginCompany") != null) {
+			return "redirect:/";
 		}
 		System.out.println(currentPage + "<---페이지 초기 번호");
 		System.out.println(qnaBoardMemberTitle+"<---검색어");
@@ -120,7 +120,7 @@ public class QnaBoardController {
 	// 자주 묻는 질문 추가
 	@GetMapping("/addQnaBoardMember")
 	public String addQnaBoardMember(HttpSession session, Model model) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
@@ -130,7 +130,7 @@ public class QnaBoardController {
 	// 자주 묻는 질문 추가 액션
 	@PostMapping("/addQnaBoardMember")
 	public String addQnaBoardMember(HttpSession session, QnaBoardMember qnaBoardMember) {
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		System.out.println(qnaBoardMember);
