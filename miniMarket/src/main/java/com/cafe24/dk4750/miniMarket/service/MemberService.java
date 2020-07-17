@@ -255,7 +255,7 @@ public class MemberService {
 	
 		if(row==1) {
 			//회원가입 완료되면 사진 넣기 
-			memberMapper.insertMemberPic(member.getMemberId());				
+			memberMapper.insertMemberPic(member);				
 			System.out.println(memberPw+"<--임시 비밀번호 들어갔는지 확인 memberPw");
 			//온도넣기
 			memberMapper.insertMemberTemp(member.getMemberUniqueNo());
