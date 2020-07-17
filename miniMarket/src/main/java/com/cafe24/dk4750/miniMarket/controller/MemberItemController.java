@@ -63,9 +63,9 @@ public class MemberItemController {
 	public String getItemListByPlace(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getItemListByPlace 컨트롤러 시작");
 		
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		// rowPerPage, beginRow 설정
 		int rowPerPage = 5;
@@ -89,9 +89,9 @@ public class MemberItemController {
 	public String getItemListByCategory(HttpSession session, Model model, String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getItemListByCategory 겟매핑 시작");
 		System.out.println(categoryName + " <== 카테고리 네임 디버깅");
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		// row
 		int rowPerPage = 5;
@@ -113,9 +113,9 @@ public class MemberItemController {
 	// 아이템 상세보기 겟매핑
 	@GetMapping("/getItemOne")
 	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo, @RequestParam(value="pageCheck", defaultValue = "0") int pageCheck) {
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		
 		// 세션에서 내 유니크넘버 받아오기
@@ -159,8 +159,12 @@ public class MemberItemController {
 	
 	// 판매완료 
     @PostMapping("/soldOutComplete")
-    public String soldOutComplete(@RequestParam("memberItemNo") int memberItemNo , @RequestParam("memberUniqueNo") String memberUniqueNo) {
-		System.out.println(memberItemNo + "<--soldOutComplete itemNo");
+    public String soldOutComplete(HttpSession session, @RequestParam("memberItemNo") int memberItemNo , @RequestParam("memberUniqueNo") String memberUniqueNo) {
+    	// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
+    	System.out.println(memberItemNo + "<--soldOutComplete itemNo");
 		System.out.println(memberUniqueNo + "<--soldOutComplete memberUniqueNo");
 		memberItemService.itemSalesComplete(memberItemNo, memberUniqueNo);
 		  
@@ -170,9 +174,9 @@ public class MemberItemController {
 	// 구매자의 구매완료 아이템 리스트
 	@GetMapping("/getBuyListByMember") 
 	public String getBuyListByMember(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
@@ -191,9 +195,9 @@ public class MemberItemController {
 	// 나의 판매완료 아이템 리스트
 	@GetMapping("/getItemListBySaleMyItem")
 	public String getItemListBySaleMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		
 		int rowPerPage = 5;
@@ -212,9 +216,9 @@ public class MemberItemController {
 	// 나의 판매중인 아이템 리스트
 	@GetMapping("/getItemListMyItem")
 	public String getItemListMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
@@ -233,9 +237,9 @@ public class MemberItemController {
 	public String addMemberItem(HttpSession session, Model model) {
 		System.out.println("addMemberItem 겟매핑 시작");
 		
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		
 		// 카테고리 목록 모델에담아서 포워딩 시켜주기
@@ -251,6 +255,7 @@ public class MemberItemController {
 	@PostMapping("/addMemberItem")
 	public String addMemberItem(HttpSession session, MemberItemForm memberItemForm) {
 		System.out.println("addMemberItem 포스트매핑 시작");
+		
 		// 가격 들어온거 디버깅
 		int price = Integer.parseInt(memberItemForm.getMemberItemPrice());
 		System.out.println(price);
@@ -259,9 +264,9 @@ public class MemberItemController {
 		System.out.println(memberItemPrice + " <== 아이템 가격 컴마 찍힌거");
 		memberItemForm.setMemberItemPrice(memberItemPrice);
 		
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		
 		// 세션에서 유니크넘버 받기
@@ -291,9 +296,9 @@ public class MemberItemController {
 	public String modifyMemberItem(HttpSession session ,Model model, @RequestParam(value="memberItemNo") int memberItemNo) {
 		System.out.println("modifyMemberItem 겟매핑 시작");
 		System.out.println(memberItemNo);
-		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		
 		// 기존 정보 불러오기
@@ -314,10 +319,13 @@ public class MemberItemController {
 	
 	// 멤버 아이템 수정하기 포스트맵핑. 액션
 	@PostMapping("/modifyMemberItem")
-	public String modifyMemberItem(MemberItemForm memberItemForm) {
+	public String modifyMemberItem(HttpSession session, MemberItemForm memberItemForm) {
 		System.out.println("modifyMemberItem 포스트매핑 시작");
 		System.out.println(memberItemForm + " <== 멤버 아이템 수정하기 / memberItemForm 디버깅");
-		
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		// 넘어온 값으로 memberItemNo 값 담아주기
 		int memberItemNo = memberItemForm.getMemberItemNo();
 		
@@ -335,9 +343,9 @@ public class MemberItemController {
 	public String getMemberItemList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("getMemberItemList 겟매핑 시작");
-		// 세션이 널일시 인덱스로 이동
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
@@ -357,7 +365,11 @@ public class MemberItemController {
 	
 	// 아이템 삭제(비활성화)
 	@GetMapping("/disabledMemberItem")
-	public String disabledMemberItem(MemberItem memberItem) {
+	public String disabledMemberItem(HttpSession session, MemberItem memberItem) {
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println("disabledMemberItem 겟매핑 시작");
 		System.out.println(memberItem + " <== 아이템 삭제 / 멤버 아이템 넘버 디버깅");
 		

@@ -24,26 +24,37 @@ public class QnaBoardController {
 	@Autowired QnaCommentService qnaCommentService;
 	@GetMapping("/getQnaBoardMemberHtml")
 	public String getQnaBoardMemberHtml(HttpSession session) {
-		
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		return "getQnaBoardMemberHtml";
 	}
 	//댓글 삭제
 	@GetMapping("/removeQnaCommentMember")
-	public String removeQnaCommentMember(QnaCommentMember qnaCommentMember) {
+	public String removeQnaCommentMember(HttpSession session, QnaCommentMember qnaCommentMember) {
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(qnaCommentMember+"<---삭제 컨트롤러");
 		qnaCommentService.removeQnaCommentMember(qnaCommentMember.getQnaCommentMemberNo());
 		return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaCommentMember.getQnaBoardMemberNo();
 	}
 	@PostMapping("/modifyQnaBoardMemberByActive")
 	//질문 비활성화
-	public String modifyQnaBoardMemberByActive(@RequestParam("qnaBoardMemberNo") int qnaBoardMemberNo) {
+	public String modifyQnaBoardMemberByActive(HttpSession session, @RequestParam("qnaBoardMemberNo") int qnaBoardMemberNo) {
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(qnaBoardMemberNo);
 		qnaBoardService.modifyQnaBoardMemberByActive(qnaBoardMemberNo);
 		return "redirect:/getQnaBoardMemberList";
 	}
 	//질문 수정
 	@PostMapping("/modifyQnaBoardMember")
-	public String modifyQnaBoardMember(QnaBoardMember qnaBoardMember) {
+	public String modifyQnaBoardMember(HttpSession session, QnaBoardMember qnaBoardMember) {
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(qnaBoardMember);
 		qnaBoardService.modifyQnaBoardMember(qnaBoardMember);
 		return "redirect:/getQnaBoardMemberOne?qnaBoardMemberNo="+qnaBoardMember.getQnaBoardMemberNo();
@@ -51,9 +62,9 @@ public class QnaBoardController {
 	//댓글 추가
 	@PostMapping("/addQnaBoardCommentMember")
 	public String addQnaCommentMember(HttpSession session ,QnaCommentMember qnaCommentMember) {
-		if(session.getAttribute("loginMember") == null) {
-	         return "redirect:/index";
-	      }
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(qnaCommentMember + "<---controller qnaCommentMember");
 		qnaCommentService.addQnaCommentMember(qnaCommentMember);
 		System.out.println(qnaCommentMember.getQnaBoardMemberNo());
@@ -62,6 +73,9 @@ public class QnaBoardController {
 	//자주 묻는 질문 리스트 + 페이징 + 검색
 	@GetMapping("/getQnaBoardMemberList")
 	public String getQnaBoardMemberList(HttpSession session , Model model , @RequestParam(value= "currentPage", defaultValue = "1") int currentPage, @RequestParam(value= "qnaBoardMemberTitle", defaultValue = "") String qnaBoardMemberTitle){
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(currentPage + "<---페이지 초기 번호");
 		System.out.println(qnaBoardMemberTitle+"<---검색어");
 		int rowPerPage = 5;
@@ -81,10 +95,9 @@ public class QnaBoardController {
 	// 상세보기
 	@GetMapping("/getQnaBoardMemberOne")
 	public String getQnaBoardMemberOne(HttpSession session , Model model , @RequestParam(value= "currentPage", defaultValue = "1") int currentPage ,@RequestParam("qnaBoardMemberNo") int qnaBoardMemberNo) {
-		if(session.getAttribute("loginMember") == null) {
-	         return "redirect:/index";
-	      }
-		
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(qnaBoardMemberNo+"<---qnaBoardMemberNo controller");
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		System.out.println(memberUniqueNo+"<--세션 유니크넘버 controller");
@@ -104,16 +117,19 @@ public class QnaBoardController {
 	// 자주 묻는 질문 추가
 	@GetMapping("/addQnaBoardMember")
 	public String addQnaBoardMember(HttpSession session, Model model) {
-		if(session.getAttribute("loginMember") == null) {
-	         return "redirect:/index";
-	      }
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
 		model.addAttribute("memberUniqueNo", memberUniqueNo);
 		return "addQnaBoardMember";
 	}
 	// 자주 묻는 질문 추가 액션
 	@PostMapping("/addQnaBoardMember")
-	public String addQnaBoardMember(QnaBoardMember qnaBoardMember) {
+	public String addQnaBoardMember(HttpSession session, QnaBoardMember qnaBoardMember) {
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(qnaBoardMember);
 		qnaBoardService.addQnaBoardMember(qnaBoardMember);
 		

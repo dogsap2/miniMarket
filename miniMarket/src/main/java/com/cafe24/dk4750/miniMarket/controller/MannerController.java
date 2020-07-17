@@ -22,6 +22,10 @@ public class MannerController {
 	//매너 평가 하기 겟맵핑 (폼)
 	@GetMapping("/addManner")
 	public String addManner(HttpSession session, Model model, ItemSoldoutAndMemberItemAndMemberItemPic itemSoldoutAndMemberItemAndMemberItemPic) {
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println("addManner Controller start..");
 		System.out.println(itemSoldoutAndMemberItemAndMemberItemPic + " <== 들어온 값 디버깅");
 			
