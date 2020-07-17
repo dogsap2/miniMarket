@@ -59,7 +59,7 @@ public class ReportCompanyByMemberService {
 		MemberTemp memberTemp = new MemberTemp();
 		Map<String, Object> map = new HashMap<>();
 		
-		reportCompanyByMemberMapper.updateReportCompanyByMemberState(reportCompanyByMember)
+		reportCompanyByMemberMapper.updateReportCompanyByMemberState(reportCompanyByMember);
 		return 0;
 	}
 }

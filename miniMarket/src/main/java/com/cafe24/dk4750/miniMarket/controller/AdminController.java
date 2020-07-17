@@ -25,7 +25,7 @@ public class AdminController {
 	// 업체 목록 상세
 	@GetMapping("getAdminCompanyListOne")
 	public String getAdminCompanyListOne(HttpSession session, Model model, @RequestParam(value="companyId") String companyId) {
-		if(session.getAttribute("loginAdmin")!= null){
+		if(session.getAttribute("loginAdmin") == null){
 			return "redirect:/";
 		}
 		Company company = adminService.getAdminCompanyListOne(companyId);
@@ -36,7 +36,7 @@ public class AdminController {
 	// 회원 목록 상세
 	@GetMapping("getAdminMemberListOne")
 	public String getAdminMemberListOne(HttpSession session, Model model, @RequestParam(value="memberId") String memberId) {
-		if(session.getAttribute("loginAdmin")!= null){
+		if(session.getAttribute("loginAdmin")== null){
 			return "redirect:/";
 		}
 		Member member = adminService.getAdminMemberListOne(memberId);
@@ -47,7 +47,7 @@ public class AdminController {
 	// 관리자용 업체 목록
 	@GetMapping("getAdminCompanyList")
 	public String getAdminCompanyList(HttpSession session, Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
-		if(session.getAttribute("loginAdmin")!= null){
+		if(session.getAttribute("loginAdmin")== null){
 			return "redirect:/";
 		}
 		System.out.println(currentPage + "<--getAdminCompanyList currentPage");
@@ -66,7 +66,7 @@ public class AdminController {
 	@GetMapping("getAdminMemberList")
 	public String getAdminMemberList(HttpSession session, Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		// 관리자만 접근 가능
-		if(session.getAttribute("loginAdmin")!= null){
+		if(session.getAttribute("loginAdmin")== null){
 			return "redirect:/";
 		}
 		System.out.println(currentPage + "<--getAdminMemberList currentPage");

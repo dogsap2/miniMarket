@@ -46,7 +46,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p><a th:href="@{/index}">SHOP NOW</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
@@ -65,24 +64,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li th:if="${session.loginCompany != null}">
 						<a th:href="@{/companyMyPage}">마이페이지(업체)</a>
 					</li>					
-					<li	th:if="${session.loginMember == null && session.loginCompany ==null}">
+					<li	th:if="${session.loginMember == null && session.loginCompany ==null && session.loginAdmin==null}">
 						<a th:href="@{/loginMemberAndCompany}">로그인</a>
 					</li>
-					<li th:if="${session.loginMember == null && session.loginCompany ==null}">
+					<li th:if="${session.loginMember == null && session.loginCompany ==null && session.loginAdmin==null}">
 						<a th:href="@{/addMemberAndCompany}">회원가입</a>
 					</li>
-					<li><a href="">문의게시판</a></li>
-					<li th:if="${session.loginAdmin == null}">
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">QnA<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<li><a th:href="@{/getQnaBoardMemberHtml}">멤버 자주 묻는 질문</a></li>
+											<li><a th:href="@{/getQnaBoardCompany}">업체 자주 묻는 질문</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">공지사항<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<li><a th:href="@{/getNoticeList}">공지사항</a></li>
+											<li><a th:if="${session.loginAdmin} !=null" th:href="@{/addNotice}">공지사항작성</a></li>
+											<li><a th:if="${session.loginAdmin} !=null" th:href="@{/addCategory}">카테고리 작성</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul>
+					</li>
+					<li th:if="${session.loginMember == null && session.loginCompany ==null && session.loginAdmin==null}">
 						<a th:href="@{loginAdmin}">관리자</a>
 					</li>
 				</ul>
 			</div>
 			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
+				<input type="hidden" name="cmd" value="_cart">
+				<input type="hidden" name="display" value="1">
+				<a th:href="@{/getMyLikeItem}">
+					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</a>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -147,48 +170,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
 											<h6>업체 관련 메뉴</h6>
-											<li><a th:if="${session.loginCompany} !=null" th:href="@{/addCompanyItem}">업체 홍보하기</a></li>
 											<li><a th:href="@{/getCompanyItemList}">우리동네 홍보 목록</a></li>
-											<li><a th:if="${session.loginCompany} !=null" th:href="@{/getCompanyMyItemOne(companyUniqueNo=${session.loginCompany.companyUniqueNo})}">내 홍보중인 아이템 상세보기</a></li>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/getMyLikeCompanyItem}">내가 관심등록한 업체 아이템 목록</a></li>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a></li>
 										</ul>
 									</div>
 								</div>
 							</ul></li>
 							<!-- QNA 메뉴 -->
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">QNA<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<h6>자주 묻는 질문</h6>
-											<li><a th:href="@{/getQnaBoardMemberHtml}">멤버 자주 묻는 질문</a></li>
-											<li><a th:href="@{/getQnaBoardCompany}">업체 자주 묻는 질문</a></li>			
-										</ul>
-									</div>
-								</div>
-							</ul>
-						</li>
-						<li><!-- 채팅방 버튼 -->
-							<a th:href="@{/chatroomList}">채팅방</a>
-						</li>
-						<!-- 공지사항 메뉴(관리자만 작성,수정)-->
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">공지사항<b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<h6>공지사항</h6>
-											<li><a th:href="@{/getNoticeList}">공지사항</a></li>
-											<li><a th:if="${session.loginAdmin} !=null" th:href="@{/addNotice}">공지사항작성</a></li>
-											<li><a th:if="${session.loginAdmin} !=null" th:href="@{/addCategory}">카테고리 작성</a></li>
-										</ul>
-									</div>
-								</div>
-							</ul>
+						<li th:if="${session.loginAdmin == null && session.loginCompany == null}"><!-- 채팅방 버튼 -->
+							<a th:href="@{/chatroomList}" onclick="window.open(this.href,'_blank','width=600,height=850,left=400px,top=200px, scrollbars=yes');return false;">채팅방</a>
 						</li>
 						<li class="dropdown" th:if="${session.loginAdmin != null}">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">회원 관리<b class="caret"></b></a>

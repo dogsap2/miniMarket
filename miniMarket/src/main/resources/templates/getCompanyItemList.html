@@ -148,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</ul></li>
 							<!-- QNA 메뉴 -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">QNA<b class="caret"></b></a>
+							data-toggle="dropdown">QnA<b class="caret"></b></a>
 							<ul class="dropdown-menu multi-column columns-3">
 								<div class="row">
 									<div class="multi-gd-img">
@@ -206,6 +206,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container" align="center">
 			<br>
 			<h2>우리동네 홍보목록</h2>
+			<a th:if="${session.loginCompany} !=null" th:href="@{/addCompanyItem}">업체 홍보하기</a><br>
+			<a th:if="${session.loginMember} !=null" th:href="@{/getMyLikeCompanyItem}">내가 관심등록한 업체 아이템 목록</a><br>
+			<a th:if="${session.loginMember} !=null" th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a>
 			<br>
 			<form method="get" th:action="@{/getCompanyItemList}" id="searchForm">
 				<div align="right">
@@ -216,6 +219,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						type="button" id="searchBtn">검색</button>
 				</div>
 				<br>
+				
 				<table border="1" class="table table-bordered">
 					<thead>
 						<tr>

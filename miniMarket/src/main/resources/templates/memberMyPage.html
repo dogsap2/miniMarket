@@ -178,7 +178,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<li><a th:if="${session.loginMember} !=null" th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
 	<li><a th:if="${session.loginMember} !=null" th:href="@{/getBuyListByMember}">내가 구매한 아이템 목록</a></li>
 	<li><a th:if="${session.loginMember} !=null" th:href="@{/getItemListBySaleMyItem}">내 판매완료 아이템 목록</a></li>
-	<li><a class = "btn btn-warning" th:href="@{/getMyLikeItem}">내 관심상품 목록</a></li>
 	</ul>
 	<br><br><br><br>
 	<a class="btn btn-warning btn-block btn-lg" style="width:500px" th:href="@{/removeMember}">회원 탈퇴</a>
