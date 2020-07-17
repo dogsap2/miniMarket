@@ -67,12 +67,9 @@ public class MemberController {
 	
 	//어바웃
 	@GetMapping("/about")
-	public String about(HttpSession session) {
-		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
-			return "redirect:/loginMemberAndCompany";
-		}
-	return "about";
+	public String about() {
+		
+		return "about";
 	}
 	
 	
