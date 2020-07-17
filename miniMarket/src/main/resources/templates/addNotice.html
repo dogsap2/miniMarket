@@ -116,7 +116,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<div class="logo_products">
 		<div class="container">
-		<div class="w3ls_logo_products_left1">			
+		<div class="w3ls_logo_products_left1">
+			</div>
+		<div class="w3ls_logo_products_left">			
 			</div>
 			<div class="w3ls_logo_products_left">
 				<h1><a th:href="@{/index}">Mini Market</a></h1>
@@ -169,7 +171,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 							</ul></li>
 							<!-- QNA 메뉴 -->
-						<li th:if="${session.loginAdmin == null && session.loginCompany == null}"><!-- 채팅방 버튼 -->
+						<li th:if="${session.loginAdmin == null && session.loginCompany == null && session.loginMember!=null}"><!-- 채팅방 버튼 -->
 							<a th:href="@{/chatroomList}" onclick="window.open(this.href,'_blank','width=600,height=850,left=400px,top=200px, scrollbars=yes');return false;">채팅방</a>
 						</li>
 						<li class="dropdown" th:if="${session.loginAdmin != null}">
@@ -208,6 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</nav>
 		</div>
 	</div>
+		
 <!-- //navigation -->
 <!-- breadcrumbs -->
    <div class="breadcrumbs">

@@ -137,7 +137,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
 											<h6>업체 관련 메뉴</h6>
-											<li><a th:if="${session.loginCompany} !=null" th:href="@{/addCompanyItem}">업체 홍보하기</a></li>
 											<li><a th:href="@{/getCompanyItemList}">우리동네 홍보 목록</a></li>
 											<li><a th:if="${session.loginCompany} !=null" th:href="@{/getCompanyMyItemOne(companyUniqueNo=${session.loginCompany.companyUniqueNo})}">내 홍보중인 아이템 상세보기</a></li>
 											<li><a th:if="${session.loginMember} !=null" th:href="@{/getMyLikeCompanyItem}">내가 관심등록한 업체 아이템 목록</a></li>
