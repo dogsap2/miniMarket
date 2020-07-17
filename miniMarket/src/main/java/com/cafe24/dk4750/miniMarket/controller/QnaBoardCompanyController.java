@@ -27,7 +27,7 @@ public class QnaBoardCompanyController {
 	
 	// QnA 리스트 비 활성화
 	@GetMapping("modifyQnaBoardCompanyActive")
-	public String modifyQnaBoardCompanyActive(HttpSession session, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "") int qnaBoardCompanyNo) {
+	public String modifyQnaBoardCompanyActive(HttpSession session, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "0") int qnaBoardCompanyNo) {
 		// 내가 쓴글만 접근 허용 및 삭제 버튼 활성화
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
@@ -49,7 +49,7 @@ public class QnaBoardCompanyController {
 	}
 	// QnA 수정 페이지 요청
 	@GetMapping("modifyQnaBoardCompany")
-	public String modifyQnaBoardCompany(HttpSession session, Model model, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "") int qnaBoardCompanyNo) {
+	public String modifyQnaBoardCompany(HttpSession session, Model model, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "0") int qnaBoardCompanyNo) {
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
@@ -82,7 +82,7 @@ public class QnaBoardCompanyController {
 	}
 	// QnA상세보기 페이지 요청, 댓글(페이징) 입력
 	@GetMapping("getQnaBoardCompanyOne")
-	public String qnaBoardCompanyOne(HttpSession session, Model model, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "") int qnaBoardCompanyNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	public String qnaBoardCompanyOne(HttpSession session, Model model, @RequestParam(value="qnaBoardCompanyNo", defaultValue = "0") int qnaBoardCompanyNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}

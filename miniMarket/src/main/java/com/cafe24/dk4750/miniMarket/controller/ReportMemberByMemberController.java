@@ -20,7 +20,7 @@ public class ReportMemberByMemberController {
 	// 전부다 관리자 상태로 가능
 	// 신고 상태 수정
 	@PostMapping("modifyReportStateMemberByMember")
-	public String modifyReportMemberByMemberReportState(HttpSession session, ReportMemberByMember reportMemberByMember, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
+	public String modifyReportMemberByMemberReportState(HttpSession session, ReportMemberByMember reportMemberByMember, @RequestParam(value="reportNo", defaultValue = "0") int reportNo) {
 		reportMemberByMemberService.modifyMemberByMemberState(reportMemberByMember);
 		System.out.println(reportMemberByMember);
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
@@ -34,7 +34,7 @@ public class ReportMemberByMemberController {
 	}
 	// 신고내용 상세보기
 	@GetMapping("getReportMemberByMemberListOne")
-	public String getReportMemberByMemberListOne(HttpSession session, Model model, @RequestParam(value="reportNo", defaultValue = "") int reportNo) {
+	public String getReportMemberByMemberListOne(HttpSession session, Model model, @RequestParam(value="reportNo", defaultValue = "0") int reportNo) {
 		//멤버 or 업체 로그인 상태시 메인화면으로 이동
 		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
 	         return "redirect:index";
@@ -72,7 +72,7 @@ public class ReportMemberByMemberController {
 		return "getReportMemberByMemberList";
 	}
 	@GetMapping("/memberByMemberReport")
-	public String addReport(HttpSession session ,@RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam(value="memberUniqueNo", defaultValue = "0") String memberUniqueNo, Model model) {
 		// 로그인 멤버가 널일 경우 로그인창으로
 		if(session.getAttribute("loginMember") == null) {
 	         return "redirect:/loginMemberAndCompany";

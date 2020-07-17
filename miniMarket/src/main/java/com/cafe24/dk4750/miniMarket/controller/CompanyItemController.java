@@ -28,7 +28,7 @@ public class CompanyItemController {
 	
 	// 나의 업체 아이템 수정
 	@GetMapping("/modifyCompanyItem")
-	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
+	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginCompany") == null) {
 			 return "redirect:/loginMemberAndCompany";
@@ -94,7 +94,7 @@ public class CompanyItemController {
 	
 	// 업체 아이템 상세보기
 	@GetMapping("/getCompanyItemOne")
-	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
+	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
@@ -110,7 +110,7 @@ public class CompanyItemController {
 	
 	// 홍보중인 업체 아이템 카테고리별 출력하기
 	@GetMapping("/getCompanyItemListByCategory")
-	public String getCompanyItemListByCategory(HttpSession session, Model model, @RequestParam("categoryName") String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage){
+	public String getCompanyItemListByCategory(HttpSession session, Model model, @RequestParam(value="categoryName", defaultValue="") String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage){
 		System.out.println("getCompanyItemListByCategory<==겟메핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
