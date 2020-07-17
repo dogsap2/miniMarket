@@ -1,5 +1,7 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,10 @@ public class QnaCommentCompanyController {
 	
 	// 댓글 삭제
 	@GetMapping("removeQnaCommentCompany")
-	public String removeCommentCompany(@RequestParam(value="qnaCommentCompanyNo") int qnaCommentCompanyNo, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+	public String removeCommentCompany(HttpSession session, @RequestParam(value="qnaCommentCompanyNo") int qnaCommentCompanyNo, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+		if(session.getAttribute("loginAdmin") == null) {
+			return "redirect:";
+		}
 		// 관리자 권한
 		System.out.println(qnaCommentCompanyNo + "<------removeCommentCompany: qnaCommentCompanyNo");
 		System.out.println(qnaBoardCompanyNo + "<------removeCommentCompany: qnaBoardCompanyNo");
@@ -26,9 +31,11 @@ public class QnaCommentCompanyController {
 	}
 	// 댓글 입력
 	@PostMapping("addQnaCommentCompany")
-	public String addQnaCommentCompany(QnaCommentCompany qnaCommentCompany, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
+	public String addQnaCommentCompany(HttpSession session, QnaCommentCompany qnaCommentCompany, @RequestParam(value="qnaBoardCompanyNo") int qnaBoardCompanyNo) {
 		// 관리자 권한
-		
+		if(session.getAttribute("loginAdmin") == null) {
+			return "redirect:";
+		}
 		// 관리자 id를 세션으로 받아오지만 지금은 테스트용
 		System.out.println(qnaBoardCompanyNo + "<------ 댓글 입력");
 		String adminId = "admin";

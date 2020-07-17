@@ -19,7 +19,11 @@ public class MemberReviewController {
 	
 	//리뷰 인서트  겟 맵핑
 	@GetMapping("/addReview")
-	public String addReview(MemberReview memberReview, Model model) {
+	public String addReview(HttpSession session, MemberReview memberReview, Model model) {
+		// 로그인 안할시 로그인 창으로
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println(memberReview +"<== 리뷰 작성 하기 겟맵핑 값확인");
 		// 판매자의 유니크넘버 구하기
 		String memberUniqueNo = memberReview.getMemberUniqueNoSale();
@@ -35,6 +39,7 @@ public class MemberReviewController {
 	//리뷰 인서트 포스트 맵핑
 	@PostMapping("/addReview")
 	public void addReview(HttpSession session, MemberReview memberReview) {
+
 		System.out.println("addReview post매핑 스타트");
 		System.out.println(memberReview+"<== 리뷰 작성 하기 포스트맵핑  값확인");
 		
