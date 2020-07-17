@@ -134,12 +134,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
 											<h6>중고물품 관련</h6>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}">중고아이템 판매</a></li>
 											<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/getBuyListByMember}">내가 구매한 아이템 목록</a></li>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/modifyMemberItem}">내 아이템 수정 ---------- 상세보기 완료 후 생성</a></li>
-											<li><a th:if="${session.loginMember} !=null" th:href="@{/getItemListBySaleMyItem}">내 판매완료 아이템 목록</a></li>
 										</ul>
 									</div>
 								</div>
@@ -261,6 +256,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="top-brands">
 		<div class="container">
 		<h2>우리동네 중고거래 목록</h2>
+			<a th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}" style="float:right;" class="btn btn-info btn-lg">중고아이템 판매</a>
 			<div class="grid_3 grid_5">
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
