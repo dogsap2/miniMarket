@@ -37,106 +37,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
-<!--주소 입력 기능 -->
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>	
-    function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-            	console.log(data.sido);
-                console.log(data.sigungu);
-                console.log(data.bname);
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.sido +" "+ data.sigungu +" "+ data.bname;
-                }
-                document.getElementById("address").value = addr;
-                $('#companySido').val(data.sido);
-                $('#companySigungu').val(data.sigungu); 
-                $('#companyBname').val(data.bname);
-            }
-        }).open();
-    }
-   
-    let helperInit = function(){
-    	$('#idHelper').text("");
-    	$('#pwHelper').text("");
-    	$('#nameHelper').text("");
-    	$('#addrHelper').text("");
-    	$('#phoneHelper').text("");
-    	$('#emailHelper').text("");
-    };
-
-
-    $(document).ready(function() { 
-    	$('#btn').click(function() {
-    		if($('#companyId').val().length < 4){	
-    			helperInit();
-    			$('#idHelper').text("id 4자이상");
-    			$('#companyId').focus();
-    			
-    		}else if($('#companyPw').val().length < 4){	
-    			helperInit();
-    			$('#pwHelper').text("pw 4자 이상 입력");
-    			$('#companyPw').focus();			
-    		}else if($('#companyPw').val()!= $('#companyPw2').val()) {
-    			helperInit();
-    			$('#pwHelper').text("pw를 확인하세요");
-    			$('#companyPw').focus();
-    		}else if($('#companyName').val().length === 0){ //0->공백 
-    			helperInit();
-    			$('#nameHelper').text("이름 입력하세요");
-    			$('#companyName').focus();
-    		}else if($('#companyCeoName').val().length === 0){
-    			helperInit();
-    			$('#addrHelper').text("ceo를 입력하세요");
-    			$('#companyCeoName').focus();
-    		}else if($('#companyPhone').val().length === 0){ 
-    			helperInit();
-    			$('#phoneHelper').text("전화번호 입력하세요");
-    			$('#companyPhone').focus();			
-    		}else if($('#companyEmail').val().length === 0){ 
-    			helperInit();
-    			$('#emailHelper').text("이메일을  입력하세요");
-    			$('#companyEmail').focus();			
-    		} else{
-    			$('#myform').submit();
-    		} 	
-    	});
-    	
- 	   //전화번호 중복 유효성 검사(비동기!!!)
- 	   $('#checkCompanyPhone').blur(function(){ //커서 이동할때마다 blur 이벤트 발생. 아이디입력창에서 마우스 커스가 떠났을때.
- 	      console.log('#checkCompanyPhone blur이벤트 발생'); //#id입력창에서 마우스커스 떠났다 
- 	   	  if($('#checkCompanyPhone').val().length <11){
- 	   		  $('#companyPhoneCheckHelper').text('11글자이상');
- 	   		  $('#checkCompanyPhone').focus();	 
- 	   	  }else{
- 	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
- 	   		  $.ajax({
- 	   			  url:'/checkCompanyPhone',
- 	   			  type:'GET',
- 	   		  	  data:{checkCompanyPhone:$('#checkCompanyPhone').val()},
- 	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
- 	   		  		  console.log(data);  
- 	   		  	  		if(data =='사용불가'){
- 	   		  	  			$('#companyPhoneCheckHelper').text('핸드폰번호 중복 사용불가');
- 	   		  	  			$('#checkCompanyPhone').focus();
- 	   		  	  		}else if(data=='사용가능'){
- 	   		  	  			$('#companyPhoneCheckHelper').text('사용 가능한 전화번호입니다');
- 	   		  	  		}
- 	   		  	  }
- 	   		  });
- 	   	  }
- 	   });  
-   });        
-</script>
 <!-- start-smoth-scrolling -->
 </head>
 <body>
@@ -144,25 +44,73 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-				<p><a th:href="@{/index}">SHOP NOW</a></p>
+			<p><a th:href="@{/about}">About us</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
-					<li>
+					<li th:if="${session.loginMember != null }">
+						<a th:href="@{/logoutMember}">로그아웃</a>
+					</li>
+					<li th:if="${session.loginCompany != null }">
 						<a th:href="@{/logoutCompany}">로그아웃</a>					
 					</li>
-					<li>
-						<a th:href="@{/companyMyPage}">마이페이지(업체)</a>
+					<li th:if="${session.loginAdmin != null }">
+						<a th:href="@{/logoutAdmin}">로그아웃</a>					
 					</li>
-					<li><a href="contact.html">Help</a></li>
+					<li th:if="${session.loginMember != null}">
+						<a th:href="@{/memberMyPage}">마이페이지(회원)</a>
+					</li>
+					<li th:if="${session.loginCompany != null}">
+						<a th:href="@{/companyMyPage}">마이페이지(업체)</a>
+					</li>					
+					<li	th:if="${session.loginMember == null && session.loginCompany ==null && session.loginAdmin==null}">
+						<a th:href="@{/loginMemberAndCompany}">로그인</a>
+					</li>
+					<li th:if="${session.loginMember == null && session.loginCompany ==null && session.loginAdmin==null}">
+						<a th:href="@{/addMemberAndCompany}">회원가입</a>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">QnA<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<li><a th:href="@{/getQnaBoardMemberHtml}">멤버 자주 묻는 질문</a></li>
+											<li><a th:href="@{/getQnaBoardCompany}">업체 자주 묻는 질문</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">공지사항<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<li><a th:href="@{/getNoticeList}">공지사항</a></li>
+											<li><a th:if="${session.loginAdmin} !=null" th:href="@{/addNotice}">공지사항작성</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul>
+					</li>
+					<li th:if="${session.loginMember == null && session.loginCompany ==null && session.loginAdmin==null}">
+						<a th:href="@{loginAdmin}">관리자</a>
+					</li>
 				</ul>
 			</div>
-			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
+			<div class="product_list_header" th:if="${session.loginMember != null}">  
+				<input type="hidden" name="cmd" value="_cart">
+				<input type="hidden" name="display" value="1">
+				<a th:href="@{/getMyLikeItem}">
+					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</a>
+			</div>
+			<div class="product_list_header" th:if="${session.loginMember == null}">  
+				<input type="hidden" name="cmd" value="_cart">
+				<input type="hidden" name="display" value="1">
+				<a>
+					<button class="w3view-cart" type="button" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</a>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -171,74 +119,136 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="logo_products">
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
-				<ul class="phone_email">
-					<li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
-					
-				</ul>
+			</div>
+		<div class="w3ls_logo_products_left">			
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a th:href="@{/index}">mini Market</a></h1>
+				<h1><a th:href="@{/index}">Mini Market</a></h1>
 			</div>
-		<div class="w3l_search">
-			<form action="#" method="post">
-				<input type="search" name="Search" placeholder="Search for a Product..." required="">
-				<button type="submit" class="btn btn-default search" aria-label="Left Align">
-					<i class="fa fa-search" aria-hidden="true"> </i>
-				</button>
-				<div class="clearfix"></div>
-			</form>
-		</div>
-			
 			<div class="clearfix"> </div>
 		</div>
 	</div>
 <!-- //header -->
 <!-- navigation -->
-<div class="navigation-agileits">
-	<div class="container">
-		<nav class="navbar navbar-default">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header nav_2">
-				<button type="button"
-					class="navbar-toggle collapsed navbar-toggle1"
-					data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
-					<!-- Mega Menu -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">중고물품 관련<b class="caret"></b></a>
-						<ul class="dropdown-menu multi-column columns-3">
-							<div class="row">
-								<div class="multi-gd-img">
-									<ul class="multi-column-dropdown">
-										<h6>중고물품 관련</h6>
-										<li><a th:href="@{/addMemberItem}">중고아이템 판매</a></li>
-										<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
-										<li><a th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
-										<li><a th:href="@{/getBuyListByMember}">내가 구매한 아이템
-												목록</a></li>
-										<li><a th:href="@{/modifyMemberItem}">내 아이템 수정
-												---------- 상세보기 완료 후 생성</a></li>
-										<li><a th:href="@{/getItemListBySaleMyItem}">내 판매완료
-												아이템 목록</a></li>
-									</ul>
+	<div class="navigation-agileits">
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header nav_2">
+					<button type="button"
+						class="navbar-toggle collapsed navbar-toggle1"
+						data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+					<ul class="nav navbar-nav">
+						<li class="active"><a th:href="@{/index}" class="act">Home</a></li>
+						<!-- Mega Menu -->
+							<li class="dropdown"  th:if="${session.loginMember} != null"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">중고 물품 메뉴<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>중고 물품 메뉴</h6>
+											<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
-						</ul></li>
-					<li>
-						<!-- 채팅방 버튼 --> <a th:href="@{/button}">채팅방</a>
-					</li>
-			</div>
-		</nav>
+							</ul></li>
+							<li class="dropdown"  th:if="${session.loginMember==null && session.loginCompany==null && session.loginAdmin==null}"><a href="#" class="dropdown-toggle none">중고 물품 메뉴<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>중고 물품 메뉴</h6>
+											<li><a th:href="@{/getMemberItemList}">내동네 중고물품 목록</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+							<!-- 업체 메뉴 -->
+							<li class="dropdown" th:if="${session.loginCompany != null || session.loginMember != null}"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">업체 홍보 메뉴<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>업체 홍보 메뉴</h6>
+											<li><a th:if="${session.loginCompany} !=null" th:href="@{/addCompanyItem}">업체 홍보하기</a></li>
+											<li><a th:if="${session.loginMember} != null" th:href="@{/getCompanyItemList}">내동네 업체홍보 목록</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+							<!-- 업체 메뉴 -->
+							<li class="dropdown" th:if="${session.loginMember==null && session.loginCompany==null && session.loginAdmin==null}"><a href="#" class="dropdown-toggle none">업체 홍보 메뉴<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>업체 홍보 메뉴</h6>
+											<li><a th:if="${session.loginCompany} !=null" th:href="@{/addCompanyItem}">업체 홍보하기</a></li>
+											<li><a th:if="${session.loginMember} != null" th:href="@{/getCompanyItemList}">내동네 업체홍보 목록</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul></li>
+						<li th:if="${session.loginAdmin == null && session.loginCompany == null && session.loginMember!=null}"><!-- 채팅방 버튼 -->
+							<a th:href="@{/chatroomList}" onclick="window.open(this.href,'_blank','width=600,height=850,left=400px,top=200px, scrollbars=yes');return false;">채팅방</a>
+						</li>
+						<li class="dropdown" th:if="${session.loginAdmin != null}">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">회원 관리<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>회원 / 업체</h6>
+											<li><a th:href="@{getAdminMemberList}">회원</a></li>
+											<li><a th:href="@{getAdminCompanyList}">업체</a></li>
+										</ul>
+									</div>	
+								</div>
+							</ul>
+						</li>
+						<li class="dropdown" th:if="${session.loginAdmin != null}">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">신고 리스트<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<h6>회원 / 업체</h6>
+											<li><a th:href="@{getReportMemberByMemberList}">회원 -> 회원</a></li>
+											<li><a th:href="@{getReportMemberByMemberItemList}">회원 -> 회원 아이템</a></li>
+											<li><a th:href="@{getReportMemberByCompanyList}">회원 -> 업체</a></li>
+											<li><a th:href="@{getReportMemberByCompanyItemList}">회원 -> 업체 아이템</a></li>
+											<li><a th:href="@{getReportCompanyByMemberList}">업체 -> 회원 댓글</a></li>
+										</ul>
+									</div>	
+								</div>
+							</ul>
+						</li>
+						<li class="dropdown" th:if="${session.loginAdmin != null}">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">카테고리 생성<b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-3">
+								<div class="row">
+									<div class="multi-gd-img">
+										<ul class="multi-column-dropdown">
+											<li><a th:if="${session.loginAdmin} !=null" th:href="@{/addCategory}">카테고리 생성</a></li>
+										</ul>
+									</div>	
+								</div>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
 	</div>
-	</div>
-	<!-- //navigation -->
+<!-- //navigation -->
 <!-- breadcrumbs -->
 	<div class="breadcrumbs">
 		<div class="container">
@@ -283,53 +293,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //login -->
 <!-- //footer -->
-<div class="footer">
-		<div class="container">
-			<div class="w3_footer_grids">
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Contact</h3>
-					
-					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block, <span>New York City.</span></li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Information</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="contact.html">Contact Us</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="short-codes.html">Short Codes</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="faq.html">FAQ's</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Special Products</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Category</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="groceries.html">Groceries</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="household.html">Household</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="personalcare.html">Personal Care</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="packagedfoods.html">Packaged Foods</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="beverages.html">Beverages</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Profile</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="@{/loginMemberAndCompany}">Login</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
-					</ul>
-					
-					
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-		
+<div class="footer">		
 		<div class="footer-copy">
 			
 			<div class="container">
@@ -341,11 +305,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="footer-botm">
 			<div class="container">
 				<div class="w3layouts-foot">
-					<ul>
-						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+					<ul>			
+						<li><a href="https://github.com/dk4750/mini_market" class="w3_agile_dribble"><i class="fa fa-github" aria-hidden="true"></i></a></li>
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
