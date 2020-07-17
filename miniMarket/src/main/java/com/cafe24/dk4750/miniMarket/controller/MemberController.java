@@ -37,7 +37,10 @@ public class MemberController {
 		 // 세션이 널일경우
 	     if(session.getAttribute("loginMember") == null){ 
 	    	 return "redirect:/index";
-	     }   
+	     }
+	     if(memberUniqueNo.equals("") || memberId.equals("")) {
+	    	 return "redirect:/index";
+	     }
 		System.out.println(memberUniqueNo + " <== 멤버 유니크넘버 넘어온 값");
 		System.out.println(memberId + " <== 멤버 아이디 넘어온 값");
 		
@@ -77,7 +80,7 @@ public class MemberController {
 	@GetMapping("/modifyMemberInterestPlace")
 	public String modifyMemberInterestPlace(HttpSession session,Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}           
       
@@ -95,7 +98,7 @@ public class MemberController {
 	   @PostMapping("/modifyMemberInterestPlace")
 	   public String modifyMemberInterestPlace(HttpSession session,MemberInterestPlace memberInterestPlace) {
 			// 로그인 안할시 로그인 창으로
-			if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			if(session.getAttribute("loginMember") == null) {
 				return "redirect:/loginMemberAndCompany";
 			}      
 	      
@@ -113,7 +116,7 @@ public class MemberController {
 	   @GetMapping("/addMemberInterestPlace")
 	   public String addMemberInterestPlace(HttpSession session) {
 			// 로그인 안할시 로그인 창으로
-			if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+			if(session.getAttribute("loginMember") == null) {
 				return "redirect:/loginMemberAndCompany";
 			}          
 	      return "addMemberInterestPlace";
@@ -123,7 +126,7 @@ public class MemberController {
 	@PostMapping("/addMemberInterestPlace")   
 	public String addMemberInterestPlace(HttpSession session, MemberInterestPlace memberInterestPlace) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 	     LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
@@ -140,7 +143,7 @@ public class MemberController {
 	@GetMapping("/removeMember")
 	public String removeMember(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}			
 		return "removeMember";
@@ -149,7 +152,7 @@ public class MemberController {
 	@PostMapping("/removeMember")
 	public String removeMember(HttpSession session,@RequestParam(value="memberPw", defaultValue = "") String memberPw,Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		
@@ -171,7 +174,7 @@ public class MemberController {
 	@PostMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session, Member member, Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		int row = memberService.getFindMemberPw(member);
@@ -195,7 +198,7 @@ public class MemberController {
 	@GetMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}			
 		return "getFindMemberPw"; 
@@ -205,7 +208,7 @@ public class MemberController {
 	@PostMapping("/getFindMemberId")
 	public String findMemberId(HttpSession session,Model model ,Member member) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}		
 		String memberIdPart= memberService.getFindMemberId(member);
@@ -219,7 +222,7 @@ public class MemberController {
 	@GetMapping("/getFindMemberId")
 	public String findMemberId(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}					
 		return "getFindMemberId"; 
@@ -231,7 +234,7 @@ public class MemberController {
 	@GetMapping("/modifyMemberPw")
 	public String modifyMemberPw(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}				
 		return "modifyMemberPw";		
@@ -241,7 +244,7 @@ public class MemberController {
 	@PostMapping("/modifyMemberPw")
 	public String modifyMemberPw(HttpSession session, @RequestParam(value="memberPw", defaultValue = "") String memberPw) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}	
 		//세션에 담긴 아이디와, 입력받은 패스워드  변수에 담아서 서비스로 넘겨줌 
@@ -259,7 +262,7 @@ public class MemberController {
 	@GetMapping("/modifyMember")
 	public String modifyMember(HttpSession session,Model model ) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}	
 		
@@ -273,7 +276,7 @@ public class MemberController {
 	@PostMapping("/modifyMember")
 	public String modifyMember(HttpSession session, Member member) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}	
 		System.out.println(member+"<----수정된 member값");
@@ -285,7 +288,7 @@ public class MemberController {
 	@GetMapping("/memberMyPage")
 	public String memberMyPage(HttpSession session,Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}					
 		LoginMember memberId = (LoginMember)(session.getAttribute("loginMember"));
@@ -313,7 +316,7 @@ public class MemberController {
 	@GetMapping("/modifyMemberNickAndPic")
 	public String modifyMemberNickAndPic(HttpSession session,Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}				
 		LoginMember memberId = (LoginMember)(session.getAttribute("loginMember"));
@@ -330,7 +333,7 @@ public class MemberController {
 	@PostMapping("/modifyMemberNickAndPic")
 	public String modifyMemberNickAndPic(HttpSession session,MemberNickAndPic memberNickAndPic){
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}	
 		//세셩 아이디 값 memberNickAndPic 넣어주기 
@@ -370,7 +373,7 @@ public class MemberController {
 	@GetMapping("/logoutMember")
 	public String logout(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}	
 		session.invalidate(); // 로그아웃

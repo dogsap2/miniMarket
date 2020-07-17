@@ -26,6 +26,9 @@ public class MannerController {
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
+		if(itemSoldoutAndMemberItemAndMemberItemPic.getMemberItemNo() == 0) {
+			return "redirect:/index";
+		}
 		System.out.println("addManner Controller start..");
 		System.out.println(itemSoldoutAndMemberItemAndMemberItemPic + " <== 들어온 값 디버깅");
 			

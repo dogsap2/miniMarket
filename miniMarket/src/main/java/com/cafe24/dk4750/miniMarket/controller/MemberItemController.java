@@ -64,7 +64,7 @@ public class MemberItemController {
 		System.out.println("getItemListByPlace 컨트롤러 시작");
 		
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		// rowPerPage, beginRow 설정
@@ -90,7 +90,7 @@ public class MemberItemController {
 		System.out.println("getItemListByCategory 겟매핑 시작");
 		System.out.println(categoryName + " <== 카테고리 네임 디버깅");
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		// row
@@ -114,7 +114,7 @@ public class MemberItemController {
 	@GetMapping("/getItemOne")
 	public String getItemOne(HttpSession session ,Model model, @RequestParam(value="memberItemNo", defaultValue = "0") int memberItemNo, @RequestParam(value="pageCheck", defaultValue = "0") int pageCheck) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		
@@ -159,10 +159,12 @@ public class MemberItemController {
 	
 	// 판매완료 
     @PostMapping("/soldOutComplete")
-    public String soldOutComplete(HttpSession session, @RequestParam(value="memberItemNo", defaultValue = "") int memberItemNo , @RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo) {
+    public String soldOutComplete(HttpSession session, @RequestParam(value="memberItemNo", defaultValue = "0") int memberItemNo , @RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo) {
     	// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
+		} else if(memberItemNo == 0) {
+			return "redirect:/";
 		}
     	System.out.println(memberItemNo + "<--soldOutComplete itemNo");
 		System.out.println(memberUniqueNo + "<--soldOutComplete memberUniqueNo");
@@ -175,7 +177,7 @@ public class MemberItemController {
 	@GetMapping("/getBuyListByMember") 
 	public String getBuyListByMember(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		int rowPerPage = 5;
@@ -196,7 +198,7 @@ public class MemberItemController {
 	@GetMapping("/getItemListBySaleMyItem")
 	public String getItemListBySaleMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		
@@ -217,7 +219,7 @@ public class MemberItemController {
 	@GetMapping("/getItemListMyItem")
 	public String getItemListMyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		int rowPerPage = 5;
@@ -238,7 +240,7 @@ public class MemberItemController {
 		System.out.println("addMemberItem 겟매핑 시작");
 		
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		
@@ -297,8 +299,10 @@ public class MemberItemController {
 		System.out.println("modifyMemberItem 겟매핑 시작");
 		System.out.println(memberItemNo);
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
+		}else if(memberItemNo == 0) {
+			return "redirect:/";
 		}
 		
 		// 기존 정보 불러오기
@@ -323,7 +327,7 @@ public class MemberItemController {
 		System.out.println("modifyMemberItem 포스트매핑 시작");
 		System.out.println(memberItemForm + " <== 멤버 아이템 수정하기 / memberItemForm 디버깅");
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		// 넘어온 값으로 memberItemNo 값 담아주기
@@ -344,7 +348,7 @@ public class MemberItemController {
 			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("getMemberItemList 겟매핑 시작");
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		int rowPerPage = 5;
@@ -367,7 +371,7 @@ public class MemberItemController {
 	@GetMapping("/disabledMemberItem")
 	public String disabledMemberItem(HttpSession session, MemberItem memberItem) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		System.out.println("disabledMemberItem 겟매핑 시작");

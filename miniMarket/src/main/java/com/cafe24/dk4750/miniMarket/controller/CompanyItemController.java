@@ -98,7 +98,10 @@ public class CompanyItemController {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
-	     }
+	    }else if(companyItemNo == 0) {
+	    	return "redirect:/index";
+	    }
+		
 		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
 		companyItemOne.setCompanyItemNo(companyItemNo);
 		companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
@@ -115,7 +118,9 @@ public class CompanyItemController {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
-	     }
+	    }else if(categoryName.equals("")) {
+	    	return "redirect:/";
+	    }
 		// 업체로그인 웹으로
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		int rowPerPage = 5;

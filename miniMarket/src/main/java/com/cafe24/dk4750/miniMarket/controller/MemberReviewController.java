@@ -21,7 +21,7 @@ public class MemberReviewController {
 	@GetMapping("/addReview")
 	public String addReview(HttpSession session, MemberReview memberReview, Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		System.out.println(memberReview +"<== 리뷰 작성 하기 겟맵핑 값확인");
