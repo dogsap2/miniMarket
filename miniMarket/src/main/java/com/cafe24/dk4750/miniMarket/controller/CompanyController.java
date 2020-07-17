@@ -27,7 +27,7 @@ public class CompanyController {
 	   public String removeCompany(HttpSession session) {
 	      //로그인 상태가 아니면
 	      if(session.getAttribute("loginCompany")== null){ 
-	         return "redirect:/index";
+	         return "redirect:/loginMemberAndCompany";
 	      }            
 	      return "removeCompany";
 	   }
@@ -37,7 +37,7 @@ public class CompanyController {
 	   public String removeCompany(HttpSession session,@RequestParam(value="companyPw") String companyPw, Model model) {
 	      //로그인 상태가 아니면
 	      if(session.getAttribute("loginCompany")== null){ 
-	         return "redirect:/index";
+	    	  return "redirect:/loginMemberAndCompany";
 	      }
 	      
 	      LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
@@ -81,7 +81,7 @@ public class CompanyController {
 	   @GetMapping("/getFindCompanyPw")
 	   public String getFindCompanyPw(HttpSession session) {
 	      //로그인 상태면
-	      if(session.getAttribute("loginCompany")!= null){ 
+	      if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
 	         return "redirect:/index";
 	      }            
 	      return "getFindCompanyPw"; 
@@ -91,10 +91,10 @@ public class CompanyController {
 	// 업체 아이디 찾기 액션
 	@PostMapping("/getFindCompanyId")
 	public String findCompanyId(HttpSession session, Model model, Company company) {
-		// 로그인 상태
-		if (session.getAttribute("loginCompany") != null) {
-			return "redirect:/index";
-		}
+	    //로그인 상태면
+        if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+           return "redirect:/index";
+        }   
 		String companyIdPart = companyService.getFindCompanyId(company);
 		System.out.println(companyIdPart + "<-----companyIdpart");
 		model.addAttribute("companyIdPart", companyIdPart);
@@ -104,30 +104,30 @@ public class CompanyController {
 	// 업체아이디 찾기 폼
 	@GetMapping("/getFindCompanyId")
 	public String findCompanyId(HttpSession session) {
-		// 로그인 상태면
-		if (session.getAttribute("loginCompany") != null) {
-			return "redirect:/index";
-		}
+		//로그인 상태면
+	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	       return "redirect:/index";
+	    }   
 		return "getFindCompanyId";
 	}
 
 	// 업체 정보 수정(비밀번호 수정)폼
 	@GetMapping("/modifyCompanyPw")
 	public String modifyCompanyPw(HttpSession session) {
-		// 로그인 아닐때
-		if (session.getAttribute("loginCompany") == null) {
-			return "redirect:/index";
-		}
+		//로그인 상태면
+	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	       return "redirect:/index";
+	    }   
 		return "modifyCompanyPw";
 	}
 
 	// 업체 정보 수정(비밀번호 수정)액션
 	@PostMapping("/modifyCompanyPw")
 	public String modifyCompanyPw(HttpSession session, @RequestParam(value = "companyPw") String companyPw) {
-		// 로그인 아닐때
-		if (session.getAttribute("loginCompany") == null) {
-			return "redirect:/index";
-		}
+		//로그인 상태면
+	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	       return "redirect:/index";
+	    }   
 		// 세션에 담긴 아이디와, 입력받은 패스워드 변수에 담아서 서비스로 넘겨줌
 		LoginCompany loginCompany = (LoginCompany) (session.getAttribute("loginCompany"));
 		loginCompany.setCompanyPw(companyPw);
@@ -141,10 +141,10 @@ public class CompanyController {
 	// 업체 정보 수정(ceo이름,전화번호,내동네,이메일,유니크넘버)폼
 	@GetMapping("/modifyCompany")
 	public String modifyCompany(HttpSession session, Model model) {
-		// 로그인 상태 아니면 홈
-		if (session.getAttribute("loginCompany") == null) {
-			return "redirect:/index";
-		}
+		//로그인 상태면
+	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	       return "redirect:/index";
+	    }   
 
 		Company company = companyService.selectCompanyOne((LoginCompany) (session.getAttribute("loginCompany")));
 		System.out.println("수정확인중" + company);
@@ -156,10 +156,10 @@ public class CompanyController {
 	// 업체 정보(ceo이름,전화번호,내동네,이메일,유니크넘버) 수정 액션
 	@PostMapping("/modifyCompany")
 	public String modifyCompany(HttpSession session, Company company) {
-		// 로그인 상태 아니면 홈
-		if (session.getAttribute("loginCompany") == null) {
-			return "redirect:/";
-		}
+		//로그인 상태면
+	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	       return "redirect:/index";
+	    }   
 		System.out.println(company + "<----수정된 company값");
 		companyService.modifyCompanyOne(company);
 		return "redirect:/getCompanyOne";
@@ -258,7 +258,7 @@ public class CompanyController {
 	public String logout(HttpSession session) {
 		// 로그인 실패시 로그인 폼으로
 		if (session.getAttribute("loginCompany") == null) {
-			return "redirect:/index"; // index로 넘겨줌
+			return "redirect:/loginCompany"; // index로 넘겨줌
 		}
 		session.invalidate(); // 로그아웃
 		return "redirect:/index"; // 로그아웃 후 index 넘겨줌
@@ -268,7 +268,7 @@ public class CompanyController {
 	public String loginCompany(HttpSession session) {
 		// 로그인 중일때
 		if (session.getAttribute("loginCompany") != null) {
-			return "redirect:/";
+			return "redirect:/index";
 		}
 		return "loginCompany";
 
@@ -298,7 +298,7 @@ public class CompanyController {
 	// 회원가입 폼
 	@GetMapping("/addCompany")
 	public String addCompany(HttpSession session) {
-		if (session.getAttribute("loginCompany") != null) {
+		if (session.getAttribute("loginCompany") != null && session.getAttribute("loginMember") !=null) {
 			return "redirect:/index";
 		}
 		return "addCompany";

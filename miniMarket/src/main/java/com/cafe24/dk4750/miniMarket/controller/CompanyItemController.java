@@ -31,7 +31,7 @@ public class CompanyItemController {
 	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginCompany") == null) {
-			return "index";
+			 return "redirect:/loginMemberAndCompany";
 		}
 		//카테고리 목록
 		List<Category> categoryList = categoryService.getCompanyCategory();
@@ -66,6 +66,10 @@ public class CompanyItemController {
 	// 끌어 올리기
 	@GetMapping("/companyItemPullUp")
 	public String companyItemPullUp(HttpSession session, String companyUniqueNo) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginCompany") == null) {
+			return "redirect:/loginMemberAndCompany";
+		}
 		companyItemService.companyItemPullUp(session, companyUniqueNo);
 		return "redirect:/getCompanyItemList";
 	}
@@ -75,8 +79,8 @@ public class CompanyItemController {
 	public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo) {
 		// 세션이 없다면 index로 리턴
 		System.out.println(companyUniqueNo+"<---상세보기 유니크 넘버");
-		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
-			return "index";
+		if(session.getAttribute("loginCompany") == null) {
+			return "redirect:/loginMemberAndCompany";
 		}
 		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo);
 		model.addAttribute("myCompanyItemOne", myCompanyItemOne);
@@ -92,9 +96,9 @@ public class CompanyItemController {
 	@GetMapping("/getCompanyItemOne")
 	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam("companyItemNo") int companyItemNo) {
 		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
-			return "index";
-		}
+		if(session.getAttribute("loginCompany") == null) {
+	         return "redirect:/loginMemberAndCompany";
+	     }
 		
 		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
 		companyItemOne.setCompanyItemNo(companyItemNo);
@@ -110,9 +114,9 @@ public class CompanyItemController {
 	public String getCompanyItemListByCategory(HttpSession session, Model model, @RequestParam("categoryName") String categoryName, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage){
 		System.out.println("getCompanyItemListByCategory<==겟메핑 시작");
 		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
-			return "index";
-		}
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+	         return "redirect:/loginMemberAndCompany";
+	     }
 		// 업체로그인 웹으로
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		int rowPerPage = 5;
@@ -142,9 +146,9 @@ public class CompanyItemController {
 			@RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("getCompanyItemList<== 겟메핑 시작");
 		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginCompany") == null && session.getAttribute("loginMember") == null) {
-			return "index";
-		}
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+	         return "redirect:/loginMemberAndCompany";
+	     }
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 세션값 모델로 넘기기 위해서
@@ -175,9 +179,9 @@ public class CompanyItemController {
 	public String getPlaceByCompanyItemList(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getPlaceByCompanyItemList<==겟맵핑 시작");
 		// 세션이 없다면 인덱스로 
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
-		}
+		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
+	         return "redirect:/loginMemberAndCompany";
+	     }
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 관심동네중에 홍보중인 업체 아이템 리스트 출력
@@ -194,9 +198,9 @@ public class CompanyItemController {
 	public String getMyLikeCompanyItem(HttpSession session, Model model, @RequestParam(value= "currentPage", defaultValue = "1") int currentPage) {
 		System.out.println("getMyLikeCompanyItem<==겟메핑 시작");
 		// 세션이 없다면 index로 리턴
-		if(session.getAttribute("loginMember") == null) {
-			return "index";
-		}
+		if(session.getAttribute("loginMember") == null ) {
+	         return "redirect:/loginMemberAndCompany";
+	    }
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 좋아요한 아이템 리스트 출력하기
@@ -216,9 +220,9 @@ public class CompanyItemController {
 	@GetMapping("/addCompanyItem")
 	public String addCompanyItem(HttpSession session, Model model) {
 		System.out.println("addCompanyItem 겟매핑 시작");
-		// 세션이 없다면 index로 리턴
+		// 세션이 없다면 로그인창으로 리턴
 		if(session.getAttribute("loginCompany") == null) {
-			return "index";
+			 return "redirect:/loginMemberAndCompany";
 		}
 		// 세션값의 유니크넘버 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
@@ -235,6 +239,10 @@ public class CompanyItemController {
 	// 업체 아이템 추가하기 포스트 매핑. 액션
 	@PostMapping("/addCompanyItem")
 	public String addCompanyItem(HttpSession session, CompanyItemForm companyItemForm) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginCompany") == null) {
+			 return "redirect:/loginMemberAndCompany";
+		}
 		System.out.println("addCompanyItem <== 포스트매핑 시작");
 		System.out.println(companyItemForm +"<--- 업체 아이템 추가 companyItemForm");
 		System.out.println(companyItemForm.getCompanyItemPic1().getOriginalFilename() + "<==pic1");
@@ -253,7 +261,12 @@ public class CompanyItemController {
 	
 	// 업체 아이템 삭제(비활성화)
 	@GetMapping("/disabledCompanyItem")
-	public String disabledCompanyItem(CompanyItem companyItem) {
+	public String disabledCompanyItem(HttpSession session, CompanyItem companyItem) {
+		// 세션이 없다면 index로 리턴
+		if(session.getAttribute("loginCompany") == null) {
+			 return "redirect:/loginMemberAndCompany";
+		}
+
 		System.out.println("disabledCompanyItem 겟매핑 시작");
 		System.out.println(companyItem + "<==업체 아이템 삭제 / 업체 아이템 넘버 디버깅");
 		

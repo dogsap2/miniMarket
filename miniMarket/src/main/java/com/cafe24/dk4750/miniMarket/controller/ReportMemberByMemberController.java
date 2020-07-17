@@ -20,15 +20,29 @@ public class ReportMemberByMemberController {
 	// 전부다 관리자 상태로 가능
 	// 신고 상태 수정
 	@PostMapping("modifyReportStateMemberByMember")
-	public String modifyReportMemberByMemberReportState(ReportMemberByMember reportMemberByMember, @RequestParam(value="reportNo") int reportNo) {
+	public String modifyReportMemberByMemberReportState(HttpSession session, ReportMemberByMember reportMemberByMember, @RequestParam(value="reportNo") int reportNo) {
 		reportMemberByMemberService.modifyMemberByMemberState(reportMemberByMember);
 		System.out.println(reportMemberByMember);
-		
+		//멤버 or 업체 로그인 상태시 메인화면으로 이동
+		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
+	         return "redirect:index";
+	      // 관리자 비로그인 상태시 관리자 로그인 화면으로
+	       }else if(session.getAttribute("loginAdmin") == null){
+	          return "redirect:loginAdmin";
+	       }
 		return "redirect:/getReportMemberByMemberListOne?reportNo="+reportNo;
 	}
 	// 신고내용 상세보기
 	@GetMapping("getReportMemberByMemberListOne")
-	public String getReportMemberByMemberListOne(Model model, @RequestParam(value="reportNo") int reportNo) {
+	public String getReportMemberByMemberListOne(HttpSession session, Model model, @RequestParam(value="reportNo") int reportNo) {
+		//멤버 or 업체 로그인 상태시 메인화면으로 이동
+		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
+	         return "redirect:index";
+	      // 관리자 비로그인 상태시 관리자 로그인 화면으로
+	       }else if(session.getAttribute("loginAdmin") == null){
+	          return "redirect:loginAdmin";
+	       }
+
 		ReportMemberByMemberAndMember reportMemberByMemberAndMember = reportMemberByMemberService.getReportMemberByMemberOne(reportNo);
 		model.addAttribute("reportOne", reportMemberByMemberAndMember);
 		
@@ -36,9 +50,15 @@ public class ReportMemberByMemberController {
 	}
 	// MemberByMember 신고 리스트 (페이징, 상태별)
 	@GetMapping("getReportMemberByMemberList")
-	public String getReportMemberByMemberList(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="reportState", defaultValue="") String reportState) {
-		// 관리자만 접근 가능
-		
+	public String getReportMemberByMemberList(HttpSession session, Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage, @RequestParam(value="reportState", defaultValue="") String reportState) {
+		//멤버 or 업체 로그인 상태시 메인화면으로 이동
+		if(session.getAttribute("loginMember") != null || session.getAttribute("loginCompany") != null) {
+	         return "redirect:index";
+	      // 관리자 비로그인 상태시 관리자 로그인 화면으로
+	       }else if(session.getAttribute("loginAdmin") == null){
+	          return "redirect:loginAdmin";
+	       }
+
 		System.out.println(currentPage + "<--getReportMemberByMemberList currentPage");
 		System.out.println(reportState + "<--getReportMemberByMemberList reportState");
 		Map<String, Object> map = reportMemberByMemberService.getReportMemberByMemberList(currentPage, reportState);
@@ -53,8 +73,9 @@ public class ReportMemberByMemberController {
 	}
 	@GetMapping("/memberByMemberReport")
 	public String addReport(HttpSession session ,@RequestParam("memberUniqueNo") String memberUniqueNo, Model model) {
+		// 로그인 멤버가 널일 경우 로그인창으로
 		if(session.getAttribute("loginMember") == null) {
-	         return "redirect:login";
+	         return "redirect:/loginMemberAndCompany";
 	      }
 		System.out.println(memberUniqueNo +"<--신고하려는 상대 고유 번호");
 		String memberNickname = reportMemberByMemberService.getMemberName(memberUniqueNo);
