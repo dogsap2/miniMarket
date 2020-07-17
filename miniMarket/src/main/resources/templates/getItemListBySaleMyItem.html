@@ -131,51 +131,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="container">
          <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
             <li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">내 판매완료 아이템 목록</li>
+            <li class="active">내 판매완료 상품 목록</li>
          </ol>
-      </div>
+      </div>     
    </div>
+<!-- //breadcrumbs -->   
 	<!-- 기능 -->
-	<div class="register">
-	<div class="container" align="center">
-	<h2>내 판매완료 아이템 목록</h2>
-	<br>
-	
-	<div>
-		<a th:if="${currentPage} > 1" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-		<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
-	</div>
-	<table border="1">
-		<thead>
-			
-			<tr>
-				<th>사진</th>
-				<th>제목</th>
-				<th>아이템가격</th>
-				<th>아이템 올린 날짜</th>
-				<th>판매지역</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="list : ${list}">
-				<td>
-					<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}"><img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="150"></a>
-				</td>
-				<td th:text="${list.memberItemTitle}"></td>
-				<td th:text="${list.memberItemPrice}"></td>
-				<td th:text="${list.memberItemDate}"></td>
-				<td th:text="${list.memberBname}"></td>
-			</tr>
-		</tbody>
-	</table>
-	</div>
-	</div>
-		<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+   <div class="top-brands">
+      <div class="container">
+      <h2>내 판매완료 상품 목록</h2>
+         <div class="grid_3 grid_5">         
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+               <ul  class="nav nav-tabs">
+               </ul>
+            <form method="get" th:action="@{/getMemberItemList}" id="searchForm">
+               <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+                     <div class="agile_top_brands_grids">
+                        <div class="col-md-12 top_brand_center" align="center">
+                           <div class="hover14 column">
+                              <div class="agile_top_brand_left_grid">
+                                 <div class="agile_top_brand_left_grid1">
+                                    <figure>
+                                       <div class="snipcart-item block" >
+                                          <div class="snipcart-thumb" th:each=" list : ${list}">
+                                             <br>                                             
+                                             <br>
+                                             <a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
+                                                <img th:src="@{'/images/'+${list.memberItemPic1}}"
+                                                width="700" height="400">
+                                             </a>
+                                             <!-- <div th:text="${index.index}"></div> -->
+                                             <br>
+                                             <h2 style=" font-size: xx-large;"  th:text="${list.memberItemTitle}"></h2>
+                                             <br>
+                                             <p style="color:#DF7401; display:inline; font-weight: bold;" th:text="${list.memberBname}"></p>
+                                             <p style="display:inline; " th:text="${list.memberItemDate}"></p>
+                                             <br>
+                                             <p style="display:inline; font-weight: bold;">판매금액</p>
+                                             <strike><h4 style="display:inline; font-weight: bold; font-size: 20px;"th:text="${list.memberItemPrice}+원"></h4></strike>
+                                             <span class="badge badge-secondary">판매완료</span>
+                                             <hr> 
+                                          </div>
+										<div>
+											<a th:if="${currentPage} > 1" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+											<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListBySaleMyItem(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+										</div>                                        
+                                       </div>
+                                    </figure>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>                                               
+                        <div class="clearfix"> </div>
+                     </div>
+                  </div>
+               </div>
+              </form>
+            </div>
+         </div>
+      </div>
+   </div>		
 <!-- //footer -->
 <div class="footer">      
       <div class="footer-copy">
@@ -245,7 +261,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       });
 </script>   
 <!-- //main slider-banner --> 
-</body>
-</html>
 </body>
 </html>
