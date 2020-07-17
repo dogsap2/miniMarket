@@ -55,11 +55,33 @@ public class ReportCompanyByMemberService {
 	}
 	//상태 수정
 	public int modifyCompanyByMemberState(ReportCompanyByMember reportCompanyByMember) {
-		String reportState ="신고완료";
-		MemberTemp memberTemp = new MemberTemp();
-		Map<String, Object> map = new HashMap<>();
-		
 		reportCompanyByMemberMapper.updateReportCompanyByMemberState(reportCompanyByMember);
+		reportCompanyByMemberMapper.selectReportCompanyByMemberDesc();
+		System.out.println(reportCompanyByMemberMapper.selectReportCompanyByMemberDesc()+"셀렉트문 실행되는지 확인");
+			
+		// 업체가 멤버를 신고중인게 신고 확인으로 되었을 경우 멤버의 온도를 깍아주는 세션
+		if(reportCompanyByMemberMapper.selectReportCompanyByMemberDesc() !=null) {
+			// 신고확인으로 될 시 그해당 멤버의 아이디값을 가져오기 위해...
+			String memberUniqueNo = reportCompanyByMemberMapper.selectReportCompanyByMemberDesc().getMemberUniqueNo();
+			System.out.println(memberUniqueNo+"<======memberUniqueNo의 값을 가져온거");
+			// 멤버템프에 신고받은 유저의 것을 인서트하기
+			MemberTemp memberTemp = new MemberTemp();
+			memberTemp.setMemberUniqueNo(memberUniqueNo);
+			memberTemp.setTempInsertScore(-1);
+			System.out.println(memberUniqueNo+"<========멤버템프의 멤버 유니크 넘버");
+			// 멤버템프 테이블에 인서트
+			memberTempMapper.insertTemp(memberTemp);
+			// 신고받은 멤버의 현재 온도
+			double tempTotalNow = memberTempTotalMapper.selectTempTotalNow(memberUniqueNo);
+			// 신고받은 멤버의 온도에 감점
+			double finalTempTotal = tempTotalNow + memberTemp.getTempInsertScore();
+			// 온도차감을 완료한 템프토탈을 템프토탈에 추가 시 값 넣어주기
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberUniqueNo", memberUniqueNo);
+			map.put("memberTempTotal", finalTempTotal);
+			// 템프토탈 인서트 실행
+			memberTempTotalMapper.insertTempTotal(map);
+			}
 		return 0;
 	}
 }
