@@ -18,7 +18,7 @@
 	<select id="selectMemberNickname" parameterType="String" resultType="String">
 		SELECT member_nickname
 		FROM mini_market_member
-		WHERE member_unique_no = #{memberUniqueNo}
+		WHERE member_unique_no = #{String}
 	</select>
 
 	<!-- 멤버사진 수정 -->

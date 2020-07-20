@@ -28,8 +28,10 @@ public class MemberReviewService {
 		String memberId = loginMember.getMemberId();
 		memberReview.setMemberId(memberId);
 		
-		// 판매자
-		memberReview.setMemberUniqueNo(memberReview.getMemberUniqueNoSale());
+		// 판매자의 정보에서 ""를 제외한 정보를 가져오기 위해 섭스트링 한다
+		String memberUniqueNo2 = memberReview.getMemberUniqueNoSale();
+		String memberUniqueNo = memberUniqueNo2.substring(1, 8);
+		memberReview.setMemberUniqueNo(memberUniqueNo);
 		System.out.println(memberReview + "<== 인설트 리뷰 서비스");
 		
 		System.out.println(memberReview + " <== memberReview / 리뷰 서비스");

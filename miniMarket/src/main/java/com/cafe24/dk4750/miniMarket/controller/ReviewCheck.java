@@ -27,7 +27,6 @@ public class ReviewCheck {
 		memberReview.setMemberId(memberId);
 		memberReview.setMemberUniqueNo(memberReview.getMemberUniqueNoSale());
 		System.out.println(memberReview + " <== Review check / memberReview 디버깅. memberId 넣은값");
-		
 		// 리뷰체크 결과물 리턴... 평가한적이 있다면 1.. 없다면 0
 		return memberReviewService.reviewCheck(memberReview);
 	}

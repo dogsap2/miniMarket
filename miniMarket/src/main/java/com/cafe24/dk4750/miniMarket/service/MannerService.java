@@ -3,6 +3,8 @@ package com.cafe24.dk4750.miniMarket.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cafe24.dk4750.miniMarket.mapper.MannerMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberTempMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberTempTotalMapper;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Manner;
 import com.cafe24.dk4750.miniMarket.vo.MemberTemp;
 
@@ -21,11 +24,17 @@ public class MannerService {
    @Autowired private MemberTempTotalMapper memberTempTotalMapper;
    
    // good 매너 평가하기
-   public int addGoodManner(Manner manner) {
+   public int addGoodManner(HttpSession session, Manner manner) {
       // 매너평가하기
-      mannerMapper.insertGoodManner(manner);
+	  mannerMapper.insertGoodManner(manner);
+	  System.out.println(manner+"<===============매너평가한 목록들");
+	  System.out.println(manner.getMemberUniqueNo()+"매너평가한 목록에 멤버유니크 넘버");
+	  System.out.println(manner.getMemberId()+"==매너평가한 목록에 멤버아이디");
+     
       System.out.println(manner.getMemberItemNo() + " <== memberItemNo..");
-      
+      System.out.println(manner+"<--=-=-=-=-=매너평가 관련 값 확인 ;;;;");
+      System.out.println(manner.getMemberUniqueNo()+"<=====멤버유니크 넘버 값 1111111");
+      System.out.println(manner.getMemberId()+"<-=-=-=-=멤버아이디값 11111111111");
       // 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
       MemberTemp memberTemp = new MemberTemp();
       memberTemp.setMemberUniqueNo(manner.getMemberUniqueNo());
@@ -53,10 +62,10 @@ public class MannerService {
    
    // bad 매너 평가하기
    public int addBadManner(Manner manner) {
-      
 	  // 매너평가하기
       mannerMapper.insertBadManner(manner);
       System.out.println(manner.getMemberItemNo() + " <== memberItemNo..");
+      System.out.println(manner+"<========매너 평가 서비스=====");
       // 매너평가 결과 템프에 insert하기.. manner에서 값 꺼내서 담아주기
       MemberTemp memberTemp = new MemberTemp();
       memberTemp.setMemberUniqueNo(manner.getMemberUniqueNo());

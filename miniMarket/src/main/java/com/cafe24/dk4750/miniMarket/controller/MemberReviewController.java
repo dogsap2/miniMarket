@@ -25,8 +25,9 @@ public class MemberReviewController {
 			return "redirect:/loginMemberAndCompany";
 		}
 		System.out.println(memberReview +"<== 리뷰 작성 하기 겟맵핑 값확인");
-		// 판매자의 유니크넘버 구하기
-		String memberUniqueNo = memberReview.getMemberUniqueNoSale();
+		// 판매자의 유니크넘버 구하기 섭스트링으로 ""부분 잘라주기
+		String memberUniqueNo2 = memberReview.getMemberUniqueNoSale();
+		String memberUniqueNo = memberUniqueNo2.substring(1, 8);
 		// 판매자의 유니크넘버로 닉네임구하기
 		String memberNickname = memberService.getMemberNickname(memberUniqueNo);
 		

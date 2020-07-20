@@ -30,6 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script>
+$(document).ready(function(){
 	$.ajax({
 		url:'/getBuyListByMember2',
 		
@@ -49,11 +50,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						success : function(data) {
 							console.log(data + " = mannerCheck data")
 							if(data==1){
-								$('#mannerBtn'+item.memberItemNo).prop("disabled", true);
+								console.log($('#iNo').val());
+								$('#mannerBtn'+item.memberItemNo).attr('disabled', true);
 							}
 							
 							if(data==0){
-								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+								
+								$('#reviewBtn'+item.memberItemNo).prop('disabled', true);
 							}
 						}
 					});
@@ -71,17 +74,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							console.log(data + " = reviewCheck data")
 							console.log(item.memberItemNo + " <== item.memberItemNo");
 							if(data==1){
-								$('#reviewBtn'+item.memberItemNo).prop("disabled", true);
+								$('#reviewBtn'+item.memberItemNo).prop('disabled', true);
 							}
 						}
 					}); 
 				});
 			}
 	});
-	
-	$(document).ready(function() {
-		
-	});
+
+});	
 </script>
 </head>
 <body>
@@ -319,7 +320,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<td th:text="${list.memberItemPrice}"></td>
 				<td th:text="${list.memberItemDate}"></td>
 				<td>
-					<button type="button" id="mannerBtn+${list.memberItemNo}" th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">매너평가하기</button><br><button type="button" id="reviewBtn+${list.memberItemNo}"  onclick="window.open('/addReview?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">리뷰작성하기</button>
+					<input type="hidden" th:value="${list.memberItemNo}" id="iNo">
+					<button type="button" th:id="${'mannerBtn'+list.memberItemNo}" th:value="mannerBtn+${list.memberItemNo}" th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');" >매너평가</button><br><button type="button" th:id="${'reviewBtn'+list.memberItemNo}"  th:onclick="window.open('/addReview?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">리뷰작성하기</button>
+				</td>
+				<td th:text="${'mannerBtn'+list.memberItemNo}">
+				
 				</td>
 			</tr>
 		</tbody>
