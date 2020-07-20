@@ -262,7 +262,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="top-brands">
 		<div class="container">
 		<h2>업체 관리</h2>
-			<div class="grid_3 grid_5" align="center">
+			<!-- 검색 -->
+			<br>
+			<form method="get" th:action="@{getAdminCompanyList}" id="searchForm">
+				<div align="right">
+					<input type="text" name="searchWord" placeholder="아이디 검색">
+					<button  class="btn btn-warning" type="button" id="searchBtn">검색</button>
+				</div>
+			</form>
+			<div class="grid_3 grid_5" align="center">			
 				<table class="table">
 					<thead>
 						<tr>
@@ -279,13 +287,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</tr>
 					</tbody>
 				</table>
-				<!-- 검색 -->
-				<form method="get" th:action="@{getAdminCompanyList}" id="searchForm">
-					<div>
-						<input type="text" name="searchWord" placeholder="아이디 검색">
-						<button type="button" id="searchBtn">검색</button>
-					</div>
-				</form>
 				<br>
 				<a th:if="${currentPage > 1}" th:href="@{getAdminCompanyList(currentPage=${currentPage - 1},searchWord=${searchWord})}" id="previous">이전</a>
 				<a th:if="${currentPage < lastPage}" th:href="@{getAdminCompanyList(currentPage=${currentPage + 1},searchWord=${searchWord})}" id="next">다음</a>

@@ -38,7 +38,7 @@
 		SELECT
 			company_id as companyId,
 			company_email as companyEmail,
-			company_date as company_date
+			company_date as companyDate
 		FROM mini_market_company
 		WHERE company_id LIKE CONCAT('%',#{searchWord},'%')
 		ORDER BY company_date DESC
