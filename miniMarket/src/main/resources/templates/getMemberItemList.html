@@ -122,6 +122,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="w3ls_logo_products_left">
 				<h1><a th:href="@{/index}">Mini Market</a></h1>
 			</div>
+			<div class="w3l_search">
+				<form method="get" th:action="@{/getMemberItemList}" id="searchForm">
+					<input type="search"  name="searchWord" id="searchWord" placeholder="원하는 상품을 검색해보세요." required="">
+					<button type="submit" class="btn btn-default search" aria-label="Left Align" id="searchBtn">
+						<i class="fa fa-search" aria-hidden="true"> </i>
+					</button>
+					<div class="clearfix"></div>
+				</form>
+			</div>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
@@ -269,15 +278,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                <ul  class="nav nav-tabs">
-               </ul>
+               </ul><br><br>
+               <div class="container-fluid">
+               	<a th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}" style="float:right;" class="btn btn-info btn-lg">중고아이템 판매</a>
+               </div>
             <form method="get" th:action="@{/getMemberItemList}" id="searchForm">
                <div id="myTabContent" class="tab-content">
                   <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
- 						<!-- 검색창 -->
-	                    <div align="right">
-							<input type="text" name="searchWord" id="searchWord">
-							<button class= "btn btn-warning" type="button" id="searchBtn">검색</button>
-						</div>
                      <div class="agile_top_brands_grids">
                         <div class="col-md-12 top_brand_center" align="center">
                            <div class="hover14 column">
@@ -289,8 +296,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                              <br>                                             
                                              <br>
                                              <a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
-                                                <img th:src="@{'/images/'+${list.memberItemPic1}}"
-                                                width="700" height="400">
+                                                <img th:src="@{'/images/'+${list.memberItemPic1}}" width="700" height="400">
                                              </a>
                                              <!-- <div th:text="${index.index}"></div> -->
                                              <br>

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.dk4750.miniMarket.service.MemberItemService;
 import com.cafe24.dk4750.miniMarket.service.MemberService;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.Member;
 import com.cafe24.dk4750.miniMarket.vo.MemberInterestPlace;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberNickAndPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberReview;
 
@@ -24,7 +26,8 @@ import com.cafe24.dk4750.miniMarket.vo.MemberReview;
 
 @Controller
 public class MemberController {
-	@Autowired private MemberService memberService; 
+	@Autowired private MemberService memberService;
+	@Autowired private MemberItemService memberItemService;
 	
 	// 회원의 프로필 보기
 	@GetMapping("/getProfile")
@@ -459,8 +462,18 @@ public class MemberController {
 	
 	//index 홈 
 	@GetMapping("/index")
-	public String index() {
-		return "index";		
+	public String index(Model model, @RequestParam(value="currentPage", defaultValue = "1") int currentPage, @RequestParam(value="searchWord", defaultValue = "") String searchWord) {
+		System.out.println("index start");
+		System.out.println(currentPage + " <== currentPage 들어온 값 디버깅");
+		System.out.println(searchWord + " <== searchWord 들어온 값 디버깅");
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
+		System.out.println(beginRow + " <== beginRow 디버깅");
+		
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemService.getIndexItemList(beginRow, rowPerPage, searchWord);
+		model.addAttribute("list", list);
+		
+		return "index";
 	}
 	
 	//전체(업체,회원) 회원가입 폼 

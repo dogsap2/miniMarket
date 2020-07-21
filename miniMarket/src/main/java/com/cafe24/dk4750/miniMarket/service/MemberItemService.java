@@ -44,6 +44,22 @@ public class MemberItemService {
 	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
+	// 인덱스에서 아이템 리스트 출력하기
+	public List<MemberItemAndMemberAndMemberItemPic> getIndexItemList(int beginRow, int rowPerPage, String searchWord) {
+		System.out.println(beginRow + " <== 멤버아이템 서비스 beginRow");
+		System.out.println(rowPerPage + " <== 멤버 아이템 서비스 rowPerPage");
+		System.out.println(searchWord + " <== 멤버 아이템 서비스 searchWord");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginRow", beginRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectIndexItemList(map);
+		
+		return list;
+	}
+	
 	// 내가 좋아요 한 아이템 리스트 출력
 	public Map<String, Object> getMyLikeItem(HttpSession session, int beginRow, int rowPerPage) {
 		System.out.println("getMyLikeItem 서비스 시작");

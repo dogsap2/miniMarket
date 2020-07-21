@@ -14,6 +14,9 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberI
 @Mapper
 public interface MemberItemMapper {
 	
+	// 인덱스에서 아이템 리스트 몇개 보기
+	public List<MemberItemAndMemberAndMemberItemPic> selectIndexItemList(Map<String, Object> map);
+	
 	// 검색한 멤버아이템의 갯수
 	public int totalSoldMemberItemBySearch(String searchWord);
 	

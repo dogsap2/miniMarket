@@ -95,6 +95,7 @@ public class CompanyItemController {
 	// 업체 아이템 상세보기
 	@GetMapping("/getCompanyItemOne")
 	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
+		System.out.println("업체 아이템 상세보기 get매핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";

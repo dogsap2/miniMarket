@@ -3,6 +3,30 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper">
+
+	<!-- index페이지에서 지역에 상관없이 상품 리스트 출력해주기 -->
+	<select id="selectIndexItemList" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic">
+		SELECT
+			 mi.member_item_no AS memberItemNo,
+	         mi.member_item_title AS memberItemTitle,
+	         mi.member_item_price AS memberItemPrice,
+	         mi.member_item_date AS memberItemDate,
+	         mi.member_unique_no AS memberUniqueNo,
+	         m.member_sigungu AS memberSigungu,
+	         m.member_bname AS memberBname,
+	         mip.member_item_pic1 AS memberItemPic1
+		FROM mini_market_member_item AS mi
+		INNER JOIN mini_market_member AS m
+		ON mi.member_unique_no = m.member_unique_no
+		INNER JOIN mini_market_member_item_pic AS mip
+		ON mi.member_item_no = mip.member_item_no
+		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
+		AND mi.member_item_state = "판매중"
+		ORDER BY mi.member_item_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+
 	<!-- 검색어의 따른 글의 총갯수 -->
 	<select id="totalSoldMemberItemBySearch" resultType="int" parameterType="String">
 		SELECT
