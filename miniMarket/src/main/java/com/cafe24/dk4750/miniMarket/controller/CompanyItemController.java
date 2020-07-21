@@ -1,5 +1,6 @@
 package com.cafe24.dk4750.miniMarket.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -248,6 +249,15 @@ public class CompanyItemController {
 		if(session.getAttribute("loginCompany") == null) {
 			 return "redirect:/loginMemberAndCompany";
 		}
+		
+		// 아이템 가격 컴마찍기
+		int price = Integer.parseInt(companyItemForm.getCompanyItemPrice());
+		System.out.println(price);
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		String companyItemPrice = formatter.format(price);
+		System.out.println(companyItemPrice + " <== 아이템 가격 컴마 찍힌거");
+		companyItemForm.setCompanyItemPrice(companyItemPrice);
+		
 		System.out.println("addCompanyItem <== 포스트매핑 시작");
 		System.out.println(companyItemForm +"<--- 업체 아이템 추가 companyItemForm");
 		System.out.println(companyItemForm.getCompanyItemPic1().getOriginalFilename() + "<==pic1");
