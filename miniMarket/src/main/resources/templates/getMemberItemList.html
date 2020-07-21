@@ -33,6 +33,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			}
 			$("#searchForm").submit();
 		});
+		
+		console.log($('#interestCheck').text() + "관심주소 있는지 체크")
+		if($('#interestCheck').text() == 0) {
+			$('#interestProduct').css({ 'pointer-events': 'none' });
+			$('#interestProductt').click(function(){
+				alert("관심 등록한 주소가 아직 없습니다.");
+			});
+		}
 	});
 </script>
 </head>
@@ -267,12 +275,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div>
 <!-- //breadcrumbs -->
    <!-- top-brands -->
+   
    <div class="top-brands">
       <div class="container">
       <h2>내동네 중고물품 목록</h2>
       	<div align="center">
       	<br>
-      	<a class = "btn btn-warning" th:href="@{/getItemListByPlace}">관심동네 중고물품</a>
+      	<div id="interestProductt" style="width:135px">
+      	<a class = "btn btn-warning" th:href="@{/getItemListByPlace}" id="interestProduct">관심동네 중고물품</a>
+      	</div>
+      	<div hidden="hidden" th:text="${interestCheck}" id="interestCheck"></div>
 		</div>
          <div class="grid_3 grid_5">
          

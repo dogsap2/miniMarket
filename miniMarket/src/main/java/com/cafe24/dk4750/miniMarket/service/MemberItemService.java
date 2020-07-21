@@ -734,6 +734,12 @@ public class MemberItemService {
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberBname = loginMember.getMemberBname();
 		String memberSigungu = loginMember.getMemberSigungu();
+		
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		// 관심동네 등록한 적이 있는지 check
+		int interestCheck = memberInterestPlaceMapper.interestCheck(memberId);
+		System.out.println(interestCheck + " <== 관심동네 등록했는지 check");
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage", rowPerPage);
@@ -758,6 +764,7 @@ public class MemberItemService {
 		map2.put("list", list);
 		map2.put("lastPage", lastPage);
 		map2.put("totalRow", totalRow);
+		map2.put("interestCheck", interestCheck);
 		// 리스트 리턴
 		return map2;
 	}

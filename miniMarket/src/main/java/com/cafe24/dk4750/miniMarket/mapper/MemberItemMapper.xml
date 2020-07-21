@@ -298,12 +298,10 @@
 		ON mi.member_unique_no = m.member_unique_no
 		INNER JOIN mini_market_member_item_pic AS mip
 		ON mi.member_item_no = mip.member_item_no
-		WHERE (mi.member_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR mi.member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
-		AND mi.member_item_state = "판매중"
+		WHERE mi.member_item_state = "판매중"
 		AND m.member_unique_no = #{memberUniqueNo}
 		ORDER BY mi.member_item_no DESC
-		LIMIT 1, 6
+		LIMIT 0, 2
 	</select>
 	
 	<!-- 내가 좋아요 한 아이템 리스트 출력 -->

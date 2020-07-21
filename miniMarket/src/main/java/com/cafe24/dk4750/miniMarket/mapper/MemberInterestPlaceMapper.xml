@@ -11,4 +11,12 @@
 		FROM mini_market_member_interest_place
 		WHERE member_id = #{memberId}
 	</select>
+	
+	<!-- 해당 회원의 관심동네가 있는지 체크 -->
+	<select id="interestCheck" parameterType="String" resultType="Integer">
+		SELECT
+			COUNT(#{memberId})
+		FROM mini_market_member_interest_place
+		WHERE member_id = #{memberId}
+	</select>
 </mapper>

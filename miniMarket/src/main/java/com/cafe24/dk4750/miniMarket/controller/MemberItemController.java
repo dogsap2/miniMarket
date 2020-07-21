@@ -351,10 +351,14 @@ public class MemberItemController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
+		
+		
+		
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 리스트 받아오기
 		Map<String , Object> map = memberItemService.getMemberItemList(session, beginRow, rowPerPage, searchWord);
+		int interestCheck = (int)map.get("interestCheck");
 		
 		// 모델로 리스트 넘겨주기
 		model.addAttribute("totalRow", map.get("totalRow"));
@@ -362,6 +366,7 @@ public class MemberItemController {
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("interestCheck", interestCheck);
 		
 		// 페이지 요청
 		return "getMemberItemList";
