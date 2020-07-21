@@ -2,21 +2,21 @@ package com.cafe24.dk4750.miniMarket.vo;
 
 public class CompanyItemLike {
 	private int likeNo;
-	private String likeActive;
+	private int likeActive;
 	private String memberUniqueNo;
 	private int companyItemNo;
+	private String lakeDate;
 	
-	// 겟터 셋터
 	public int getLikeNo() {
 		return likeNo;
 	}
 	public void setLikeNo(int likeNo) {
 		this.likeNo = likeNo;
 	}
-	public String getLikeActive() {
+	public int getLikeActive() {
 		return likeActive;
 	}
-	public void setLikeActive(String likeActive) {
+	public void setLikeActive(int likeActive) {
 		this.likeActive = likeActive;
 	}
 	public String getMemberUniqueNo() {
@@ -31,11 +31,17 @@ public class CompanyItemLike {
 	public void setCompanyItemNo(int companyItemNo) {
 		this.companyItemNo = companyItemNo;
 	}
+	public String getLakeDate() {
+		return lakeDate;
+	}
+	public void setLakeDate(String lakeDate) {
+		this.lakeDate = lakeDate;
+	}
 	
-	// toString
 	@Override
 	public String toString() {
 		return "CompanyItemLike [likeNo=" + likeNo + ", likeActive=" + likeActive + ", memberUniqueNo=" + memberUniqueNo
-				+ ", companyItemNo=" + companyItemNo + "]";
+				+ ", companyItemNo=" + companyItemNo + ", lakeDate=" + lakeDate + "]";
 	}
+
 }

@@ -34,6 +34,7 @@ public class CompanyItemController {
 		if(session.getAttribute("loginCompany") == null) {
 			 return "redirect:/loginMemberAndCompany";
 		}
+
 		//카테고리 목록
 		List<Category> categoryList = categoryService.getCompanyCategory();
 		

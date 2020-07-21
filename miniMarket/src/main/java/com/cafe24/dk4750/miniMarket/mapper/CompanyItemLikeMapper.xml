@@ -17,7 +17,7 @@
 		SELECT like_active AS likeActive 
 		FROM mini_market_company_item_like
 		WHERE member_unique_no = #{memberUniqueNo}
-		AND member_item_no = #{memberItemNo}
+		AND company_item_no = #{companyItemNo}
 	</select>
 	
 	<!-- 업체아이템을 좋아요 했다면 좋아요 취소로 변경 -->
@@ -25,7 +25,7 @@
 		UPDATE mini_market_company_item_like
 		SET like_active = #{likeActive}
 		WHERE member_unique_no = #{memberUniqueNo}
-		AND company_item_no = #{memberItemNo}
+		AND company_item_no = #{companyItemNo}
 	</update>
 	
 	<!-- 내가 처음으로 업체관심상품 등록할때 -->

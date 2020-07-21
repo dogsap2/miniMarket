@@ -35,6 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   border-radius: 200px;
 }
 </style>
+<script type = 'text / javascript'src = ' https://yourdomain.co.uk/wp-content/themes/theme/js/jquery.min.js'></script>
 </head>
 <body>
 <!-- header -->
@@ -343,6 +344,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</td>
 	</tr>
 </table>
+<hr>
+	<input type="hidden" id="companyItemNo" th:value="${companyItemOne.companyItemNo}">
+	<input type="hidden" id="memberUniqueNo" th:value="${companyItemOne.memberUniqueNo}">
+	
+	<br>
+	<div id="check" style="display:none" th:text="${check}"></div>
+
 	<!-- 업체 홍보글 신고하기 버튼 업체글 번호 넘김-->
 	<div>
 		<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo})}" class="btn">업체게시글 신고하기</a>
@@ -420,6 +428,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          
       });
 </script>
-<!-- //main slider-banner -->     
+<!-- //main slider-banner -->  
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  -->
+<script>
+	$(document).ready(function() {
+		let count=0;
+		let check = Number($('#check').text());
+		if(check == 1) {
+			$('#img').attr('src', '/images/fh.png');
+			count = count + check;
+			console.log(count + "체크넘버가 1일시 count에 check 더해서 1으로 고정");
+		} else if(check == 0) {
+			$('#img').attr('src', '/images/h.png');
+		}
+		console.log(check + " 검사한결과값")
+		$('#img').click(function() {
+			count = count+1;
+			console.log(count);
+			$.ajax({
+				url:'/CheckCompanyLike?count='+count+'&companyItemNo='+$('#companyItemNo').val(),
+				type:'get',
+				success : function(data) {
+					console.log("0이면 좋아요취소, 1이면 좋아요 : " + data);
+					if(data == 1) {
+						$('#img').attr('src', '/images/fh.png');
+					} else {
+						$('#img').attr('src', '/images/h.png');
+					}
+					count = data;
+				}
+			});
+			location.reload();
+		});
+	});
+</script>   
 </body>
 </html>

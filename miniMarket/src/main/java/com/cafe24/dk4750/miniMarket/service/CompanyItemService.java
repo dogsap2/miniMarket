@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.dk4750.miniMarket.mapper.CompanyItemLikeMapper;
 import com.cafe24.dk4750.miniMarket.mapper.CompanyItemMapper;
 import com.cafe24.dk4750.miniMarket.mapper.CompanyItemPicMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberInterestPlaceMapper;
@@ -32,6 +33,7 @@ public class CompanyItemService {
 	@Autowired private CompanyItemMapper companyItemMapper;
 	@Autowired private CompanyItemPicMapper companyItemPicMapper;
 	@Autowired private MemberInterestPlaceMapper memberInterestPlaceMapper;
+	@Autowired private CompanyItemLikeMapper companyItemLikeMapper;
 	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1594275612256\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
