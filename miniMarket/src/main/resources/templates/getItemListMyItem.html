@@ -313,10 +313,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                        <div class="snipcart-item block" >
                                           <div class="snipcart-thumb" th:each=" list : ${list}">
                                              <br>                                             
-                                             <br>
-                                             <a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
-                                                <img th:src="@{'/images/'+${list.memberItemPic1}}" width="700" height="400">
-                                             </a>
+                                             <br>                                             
+                                             <a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo}, pageCheck=1)}">
+                                                <img th:src="@{'/images/'+${list.memberItemPic1}}"  width="700" height="400">
+                                             </a>                                           
                                              <!-- <div th:text="${index.index}"></div> -->
                                              <br>
                                              <h2 style=" font-size: xx-large;" th:text="${list.memberItemTitle}"></h2>
@@ -327,7 +327,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                              <p style="display:inline;">판매금액</p>
                                              <h4 style="display:inline; font-weight: bold; "th:text="${list.memberItemPrice}+원"></h4>
                                              <hr> 
-                                          </div>                                      
+                                          </div>
+                                          <div>
+                                          	<a th:if="${currentPage} > 1" th:href="@{/getItemListMyItem(currentPage=${currentPage-1})}" >이전</a>
+                                          	<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListMyItem(currentPage=${currentPage+1})}">다음</a>
+                                          </div>                                                                                
                                        </div>
                                     </figure>
                                  </div>
