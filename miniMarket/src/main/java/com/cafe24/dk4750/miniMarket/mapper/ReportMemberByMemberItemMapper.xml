@@ -3,6 +3,21 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.ReportMemberByMemberItemMapper">
+	<!-- 신고 목록중에 가장 최근것의 신고확인 된거 가져오기 -->
+	<select id="selectMemberByMemberItemDesc" resultType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItem">
+		SELECT
+			rm.report_state AS reportState,
+			rm.report_date AS reportDate,
+			mi.member_unique_no AS memberUniqueNo,
+			mi.member_item_no AS memberItemNo
+		FROM mini_market_report_m_by_mitem AS rm
+		INNER JOIN mini_market_member_item AS mi
+		ON rm.member_item_no = mi.member_item_no
+		WHERE report_state = '신고확인'
+		ORDER BY report_no DESC
+		LIMIT 1
+	</select>
+	
 	<update id="updateMemberByMemberItemState" parameterType="com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItem">
 		UPDATE mini_market_report_m_by_mitem 
 		SET report_state = #{reportState}

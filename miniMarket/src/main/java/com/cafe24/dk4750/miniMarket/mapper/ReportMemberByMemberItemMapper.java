@@ -10,6 +10,8 @@ import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberItemAndMemberItem;
 
 @Mapper
 public interface ReportMemberByMemberItemMapper {
+	// 신고중에 가장 최근에 신고 확인으로 된거 가져오기
+	public ReportMemberByMemberItem selectMemberByMemberItemDesc();
 	// 멤버가 멤버아이템 신고시
 	public int insertReportMemberByMemberItem(ReportMemberByMemberItem reportMemberByMemberItem);
 	// 신고 total리스트 출력

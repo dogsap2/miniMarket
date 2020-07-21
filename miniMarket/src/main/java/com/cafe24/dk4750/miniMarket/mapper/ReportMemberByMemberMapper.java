@@ -9,6 +9,8 @@ import com.cafe24.dk4750.miniMarket.vo.ReportMemberByMemberAndMember;
 
 @Mapper
 public interface ReportMemberByMemberMapper {
+	// 신고확인 된것 중에 가장 최근 것 가져오기
+	public ReportMemberByMember selectMemberByMemberDesc();
 	//멤버 이름 불러오기
 	public String selectMemberName(String memberUniqueNo);
 	// 멤버가 업체아이템 신고시

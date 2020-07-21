@@ -9,8 +9,8 @@ public class ReportMemberByMemberItem {
 	private int memberItemNo;
 	private String reportState;
 	private String reportDate;
-	
-	// 겟터 셋터
+	// 아이템 속성의 유니크넘버
+	private String memberUniqueNo;
 	public int getReportNo() {
 		return reportNo;
 	}
@@ -59,12 +59,18 @@ public class ReportMemberByMemberItem {
 	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
 	}
-	
-	// toString
+	public String getMemberUniqueNo() {
+		return memberUniqueNo;
+	}
+	public void setMemberUniqueNo(String memberUniqueNo) {
+		this.memberUniqueNo = memberUniqueNo;
+	}
 	@Override
 	public String toString() {
-		return "ReportMByMitem [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent="
+		return "ReportMemberByMemberItem [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent="
 				+ reportContent + ", reportMemo=" + reportMemo + ", memberId=" + memberId + ", memberItemNo="
-				+ memberItemNo + ", reportState=" + reportState + ", reportDate=" + reportDate + "]";
+				+ memberItemNo + ", reportState=" + reportState + ", reportDate=" + reportDate + ", memberUniqueNo="
+				+ memberUniqueNo + "]";
 	}
+	
 }
