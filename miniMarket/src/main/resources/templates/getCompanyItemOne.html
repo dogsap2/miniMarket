@@ -350,7 +350,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	<br>
 	<div id="check" style="display:none" th:text="${check}"></div>
-
 	<!-- 업체 홍보글 신고하기 버튼 업체글 번호 넘김-->
 	<div>
 		<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo})}" class="btn">업체게시글 신고하기</a>
@@ -436,7 +435,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script>
 	$(document).ready(function() {
 		let count=0;
+		
 		let check = Number($('#check').text());
+		console.log(check + " 검사한결과값")
 		if(check == 1) {
 			$('#img').attr('src', '/images/fh.png');
 			count = count + check;

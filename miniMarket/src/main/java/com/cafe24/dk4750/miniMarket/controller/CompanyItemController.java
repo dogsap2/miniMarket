@@ -14,19 +14,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.CategoryService;
+import com.cafe24.dk4750.miniMarket.service.CheckCompanyLikeService;
 import com.cafe24.dk4750.miniMarket.service.CompanyItemService;
 import com.cafe24.dk4750.miniMarket.vo.Category;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
+import com.cafe24.dk4750.miniMarket.vo.CompanyItemLike;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemPic;
 import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
+import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 
 @Controller
 public class CompanyItemController {
 	@Autowired private CompanyItemService companyItemService;
 	@Autowired private CategoryService categoryService;
-	
+	@Autowired private CheckCompanyLikeService checkCompanyLikeService; 
 	// 나의 업체 아이템 수정
 	@GetMapping("/modifyCompanyItem")
 	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
@@ -108,6 +111,17 @@ public class CompanyItemController {
 		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
 		companyItemOne.setCompanyItemNo(companyItemNo);
 		companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
+		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
+		
+		// 현재 로그인한 유저의 유니크넘버값을 넘겨준다
+		CompanyItemLike companyItemLike = new CompanyItemLike();
+		String memberUniqueNo = loginMember.getMemberUniqueNo();
+		companyItemLike.setMemberUniqueNo(memberUniqueNo);
+		companyItemLike.setCompanyItemNo(companyItemNo);
+		// 내 현재 라이크 상태
+		Integer check = checkCompanyLikeService.defaultLike(companyItemLike);
+		System.out.println(check+"<======== 내 현재 라이크 상태값값값");
+		model.addAttribute("check", check);
 		model.addAttribute("companyItemOne", companyItemOne);
 		System.out.println(companyItemNo+"<-=-0-=0-=0=-0=-0=-0-=0=-0-=0=");
 		System.out.println(companyItemOne+"<====해당업체의 정보들");
