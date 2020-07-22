@@ -3,5 +3,29 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.CompanyCommentMapper">
-	
+	<!-- 댓글 리스트 -->
+	<select id="selectCompanyCommentList" parameterType="map" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyCommentAndMember">
+		SELECT
+			cc.company_comment_no AS companyCommentNo,
+			cc.company_comment_content AS companyCommentContent,
+			cc.member_unique_no AS memberUniqueNo,
+			m.member_nickname AS memberNickname,
+			cc.company_comment_date AS companyCommentDate,
+			cc.company_item_no AS companyItemNo,
+			cc.company_unique_no AS companyUniqueNo
+		FROM mini_market_company_comment AS cc
+		INNER JOIN mini_market_member AS m
+		ON cc.member_unique_no = m.member_unique_no
+		WHERE company_item_no = #{companyItemNo}
+		ORDER BY company_comment_date DESC
+		LIMIT #{beginRow} , #{rowPerPage}
+	</select>
+	<!-- 댓글 총합 수 구하기 -->
+	<select id="getTotalRow" parameterType="int" resultType="int">
+	   SELECT
+	      COUNT(*)
+	   FROM
+	      mini_market_company_comment
+	   WHERE company_item_no = #{companyItemNo}
+	</select>
 </mapper>
