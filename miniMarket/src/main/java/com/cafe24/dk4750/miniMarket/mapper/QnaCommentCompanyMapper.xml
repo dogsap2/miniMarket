@@ -47,5 +47,7 @@
 	      COUNT(*)
 	   FROM
 	      mini_market_qna_comment_company
+	   WHERE
+	   	  qna_comment_company_no = ${qnaCommentCompanyNo}
 	</select>
 </mapper>
