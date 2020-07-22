@@ -299,8 +299,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                </ul><br><br>
                <div class="container-fluid">
                	<a th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}" style="float:right;" class="btn btn-info btn-lg">중고아이템 판매</a>
-               </div>
-            <form method="get" th:action="@{/getMemberItemList}" id="searchForm">
+               </div>            
                <div id="myTabContent" class="tab-content">
                   <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
                      <div class="agile_top_brands_grids">
@@ -336,8 +335,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"> </div>
                      </div>
                   </div>
-               </div>
-              </form>
+               </div>              
             </div>
          </div>
       </div>
