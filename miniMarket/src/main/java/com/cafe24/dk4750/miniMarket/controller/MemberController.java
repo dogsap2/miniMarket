@@ -283,6 +283,12 @@ public class MemberController {
 			return "redirect:/loginMemberAndCompany";
 		}	
 		System.out.println(member+"<----수정된 member값");
+		
+		LoginMember memberId2 = (LoginMember)(session.getAttribute("loginMember"));
+		String memberId = memberId2.getMemberId();
+		
+		member.setMemberId(memberId);
+		
 		memberService.modifyMemberOne(member);
 		return "redirect:/getMemberOne";
 	}
