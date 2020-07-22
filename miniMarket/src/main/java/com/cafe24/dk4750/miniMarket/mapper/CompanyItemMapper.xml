@@ -4,6 +4,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.CompanyItemMapper">
 	
+	<!-- 내 홍보중인 아이템넘버를 가져오기 위함 -->
+	<select id="selectCompanyItemNoOne" resultType="int" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItem">
+		SELECT
+			company_item_no
+		FROM mini_market_company_item
+		WHERE company_unique_no = #{companyUniqueNo}
+		AND company_item_state = '홍보'
+	</select>
+	
 	<!-- 글의 총 갯수 -->
 	<select id="totalCompanyItem" resultType="int" parameterType="String">
 		SELECT
@@ -28,7 +37,7 @@
 	</select>
 	
  	<!-- 나의 업체아이템 상세보기  -->
-	<select id="selectCompanyMyItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic" parameterType="String">
+	<select id="selectCompanyMyItemOne" resultType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic">
 		SELECT 
 			ci.company_item_no AS companyItemNo,
 			ci.company_unique_no AS companyUniqueNo,
@@ -44,7 +53,7 @@
 			ci.company_item_price AS companyItemPrice,
 			ci.company_item_content AS companyItemContent,
 			ci.company_item_date AS companyItemDate,
-			(SELECT COUNT(cil.like_active) FROM mini_market_company_item_like AS cil WHERE cil.like_active = '1' ) AS likeActive,
+			COUNT(*) AS likeActive,
 			cip.company_item_pic1 AS companyItemPic1,
 			cip.company_item_pic2 AS companyItemPic2,
 			cip.company_item_pic3 AS companyItemPic3,
@@ -59,11 +68,9 @@
 		ON cil.company_item_no = ci.company_item_no
 		INNER JOIN mini_market_company_pic AS cp
 		ON cp.company_id = c.company_id
-		WHERE 
-			ci.company_unique_no = #{companyUniqueNo}
-		AND
-			ci.company_item_state = '홍보'
-		GROUP BY ci.company_item_no   		
+		WHERE ci.company_unique_no = #{companyUniqueNo}
+		AND ci.company_item_state = '홍보'	
+		AND ci.company_item_no = #{companyItemNo}	
 	</select> 
 	
 	<!-- 업체아이템 상세보기 -->
@@ -191,8 +198,6 @@
 		ON ci.company_unique_no = c.company_unique_no
 		INNER JOIN mini_market_company_item_pic AS cip
 		ON ci.company_item_no = cip.company_item_no
-		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND ci.company_item_state = "홍보"
 		AND c.company_sigungu = #{companySigungu}
 		AND c.company_bname = #{companyBname}
@@ -267,8 +272,6 @@
 		ON ci.company_item_no = cip.company_item_no
 		INNER JOIN mini_market_company_item_like AS cil 
 	    ON ci.company_item_no = cil.company_item_no
-		WHERE (ci.company_item_title LIKE CONCAT('%', #{searchWord}, '%')
-		OR ci.company_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND ci.company_item_state = "홍보"
 		AND cil.like_active = '1'
 		AND cil.member_unique_no = #{memberUniqueNo}

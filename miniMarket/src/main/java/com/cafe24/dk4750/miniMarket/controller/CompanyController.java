@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.dk4750.miniMarket.service.CompanyItemService;
 import com.cafe24.dk4750.miniMarket.service.CompanyService;
 import com.cafe24.dk4750.miniMarket.vo.Company;
+import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyNameAndPic;
 import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
 
@@ -21,7 +23,7 @@ import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
 public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
-	
+	@Autowired private CompanyItemService companyItemService;
 	   //업체 탈퇴
 	   @GetMapping("/removeCompany")
 	   public String removeCompany(HttpSession session) {
@@ -188,7 +190,15 @@ public class CompanyController {
 		LoginCompany companyId = (LoginCompany) (session.getAttribute("loginCompany"));
 		// 사진 닉네임 불러오기
 		Map<String, Object> map = companyService.getCompanyNameAndPic(companyId);
-
+		// 내가 올린 업체아이템의 번호
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
+		String companyUniqueNo = loginCompany.getCompanyUniqueNo();
+		CompanyItem companyItem = new CompanyItem();
+		companyItem.setCompanyUniqueNo(companyUniqueNo);
+		int companyItemNo = companyItemService.getCompanyItemNoOne(session, companyItem);
+		System.out.println(companyItemNo+"<-----내 홍보중인 아이템의 아이템 번호");
+		System.out.println(companyUniqueNo+"<===컴퍼니 유니크 넘버  컴퍼니 컨트롤러");
+		model.addAttribute("companyItemNo", companyItemNo);
 		model.addAttribute("companyPic", map.get("companyPic"));
 		model.addAttribute("CompanyName", map.get("companyName"));
 

@@ -37,12 +37,23 @@ public class CompanyItemService {
 	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1594275612256\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
+	public int getCompanyItemNoOne(HttpSession session, CompanyItem companyItem) {
+		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
+		String companyUniqueNo = loginCompany.getCompanyUniqueNo();
+		companyItem.setCompanyUniqueNo(companyUniqueNo);
+		System.out.println(companyUniqueNo+"<======나의 업체유니크넘버가 잘 들어가는 지 확인");
+		System.out.println(companyItemMapper.selectCompanyItemNoOne(companyItem)+"<--컴퍼니 아이템 정보들");
+		return companyItemMapper.selectCompanyItemNoOne(companyItem);
+	}
+	
+	
 	// 나의 업체 아이템 상세보기
-	public CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic getCompanyMyItemOne(HttpSession session, String companyUniqueNo) {
+	public CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic getCompanyMyItemOne(HttpSession session, String companyUniqueNo, int companyItemNo) {
 		// 세션값 가져오기
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		companyUniqueNo = loginCompany.getCompanyUniqueNo();
-		return companyItemMapper.selectCompanyMyItemOne(companyUniqueNo);
+		System.out.println(companyUniqueNo+"나의 업체유니크넘버");
+		return companyItemMapper.selectCompanyMyItemOne(companyUniqueNo, companyItemNo);
 	}
 	
 	// 업체 아이템 상세보기
@@ -385,7 +396,7 @@ public class CompanyItemService {
 		map.put("companyBname", companyBname);
 		map.put("companySigungu", companySigungu);
 		// 리스트 받아오기
-		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectCompanyItemList(map);
+		List<CompanyItemAndCompanyAndCompanyItemPic> list = companyItemMapper.selectPlaceByCompanyItemList(map);
 		// 마지막 페이지 번호 + 나머지 값이 있을 경우 마지막 페이지 값 +1
 		int lastPage = totalRow / rowPerPage;
 		if(totalRow % rowPerPage !=0) {

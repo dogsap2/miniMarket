@@ -81,13 +81,21 @@ public class CompanyItemController {
 	
 	// 나의 업체 아이템 상세보기
 	@GetMapping("/getCompanyMyItemOne")
-	public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo) {
+	public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo, int companyItemNo) {
 		// 세션이 없다면 index로 리턴
 		System.out.println(companyUniqueNo+"<---상세보기 유니크 넘버");
 		if(session.getAttribute("loginCompany") == null) {
 			return "redirect:/loginMemberAndCompany";
 		}
-		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo);
+		// 컴퍼니아이템 번호 가져오기
+		CompanyItem companyItem = new CompanyItem();
+		companyItemNo = companyItemService.getCompanyItemNoOne(session, companyItem);
+		System.out.println(companyItemNo+"<------=-=-=컴퍼니아이템컨트롤러 의 컴퍼니아이템번호!!");
+		
+		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic myCompanyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
+		myCompanyItemOne.setCompanyItemNo(companyItemNo);
+		myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo, companyItemNo);
+		
 		model.addAttribute("myCompanyItemOne", myCompanyItemOne);
 		System.out.println(companyUniqueNo+"<-==컴퍼니 유니크 넘버 번호");
 		System.out.println(myCompanyItemOne+"<====해당업체의 정보들");
