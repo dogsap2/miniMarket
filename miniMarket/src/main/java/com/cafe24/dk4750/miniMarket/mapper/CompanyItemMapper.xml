@@ -59,7 +59,10 @@
 		ON cil.company_item_no = ci.company_item_no
 		INNER JOIN mini_market_company_pic AS cp
 		ON cp.company_id = c.company_id
-		WHERE ci.company_unique_no = #{companyUniqueNo}
+		WHERE 
+			ci.company_unique_no = #{companyUniqueNo}
+		AND
+			ci.company_item_state = '홍보'
 		GROUP BY ci.company_item_no   		
 	</select> 
 	
