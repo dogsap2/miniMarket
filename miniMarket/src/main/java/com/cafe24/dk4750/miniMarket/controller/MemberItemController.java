@@ -352,15 +352,16 @@ public class MemberItemController {
 			return "redirect:/loginMemberAndCompany";
 		}
 		
-		
-		
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 리스트 받아오기
 		Map<String , Object> map = memberItemService.getMemberItemList(session, beginRow, rowPerPage, searchWord);
 		int interestCheck = (int)map.get("interestCheck");
+		List<Category> categoryList = categoryService.getMemberCategory();
+		System.out.println(categoryList);
 		
 		// 모델로 리스트 넘겨주기
+		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));

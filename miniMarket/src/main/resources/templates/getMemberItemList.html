@@ -279,7 +279,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <div class="top-brands">
       <div class="container">
       <h2>내동네 중고물품 목록</h2>
-      	<div align="center">
+      	<!--- products --->
+	<div class="products">
+		<div class="container">
+			<div class="col-md-4 products-left" >
+				<div class="categories">
+					<h2>Categories</h2>
+					<ul class="cate">
+						<li><a href="products.html"><i class="fa fa-arrow-right" aria-hidden="true"></i>카테고리</a></li>
+							<ul th:each="list : ${categoryList}">
+								<li><a href="products.html" th:text="${list.categoryName}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+							</ul>
+					</ul>
+				</div>																																												
+			</div>
+			<div class="col-md-8 products-right">
+				<div align="center">
       	<br>
       	<div id="interestProductt" style="width:135px">
       	<a class = "btn btn-warning" th:href="@{/getItemListByPlace}" id="interestProduct">관심동네 중고물품</a>
@@ -341,6 +356,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          </div>
       </div>
    </div>
+		</div>
+	</div>
+      	
 <div class="footer">      
       <div class="footer-copy">
          
