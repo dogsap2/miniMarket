@@ -1,20 +1,14 @@
-<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+<title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+      function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -306,127 +300,127 @@ $(document).ready(function(){
       </div>
    </div>
 <!-- //breadcrumbs -->
-
-
-<!-- 넣을부분 -->
-
-<div class="login">	 
-      <div class="container" align="center">
-             <h2>내가 구매한 아이템 목록</h2>
-             <br><br>
-	      	<table border="1" class="table table-bordered" >
-			<thead>
-				<tr>
-					<th>사진</th>
-					<th>제목</th>
-					<th>아이템가격</th>
-					<th>아이템 올린 날짜</th>
-					<th>매너평가</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="list : ${list}">
-					<td align="center">
-						<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
-							<img th:src="@{'/images/'+${list.memberItemPic1}}" width="300" height="200">
-						</a>
-					</td>
-					<td th:text="${list.memberItemTitle}"></td>
-					<td th:text="${list.memberItemPrice}"></td>
-					<td th:text="${list.memberItemDate}"></td>
-					<td>
-						<input type="hidden" th:value="${list.memberItemNo}" id="iNo">
-						<button class="btn btn-warning" type="button" th:id="${'mannerBtn'+list.memberItemNo}" th:value="mannerBtn+${list.memberItemNo}" th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');" >매너평가</button>
-						<br>
-						<button class="btn btn-warning" type="button" th:id="${'reviewBtn'+list.memberItemNo}"  th:onclick="window.open('/addReview?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">리뷰작성하기</button>					
-				</tr>
-			</tbody>
-		</table>
-		<div>
-			<a th:if="${currentPage} > 1" th:href="@{/getBuyListByMember(currentPage=${currentPage-1})}" >이전</a>
-			<a th:if="${currentPage} < ${lastPage}" th:href="@{/getBuyListByMember(currentPage=${currentPage+1})}">다음</a>
+<!-- 내가 구매한 아이템 목록 -->
+	<div class="top-brands">
+		<div class="container" align="center">		 
+			<h2>내가 구매한 아이템 목록</h2>
+			<div class="agile_top_brands_grids">
+				<div class="hover14 column">
+					<div class="agile_top_brand_left_grid">
+						<div class="agile_top_brand_left_grid1">
+							<div class="bs-example bs-example-tabs" role="tabpanel"
+								data-example-id="togglable-tabs">
+								<div th:each="list : ${list}">
+									<div align="center">
+										<a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
+											<img th:src="@{'/images/'+${list.memberItemPic1}}"
+											width="700" height="400">
+										</a>
+									</div>
+									<br>
+									<h2 style="font-size: x-large;"
+										th:text="${list.memberItemTitle}"></h2>
+									<div th:text="${list.memberItemPrice}+원"></div>
+									<div th:text="${list.memberItemDate}"></div>
+									<div>
+										<input type="hidden" th:value="${list.memberItemNo}" id="iNo">
+										<button class="btn btn-warning" type="button"
+											th:id="${'mannerBtn'+list.memberItemNo}"
+											th:value="mannerBtn+${list.memberItemNo}"
+											th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">매너평가</button>
+										<button class="btn btn-warning" type="button"
+											th:id="${'reviewBtn'+list.memberItemNo}"
+											th:onclick="window.open('/addReview?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">리뷰작성하기</button>
+									</div>
+								</div>
+								<hr>
+								<div>
+									<a th:if="${currentPage} > 1"
+										th:href="@{/getBuyListByMember(currentPage=${currentPage-1})}">이전</a>
+									<a th:if="${currentPage} < ${lastPage}"
+										th:href="@{/getBuyListByMember(currentPage=${currentPage+1})}">다음</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	</div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
+	<!-- //footer -->
+<div class="footer">      
+      <div class="footer-copy">
+         
+         <div class="container">
+            <p>© 2017 Super Market. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+         </div>
+      </div>
+      
+   </div>   
+   <div class="footer-botm">
+         <div class="container">
+            <div class="w3layouts-foot">
+               <ul>         
+                  <li><a href="https://github.com/dk4750/mini_market" target="_blank" class="w3_agile_dribble" ><i class="fa fa-github" aria-hidden="true"></i></a></li>
+               </ul>
+            </div>
+            <div class="payment-w3ls">   
+               <img src="images/card.png" alt=" " class="img-responsive">
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+      </div>
 <!-- //footer -->
-<div class="footer">		
-		<div class="footer-copy">
-			
-			<div class="container">
-				<p>© 2017 Super Market. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-			</div>
-		</div>
-		
-	</div>	
-	<div class="footer-botm">
-			<div class="container">
-				<div class="w3layouts-foot">
-					<ul>			
-						<li><a href="https://github.com/dk4750/mini_market" class="w3_agile_dribble"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-					</ul>
-				</div>
-				<div class="payment-w3ls">	
-					<img src="images/card.png" alt=" " class="img-responsive">
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-<!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-								
-			$().UItoTop({ easingType: 'easeOutQuart' });
-								
-			});
-	</script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+         /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear' 
+            };
+         */
+                        
+         $().UItoTop({ easingType: 'easeOutQuart' });
+                        
+         });
+   </script>
 <!-- //here ends scrolling icon -->
 <script src="js/minicart.min.js"></script>
 <script>
-	// Mini Cart
-	paypal.minicart.render({
-		action: '#'
-	});
+   // Mini Cart
+   paypal.minicart.render({
+      action: '#'
+   });
 
-	if (~window.location.search.indexOf('reset=true')) {
-		paypal.minicart.reset();
-	}
+   if (~window.location.search.indexOf('reset=true')) {
+      paypal.minicart.reset();
+   }
 </script>
 <!-- main slider-banner -->
 <script src="js/skdslider.min.js"></script>
 <link href="css/skdslider.css" rel="stylesheet">
 <script type="text/javascript">
-		jQuery(document).ready(function(){
-			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
-						
-			jQuery('#responsive').change(function(){
-			  $('#responsive_wrapper').width(jQuery(this).val());
-			});
-			
-		});
-</script>
-<!-- //main slider-banner -->  	
+      jQuery(document).ready(function(){
+         jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
+                  
+         jQuery('#responsive').change(function(){
+           $('#responsive_wrapper').width(jQuery(this).val());
+         });
+         
+      });
+</script>   
+<!-- //main slider-banner --> 
 </body>
 </html>
