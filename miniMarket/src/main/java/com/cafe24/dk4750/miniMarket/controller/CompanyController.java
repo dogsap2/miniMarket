@@ -117,7 +117,7 @@ public class CompanyController {
 	@GetMapping("/modifyCompanyPw")
 	public String modifyCompanyPw(HttpSession session) {
 		//로그인 상태면
-	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	    if(session.getAttribute("loginCompany")== null){ 
 	       return "redirect:/index";
 	    }   
 		return "modifyCompanyPw";
@@ -127,7 +127,7 @@ public class CompanyController {
 	@PostMapping("/modifyCompanyPw")
 	public String modifyCompanyPw(HttpSession session, @RequestParam(value = "companyPw", defaultValue = "") String companyPw) {
 		//로그인 상태면
-	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	    if(session.getAttribute("loginCompany")== null || session.getAttribute("loginMember") != null){ 
 	       return "redirect:/index";
 	    }   
 		// 세션에 담긴 아이디와, 입력받은 패스워드 변수에 담아서 서비스로 넘겨줌
