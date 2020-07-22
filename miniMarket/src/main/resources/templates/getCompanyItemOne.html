@@ -330,10 +330,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</td>
 	</tr>
 	<tr>
-		<td><br><br></td>
+		<td><br><br><br></td>
 	</tr>
 	<tr>
-		<td style="color:gray;">
+		<td>
+			<span style="font-weight:bold;">&nbsp;업체대표&nbsp; : &nbsp;</span>
+			<u style="color:orange;">
+				<span style="color:orange; font-weight:bold;" th:text="${companyItemOne.companyCeoName}"></span>
+			</u>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<span style="font-weight:bold;">&nbsp;연락처 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;</span>
+			<u style="color:orange;">
+				<span style="color:orange; font-weight:bold;" th:text="${companyItemOne.companyPhone}"></span>
+			</u>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<span style="font-weight:bold;">&nbsp;메일문의&nbsp; : &nbsp;</span>
+			<u style="color:orange;">
+				<span style="color:orange; font-weight:bold;" th:text="${companyItemOne.companyEmail}"></span>
+			</u>
+		</td>
+	</tr>
+	<tr>
+		<td style="color:gray;"><br>
 			<img id="img" th:src="@{'/images/h.png'}" width="40px" height="40px">
 			<span>관심 등록 click!!</span><br><br>
 		</td>

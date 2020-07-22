@@ -201,7 +201,7 @@ public class MemberController {
 	@GetMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginMember") != null) {
 			return "redirect:/loginMemberAndCompany";
 		}			
 		return "getFindMemberPw"; 
@@ -225,7 +225,7 @@ public class MemberController {
 	@GetMapping("/getFindMemberId")
 	public String findMemberId(HttpSession session) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginMember") != null) {
 			return "redirect:/loginMemberAndCompany";
 		}					
 		return "getFindMemberId"; 
@@ -461,7 +461,7 @@ public class MemberController {
 	}
 	
 	//index 홈 
-	@GetMapping("/index")
+	@GetMapping({"/","/index"})
 	public String index(Model model, @RequestParam(value="currentPage", defaultValue = "1") int currentPage, @RequestParam(value="searchWord", defaultValue = "") String searchWord) {
 		System.out.println("index start");
 		System.out.println(currentPage + " <== currentPage 들어온 값 디버깅");
