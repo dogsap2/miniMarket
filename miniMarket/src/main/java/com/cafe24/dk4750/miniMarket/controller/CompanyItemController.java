@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.CategoryService;
 import com.cafe24.dk4750.miniMarket.service.CheckCompanyLikeService;
+import com.cafe24.dk4750.miniMarket.service.CompanyCommentService;
 import com.cafe24.dk4750.miniMarket.service.CompanyItemService;
 import com.cafe24.dk4750.miniMarket.vo.Category;
+import com.cafe24.dk4750.miniMarket.vo.CompanyComment;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
@@ -30,6 +32,21 @@ public class CompanyItemController {
 	@Autowired private CompanyItemService companyItemService;
 	@Autowired private CategoryService categoryService;
 	@Autowired private CheckCompanyLikeService checkCompanyLikeService; 
+	@Autowired private CompanyCommentService companyCommentService;
+	// 댓글 입력
+	@PostMapping("addCompanyComment")
+	public String addCompanyComment(HttpSession session, CompanyComment companyComment, @RequestParam(value="companyItemNo", defaultValue = "0") int companyItemNo) {
+		// 멤버 권한
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:";
+		}
+		String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
+		companyComment.setMemberUniqueNo(memberUniqueNo);
+		
+		companyCommentService.addCompanyComment(companyComment);
+		
+		return "redirect:getCompanyItemOne?companyItemNo="+companyItemNo;
+	}
 	// 나의 업체 아이템 수정
 	@GetMapping("/modifyCompanyItem")
 	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
@@ -76,7 +93,7 @@ public class CompanyItemController {
 			return "redirect:/loginMemberAndCompany";
 		}
 		companyItemService.companyItemPullUp(session, companyUniqueNo);
-		return "redirect:/getCompanyItemList";
+		return "redirect:/";
 	}
 	
 	// 나의 업체 아이템 상세보기
@@ -107,7 +124,7 @@ public class CompanyItemController {
 	
 	// 업체 아이템 상세보기
 	@GetMapping("/getCompanyItemOne")
-	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
+	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		System.out.println("업체 아이템 상세보기 get매핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
@@ -115,12 +132,23 @@ public class CompanyItemController {
 	    }else if(companyItemNo == 0) {
 	    	return "redirect:/index";
 	    }
-		
+		// 업체 로그인시 업체세션값의 UniqueNo를 받아온다
+		if(session.getAttribute("loginCompnay") != null) {
+			String companyUniqueNo = ((LoginCompany)session.getAttribute("loginCompany")).getCompanyUniqueNo();
+			model.addAttribute("companyUniqueNo", companyUniqueNo);
+		}
 		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic companyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
 		companyItemOne.setCompanyItemNo(companyItemNo);
 		companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
-		
+		// 댓글 리스트
+		Map<String, Object> map = companyCommentService.getCompayCommentList(companyItemNo, currentPage);
+		System.out.println(map.get("list") + "<--getCompanyItemOne list");
+		System.out.println(map.get("lastPage") + "<--getCompanyItemOne lastPage");
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("companyItemNo", companyItemNo);
 		// 현재 로그인한 유저의 유니크넘버값을 넘겨준다
 		CompanyItemLike companyItemLike = new CompanyItemLike();
 		String memberUniqueNo = loginMember.getMemberUniqueNo();

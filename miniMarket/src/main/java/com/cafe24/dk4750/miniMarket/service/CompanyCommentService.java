@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.dk4750.miniMarket.mapper.CompanyCommentMapper;
+import com.cafe24.dk4750.miniMarket.vo.CompanyComment;
 import com.cafe24.dk4750.miniMarket.vo.CompanyCommentAndMember;
 
 @Service
@@ -16,6 +17,10 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyCommentAndMember;
 public class CompanyCommentService {
 	@Autowired
 	private CompanyCommentMapper companyCommentMapper;
+	// 댓글 입력
+	public int addCompanyComment(CompanyComment companyComment) {
+		return companyCommentMapper.insertCompanyComment(companyComment);
+	}
 	// CompanyItem 댓글 리스트(페이징)
 	public Map<String, Object> getCompayCommentList(int companyItemNo, int currentPage) {
 		int rowPerPage = 5;

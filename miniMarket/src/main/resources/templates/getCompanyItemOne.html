@@ -36,6 +36,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 }
 </style>
 <script type = 'text / javascript'src = ' https://yourdomain.co.uk/wp-content/themes/theme/js/jquery.min.js'></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#commentBtn').click(function(){
+			console.log('댓글클릭');
+			if($('#comment').val().length < 5) {
+				alert("댓글작성합시다");
+				return;
+			}
+			$('#commentForm').submit();
+		});
+	});
+</script>
 </head>
 <body>
 <!-- header -->
@@ -381,6 +393,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- 업체 신고하기 버튼 업체 유니크 넘버 넘김-->
 	<div>
 		<a th:href="@{/memberByCompanyReport(companyUniqueNo=${companyItemOne.companyUniqueNo})}" class="btn">업체 신고하기</a>
+	</div>
+	<div>
+		<h4>댓글 입력</h4>
+		<form method="post" th:action="@{addCompanyComment}" id="commentForm">
+			<div>
+				<input type="hidden" name="companyUniqueNo" th:value="${companyItemOne.companyUniqueNo}">
+				<input type="hidden" name="companyItemNo" th:value="${companyItemOne.companyItemNo}">
+				<textarea rows="2" cols="30" placeholder="댓글내용 입력" id="comment" name="companyCommentContent"></textarea>
+				<button type="button" id="commentBtn">입력</button>
+			</div>
+		</form>
+		<h4>댓글 리스트</h4>
+		<table border="1">
+			<tr>
+				<td>작성자</td>
+				<td>내용</td>
+				<td>작성일</td>
+			</tr>
+			<tr th:each="list : ${list}">
+				<td th:text="${list.memberNickname}"></td>
+				<td th:text="${list.companyCommentContent}"></td>
+				<td th:text="${#strings.substring(list.companyCommentDate,0,10)}"></td>
+			</tr>
+		</table>
+		<div th:if="${currentPage > 1}">
+			<a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous">이전</a>
+		</div>
+		<div th:if="${currentPage < lastPage}">
+			<a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next">다음</a>
+		</div>
 	</div>
 <!-- //footer -->
 <div class="footer">      
