@@ -21,6 +21,7 @@ import com.cafe24.dk4750.miniMarket.vo.Category;
 import com.cafe24.dk4750.miniMarket.vo.Chatroom;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
 import com.cafe24.dk4750.miniMarket.vo.MemberItem;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
@@ -143,11 +144,19 @@ public class MemberItemController {
 		// 아이템 상세보기 불러오기
 		MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike getItemOne = memberItemService.getMemberItemOne(memberItemNo);
 		
+		System.out.println(getItemOne.getMemberUniqueNo());
+		String memberUniqueNoSale = getItemOne.getMemberUniqueNo();
+		System.out.println(getItemOne.getMemberId());
+		
+		// 아이템 상세보기창에서 해당 회원의 판매상품 몇개 출력하기
+		List<MemberItemAndMemberAndMemberItemPic> limitList = memberItemService.getItemListMyItemLimit(memberUniqueNoSale);
+		
 		// 모델에 담아주기
 		model.addAttribute("chatRoomCheck", chatRoomCheck);
 		model.addAttribute("getItemOne", getItemOne);
 		model.addAttribute("check", check);
 		model.addAttribute("LoginMemberId", memberId);
+		model.addAttribute("limitList", limitList);
 		System.out.println(getItemOne + " <== getItemOne");
 		
 		// 거래완료, 리스트에서는 수정이 안나오게끔... 이유는 판매하고 정보를 바꿔버릴수도 있기 때문에

@@ -283,7 +283,7 @@
 	</select>
 	
 	<!-- 나의 아이템 상세보기 시 나의 판매중인 아이템 리스트 몇개만 출력 -->
-	<select id="selectItemListMyItemLimit" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic">
+	<select id="selectItemListMyItemLimit" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic">
 		SELECT
 			 mi.member_item_no AS memberItemNo,
 	         mi.member_item_title AS memberItemTitle,

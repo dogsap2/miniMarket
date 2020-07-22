@@ -13,6 +13,9 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberI
 
 @Mapper
 public interface MemberItemMapper {
+	// 아이템 상세보기에서 해당 회원의 아이템 몇개만 상세보기
+	public List<MemberItemAndMemberAndMemberItemPic> selectItemListMyItemLimit(String memberUniqueNo);
+
 	
 	// 인덱스에서 아이템 리스트 몇개 보기
 	public List<MemberItemAndMemberAndMemberItemPic> selectIndexItemList(Map<String, Object> map);

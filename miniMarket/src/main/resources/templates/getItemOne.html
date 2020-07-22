@@ -392,6 +392,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</tr>
 </table>
 <hr>
+<h1 style="text-align:center;">이 회원의 판매 상품</h1><br>
+<table style="margin-left: auto; margin-right: auto;">
+	<tr th:each="list : ${limitList}">
+		<td th:text="${list.memberItemPic1}"></td>
+		<td th:text="${list.memberItemTitle}"></td>
+		<td th:text="${list.memberBname}"></td>
+		<td th:text="${list.memberItemDate}"></td>
+		<td th:text="${list.memberItemPrice}"></td>
+	</tr>
+</table><br>
 	<input type="hidden" id="memberItemNo" th:value="${getItemOne.memberItemNo}">
 	<input type="hidden" id="memberUniqueNo" th:value="${getItemOne.memberUniqueNo}">
 	

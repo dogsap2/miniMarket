@@ -44,6 +44,14 @@ public class MemberItemService {
 	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
 	private String path;
 	
+	// 아이템 상세보기시 해당 회원의 아이템 몇개만 보여지게 출력
+	public List<MemberItemAndMemberAndMemberItemPic> getItemListMyItemLimit(String memberUniqueNo) {
+		
+		List<MemberItemAndMemberAndMemberItemPic> list = memberItemMapper.selectItemListMyItemLimit(memberUniqueNo);
+		
+		return list;
+	}
+	
 	// 인덱스에서 아이템 리스트 출력하기
 	public List<MemberItemAndMemberAndMemberItemPic> getIndexItemList(int beginRow, int rowPerPage, String searchWord) {
 		System.out.println(beginRow + " <== 멤버아이템 서비스 beginRow");
