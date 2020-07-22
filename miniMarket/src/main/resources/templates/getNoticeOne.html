@@ -259,30 +259,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="login">
 		<div class="container" align="center">
 		<br>
-		<h2>공지사항 상세보기</h2>
-		<br>
-			<div th:if="${session.loginAdmin} !=null">
-				<a class= "btn btn-warning" th:href="@{/modifyNotice(noticeNo=${notice.noticeNo})}">수정하기</a>
-			</div>
-		<br>
-			<table class="table">
-				<tr>
-					<th class="warning">제목</th>
-					<td th:text="${notice.noticeTitle}"></td>
-				</tr>
-				<tr>
-					<th class="warning">작성자</th>
-					<td th:text="${notice.adminName}"></td>
-					<th class="warning">작성날짜</th>
-					<td th:text="${notice.noticeDate}"></td>
-				</tr>
-				<tr>
-					<th class="warning">내용</th>
-					<td th:text="${notice.noticeContent}"></td>
-				</tr>
-				</table>
-</div>
-</div>
+		<h2>공지 상세보기</h2>
+		<hr>
+		<div>
+			<span th:text="${notice.noticeDate}" style="float:left; color:gray; font-size:1em;"></span>
+			<span th:text="'작성자 : ' + ${notice.adminName}" style="float:right; color:gray; font-size:1em;"></span>
+			<br><br>
+			<span th:text="'[공지] ' + ${notice.noticeTitle}" style="float:left; font-weight:bold; font-size:1.3em;"></span><br>
+		</div>
+		<hr>
+		<div th:text="${notice.noticeContent}" style="float:left;"></div>
+		</div>
+	</div>
 <div class="footer">      
       <div class="footer-copy">
          
