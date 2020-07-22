@@ -144,7 +144,7 @@ public class CompanyController {
 	@GetMapping("/modifyCompany")
 	public String modifyCompany(HttpSession session, Model model) {
 		//로그인 상태면
-	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	    if(session.getAttribute("loginCompany")== null || session.getAttribute("loginMember") != null){ 
 	       return "redirect:/index";
 	    }   
 
@@ -159,7 +159,7 @@ public class CompanyController {
 	@PostMapping("/modifyCompany")
 	public String modifyCompany(HttpSession session, Company company) {
 		//로그인 상태면
-	    if(session.getAttribute("loginCompany")!= null || session.getAttribute("loginMember") != null){ 
+	    if(session.getAttribute("loginCompany")== null || session.getAttribute("loginMember") != null){ 
 	       return "redirect:/index";
 	    }   
 		System.out.println(company + "<----수정된 company값");
