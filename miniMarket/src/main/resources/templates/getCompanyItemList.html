@@ -317,14 +317,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</ol>
 		</div>
 	</div>
-	<!-- //breadcrumbs -->
-	<!--
-	<ul>
-		<li>
-			<a th:href="@{/getCompanyItemListByCategory(categoryName='업체홍보')}" th:text="업체홍보"></a>
-		</li>
-	</ul>
-	 -->
+<!-- //breadcrumbs -->
+   <!-- top-brands -->
+   <div class="top-brands">
+      <div style="margin-left:10px">
+      <h2>내동네 업체홍보 목록</h2>
+      	<!--- products --->
+	<div class="products">
+		<div class="container-fluid" style="margin-left:40px;margin-right:80px;">
+			<div class="col-md-2 products-left"style="margin-right:20px; padding-top:60px;" >
+				<div class="categories">
+					<h2>Categories</h2>
+					<ul class="cate">
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i>카테고리</li>
+						<ul th:each="list : ${categoryList}">
+							<li><a th:href="@{getCompanyItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+						</ul>
+					</ul>
+				</div>																																												
+			</div>
+		<div class="col-md-8 products-right">
+		<div align="center">
+      	<br>
 <!-- 동네 홍보 목록 -->
 	<div class="top-brands">
 		<div class="container" align="center">
@@ -344,9 +358,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<form method="get" th:action="@{/getCompanyItemList}" id="searchForm">	
 								<div th:each="list : ${list}">
 									<div>
-										<a th:href="@{/getCompanyItemOne(companyItemNo=${list.companyItemNo})}">
-											<img th:src="@{'/images/'+${list.companyItemPic1}}" width="700" height="400">
-										</a>
+										<img th:src="@{'/images/'+${list.companyItemPic1}}"
+											width="700" height="400">
 									</div>
 									<br>
 									<h2 style="font-size: x-large;"
@@ -355,7 +368,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div style="color:#DF7401; font-weight:bold; display:inline;" th:text="${list.companyBname}"></div>
 									<div style="display:inline;" th:text="${list.companyItemDate}"></div>								
 									<div>
-										
+										<a  class="btn btn-warning"
+											th:href="@{/getCompanyItemOne(companyItemNo=${list.companyItemNo})}"
+											th:text="상세보기"></a>
 									</div>
 									<hr>
 								</div>		
@@ -371,8 +386,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
-
+	</div>
+</div>
+</div>
+</div>
 	<!-- //footer -->
 	<div class="footer">
 		<div class="footer-copy">
