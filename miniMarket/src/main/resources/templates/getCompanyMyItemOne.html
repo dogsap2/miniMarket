@@ -165,21 +165,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      
-      
-      
-      
+      <li th:if="${myCompanyItemOne.companyItemPic2} != 'default.jpg'" data-target="#myCarousel" data-slide-to="1"></li>
+      <li th:if="${myCompanyItemOne.companyItemPic3} != 'default.jpg'" data-target="#myCarousel" data-slide-to="2"></li>
+      <li th:if="${myCompanyItemOne.companyItemPic4} != 'default.jpg'" data-target="#myCarousel" data-slide-to="3"></li>
+      <li th:if="${myCompanyItemOne.companyItemPic5} != 'default.jpg'" data-target="#myCarousel" data-slide-to="4"></li>
     </ol>
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="/images/comPic1.png" alt="itemPic1" style="width:1200px; height:600px;">
+        <img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic1}}" alt="itemPic1" style="width:1200px; height:600px;">
       </div>
-      
-      
-       
-       
+      <div class="item" th:if="${myCompanyItemOne.companyItemPic2} != 'default.jpg'">
+        <img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic2}}" alt="itemPic2" style="width:1200px; height:600px;">
+      </div>
+      <div class="item" th:if="${myCompanyItemOne.companyItemPic3} != 'default.jpg'">
+        <img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic3}}" alt="itemPic3" style="width:1200px; height:600px;">
+      </div>
+       <div class="item" th:if="${myCompanyItemOne.companyItemPic4} != 'default.jpg'">
+        <img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic4}}" alt="itemPic4" style="width:1200px; height:600px;">
+      </div>
+       <div class="item" th:if="${myCompanyItemOne.companyItemPic5} != 'default.jpg'">
+        <img th:src="@{'/images/'+${myCompanyItemOne.companyItemPic5}}" alt="itemPic5" style="width:1200px; height:600px;">
+      </div>
     </div>
+
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -191,7 +200,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <span class="sr-only">Next</span>
     </a>
   </div>
-</div>
+  </div>
 	</td>
 	</tr>
 	<tr>
