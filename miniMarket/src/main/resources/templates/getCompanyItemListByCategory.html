@@ -329,12 +329,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="categories">
 					<h2>Categories</h2>
 					<ul class="cate">
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i>카테고리</li>
-						<ul th:each="list : ${categoryList}">
-							<li><a th:href="@{getCompanyItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-						</ul>
-					</ul>
-				</div>																																												
+	                  <li><a href="products.html" style="margin-left:35px;">카테고리</a></li>
+	                  <ul th:each="list : ${categoryList}">
+	                     <li th:if="${list.categoryName} == ${categoryName}"><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="@{getCompanyItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"></a></li>
+	                     <li th:if="${list.categoryName} != ${categoryName}"></i><a th:href="@{getCompanyItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"></a></li>
+	                  </ul>
+               		</ul>				
+               </div>																																												
 			</div>
 		<div class="col-md-8 products-right">
 		<div align="center">
