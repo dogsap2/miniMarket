@@ -252,12 +252,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //breadcrumbs -->
  <!-- top-brands -->
    <div class="top-brands">
-      <div class="container">
-      <h2>카테고리 물품</h2>
-         <div class="grid_3 grid_5">       
+      <div style="margin-left:10px">
+      <h2>내동네 중고물품 목록</h2>
+      	<!--- products --->
+	<div class="products">
+		<div class="container-fluid" style="margin-left:40px;margin-right:80px;">
+			<div class="col-md-2 products-left"style="margin-right:20px; padding-top:60px;" >
+				<div class="categories">
+					<h2>Categories</h2>
+					<ul class="cate">
+						<li><a href="products.html" style="margin-left:35px;">카테고리</a></li>
+						<ul th:each="list : ${categoryList}">
+							<li th:if="${list.categoryName} == ${categoryName}"><i class="fa fa-arrow-right" aria-hidden="true"></i><a th:href="@{getItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"></a></li>
+							<li th:if="${list.categoryName} != ${categoryName}"></i><a th:href="@{getItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"></a></li>
+						</ul>
+					</ul>
+				</div>																																												
+			</div>
+		<div class="col-md-8 products-right">
+		<div align="center">
+      	<br>
+      	<div id="interestProductt" style="width:135px">
+      	<a class = "btn btn-warning" th:href="@{/getItemListByPlace}" id="interestProduct">관심동네 중고물품</a>
+      	</div>
+      	<div hidden="hidden" th:text="${interestCheck}" id="interestCheck"></div>
+		</div>
+         <div>
+         
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                <ul  class="nav nav-tabs">
-               </ul>           
+               </ul><br><br>
+               <div class="container-fluid">
+               	<a th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}" style="float:right;" class="btn btn-info btn-lg">중고아이템 판매</a>
+               </div>
+            <form method="get" th:action="@{/getMemberItemList}" id="searchForm">
                <div id="myTabContent" class="tab-content">
                   <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
                      <div class="agile_top_brands_grids">
@@ -271,8 +299,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                              <br>                                             
                                              <br>
                                              <a th:href="@{/getItemOne(memberItemNo=${list.memberItemNo})}">
-                                             	<img th:src="@{'/images/'+${list.memberItemPic1}}" width="700" height="400">
+                                                <img th:src="@{'/images/'+${list.memberItemPic1}}" width="700" height="400">
                                              </a>
+                                             <!-- <div th:text="${index.index}"></div> -->
                                              <br>
                                              <h2 style=" font-size: xx-large;" th:text="${list.memberItemTitle}"></h2>
                                              <br>
@@ -282,25 +311,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                              <p style="display:inline;">판매금액</p>
                                              <h4 style="display:inline; font-weight: bold; "th:text="${list.memberItemPrice}+원"></h4>
                                              <hr> 
-                                          </div> 
+                                          </div>
                                           <div>
-                                          	<a th:if="${currentPage} > 1" th:href="@{/getItemListByCategory(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-											<a th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListByCategory(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
-                                          </div>                                                                                
+												<a class= "btn btn-warning" th:if="${currentPage} > 1" th:href="@{/getMemberItemList(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+												<a class= "btn btn-warning" th:if="${currentPage} < ${lastPage}" th:href="@{/getMemberItemList(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+										  </div>                                          
                                        </div>
                                     </figure>
                                  </div>
                               </div>
                            </div>
-                        </div>                                             
+                        </div>                        
+                        
                         <div class="clearfix"> </div>
                      </div>
                   </div>
-               </div>              
+               </div>
+              </form>
             </div>
          </div>
       </div>
-   </div>				
+   </div>
+   		
+		</div>
+	</div>
+	</div>				
 <!-- //footer -->
 <div class="footer">		
 		<div class="footer-copy">

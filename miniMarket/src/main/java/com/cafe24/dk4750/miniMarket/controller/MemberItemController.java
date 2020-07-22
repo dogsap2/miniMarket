@@ -101,6 +101,12 @@ public class MemberItemController {
 		Map<String , Object> map = memberItemService.getItemListByCategory(session, categoryName, beginRow, rowPerPage);
 		System.out.println(map + " <== 컨트롤러로 돌아온 카테고리별 리스트 디버깅");
 		
+		List<Category> categoryList = categoryService.getMemberCategory();
+		System.out.println(categoryList);
+		
+		// 모델로 리스트 넘겨주기
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryName", categoryName);
 		// 모델로 리스트 넘겨주기
 		model.addAttribute("totalRow", map.get("totalRow"));
 		model.addAttribute("list", map.get("list"));

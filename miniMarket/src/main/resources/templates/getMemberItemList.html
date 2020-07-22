@@ -286,9 +286,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="categories">
 					<h2>Categories</h2>
 					<ul class="cate">
-						<li><a href="products.html"><i class="fa fa-arrow-right" aria-hidden="true"></i>카테고리</a></li>
+						<li style="margin-left:30px;">카테고리</li>
 						<ul th:each="list : ${categoryList}">
-							<li><a th:href="@{getItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+							<li><a th:href="@{getItemListByCategory(categoryName=${list.categoryName})}" th:text="${list.categoryName}"></a></li>
 						</ul>
 					</ul>
 				</div>																																												
@@ -358,6 +358,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    </div>
    		
 		</div>
+	</div>
 	</div>
       	
 <div class="footer">      
