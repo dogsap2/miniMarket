@@ -268,7 +268,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<span th:if="${interest1 == null}">
 	<a class="btn btn-warning" th:href="@{/modifyMemberInterestPlace}">관심동네 설정</a>
 	</span>
-	<br><br><br><br><br>
+	<br><br><br>
+	<div th:text="${session.loginMember.memberNickname} + ' 님 의 프로필'" style="font-weight:bold; font-size:2em;"></div>
+	<br><br>
 	<div>
 	<img th:src="@{${'/images/'+memberPic}}" width="200" height="200" class='rounded'>	
 	</div>
