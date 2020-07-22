@@ -296,8 +296,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 	</td>
 	</tr>
-	<tr>
-		
+	<tr>		
 		<td colspan="2"><br><br>
 			<hr>
 			<a th:href="@{/getProfile(memberUniqueNo=${getItemOne.memberUniqueNo}, memberId=${getItemOne.memberId})}" style="color: black">
@@ -392,21 +391,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</tr>
 </table>
 <hr>
-<h1 style="text-align:center;">이 회원의 판매 상품</h1><br>
-<table style="margin-left: auto; margin-right: auto;">
-	<tr th:each="list : ${limitList}">
-		<td th:text="${list.memberItemPic1}"></td>
-		<td th:text="${list.memberItemTitle}"></td>
-		<td th:text="${list.memberBname}"></td>
-		<td th:text="${list.memberItemDate}"></td>
-		<td th:text="${list.memberItemPrice}"></td>
+<div class="login">
+<h2 style="text-align:center;">이 회원의 판매 상품</h2><br>
+<table style="margin-left: auto; margin-right: auto;" th:each="list : ${limitList}">
+	<tr>
+		<td><img th:src="@{'/images/'+${list.memberItemPic1}}" width="800" height="400"><td>
 	</tr>
-</table><br>
+	<tr>						
+		<td align="center">
+			<span style="font-weight:bold; font-size: x-large;" th:text="${list.memberItemTitle}"></span>
+			<br>
+			<span style="color:#DF7401; font-weight:bold;" th:text="${list.memberBname}"></span>
+			<span th:text="${list.memberItemDate}"></span>
+			<br>
+			<span th:text="${list.memberItemPrice}+원"></span>
+		</td>
+	</tr>
+	<br>
+</table>
+<hr>
+<br>
 	<input type="hidden" id="memberItemNo" th:value="${getItemOne.memberItemNo}">
 	<input type="hidden" id="memberUniqueNo" th:value="${getItemOne.memberUniqueNo}">
 	
 	<br>
-	<div id="check" style="display:none" th:text="${check}"></div>
+	<div id="check" style="display:none" th:text="${check}"></div>	
+</div>	
+	
 <!-- //footer -->
 <div class="footer">		
 		<div class="footer-copy">
