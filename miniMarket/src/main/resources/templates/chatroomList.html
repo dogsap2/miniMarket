@@ -290,19 +290,20 @@
 									
 									<div class="right" style="margin-left: 300px;">
 										<p th:text="'상품 제목 :'+ ${list.memberItemTitle}"></p>
-										<div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 판매중" ><p>판매중</p></div>
-							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 판매완료"><p>판매완료</p></div>
+										<!-- 구매중 -->
+										<div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 판매중" ><p>구매중</p></div>
+							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 판매완료"><p>구매완료</p></div>
 							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 상품삭제"><p>상품삭제</p></div>
-							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매중"><p>판매중</p></div>   
-							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매완료"><p>요청대기</p></div>   
-							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 상품삭제"><p>상품삭제</p></div>   
+							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매중"><p>요청대기</p></div>   
+							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매완료"><p>거래완료 상품</p></div>   
+							            <div th:if="${list.memberUniqueNo == memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 상품삭제"><p>상품삭제</p></div>
+							            <!-- 판매중 --> 
 							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 판매중"><p>판매중</p></div>   
 							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 판매완료"><p>판매완료</p></div>   
 							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} == connect AND ${list.memberItemState} == 상품삭제"><p>상품삭제</p></div>   
 							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매중"><a th:href="@{modifyChatroomActive(chatroomNo = ${list.chatroomNo})}">채팅연결</a></div>   
-							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매완료"><p>판매완료</p></div>   
+							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 판매완료"><p>판매완료 상품</p></div>   
 							            <div th:if="${list.memberUniqueNo != memberUniqueNo} AND ${list.chatroomActive} != connect AND ${list.memberItemState} == 상품삭제"><p>상품삭제</p></div>
-							            
 									</div>
 									
 								</div>

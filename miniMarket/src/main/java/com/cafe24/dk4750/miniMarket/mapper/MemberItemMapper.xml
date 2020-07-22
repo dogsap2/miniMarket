@@ -32,8 +32,8 @@
 		SELECT
 			COUNT(*)
 		FROM mini_market_member_item
-		WHERE (member_item_title LIKE CONCAT('%', '고', '%')
-		OR member_item_content LIKE CONCAT('%', '고', '%'))
+		WHERE (member_item_title LIKE CONCAT('%', #{searchWord}, '%')
+		OR member_item_content LIKE CONCAT('%', #{searchWord}, '%'))
 		AND member_item_state = '판매완료'
 	</select>
 

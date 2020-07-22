@@ -97,6 +97,8 @@
          c.member_unique_no = #{memberUniqueNo}
       OR
          c.member_id = #{memberId}
+      ORDER by
+      	c.chatroom_no DESC
    </select>
    <!--  채팅방 상대방 닉네임 구하기
    <select id="selectChatRoomByMemberUniqueNo" parameterType="String" resultType="com.cafe24.dk4750.miniMarket.vo.Chatroom">
