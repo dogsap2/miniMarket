@@ -290,7 +290,7 @@ public class MemberItemController {
 		memberItemService.addMemberItem(memberItemForm);
 		
 		// 리턴.. 나중에 수정
-		return "index";
+		return "redirect:/index";
 	}
 	
 	// 멤버 아이템 수정하기 겟매핑. 페이지요청. 폼
