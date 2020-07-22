@@ -283,22 +283,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!-- 비밀번호 찾기 -->
             <form method="post" th:action="@{/getFindCompanyPw}" id="pwform">
                <div>
-                  아이디 <input type="text" name="companyId" id="companyId" class="form-control" placeholder="ID를 입력하세요"  required=" " > 
+                  아이디 <input type="text" name="companyId" id="companyId" class="form-control" placeholder="아이디를 입력하세요."  required=" " ><br>
                   <span id="memberIdHelper" style="color: red;"></span>
                </div>
                <div>
-                  이메일 <input type="email" name="companyEmail" id="companyEmail" class="form-control" placeholder="E-mail을 입력하세요"  required=" ">                   
+                  이메일 <input type="email" name="companyEmail" id="companyEmail" class="form-control" placeholder="ex ) example@xxxx.xxx"  required=" ">                 
                </div>
                <div th:text="${msg}" style="color: red;" id="msg"></div>
-               <div th:text="${msg2}" style="color: blue;"></div>
+               <div th:text="${msg2}" style="color: blue;"></div><br>
                   <a th:href="@{/loginMemberAndCompany}">로그인 페이지로 이동하시겠습니까?</a>
                <div>
                   <input type="button" id="btn" value="입력완료">
                </div>
             </form>
-         </div>
-         <div class="register-home">
-            <a th:href="@{/index}">Home</a>
          </div>
       </div>
    </div>
