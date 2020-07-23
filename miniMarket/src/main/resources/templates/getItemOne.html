@@ -368,15 +368,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					조건 2 : 상대방 게시물이고 현재 채팅하고 있는 게시물이 아니라면 채팅으로 거래하기 버튼 생성
 					조건 3 : 상대방 게시물이고 현재 채팅중 or 채팅신청 상태면 상대방과 거래중입니다 버튼 생성(버튼 클릭 잠김)
 				 -->
+				<br><br>
 				<div th:if="${LoginMemberId != getItemOne.memberId}">
-					<a th:href="@{memberByMemberItemReport(memberItemNo=${getItemOne.memberItemNo})}">게시물 신고하기</a>
-				</div>
-				<div th:unless="${LoginMemberId != getItemOne.memberId}">
-				</div>
-				<div th:if="${LoginMemberId != getItemOne.memberId}">
-					<a th:href="@{memberByMemberReport(memberUniqueNo=${getItemOne.memberUniqueNo})}">회원 신고하기 </a>
-				</div>
-				<div th:unless="${LoginMemberId != getItemOne.memberId}">
+					<span style="color:red;">
+						이 상품이나 회원에게 문제가 있으신가요?<br><br>└
+					</span>
+					<span>&nbsp;
+						<u>
+							<a th:href="@{memberByMemberItemReport(memberItemNo=${getItemOne.memberItemNo})}" style="color:black;"> 게시물 신고하기</a>
+						</u>&nbsp;&nbsp;
+						<u>
+							<a th:href="@{memberByMemberReport(memberUniqueNo=${getItemOne.memberUniqueNo})}" style="color:black;"> 회원 신고하기 </a>
+						</u>
+					</span>
 				</div>
 			</div>
 		</td>

@@ -379,6 +379,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<span th:text="${companyItemOne.LikeActive}" style="color:gray;"></span>명의 회원이 관심등록 했습니다.<br><br>
 		</td>
 	</tr>
+	<tr>
+		<td>
+			<div>
+				<span style="color:red;">
+					이 상품이나 회원에게 문제가 있으신가요?<br><br>└
+				</span>
+				<span>&nbsp;
+					<u>
+						<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo})}" style="color:black;">게시글 신고하기</a>
+					</u>&nbsp;&nbsp;
+					<u>
+						<a th:href="@{/memberByCompanyReport(companyUniqueNo=${companyItemOne.companyUniqueNo})}" style="color:black;">업체 신고하기</a>
+					</u>
+				</span>
+			</div>
+		</td>
+	</tr>
 </table>
 <hr>
 	<input type="hidden" id="companyItemNo" th:value="${companyItemOne.companyItemNo}">
@@ -387,13 +404,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<br>
 	<div id="check" style="display:none" th:text="${check}"></div>
 	<!-- 업체 홍보글 신고하기 버튼 업체글 번호 넘김-->
-	<div>
-		<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo})}" class="btn">업체게시글 신고하기</a>
-	</div>
-	<!-- 업체 신고하기 버튼 업체 유니크 넘버 넘김-->
-	<div>
-		<a th:href="@{/memberByCompanyReport(companyUniqueNo=${companyItemOne.companyUniqueNo})}" class="btn">업체 신고하기</a>
-	</div>
 	<div>
 		<h4>댓글 입력</h4>
 		<form method="post" th:action="@{addCompanyComment}" id="commentForm">
