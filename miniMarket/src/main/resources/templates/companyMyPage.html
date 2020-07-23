@@ -289,7 +289,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<a class="btn btn-primary" style="width:300px" th:if="${session.loginCompany} !=null" th:href="@{/getCompanyMyItemOne(companyUniqueNo=${session.loginCompany.companyUniqueNo}, companyItemNo=${companyItemNo})}">내 홍보중인 아이템 상세보기</a>
 			<br>
 			<br>
-			<a class="btn btn-primary" th:href="@{/getCompanyOne}">업체 정보 수정</a>
+			<a class="btn btn-warning" th:href="@{/getCompanyOne}">업체 정보 수정</a>
 			<a class="btn btn-success" th:href="@{/modifyCompanyNameAndPic}">프로필사진 변경</a>
 			<a class="btn btn-danger" th:href="@{/removeCompany}">회원탈퇴</a><br>
 			
