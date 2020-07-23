@@ -79,7 +79,7 @@ public class ReportMemberByCompanyitemController {
 		return "getReportMemberByCompanyItemList";
 	}
 	@GetMapping("/memberByCompanyItemReport")
-	public String addReport(HttpSession session ,@RequestParam(value="companyItemNo", defaultValue = "0") int companyItemNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam(value="companyItemNo", defaultValue = "0") int companyItemNo, @RequestParam(value="companyItemTitle", defaultValue = "") String companyItemTitle,  Model model) {
 		// 비로그인 상태시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
@@ -88,8 +88,9 @@ public class ReportMemberByCompanyitemController {
 			System.out.println("멤버 -> 업체게시물 신고 페이지 업체 접근 x");
 			return "redirect:index";
 	      }
-
+		System.out.println(companyItemTitle +"<--신고 게시물 제목");
 		System.out.println(companyItemNo+"<---no 값 확인");
+		model.addAttribute("companyItemTitle", companyItemTitle);
 		model.addAttribute("companyItemNo", companyItemNo);
 		return "memberByCompanyReport";
 	}

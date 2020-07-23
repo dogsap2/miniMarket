@@ -387,10 +387,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</span>
 				<span>&nbsp;
 					<u>
-						<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo})}" style="color:black;">게시글 신고하기</a>
+						<a th:href="@{/memberByCompanyItemReport(companyItemNo=${companyItemOne.companyItemNo},companyItemTitle=${companyItemOne.companyItemTitle})}" style="color:black;">게시글 신고하기</a>
 					</u>&nbsp;&nbsp;
 					<u>
-						<a th:href="@{/memberByCompanyReport(companyUniqueNo=${companyItemOne.companyUniqueNo})}" style="color:black;">업체 신고하기</a>
+						<a th:href="@{/memberByCompanyReport(companyUniqueNo=${companyItemOne.companyUniqueNo},companyName=${companyItemOne.companyName})}" style="color:black;">업체 신고하기</a>
 					</u>
 				</span>
 			</div>
