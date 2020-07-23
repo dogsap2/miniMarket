@@ -304,16 +304,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</td>
 		</tr>
 		<tr>
-			<td><br><hr><hr>
+			<td><br><hr>
 			</td>
 		</tr>
 		<tr>
 			<td><br><br><br>
-				<div th:if="${currentPage > 1}">
-			         <a th:href="@{getCompanyMyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo}, companyUniqueNo=${companyUniqueNo})}" id="previous">이전</a>
-			      </div>
-			      <div th:if="${currentPage < lastPage}">
-			         <a th:href="@{getCompanyMyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo}, companyUniqueNo=${companyUniqueNo})}" id="next">다음</a>
+				<div align="center">
+					<span th:if="${currentPage > 1}">
+						<a class="btn btn-primary" th:href="@{getCompanyMyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo}, companyUniqueNo=${companyUniqueNo})}" id="previous">이전</a>
+					</span>
+					<span th:if="${currentPage < lastPage}">
+						<a class="btn btn-primary" th:href="@{getCompanyMyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo}, companyUniqueNo=${companyUniqueNo})}" id="next">다음</a>
+					</span>
 			      </div><br><br><br>
 			</td>
 		</tr>

@@ -369,10 +369,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                               </a>
                            </div>
                            <h2 style="font-size: x-large;"
-                              th:text="${list.companyItemTitle}"></h2>   
-                           <div style="font-weight:bold;" th:text="업체번호+${list.companyPhone}"></div>
-                           <div style="color:#DF7401; font-weight:bold; display:inline;" th:text="${list.companyBname}"></div>
-                           <div style="display:inline;" th:text="${list.companyItemDate}"></div>                        
+                              th:text="${list.companyItemTitle}"></h2><br>
+                           <div>
+                           		<span style="color:#DF7401; display:inline;" th:text="${list.companyBname}"></span>&nbsp;
+                           		<span th:text="${list.companyItemDate}"></span>
+                           </div>
+                           <div style="display:inline; font-weight:bold;" th:text="'업체연락처 ℡_ '+${list.companyPhone}"></div>      
+                                           
                         </div>      
                         <div>
                            <a th:if="${currentPage} > 1"

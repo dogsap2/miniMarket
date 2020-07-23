@@ -430,12 +430,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</tr>
 		<tr>
 			<td><br><br><br>
-				<div th:if="${currentPage > 1}" style="text-align:center;">
-					<a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous" style="text-align:center;" class="btn btn-primary">이전</a>
+				<div align="center">
+					<span th:if="${currentPage > 1}" style="text-align:center;">
+						<a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous" style="text-align:center;" class="btn btn-primary">이전</a>
+					</span>
+					<span th:if="${currentPage < lastPage}" style="text-align:center;">
+						<a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next" class="btn btn-primary">다음</a>
+					</span>
 				</div>
-				<div th:if="${currentPage < lastPage}" style="text-align:center;">
-					<a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next" class="btn btn-primary">다음</a>
-				</div><br><br><br>
+				<br><br><br>
 			</td>
 		</tr>
 	</table>

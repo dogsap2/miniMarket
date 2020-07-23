@@ -279,10 +279,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <div class="top-brands">
       <div style="margin-left:10px">
       <h2>내동네 중고물품 목록</h2>
-      	<br>
-      <div align="center">
+      <div align="center"><br>
       	<a class = "btn btn-warning btn-lg" th:href="@{/getItemListByPlace}" id="interestProduct">관심동네 중고물품</a>
       </div>
+      	<!--- products --->
 	<div class="products">
 		<div class="container-fluid" style="margin-left:40px;margin-right:80px;">
 			<div class="col-md-2 products-left"style="margin-right:20px; padding-top:60px;" >
@@ -306,6 +306,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                <ul  class="nav nav-tabs">
                </ul><br><br>
+               <div class="container-fluid">
+               </div>
             <form method="get" th:action="@{/getMemberItemList}" id="searchForm">
                <div id="myTabContent" class="tab-content">
                   <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
@@ -315,7 +317,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                               <div class="agile_top_brand_left_grid">
                                  <div class="agile_top_brand_left_grid1">
                                     <figure>
-                                       <div class="snipcart-item block" ><hr>
+                                       <div class="snipcart-item block" >
+                                       	<hr>
                                        <a th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}" style="float:right;" class="btn btn-info btn-lg">상품 판매하기</a>
                                        <br><br><hr>
                                           <div class="snipcart-thumb" th:each=" list : ${list}">
