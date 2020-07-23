@@ -295,7 +295,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span th:text="${list.companyCommentDate}" style="float:right;"></span><br>
 					<span style="float:right;">
 						<u>
-							<a th:href="@{companyByMemberReport(memberUniqueNo=${list.memberUniqueNo})}" style="color:red;">댓글 신고</a>
+							<a th:href="@{companyByMemberReport(memberUniqueNo=${list.memberUniqueNo}, companyId=${companyId}, companyCommentNo=${list.companyCommentNo})}" style="color:red;">댓글 신고</a>
 						</u>
 					</span>
 					<br>
@@ -305,24 +305,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</tr>
 		<tr>
 			<td><br><hr><hr>
-				<span th:if="${session.loginMember != null}" style="font-size:1.5em; font-weight:bold; float:left;">댓글 쓰기</span>
-				<form method="post" th:action="@{addCompanyComment}" id="commentForm" th:if="${session.loginMember != null}">
-					<button type="button" id="commentBtn" style="float:right;" class="btn btn-warning">댓글 입력</button><br><br>
-					<div>
-						<input type="hidden" name="companyUniqueNo" th:value="${companyItemOne.companyUniqueNo}">
-						<input type="hidden" name="companyItemNo" th:value="${companyItemOne.companyItemNo}">
-						<textarea rows="3" cols="30" placeholder="댓글내용 입력" id="comment" name="companyCommentContent" class="form-control"></textarea>
-					</div>
-				</form>
 			</td>
 		</tr>
 		<tr>
 			<td><br><br><br>
 				<div th:if="${currentPage > 1}">
-			         <a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous">이전</a>
+			         <a th:href="@{getCompanyMyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo}, companyUniqueNo=${companyUniqueNo})}" id="previous">이전</a>
 			      </div>
 			      <div th:if="${currentPage < lastPage}">
-			         <a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next">다음</a>
+			         <a th:href="@{getCompanyMyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo}, companyUniqueNo=${companyUniqueNo})}" id="next">다음</a>
 			      </div><br><br><br>
 			</td>
 		</tr>

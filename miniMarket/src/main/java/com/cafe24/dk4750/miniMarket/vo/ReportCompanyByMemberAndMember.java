@@ -9,7 +9,7 @@ public class ReportCompanyByMemberAndMember {
 	private String memberId;
 	private String reportState;
 	private String reportDate;
-	
+	private String companyCommentNo;
 	public int getReportNo() {
 		return reportNo;
 	}
@@ -58,11 +58,18 @@ public class ReportCompanyByMemberAndMember {
 	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
 	}
+	public String getCompanyCommentNo() {
+		return companyCommentNo;
+	}
+	public void setCompanyCommentNo(String companyCommentNo) {
+		this.companyCommentNo = companyCommentNo;
+	}
 	@Override
 	public String toString() {
 		return "ReportCompanyByMemberAndMember [reportNo=" + reportNo + ", reportTitle=" + reportTitle
 				+ ", reportContent=" + reportContent + ", companyId=" + companyId + ", memberUniqueNo=" + memberUniqueNo
-				+ ", memberId=" + memberId + ", reportState=" + reportState + ", reportDate=" + reportDate + "]";
+				+ ", memberId=" + memberId + ", reportState=" + reportState + ", reportDate=" + reportDate
+				+ ", companyCommentNo=" + companyCommentNo + "]";
 	}
 	
 }

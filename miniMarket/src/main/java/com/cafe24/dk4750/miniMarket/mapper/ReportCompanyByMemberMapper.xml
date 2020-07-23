@@ -38,7 +38,8 @@
 			r.member_unique_no AS memberUniqueNo,
 			m.member_id AS memberId,
 			r.report_state AS reportState,
-			r.report_date AS reportDate
+			r.report_date AS reportDate,
+			r.company_comment_no AS companyCommentNo
 		FROM mini_market_report_c_by_m r
 		INNER JOIN mini_market_member m
 		ON r.member_unique_no = m.member_unique_no
@@ -70,13 +71,15 @@
 			report_content,
 			company_id,
 			member_unique_no,
-			report_date
+			report_date,
+			company_comment_no
 		) VALUES (
 			#{reportTitle},
 			#{reportContent},
 			#{companyId},
 			#{memberUniqueNo},
-			now()
+			now(),
+			#{companyCommentNo}
 		)
 	</insert>
 </mapper>

@@ -22,6 +22,13 @@ public class ReportCompanyByMemberController {
 	@Autowired
 	private ReportCompanyByMemberService reportCompanyByMemberService;
 	// 관리자만 접근가능
+	// 신고 접수(업체만)
+	@PostMapping("addReportCompanyByMember")
+	public String addReportCompanyByMember(HttpSession session, ReportCompanyByMember reportCompanyByMember) {
+		reportCompanyByMemberService.addReportCompanyByMember(reportCompanyByMember);
+		
+		return "redirect:/companyMyPage";
+	}
 	// 신고 상태 수정
 	@PostMapping("modifyReportStateCompanyByMember")
 	public String modifyReportStateCompanyByMember(HttpSession session , ReportCompanyByMember reportCompanyByMember, @RequestParam(value="reportNo", defaultValue = "0") int reportNo) {
@@ -79,7 +86,7 @@ public class ReportCompanyByMemberController {
 		return "getReportCompanyByMeberList";
 	}
 	@GetMapping("/companyByMemberReport")
-	public String addReport(HttpSession session) {
+	public String addReport(HttpSession session, Model model,@RequestParam(value = "memberUniqueNo") String memberUniqueNo, @RequestParam(value = "companyId") String companyId, @RequestParam(value = "companyCommentNo") int companyCommentNo) {
 		// 비로그인 상태시 로그인 창으로
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
 	         return "redirect:/loginMemberAndCompany";
@@ -88,6 +95,10 @@ public class ReportCompanyByMemberController {
 			System.out.println("업체 -> 멤버 신고 페이지 멤버 접근 x");
 			return "redirect:index";
 	      }
+		
+		model.addAttribute("memberUniqueNo", memberUniqueNo);
+		model.addAttribute("companyId", companyId);
+		model.addAttribute("companyCommentNo", companyCommentNo);
 		
 		return "companyByMemberReport";
 	}

@@ -8,8 +8,7 @@ public class ReportCompanyByMember {
 	private String memberUniqueNo;
 	private String reportState;
 	private String reportDate;
-	
-	// 겟터 셋터
+	private String companyCommentNo;
 	public int getReportNo() {
 		return reportNo;
 	}
@@ -52,12 +51,17 @@ public class ReportCompanyByMember {
 	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
 	}
-	
-	// toString
+	public String getCompanyCommentNo() {
+		return companyCommentNo;
+	}
+	public void setCompanyCommentNo(String companyCommentNo) {
+		this.companyCommentNo = companyCommentNo;
+	}
 	@Override
 	public String toString() {
-		return "ReportCByM [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent=" + reportContent
-				+ ", companyId=" + companyId + ", memberUniqueNo=" + memberUniqueNo + ", reportState=" + reportState
-				+ ", reportDate=" + reportDate + "]";
+		return "ReportCompanyByMember [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportContent="
+				+ reportContent + ", companyId=" + companyId + ", memberUniqueNo=" + memberUniqueNo + ", reportState="
+				+ reportState + ", reportDate=" + reportDate + ", companyCommentNo=" + companyCommentNo + "]";
 	}
+	
 }

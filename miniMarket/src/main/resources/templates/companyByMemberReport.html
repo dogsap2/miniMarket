@@ -264,27 +264,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
 							<div align="center">
-								<h3>' ' 회원 댓글 신고</h3>
+								<h3>회원 댓글 신고</h3>
 								<br><br>
-							<form method="post" action="/companyByMemberReport" id="memberByCompanyItemReportForm">
-							<div id="title">
-                              <div id="title1">
-                                 <button type="button" class="titlebtn"value="광고를 해요" name="reportTitle">광고를 해요</button>
-                              </div>
-                              <div id="title2">
-                                 <button type="button" class="titlebtn" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
-                              </div>
-                              <div id="title3">
-                                 <button type="button" class="titlebtn" value="도배를 해요" name="reportTitle">도배를 해요</button>
-                              </div>
-                              <div id="title4">
-                                 <button type="button" class="titlebtn" value="음란성 댓글을 올려요" name="reportTitle">음란성 댓글을 올려요</button>
-                              </div>
-                              <div id="title5">
-                                 <button type="button" class="titlebtn" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
-                              </div>
-                              <input type="hidden" id="reportTitle" name="reportTitle">
-                           </div>
+							<form method="post" th:action="@{addReportCompanyByMember}" id="memberByCompanyItemReportForm">
+								<input type="hidden" th:value="${memberUniqueNo}" name="memberUniqueNo">
+								<input type="hidden" th:value="${companyId}" name="companyId"> 
+								<input type="hidden" th:value="${companyCommentNo}" name="companyCommentNo">  
+								<div id="title">
+	                              <div id="title1">
+	                                 <button type="button" class="titlebtn"value="광고를 해요" name="reportTitle">광고를 해요</button>
+	                              </div>
+	                              <div id="title2">
+	                                 <button type="button" class="titlebtn" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+	                              </div>
+	                              <div id="title3">
+	                                 <button type="button" class="titlebtn" value="도배를 해요" name="reportTitle">도배를 해요</button>
+	                              </div>
+	                              <div id="title4">
+	                                 <button type="button" class="titlebtn" value="음란성 댓글을 올려요" name="reportTitle">음란성 댓글을 올려요</button>
+	                              </div>
+	                              <div id="title5">
+	                                 <button type="button" class="titlebtn" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
+	                              </div>
+	                              <input type="hidden" id="reportTitle" name="reportTitle">
+	                           </div>
                            		<div id="content">
 	                              <h3>상세 신고 내용 작성</h3>
 	                              <div>내부적으로 검토하여 신고 항목 개선에 활용됩니다.</div>
