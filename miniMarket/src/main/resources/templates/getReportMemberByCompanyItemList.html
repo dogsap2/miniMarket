@@ -258,14 +258,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 <!-- //navigation -->
 	<!-- //top-header and slider -->
-	<!-- top-brands -->
-	<div class="top-brands">
+<!-- top-brands -->
+	<div class="login">
 		<div class="container">
 		<h2>회원 -> 업체 아이템 신고 List</h2>
-			<div class="grid_3 grid_5" align="center">
+			<div class="container" align="center">
 				<br>
 				<form method="get" th:action="@{getReportMemberByCompanyItemList}" id="reportStateForm">
-					<div>
+					<div align="right">
 						<select name="reportState">
 						    <option value="">상태 선택</option>
 						    <option value="">전체 보기</option>
@@ -273,77 +273,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						    <option value="신고확인">신고확인</option>
 						    <option value="신고취소">신고취소</option>
 						</select>
-						<button type="button" id="StateBtn">조회</button>
+						<button type="button" class = "btn btn-warning" id="StateBtn">조회</button>
 					</div>
 				</form>
 				<br>
-				<table border="1">
-					<tr>
-						<td>번호</td>
-						<td>제목</td>
-						<td>신고 날</td>
-						<td>신고 상태</td>
-					</tr>
-					<tr th:each="list : ${list}">
-						<td th:text="${list.reportNo}"></td>
-						<td><a th:href="@{getReportMemberByCompanyItemListOne(reportNo = ${list.reportNo})}" th:text="${list.reportTitle}"></a></td>
-						<td th:text="${#strings.substring(list.reportDate,0,10)}"></td>
-						<td th:text="${list.reportState}"></td>
-					</tr>
-				</table>
+				<div th:each="list : ${list}">
+				<hr>
+				<a th:href="@{getReportMemberByCompanyItemListOne(reportNo = ${list.reportNo})}">
+				<span th:text="${#strings.substring(list.reportDate,0,10)}"style="color:gray; float:left;"></span>
+				<span th:text="${list.reportState}" style="color:gray; float:right;"></span><br><br>
+				<u>
+					<a th:href="@{/getReportMemberByCompanyItemListOne(reportNo = ${list.reportNo})}" th:text="${list.reportTitle}" style="font-weight:bold; font-size:large; float:left;"></a>
+				</u><br>
+				</a>
+			<hr>
+		</div>
 				<br>
 				<a th:if="${currentPage > 1}" th:href="@{getReportMemberByCompanyItemList(currentPage=${currentPage - 1},reportState=${reportState})}" id="previous">이전</a>
 				<a th:if="${currentPage < lastPage}" th:href="@{getReportMemberByCompanyItemList(currentPage=${currentPage + 1},reportState=${reportState})}" id="next">다음</a>			
 			</div>
 		</div>
 	</div>
-<!-- //top-brands -->
 <!-- //footer -->
-<div class="footer">
-		<div class="container">
-			<div class="w3_footer_grids">
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Contact</h3>
-					
-					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block, <span>New York City.</span></li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Information</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="contact.html">Contact Us</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="short-codes.html">Short Codes</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="faq.html">FAQ's</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Special Products</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Category</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="groceries.html">Groceries</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="household.html">Household</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="personalcare.html">Personal Care</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="packagedfoods.html">Packaged Foods</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="beverages.html">Beverages</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Profile</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-		
+<div class="footer">		
 		<div class="footer-copy">
 			
 			<div class="container">
@@ -355,11 +307,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="footer-botm">
 			<div class="container">
 				<div class="w3layouts-foot">
-					<ul>
-						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+					<ul>			
+						<li><a href="https://github.com/dk4750/mini_market" class="w3_agile_dribble"><i class="fa fa-github" aria-hidden="true"></i></a></li>
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
@@ -371,6 +320,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //footer -->	
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+
 <!-- top-header and slider -->
 <!-- here stars scrolling icon -->
 	<script type="text/javascript">
@@ -402,6 +352,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 <!-- main slider-banner -->
 <script src="js/skdslider.min.js"></script>
+<link href="css/skdslider.css" rel="stylesheet">
 <script type="text/javascript">
 		jQuery(document).ready(function(){
 			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
