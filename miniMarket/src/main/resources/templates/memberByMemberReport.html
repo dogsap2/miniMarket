@@ -265,138 +265,140 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
 							<div align="center">
-								<h3> [<label th:text="${memberItemTitle}"></label>]게시물을 신고하는 이유를 선택해주세요</h3>
+								<h3> '<label th:text="${memberItemTitle}"></label>' 게시물을 신고하는 이유를 선택해주세요</h3>
 								<br><br>
 							<form method="post" action="/memberByMemberItemReport" id="memberByMemberItemReportForm">
 							<div id="title">
-                              <div id="title1">
-                                 <button type="button" class="titlebtn" value="판매금지 품목이에요" name="reportTitle">판매금지 품목이에요</button>
-                              </div>
-                              <div id="title2">
-                                 <button type="button" class="titlebtn"value="중고거래 게시글이 아니에요" name="reportTitle">중고거래 게시글이 아니에요</button>
-                              </div>
-                              <div id="title3">
-                                 <button type="button" class="titlebtn" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
-                              </div>
-                              <div id="title4">
-                                 <button type="button" class="titlebtn" value="기타 사유 선택" name="reportTitle">기타 사유 선택</button>
-                              </div>
+                              <div>
+                              	 <span id="title1">
+                              	 	<button type="button" class="titlebtn btn btn-warning" value="판매금지 품목이에요" name="reportTitle">판매금지 품목이에요</button>
+                              	 </span>
+                              	 <span id="title2">
+                              	 	<button type="button" class="titlebtn btn btn-warning"value="중고거래 게시글이 아니에요" name="reportTitle">중고거래 게시글이 아니에요</button>
+                              	 </span>
+                              	 <span id="title3">
+                              	 	<button type="button" class="titlebtn btn btn-warning" value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
+                              	 </span>
+                              	 <span id="title4">
+                              	 	<button type="button" class="titlebtn btn btn-warning" value="기타 사유 선택" name="reportTitle">기타 사유 선택</button>
+                              	 </span>
+                             </div>
                               <input type="hidden" id="reportTitle" name="reportTitle">
                           	 </div>
                            		<div id="content1">
 	                              <div>
-	                                 <button type="button" class="btnContent" value="재난지원금 / 쌀 꾸러미 거래" name="reportContent">재난지원금 / 쌀 꾸러미 거래</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="재난지원금 / 쌀 꾸러미 거래" name="reportContent">재난지원금 / 쌀 꾸러미 거래</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent"value="반려동물 거래" name="reportContent">반려동물 거래</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px"value="반려동물 거래" name="reportContent">반려동물 거래</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="주류 / 담배 판매" name="reportContent">주류 / 담배 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="주류 / 담배 판매" name="reportContent">주류 / 담배 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="상업적인 핸드메이드 판매" name="reportContent">상업적인 핸드메이드 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="상업적인 핸드메이드 판매" name="reportContent">상업적인 핸드메이드 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="화장품 샘플 판매" name="reportContent">화장품 샘플 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="화장품 샘플 판매" name="reportContent">화장품 샘플 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="청소년 유해물 / 음란물 판매" name="reportContent">청소년 유해물 / 음란물 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="청소년 유해물 / 음란물 판매" name="reportContent">청소년 유해물 / 음란물 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="가품 / 이미테이션 판매" name="reportContent">가품 / 이미테이션 판매래</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="가품 / 이미테이션 판매" name="reportContent">가품 / 이미테이션 판매래</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="의약품 / 의료기기 판매" name="reportContent">의약품 / 의료기기 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="의약품 / 의료기기 판매" name="reportContent">의약품 / 의료기기 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="콘택트 렌즈 / 도수 있는 안경 판매" name="reportContent">콘택트 렌즈 / 도수 있는 안경 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="콘택트 렌즈 / 도수 있는 안경 판매" name="reportContent">콘택트 렌즈 / 도수 있는 안경 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="수제 음식 / 미인증 건강기능식품 판매" name="reportContent">수제 음식 / 미인증 건강기능식품 판매</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="수제 음식 / 미인증 건강기능식품 판매" name="reportContent">수제 음식 / 미인증 건강기능식품 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="조건부 무료나눔" name="reportContent">조건부 무료나눔</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="조건부 무료나눔" name="reportContent">조건부 무료나눔</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="기타 물품" name="reportContent">기타 물품</button>
+	                                 <button type="button" class="btnContent btn btn-warning" style="width:500px" value="기타 물품" name="reportContent">기타 물품</button><br><br>
 	                              </div>
 	                              <input type="hidden" id="reportContent" name="reportContent">
 	                           </div>
 	                           <div id="content2">
 	                              <div>
-	                                 <button type="button" class="btnContent" value="지역업체 소개 / 광고" name="reportContent">지역업체 소개 / 광고</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="지역업체 소개 / 광고" name="reportContent">지역업체 소개 / 광고</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="부동산 거래" name="reportContent">부동산 거래</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="부동산 거래" name="reportContent">부동산 거래</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="중고차 / 오토바이 판매" name="reportContent">중고차 / 오토바이 판매</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="중고차 / 오토바이 판매" name="reportContent">중고차 / 오토바이 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="농수산물 판매" name="reportContent">농수산물 판매</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="농수산물 판매" name="reportContent">농수산물 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="구인구직" name="reportContent">구인구직</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="구인구직" name="reportContent">구인구직</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="과외 / 클래스 모집" name="reportContent">과외 / 클래스 모집</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="과외 / 클래스 모집" name="reportContent">과외 / 클래스 모집</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="전시 / 공연 / 행사" name="reportContent">전시 / 공연 / 행사</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="전시 / 공연 / 행사" name="reportContent">전시 / 공연 / 행사</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="일반 게시글(잡담, 질문 등)" name="reportContent">일반 게시글(잡담, 질문 등)</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="일반 게시글(잡담, 질문 등)" name="reportContent">일반 게시글(잡담, 질문 등)</button><br><br>
 	                              </div>
 	                              <input type="hidden" id="reportContent" name="reportContent">
 	                           </div>
 	                           <div id="content3">
 	                              <div>   
-	                                 <button type="button" class="btnContent" value="매장이 있는 판매업자" name="reportContent">매장이 있는 판매업자</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="매장이 있는 판매업자" name="reportContent">매장이 있는 판매업자</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="인터넷 쇼핑몰 판매업자" name="reportContent">인터넷 쇼핑몰 판매업자</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="인터넷 쇼핑몰 판매업자" name="reportContent">인터넷 쇼핑몰 판매업자</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="대량 주문 판매" name="reportContent">대량 주문 판매</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="대량 주문 판매" name="reportContent">대량 주문 판매</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="점포 재고 정리" name="reportContent">점포 재고 정리</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="점포 재고 정리" name="reportContent">점포 재고 정리</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="해외 구매 대행" name="reportContent">해외 구매 대행</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="해외 구매 대행" name="reportContent">해외 구매 대행</button><br><br>
 	                              </div>
 	                              <div>
-	                                 <button type="button" class="btnContent" value="기타" name="reportContent">기타</button>
+	                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="기타" name="reportContent">기타</button><br><br>
 	                              </div>
 	                              <input type="hidden" id="reportContent" name="reportContent">
                            </div>
                            <div id="content4">
                               <div>
-                                 <button type="button" class="btnContent" value="판매 가치가 없는 상품" name="reportContent">판매 가치가 없는 상품</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="판매 가치가 없는 상품" name="reportContent">판매 가치가 없는 상품</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="중복 게시글" name="reportContent">중복 게시글</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="중복 게시글" name="reportContent">중복 게시글</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="잘못된 카테고리" name="reportContent">잘못된 카테고리</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="잘못된 카테고리" name="reportContent">잘못된 카테고리</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="상품 설명 부족" name="reportContent">상품 설명 부족</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="상품 설명 부족" name="reportContent">상품 설명 부족</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="마스크 판매 정책 위반" name="reportContent">마스크 판매 정책 위반</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="마스크 판매 정책 위반" name="reportContent">마스크 판매 정책 위반</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="당근마켓에서 구매 후 비싸게 재판매" name="reportContent">당근마켓에서 구매 후 비싸게 재판매</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="당근마켓에서 구매 후 비싸게 재판매" name="reportContent">당근마켓에서 구매 후 비싸게 재판매</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="거래 / 환불 분쟁" name="reportContent">거래 / 환불 분쟁</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="거래 / 환불 분쟁" name="reportContent">거래 / 환불 분쟁</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="사기 신고" name="reportContent">사기 신고</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="사기 신고" name="reportContent">사기 신고</button><br><br>
                               </div>
                               <div>
-                                 <button type="button" class="btnContent" value="신고 항목 제안" name="reportContent">신고 항목 제안</button>
+                                 <button type="button" class="btnContent btn-warning" style="width:500px" value="신고 항목 제안" name="reportContent">신고 항목 제안</button><br><br>
                               </div>
                               <input type="hidden" id="reportContent" name="reportContent">
                              
@@ -422,19 +424,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<form method="post" action="/memberByMemberReport" id="memberByMemberReportForm">
 									<div id="merberTitle">
                               			<div id="merberTitle1">
-                                			<button type="button" class="memberTitlebtn btn btn-warning " value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning " value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button><br><br>
                               			</div>
                               			<div id="merberTitle2">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="비매너 사용자예요" name="reportTitle">비매너 사용자예요</button><br><br>
                               			</div>
                               			<div id="merberTitle3">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" value="욕설을 해요" name="reportTitle">욕설을 해요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="욕설을 해요" name="reportTitle">욕설을 해요</button><br><br>
                               			</div>
                               			<div id="merberTitle4">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" value="거래/환불 분쟁 신고" name="reportTitle">거래 /환불 분쟁 신고</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="거래/환불 분쟁 신고" name="reportTitle">거래 /환불 분쟁 신고</button><br><br>
                               			</div>
                               			<div id="merberTitle5">
-                                			<button type="button" class="memberTitlebtn btn btn-warning" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button>
+                                			<button type="button" class="memberTitlebtn btn btn-warning" value="다른 문제가 있어요" name="reportTitle">다른 문제가 있어요</button><br><br>
                               			</div>
                               			<input type="hidden" id="memberHiddenTitle" name="reportTitle">
                           	 		</div>
