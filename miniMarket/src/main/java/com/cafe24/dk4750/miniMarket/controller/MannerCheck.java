@@ -16,7 +16,7 @@ public class MannerCheck {
 	
 	@GetMapping("/mannerCheck")
 	public int mannerCheck(HttpSession session ,Manner manner) {
-		System.out.println(manner + " <== manner 디버깅..");
+		System.out.println(manner + " <== mannerCheck 디버깅..");
 		System.out.println(manner.getMemberItemNo() + " <==memberItemNo....");
 		
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");

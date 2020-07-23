@@ -155,26 +155,45 @@
 		$('#goodbtn').click(function() {
 			$('#goodManner').val(count);
 			console.log($('#goodManner').val());
-			$('#goodMannerForm').submit();
-			alert("평가가 완료되었습니다.");
-			//평가 완료 후 부모창 새로 고침
-			opener.parent.location='http://localhost/getBuyListByMember';
-			opener.parent.location.reload();
-            window.close();
-			
+			$.ajax({
+				  method: "Post",
+				  url: "/goodAddManner",
+				  data: {memberItemNo : $("#memberItemNo").val(), memberUniqueNo : $("#memberUniqueNo").val(), goodManner : $("#goodManner").val() },
+					  success: function(data) {
+		                alert("평가가 완료되었습니다.");
+		                //평가 완료 후 부모창 새로 고침
+		         		opener.parent.location='http://localhost/getBuyListByMember';
+		         		opener.parent.location.reload();	
+		                window.close();
+		              		
+					  },
+		               error: function (error) {
+		                    alert('data error');
+		                }
+			});
 		});
 		// 평가제출
 		$('#badbtn').click(function() {
 			$('#badManner').val(count);
 			console.log($('#badManner').val());
-			$('#badMannerForm').submit();
-			alert("평가가 완료되었습니다.");
-			//평가 완료 후 부모창 새로 고침
-   			opener.parent.location='http://localhost/getBuyListByMember';
-   			opener.parent.location.reload();
-            window.close();
-		});
-	});
+			$.ajax({
+				  method: "Post",
+				  url: "/badAddManner",
+				  data: {memberItemNo : $("#memberItemNo").val(), memberUniqueNo : $("#memberUniqueNo").val(), badManner : $("#badManner").val() },
+					  success: function(data) {
+		                alert("평가가 완료되었습니다.");
+		                //평가 완료 후 부모창 새로 고침
+		         		opener.parent.location='http://localhost/getBuyListByMember';
+		         		opener.parent.location.reload();	
+		                window.close();
+		              		
+					  },
+		               error: function (error) {
+		                    alert('data error');
+		                }
+			});
+		}); // badbtn end
+	});	
 </script>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -246,9 +265,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div id="ma1" class="container-fluid" align="center">
 			<form method="post" th:action="@{/goodAddManner}" id="goodMannerForm">
 				<div>
-					<input type="hidden" name="goodManner" id="goodManner">
-					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}">
-					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNoSale}">
+					<input type="hidden" id="goodManner" name="goodManner" >
+					<input type="hidden" id="memberItemNo" name="memberItemNo" th:value="${memberItemNo}">
+					<input type="hidden" id="memberUniqueNo" name="memberUniqueNo" th:value="${memberUniqueNoSale}">
 					<!-- 별점 -->
 					<div>
 						<img src="/images/es.jpg" width="40" height="40" id="img1">
@@ -289,9 +308,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<form method="post" th:action="@{/badAddManner}" id="badMannerForm">
 				<div>
 					<input type="hidden" name="badManner" id="badManner">
-					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}">
-					<!-- <input type="hidden" name="memberId" th:value="${memberUniqueNo}"> -->
-					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNoSale}">
+					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}" id="memberItemNo">
+					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNoSale}" id="memberUniqueNo">
 					<textarea name="mannerContent1" class="form-control" rows="13" placeholder="회원의 어떤점이 안좋으셨나요? 평가를 작성해주세요."></textarea>
 				</div>
 				<div><br>

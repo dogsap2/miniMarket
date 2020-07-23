@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.dk4750.miniMarket.service.MannerService;
 import com.cafe24.dk4750.miniMarket.service.MemberService;
@@ -61,24 +62,26 @@ public class MannerController {
 	
 	//매너 평가하기  goodAddManner 포스트 맵핑 (액션)
 	@PostMapping("/goodAddManner")
+	@ResponseBody
 	public void goodAddManner(HttpSession session ,Manner manner) {
 		System.out.println();
 		
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberId = loginMember.getMemberId();
 		manner.setMemberId(memberId);
+		System.out.println(manner+"<========매너컨트롤러 굳매너");
 		System.out.println(manner + " <== good manner");
 		mannerService.addGoodManner(session, manner);
 	}
 	
 	//매너 평가하기  badAddManner 포스트 맵핑 (액션)
 	@PostMapping("/badAddManner")
+	@ResponseBody
 	public void badAddManner(HttpSession session, Manner manner) {
 		System.out.println(manner + " <== bad manner");
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberId = loginMember.getMemberId();
 		manner.setMemberId(memberId);
-		
 		mannerService.addBadManner(manner);
 	}
 }
