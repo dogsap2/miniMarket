@@ -259,7 +259,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //navigation -->
 	<!-- //top-header and slider -->
 	<!-- top-brands -->
-	<div class="top-brands">
+	<div class="login">
 		<div class="container">
 		<h2>회원 -> 업체 아이템 신고 List</h2>
 			<div class="grid_3 grid_5" align="center">
@@ -267,7 +267,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<h4 th:text="${reportOne.reportTitle}"></h4>
 				<br>
 				<form method="post" th:action="@{modifyReportStateMemberByCompanyItem}" id="reportStateForm">
-					<table border="1">
+					<table border="1" class = "table table-bordered">
 						<tr>
 							<td>신고자</td>
 							<td th:text="${reportOne.memberId}"></td>
@@ -279,7 +279,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<td colspan="2" th:text="${reportOne.reportTitle}"></td>
 						</tr>
 						<tr>
-							<td colspan="4"><textarea rows="5" cols="50" readonly="readonly" th:text="${reportOne.reportContent}"></textarea></td>
+							<td colspan="4"><textarea class="form-control" rows="5" cols="137" readonly="readonly" th:text="${reportOne.reportContent}"></textarea></td>
 						</tr>
 						<tr>
 							<td>신고상태</td>
@@ -290,14 +290,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							    <option value="신고확인">신고확인</option>
 							    <option value="신고취소">신고취소</option>
 								</select>
-								<button type="button" id="StateBtn">확인</button>
+								<button type="button" id="StateBtn" class="btn btn-success">확인</button>
 							</td>
 							<td th:if="${reportOne.reportState == '신고취소'}" colspan="2">신고를 취소했습니다!</td>
 							<td th:if="${reportOne.reportState == '신고확인'}" colspan="2">신고가 접수되었습니다!</td>
 						</tr>
 					</table>
 					<br>
-					<a th:href="@{getReportMemberByCompanyItemList}" class="btn">목록으로</a>
+					<a th:href="@{getReportMemberByCompanyItemList}" class="btn btn btn-warning">목록으로</a>
 					<input type="hidden" name="reportNo" th:value="${reportOne.reportNo}">
 				</form>
 				<br><br>
@@ -306,51 +306,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //top-brands -->
 <!-- //footer -->
-<div class="footer">
-		<div class="container">
-			<div class="w3_footer_grids">
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Contact</h3>
-					
-					<ul class="address">
-						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block, <span>New York City.</span></li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Information</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="about.html">About Us</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="contact.html">Contact Us</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="short-codes.html">Short Codes</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="faq.html">FAQ's</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Special Products</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Category</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="groceries.html">Groceries</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="household.html">Household</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="personalcare.html">Personal Care</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="packagedfoods.html">Packaged Foods</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="beverages.html">Beverages</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 w3_footer_grid">
-					<h3>Profile</h3>
-					<ul class="info"> 
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="products.html">Store</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
-						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a></li>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-		
+<div class="footer">		
 		<div class="footer-copy">
 			
 			<div class="container">
@@ -362,11 +318,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="footer-botm">
 			<div class="container">
 				<div class="w3layouts-foot">
-					<ul>
-						<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-						<li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+					<ul>			
+						<li><a href="https://github.com/dk4750/mini_market" class="w3_agile_dribble"><i class="fa fa-github" aria-hidden="true"></i></a></li>
 					</ul>
 				</div>
 				<div class="payment-w3ls">	
