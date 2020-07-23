@@ -322,6 +322,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <div class="top-brands">
       <div style="margin-left:10px">
       <h2>카테고리별 동네 목록</h2>
+      <br>
+      <!--- products --->
+      <div align="center">
+       <a th:if="${session.loginCompany} !=null"
+            th:href="@{/addCompanyItem}">업체 홍보하기</a><br><a class = "btn btn-warning btn-lg"
+            th:if="${session.loginMember} !=null"
+            th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a>
+      </div>
          <!--- products --->
    <div class="products">
       <div class="container-fluid" style="margin-left:40px;margin-right:80px;">
@@ -340,10 +348,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- 동네 홍보 목록 -->
       <div align="center">
          <div id="interestProductt" style="width:135px">
-         <a th:if="${session.loginCompany} !=null"
-            th:href="@{/addCompanyItem}">업체 홍보하기</a><br><a class = "btn btn-warning"
-            th:if="${session.loginMember} !=null"
-            th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a>
          </div>   
          <div>
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
