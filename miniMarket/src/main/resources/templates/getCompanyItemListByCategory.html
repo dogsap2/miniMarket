@@ -359,8 +359,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<form method="get" th:action="@{/getCompanyItemList}" id="searchForm">	
 								<div th:each="list : ${list}">
 									<div>
-										<img th:src="@{'/images/'+${list.companyItemPic1}}"
-											width="700" height="400">
+										<a th:href="@{/getCompanyItemOne(companyItemNo=${list.companyItemNo})}">
+											<img th:src="@{'/images/'+${list.companyItemPic1}}" width="700" height="400">
+										</a>
 									</div>
 									<br>
 									<h2 style="font-size: x-large;"
@@ -368,12 +369,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div style="font-weight:bold;" th:text="업체번호+${list.companyPhone}"></div>
 									<div style="color:#DF7401; font-weight:bold; display:inline;" th:text="${list.companyBname}"></div>
 									<div style="display:inline;" th:text="${list.companyItemDate}"></div>								
-									<div>
-										<a  class="btn btn-warning"
-											th:href="@{/getCompanyItemOne(companyItemNo=${list.companyItemNo})}"
-											th:text="상세보기"></a>
-									</div>
-									<hr>
 								</div>		
 								<div>
 									<a th:if="${currentPage} > 1"
