@@ -279,7 +279,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<td colspan="2" th:text="${reportOne.reportTitle}"></td>
 						</tr>
 						<tr>
-							<td colspan="4"><textarea rows="10" cols="137" readonly="readonly" th:text="${reportOne.reportContent}"></textarea></td>
+							<td colspan="4"><textarea class="form-control" rows="10" cols="137" readonly="readonly" th:text="${reportOne.reportContent}"></textarea></td>
 						</tr>
 						<tr>
 							<td>신고상태</td>
@@ -290,7 +290,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							    <option value="신고확인">신고확인</option>
 							    <option value="신고취소">신고취소</option>
 								</select>
-								<button type="button" id="StateBtn">확인</button>
+								<button type="button" id="StateBtn" class="btn btn-success">확인</button>
 							</td>
 							<td th:if="${reportOne.reportState == '신고취소'}" colspan="2">신고를 취소했습니다!</td>
 							<td th:if="${reportOne.reportState == '신고확인'}" colspan="2">신고가 접수되었습니다!</td>
