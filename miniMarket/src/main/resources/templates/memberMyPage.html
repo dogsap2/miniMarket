@@ -259,32 +259,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div align="center">
 	<!-- 프로필 사진 -->
 	<br><br>
-	<a class="btn btn-primary" th:href="@{/getMemberOne}">개인정보 수정</a>
-	<a class="btn btn-success" th:href="@{/modifyMemberNickAndPic}">프로필사진 변경</a>
-	<!-- 관심지역이 없으면 추가하기 있으면 수정하기  -->
-	<span th:if="${interest1 != null}">
-	<a class="btn btn-warning" th:href="@{/addMemberInterestPlace}">관심동네 설정</a>
-	</span>
-	<span th:if="${interest1 == null}">
-	<a class="btn btn-warning" th:href="@{/modifyMemberInterestPlace}">관심동네 설정</a>
-	</span>
-	<br><br><br>
 	<div th:text="${session.loginMember.memberNickname} + ' 님 의 프로필'" style="font-weight:bold; font-size:2em;"></div>
 	<br><br>
 	<div>
 	<img th:src="@{${'/images/'+memberPic}}" width="200" height="200" class='rounded'>	
 	</div>
 	<br>
-	<a th:href="@{/getProfile(memberUniqueNo=${session.loginMember.memberUniqueNo}, memberId=${session.loginMember.memberId})}" class="btn btn-primary" style="width:300px">프로필 보기</a><br><br>
-	<br>
+	<a th:href="@{/getProfile(memberUniqueNo=${session.loginMember.memberUniqueNo}, memberId=${session.loginMember.memberId})}" class="btn btn-primary" style="width:300px">프로필 상세보기</a><br><br>
+	<!-- 수정,변경 -->
+	<a class="btn btn-primary" th:href="@{/getMemberOne}">개인정보 수정</a>
+	<a class="btn btn-success" th:href="@{/modifyMemberNickAndPic}">프로필사진 변경</a>
+	<!-- 관심지역이 없으면 추가하기 있으면 수정하기  -->
+	<span th:if="${interest1 != null}">
+	<a class="btn btn-warning" th:href="@{/addMemberInterestPlace}">관심동네 수정</a>
+	</span>
+	<span th:if="${interest1 == null}">
+	<a class="btn btn-warning" th:href="@{/modifyMemberInterestPlace}">관심동네 설정</a>
+	</span>
+	<a class="btn btn-danger" th:href="@{/removeMember}">회원 탈퇴</a>	
+	<br><br>
+	<hr>
 	<ul>
-	<li><a th:if="${session.loginMember} !=null" th:href="@{/getItemListMyItem}">내 판매중인 아이템 목록</a></li>
-	<li><a th:if="${session.loginMember} !=null" th:href="@{/getBuyListByMember}">내가 구매한 아이템 목록</a></li>
-	<li><a th:if="${session.loginMember} !=null" th:href="@{/getItemListBySaleMyItem}">내 판매완료 아이템 목록</a></li>
-	<li><a th:if="${session.loginMember} !=null" th:href="@{/getMyLikeCompanyItem}">내 관심등록 업체아이템 목록</a></li>
+		<li><a style="font-weight:bold; font-size:large;" th:if="${session.loginMember} !=null" th:href="@{/addMemberItem}">물품 판매하기</a></li>
+		<li><a style="font-weight:bold; font-size:large;" th:if="${session.loginMember} !=null" th:href="@{/getItemListMyItem}">나의 판매 물품</a></li>
+		<li><a style="font-weight:bold; font-size:large;" th:if="${session.loginMember} !=null" th:href="@{/getItemListBySaleMyItem}">나의 판매완료 물품</a></li>
+		<li><a style="font-weight:bold; font-size:large;" th:if="${session.loginMember} !=null" th:href="@{/getBuyListByMember}">나의 구매 내역</a></li>
+		<li><a style="font-weight:bold; font-size:large;" th:if="${session.loginMember} !=null" th:href="@{/getMyLikeItem}">나의 관심 물품 </a></li> 
+		<hr>
 	</ul>
-	<br><br><br><br>
-	<a class="btn btn-warning btn-block btn-lg" style="width:500px" th:href="@{/removeMember}">회원 탈퇴</a>
+	<div>	
+		<a class="btn btn-warning"  th:if="${session.loginMember} !=null" th:href="@{/getItemListByPlace}">관심동네 중고물품</a>
+		<a class="btn btn-warning"  th:if="${session.loginMember} !=null" th:href="@{/getMyLikeCompanyItem}">관심 등록한 업체 물품</a>
+	</div>
+	<br>
+	<!-- <a class="btn btn-warning btn-block btn-lg" style="width:500px" th:href="@{/removeMember}">회원 탈퇴</a> -->
 	
 	</div>
 	<br>
