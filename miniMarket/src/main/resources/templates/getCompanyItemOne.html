@@ -39,11 +39,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#commentBtn').click(function(){
-			console.log('댓글클릭');
-			if($('#comment').val().length < 5) {
-				alert("댓글작성합시다");
-				return;
-			}
 			$('#commentForm').submit();
 		});
 	});
@@ -404,35 +399,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<br>
 	<div id="check" style="display:none" th:text="${check}"></div>
 	<!-- 업체 홍보글 신고하기 버튼 업체글 번호 넘김-->
+	<table style="margin-left: 370px; text-align:left; width:1200px">
+		<tr>
+			<td>
+				<h3>이 업체에 달린 댓글</h3>
+			</td>
+		</tr>
+		<tr th:each="list : ${list}">
+			<td colspan="100"><hr>
+				<div>
+					<span style="font-weight:bold;">작성자 - </span>
+					<span style="font-weight:bold;" th:text="${list.memberNickname}"></span>
+					<span th:text="${list.companyCommentDate}" style="float:right;"></span><br><br>
+					<span th:text="${list.companyCommentContent}"></span>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><br><hr><hr>
+				<span th:if="${session.loginMember != null}" style="font-size:1.5em; font-weight:bold; float:left;">댓글 쓰기</span>
+				<form method="post" th:action="@{addCompanyComment}" id="commentForm" th:if="${session.loginMember != null}">
+					<button type="button" id="commentBtn" style="float:right;" class="btn btn-warning">댓글 입력</button><br><br>
+					<div>
+						<input type="hidden" name="companyUniqueNo" th:value="${companyItemOne.companyUniqueNo}">
+						<input type="hidden" name="companyItemNo" th:value="${companyItemOne.companyItemNo}">
+						<textarea rows="3" cols="30" placeholder="댓글내용 입력" id="comment" name="companyCommentContent" class="form-control"></textarea>
+					</div>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td><br><br><br>
+				<div th:if="${currentPage > 1}" style="text-align:center;">
+					<a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous" style="text-align:center;" class="btn btn-primary">이전</a>
+				</div>
+				<div th:if="${currentPage < lastPage}" style="text-align:center;">
+					<a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next" class="btn btn-primary">다음</a>
+				</div><br><br><br>
+			</td>
+		</tr>
+	</table>
 	<div>
-		<h4>댓글 입력</h4>
-		<form method="post" th:action="@{addCompanyComment}" id="commentForm">
-			<div>
-				<input type="hidden" name="companyUniqueNo" th:value="${companyItemOne.companyUniqueNo}">
-				<input type="hidden" name="companyItemNo" th:value="${companyItemOne.companyItemNo}">
-				<textarea rows="2" cols="30" placeholder="댓글내용 입력" id="comment" name="companyCommentContent"></textarea>
-				<button type="button" id="commentBtn">입력</button>
-			</div>
-		</form>
-		<h4>댓글 리스트</h4>
-		<table border="1">
-			<tr>
-				<td>작성자</td>
-				<td>내용</td>
-				<td>작성일</td>
-			</tr>
-			<tr th:each="list : ${list}">
-				<td th:text="${list.memberNickname}"></td>
-				<td th:text="${list.companyCommentContent}"></td>
-				<td th:text="${#strings.substring(list.companyCommentDate,0,10)}"></td>
-			</tr>
-		</table>
-		<div th:if="${currentPage > 1}">
-			<a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous">이전</a>
-		</div>
-		<div th:if="${currentPage < lastPage}">
-			<a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next">다음</a>
-		</div>
 	</div>
 <!-- //footer -->
 <div class="footer">      
