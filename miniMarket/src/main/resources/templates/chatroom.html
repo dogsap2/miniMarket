@@ -23,11 +23,21 @@ $(document).ready(function(){
 	});
    
    $("#successBtn").click(function(){
-	      $("#soldOutForm").submit();
-	      window.close();
-	      
-	      
-	   });
+        	 $.ajax({
+               method: "Post",
+               //url: "/miniMarket/soldOutComplete",
+                url: "/soldOutComplete",
+               data: {memberItemNo : $("#memberItemNo").val() , memberUniqueNo : $("#memberUniqueNo").val() , chatroomNo : $("#chatroomNo").val()},
+               success: function(data) {
+            	   alert("거래 완료");
+            	   window.close();
+               },
+               error: function (error) {
+                    alert('data error');
+                }
+           });
+	});
+   		
    
    
    $('#addBtn').on('click', function () {
@@ -181,11 +191,14 @@ $(document).ready(function(){
          <button type="button" id="addBtn" class="btn btn-primary">보내기</button>
       </div>
       <div th:if="${chatroom.memberId == memberId}">
-	      <form  method="post" th:action="@{/soldOutComplete}" id="soldOutForm" >
-	         <input type="hidden" th:value="${chatroom.memberItemNo}" name="memberItemNo">
-	         <input type="hidden" th:value="${chatroom.memberUniqueNo}" name="memberUniqueNo">
+	      <form method="post" th:action="@{/soldOutComplete}" id="soldOutForm" >
+	         <input type="hidden" th:value="${chatroom.memberItemNo}" name="memberItemNo" id="memberItemNo">
+	         <input type="hidden" th:value="${chatroom.memberUniqueNo}" name="memberUniqueNo" id="memberUniqueNo">
+	         <input type="hidden" th:value="${chatroom.chatroomNo}" name="chatroomNo" id="chatroomNo">
 	           <button type="button" class="btn" id="successBtn">판매완료</button>
 	      </form>
+	      
+	      <input type="hidden" th:text="${msg}" id="msg">
       </div>
       <input type="hidden" th:value="${memberId}" id="memberId">
    </div>

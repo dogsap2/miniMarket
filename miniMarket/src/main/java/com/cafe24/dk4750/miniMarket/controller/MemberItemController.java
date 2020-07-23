@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.dk4750.miniMarket.service.CategoryService;
 import com.cafe24.dk4750.miniMarket.service.ChatroomService;
@@ -174,18 +175,13 @@ public class MemberItemController {
 	
 	// 판매완료 
     @PostMapping("/soldOutComplete")
-    public String soldOutComplete(HttpSession session, @RequestParam(value="memberItemNo", defaultValue = "0") int memberItemNo , @RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo) {
-    	// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/loginMemberAndCompany";
-		} else if(memberItemNo == 0) {
-			return "redirect:/";
-		}
+    @ResponseBody
+    public int soldOutComplete(HttpSession session,Model model ,@RequestParam(value="memberItemNo", defaultValue = "0") int memberItemNo , @RequestParam(value="chatroomNo", defaultValue = "0") int chatroomNo ,@RequestParam(value="memberUniqueNo", defaultValue = "") String memberUniqueNo) {
+    	
     	System.out.println(memberItemNo + "<--soldOutComplete itemNo");
 		System.out.println(memberUniqueNo + "<--soldOutComplete memberUniqueNo");
-		memberItemService.itemSalesComplete(memberItemNo, memberUniqueNo);
-		  
-		return "redirect:/index";
+		
+		return memberItemService.itemSalesComplete(memberItemNo, memberUniqueNo);
     }
 	
 	// 구매자의 구매완료 아이템 리스트

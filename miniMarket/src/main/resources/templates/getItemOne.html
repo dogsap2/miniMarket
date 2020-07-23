@@ -354,10 +354,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<td>
 			<div style="text-align:left;">
 				
-				<form method="post" th:action="@{/chatroom}" th:if="${LoginMemberId != getItemOne.memberId} AND ${chatRoomCheck < 1}">
+				<form method="post" th:action="@{/chatroom}" th:if="${LoginMemberId != getItemOne.memberId} AND ${chatRoomCheck < 1}" id="chatForm">
 					<input type="hidden" name="memberId" th:value="${getItemOne.memberId}">
 					<input type="hidden" name="memberItemNo" th:value="${getItemOne.memberItemNo}">
-					<button type="submit" class="btn btn-info btn-lg">채팅으로 거래하기</button>
+					<button type="button" id="chatBtn" onclick="window.open(this.href,'_blank','width=600,height=850,left=640px,top=60px, scrollbars=yes');return false;" class="btn btn-info btn-lg" >채팅으로 거래하기</button>
 				</form>
 
 				<form method="post" action="{#}" th:if="${LoginMemberId != getItemOne.memberId} AND ${chatRoomCheck > 0}">
@@ -503,6 +503,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	$(document).ready(function() {
 		let count=0;
 		let check = Number($('#check').text());
+		
+		$("#chatBtn").click(function(){
+			$("#chatForm").submit();
+		});
+		
 		if(check == 1) {
 			$('#img').attr('src', '/images/fh.png');
 			count = count + check;
