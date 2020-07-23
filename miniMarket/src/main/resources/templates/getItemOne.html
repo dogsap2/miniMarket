@@ -375,10 +375,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</span>
 					<span>&nbsp;
 						<u>
-							<a th:href="@{memberByMemberItemReport(memberItemNo=${getItemOne.memberItemNo})}" style="color:black;"> 게시물 신고하기</a>
+							<a th:href="@{memberByMemberItemReport(memberItemNo=${getItemOne.memberItemNo},memberItemTitle=${getItemOne.memberItemTitle})}" style="color:black;"> 게시물 신고하기</a>
 						</u>&nbsp;&nbsp;
 						<u>
-							<a th:href="@{memberByMemberReport(memberUniqueNo=${getItemOne.memberUniqueNo})}" style="color:black;"> 회원 신고하기 </a>
+							<a th:href="@{memberByMemberReport(memberUniqueNo=${getItemOne.memberUniqueNo},memberNickname=${getItemOne.memberNickname})}" style="color:black;"> 회원 신고하기 </a>
 						</u>
 					</span>
 				</div>

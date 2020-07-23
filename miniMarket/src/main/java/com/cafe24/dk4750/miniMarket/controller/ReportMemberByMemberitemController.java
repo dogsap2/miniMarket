@@ -80,11 +80,13 @@ public class ReportMemberByMemberitemController {
 	}
 	
 	@GetMapping("/memberByMemberItemReport")
-	public String addReport(HttpSession session ,@RequestParam(value="memberItemNo", defaultValue = "0") String memberItemNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam(value="memberItemNo", defaultValue = "0") String memberItemNo, @RequestParam(value="memberItemTitle", defaultValue = "") String memberItemTitle , Model model) {
 		 if(session.getAttribute("loginMember") == null) {
 	         return "redirect:/loginMemberAndCompany";
 	      }
 		System.out.println(memberItemNo+"<---memberItemNo 신고하려는 게시물 번호");
+		System.out.println(memberItemTitle+"<---신고 게시물 제목");
+		model.addAttribute("memberItemTitle", memberItemTitle);
 		model.addAttribute("memberItemNo", memberItemNo);
 		return "memberByMemberReport";
 	}

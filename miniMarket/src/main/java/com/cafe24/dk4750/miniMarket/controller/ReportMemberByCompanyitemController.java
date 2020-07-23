@@ -88,6 +88,7 @@ public class ReportMemberByCompanyitemController {
 			System.out.println("멤버 -> 업체게시물 신고 페이지 업체 접근 x");
 			return "redirect:index";
 	      }
+
 		System.out.println(companyItemNo+"<---no 값 확인");
 		model.addAttribute("companyItemNo", companyItemNo);
 		return "memberByCompanyReport";

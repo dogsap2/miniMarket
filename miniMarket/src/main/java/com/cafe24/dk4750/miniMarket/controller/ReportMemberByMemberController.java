@@ -72,7 +72,7 @@ public class ReportMemberByMemberController {
 		return "getReportMemberByMemberList";
 	}
 	@GetMapping("/memberByMemberReport")
-	public String addReport(HttpSession session ,@RequestParam(value="memberUniqueNo", defaultValue = "0") String memberUniqueNo, Model model) {
+	public String addReport(HttpSession session ,@RequestParam(value="memberUniqueNo", defaultValue = "0") String memberUniqueNo, @RequestParam(value="memberNickname", defaultValue = "") String memberNickname1 , Model model) {
 		// 로그인 멤버가 널일 경우 로그인창으로
 		if(session.getAttribute("loginMember") == null) {
 	         return "redirect:/loginMemberAndCompany";
@@ -81,6 +81,8 @@ public class ReportMemberByMemberController {
 		String memberNickname = reportMemberByMemberService.getMemberName(memberUniqueNo);
 		System.out.println(memberNickname+"<---memberNickname");
 		
+		System.out.println(memberNickname1+"<---신고하려는 상대 닉네임");
+		model.addAttribute("memberNickname1", memberNickname1);
 		model.addAttribute("memberNickname", memberNickname);
 		model.addAttribute("memberUniqueNo", memberUniqueNo);
 		return "memberByMemberReport";

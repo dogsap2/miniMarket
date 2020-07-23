@@ -263,7 +263,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
 							<div align="center">
-								<h3>' '게시글을 신고하는 이유를 선택해주세요</h3>
+								<h3> [<label th:text="${memberItemTitle}"></label>]게시물을 신고하는 이유를 선택해주세요</h3>
 								<br><br>
 							<form method="post" action="/memberByMemberItemReport" id="memberByMemberItemReportForm">
 							<div id="title">
@@ -415,7 +415,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 							<div align="center">
-								<h3>멤버  [<label th:text="${memberNickname}"></label>]를 신고하는 이유를 선택해주세요</h3>
+								<h3>멤버  [<label th:text="${memberNickname1}"></label>]를 신고하는 이유를 선택해주세요</h3>
 								<br><br>
 								<form method="post" action="/memberByMemberReport" id="memberByMemberReportForm">
 									<div id="merberTitle">
