@@ -134,7 +134,7 @@ public class CompanyItemController {
 	
 	// 업체 아이템 상세보기
 	@GetMapping("/getCompanyItemOne")
-	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
+	public String getCompanyItemOne(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
 		System.out.println("업체 아이템 상세보기 get매핑 시작");
 		// 세션이 없다면 index로 리턴
 		if(session.getAttribute("loginMember") == null && session.getAttribute("loginCompany") == null && session.getAttribute("loginAdmin") == null) {
@@ -153,6 +153,14 @@ public class CompanyItemController {
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
 		companyItemLike.setMemberUniqueNo(memberUniqueNo);
 		companyItemLike.setCompanyItemNo(companyItemNo);
+		// 댓글 리스트
+	    Map<String, Object> map = companyCommentService.getCompayCommentList(companyItemNo, currentPage);
+	    System.out.println(map.get("list") + "<--getCompanyItemOne list");
+	    System.out.println(map.get("lastPage") + "<--getCompanyItemOne lastPage");
+	    model.addAttribute("list", map.get("list"));
+	    model.addAttribute("lastPage", map.get("lastPage"));
+	    model.addAttribute("currentPage", currentPage);
+	    model.addAttribute("companyItemNo", companyItemNo);
 		// 내 현재 라이크 상태
 		Integer check = checkCompanyLikeService.defaultLike(companyItemLike);
 		System.out.println(check+"<======== 내 현재 라이크 상태값값값");
