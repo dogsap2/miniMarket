@@ -254,11 +254,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="top-brands">
 		<div class="container">
 		<h2>신고하기</h2>
+			<input type="hidden" th:value="${memberItemTitle}" id="memberItemTitle">
+			<input type="hidden" th:value="${memberNickname}" id="memberNickname">
 			<div class="grid_3 grid_5">
-				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" >
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">게시물 신고</a></li>
-						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">멤버 신고</a></li>
+						<li role="presentation" class="active"><a href="#expeditions"  id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">업체 게시물 신고</a></li>
+						<li role="presentation"><a href="#tours" style="pointer-events: none; cursor: default;" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">업체 신고</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
@@ -528,6 +530,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		// textarea의 value값을 저장할 변수
 		let memoVal = "";
         $(document).ready(function() {
+        	
+        	let trigger = $("#memberItemTitle").val();
+        	console.log(trigger+'ㅎㅇ');
+        	if($("#memberItemTitle").val() == ""){
+        		$("#tours-tab").trigger('click');
+        		$("#expeditions-tab").css({ 'pointer-events': 'none' });
+        		console.log('성공')
+        	}else if($('#memberNickname').val() == ''){
+        		$("#tours-tab").css({ 'pointer-events': 'none' });
+        	}
+        	
             //title의 메뉴만 보여주고 나머지는 다 숨김
             $("#title").show();
             $("#content1").hide();
