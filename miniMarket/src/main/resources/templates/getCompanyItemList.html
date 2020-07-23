@@ -337,23 +337,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		<div class="col-md-8 products-right">
 		<div align="center">
-      	<br>
 <!-- 동네 홍보 목록 -->
-	<div class="top-brands">
-		<div class="container" align="center">
-			<h2>우리동네 홍보목록</h2>
+		<div align="center">
+			<div id="interestProductt" style="width:135px">
 			<a th:if="${session.loginCompany} !=null"
-				th:href="@{/addCompanyItem}">업체 홍보하기</a><br> <a
+				th:href="@{/addCompanyItem}">업체 홍보하기</a><br><a class = "btn btn-warning"
 				th:if="${session.loginMember} !=null"
-				th:href="@{/getMyLikeCompanyItem}">내가 관심등록한 업체 아이템 목록</a><br> <a
-				th:if="${session.loginMember} !=null"
-				th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a> <br>
+				th:href="@{/getPlaceByCompanyItemList}">관심 주소의 업체아이템 목록</a>
+			</div>	
+			<div>
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+               <ul  class="nav nav-tabs">
+               </ul><br><br>
 			<div class="agile_top_brands_grids">
+				 <div class="col-md-12 top_brand_center" align="center">
 				<div class="hover14 column">
 					<div class="agile_top_brand_left_grid">
 						<div class="agile_top_brand_left_grid1">
 							<div class="bs-example bs-example-tabs" role="tabpanel"
 								data-example-id="togglable-tabs"></div>
+								</div>
 							<form method="get" th:action="@{/getCompanyItemList}" id="searchForm">	
 								<div th:each="list : ${list}">
 									<div>
@@ -362,7 +365,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											width="700" height="400">
 										</a>
 									</div>
-									<br>
 									<h2 style="font-size: x-large;"
 										th:text="${list.companyItemTitle}"></h2>	
 									<div style="font-weight:bold;" th:text="업체번호+${list.companyPhone}"></div>
