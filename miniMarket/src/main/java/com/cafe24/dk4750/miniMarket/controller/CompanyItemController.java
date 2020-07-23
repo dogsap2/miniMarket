@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.dk4750.miniMarket.service.CategoryService;
 import com.cafe24.dk4750.miniMarket.service.CheckCompanyLikeService;
+import com.cafe24.dk4750.miniMarket.service.CompanyCommentService;
 import com.cafe24.dk4750.miniMarket.service.CompanyItemService;
 import com.cafe24.dk4750.miniMarket.vo.Category;
+import com.cafe24.dk4750.miniMarket.vo.CompanyComment;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
@@ -30,6 +32,23 @@ public class CompanyItemController {
 	@Autowired private CompanyItemService companyItemService;
 	@Autowired private CategoryService categoryService;
 	@Autowired private CheckCompanyLikeService checkCompanyLikeService; 
+	@Autowired private CompanyCommentService companyCommentService;	
+	
+	// 댓글 입력
+	@PostMapping("addCompanyComment")
+	public String addCompanyComment(HttpSession session, CompanyComment companyComment, @RequestParam(value="companyItemNo", defaultValue = "0") int companyItemNo) {
+	   // 멤버 권한
+	   if(session.getAttribute("loginMember") == null) {
+	      return "redirect:";
+	   }
+	   String memberUniqueNo = ((LoginMember)session.getAttribute("loginMember")).getMemberUniqueNo();
+	   companyComment.setMemberUniqueNo(memberUniqueNo);
+	      
+	   companyCommentService.addCompanyComment(companyComment);
+	      
+	   return "redirect:getCompanyItemOne?companyItemNo="+companyItemNo;
+	}
+	
 	// 나의 업체 아이템 수정
 	@GetMapping("/modifyCompanyItem")
 	public String modifyCompanyItem(HttpSession session, Model model, @RequestParam(value="companyItemNo", defaultValue="0") int companyItemNo) {
@@ -76,34 +95,42 @@ public class CompanyItemController {
 			return "redirect:/loginMemberAndCompany";
 		}
 		companyItemService.companyItemPullUp(session, companyUniqueNo);
-		return "redirect:/getCompanyItemList";
+		return "redirect:/index";
 	}
 	
 	// 나의 업체 아이템 상세보기
-	@GetMapping("/getCompanyMyItemOne")
-	public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo, int companyItemNo) {
-		// 세션이 없다면 index로 리턴
-		System.out.println(companyUniqueNo+"<---상세보기 유니크 넘버");
-		if(session.getAttribute("loginCompany") == null) {
-			return "redirect:/loginMemberAndCompany";
-		}
-		// 컴퍼니아이템 번호 가져오기
-		CompanyItem companyItem = new CompanyItem();
-		companyItemNo = companyItemService.getCompanyItemNoOne(session, companyItem);
-		System.out.println(companyItemNo+"<------=-=-=컴퍼니아이템컨트롤러 의 컴퍼니아이템번호!!");
-		
-		CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic myCompanyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
-		myCompanyItemOne.setCompanyItemNo(companyItemNo);
-		myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo, companyItemNo);
-		
-		model.addAttribute("myCompanyItemOne", myCompanyItemOne);
-		System.out.println(companyUniqueNo+"<-==컴퍼니 유니크 넘버 번호");
-		System.out.println(myCompanyItemOne+"<====해당업체의 정보들");
-		if(companyUniqueNo == null ) {
-			return "getCompanyItemList";
-		}
-		return "getCompanyMyItemOne";
-	}
+	   @GetMapping("/getCompanyMyItemOne")
+	   public String getMyCompanyItemOne(HttpSession session, Model model, String companyUniqueNo, int companyItemNo, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+	      // 세션이 없다면 index로 리턴
+	      System.out.println(companyUniqueNo+"<---상세보기 유니크 넘버");
+	      if(session.getAttribute("loginCompany") == null) {
+	         return "redirect:/loginMemberAndCompany";
+	      }
+	      // 컴퍼니아이템 번호 가져오기
+	      CompanyItem companyItem = new CompanyItem();
+	      companyItemNo = companyItemService.getCompanyItemNoOne(session, companyItem);
+	      System.out.println(companyItemNo+"<------=-=-=컴퍼니아이템컨트롤러 의 컴퍼니아이템번호!!");
+	      // 댓글 리스트
+	      Map<String, Object> map = companyCommentService.getCompayCommentList(companyItemNo, currentPage);
+	      System.out.println(map.get("list") + "<--getCompanyItemOne list");
+	      System.out.println(map.get("lastPage") + "<--getCompanyItemOne lastPage");
+	      model.addAttribute("list", map.get("list"));
+	      model.addAttribute("lastPage", map.get("lastPage"));
+	      model.addAttribute("currentPage", currentPage);
+	      model.addAttribute("companyItemNo", companyItemNo);
+	      
+	      CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic myCompanyItemOne = new CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic();
+	      myCompanyItemOne.setCompanyItemNo(companyItemNo);
+	      myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo, companyItemNo);
+	      
+	      model.addAttribute("myCompanyItemOne", myCompanyItemOne);
+	      System.out.println(companyUniqueNo+"<-==컴퍼니 유니크 넘버 번호");
+	      System.out.println(myCompanyItemOne+"<====해당업체의 정보들");
+	      if(companyUniqueNo == null ) {
+	         return "getCompanyItemList";
+	      }
+	      return "getCompanyMyItemOne";
+	   }
 	
 	// 업체 아이템 상세보기
 	@GetMapping("/getCompanyItemOne")

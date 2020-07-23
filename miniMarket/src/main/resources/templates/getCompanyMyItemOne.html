@@ -281,6 +281,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</td>
 	</tr>
 </table><hr><br>
+<h4>댓글 리스트</h4>
+      <table border="1">
+         <tr>
+            <td>작성자</td>
+            <td>내용</td>
+            <td>작성일</td>
+            <td>신고하기</td>
+         </tr>
+         <tr th:each="list : ${list}">
+            <td th:text="${list.memberNickname}"></td>
+            <td th:text="${list.companyCommentContent}"></td>
+            <td th:text="${#strings.substring(list.companyCommentDate,0,10)}"></td>
+            <td><a th:href="@{companyByMemberReport(memberUniqueNo=${list.memberUniqueNo})}">댓글 신고</a></td>
+         </tr>
+      </table>
+      <div th:if="${currentPage > 1}">
+         <a th:href="@{getCompanyItemOne(currentPage=${currentPage - 1}, companyItemNo=${companyItemNo})}" id="previous">이전</a>
+      </div>
+      <div th:if="${currentPage < lastPage}">
+         <a th:href="@{getCompanyItemOne(currentPage=${currentPage + 1}, companyItemNo=${companyItemNo})}" id="next">다음</a>
+      </div>
 <!-- //footer -->
 <div class="footer">		
 		<div class="footer-copy">
