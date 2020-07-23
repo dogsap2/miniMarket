@@ -163,6 +163,11 @@ public class CompanyController {
 	       return "redirect:/index";
 	    }   
 		System.out.println(company + "<----수정된 company값");
+		
+		LoginCompany companyId2 = (LoginCompany) (session.getAttribute("loginCompany"));
+		String companyId = companyId2.getCompanyId();
+		company.setCompanyId(companyId);
+		
 		companyService.modifyCompanyOne(company);
 		return "redirect:/getCompanyOne";
 	}

@@ -264,27 +264,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="login">
 		<div class="container">
 			<h2>업체 정보</h2>
-			<div class="login-form-grids animated wow slideInUp"data-wow-delay=".5s">
-				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyCompany}">수정하기</a></p>
-				<p> <a style="float:right;"  class="btn btn-warning" th:href="@{/modifyCompanyPw}">비밀번호 변경</a></p><br>
-				아이디 :
-				<div style="display: inline;" th:text="${company.companyId}"></div><br>
-				CEO 이름 :
-				<div style="display: inline;" th:text="${company.companyCeoName}"></div><br>
-				주소 :
-				<div
-					style="display: inline;" th:text="${company.companySido}+${company.companySigungu}+${company.companyBname}"></div><br>
-				이메일 :
-				<div style="display: inline;" th:text="${company.companyEmail}"></div><br>
-				고유번호:
-				<div style="display: inline;" th:text="${company.companyUniqueNo}"></div><br>
-				핸드폰번호 :
-				<div style="display: inline;" th:text="${company.companyPhone}"></div><br>
-				가입날짜 :
-				<div style="display: inline;" th:text="${company.companyDate}"></div><br>				
+			<div class="login-form-grids animated wow slideInUp"
+				data-wow-delay=".5s">
+				<div style="font-size: large; font-weight: bold;">
+					아이디 <input type="text" readonly="readonly"
+						th:value="${company.companyId}" class="form-control">
+				</div>
+				<div style="font-size: large; font-weight: bold;">
+					ceo 이름 <input type="text" readonly="readonly"
+						th:value="${company.companyCeoName}" class="form-control">
+				</div>
+				<div style="font-size: large; font-weight: bold;">
+					주소 <input type="text" readonly="readonly"
+						th:value="${company.companySido}+${company.companySigungu}+${company.companyBname}"
+						class="form-control">
+				</div>
+				<div style="font-size: large; font-weight: bold;">
+					이메일 <input type="text" readonly="readonly"
+						th:value="${company.companyEmail}" class="form-control">
+				</div>
+				<div style="font-size: large; font-weight: bold;">
+					핸드폰번호 <input type="text" readonly="readonly"
+						th:value="${company.companyPhone}" class="form-control">
+				</div>
+				<div style="font-size: large; font-weight: bold;">
+					고유번호 <input type="text" readonly="readonly"
+						th:value="${company.companyUniqueNo}" class="form-control">
+				</div>
+				<div style="font-size: large; font-weight: bold;">
+					가입날짜 <input type="text" readonly="readonly"
+						th:value="${company.companyDate}" class="form-control">
+				</div>
+				<br>
+				<p>
+					<a style="color: black;" class="btn btn-primary btn-lg btn-block"
+						th:href="@{/modifyCompany}">수정하기</a>
+				</p>
+				<br>
+				<p>
+					<a style="color: black;" class="btn btn-danger btn-lg btn-block"
+						th:href="@{/modifyCompanyPw}">비밀번호 변경</a>
+				</p>
 			</div>
-			
-			<p>(Or) go back to <a th:href="@{/index}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
 		</div>
 	</div>
 <!-- //login -->
