@@ -8,11 +8,25 @@
 <script>
 	$(document).ready(function() {
 		$('#btn').click(function() {
-			$('#form').submit();
-			alert("리뷰작성이 완료되었습니다.");
-			window.close();
-			opener.parent.location='http://localhost/getBuyListByMember';
-   			opener.parent.location.reload();
+			$.ajax({ 
+				method: "Post",
+				url: "/addReview",
+				data: {memberUniqueNo : $("#memberUniqueNo").val(), memberUniqueNoSale : $("#memberUniqueNoSale").val(), memberItemNo : $("#memberItemNo").val(), memberReviewContent : $("#memberReviewContent").val(),  },
+					success: function(data) {
+						
+						alert("리뷰작성이 완료되었습니다.");
+		            	//평가 완료 후 부모창 새로 고침
+		         		opener.parent.location='http://localhost/getBuyListByMember';
+		         		opener.parent.location.reload();	
+		                window.close();
+		                //$('#form').submit();
+						
+					},
+	               error: function (error) {
+	            	   alert('data error');
+	               }		
+			});
+			
 		});
 	});
 </script>
