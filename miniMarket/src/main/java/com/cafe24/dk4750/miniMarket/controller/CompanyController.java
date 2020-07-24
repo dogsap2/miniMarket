@@ -192,7 +192,7 @@ public class CompanyController {
 		if (session.getAttribute("loginCompany") == null) {
 			return "redirect:/index";
 		}
-		LoginCompany companyId = (LoginCompany) (session.getAttribute("loginCompany"));
+		LoginCompany companyId = (LoginCompany)(session.getAttribute("loginCompany"));
 		// 사진 닉네임 불러오기
 		Map<String, Object> map = companyService.getCompanyNameAndPic(companyId);
 		// 내가 올린 업체아이템의 번호
@@ -200,9 +200,12 @@ public class CompanyController {
 		String companyUniqueNo = loginCompany.getCompanyUniqueNo();
 		CompanyItem companyItem = new CompanyItem();
 		companyItem.setCompanyUniqueNo(companyUniqueNo);
-		int companyItemNo = companyItemService.getCompanyItemNoOne(session, companyItem);
+		Integer companyItemNo = companyItemService.getCompanyItemNoOne(session, companyItem);
 		System.out.println(companyItemNo+"<-----내 홍보중인 아이템의 아이템 번호");
 		System.out.println(companyUniqueNo+"<===컴퍼니 유니크 넘버  컴퍼니 컨트롤러");
+		if(companyItemNo == null) {
+			companyItemNo = 0;
+		}
 		model.addAttribute("companyItemNo", companyItemNo);
 		model.addAttribute("companyPic", map.get("companyPic"));
 		model.addAttribute("CompanyName", map.get("companyName"));

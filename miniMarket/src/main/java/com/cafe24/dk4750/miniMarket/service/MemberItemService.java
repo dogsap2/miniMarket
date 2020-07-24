@@ -41,7 +41,7 @@ public class MemberItemService {
 	@Autowired private SoldoutMapper soldoutMapper;
 	@Autowired private ChatroomMapper chatroomMapper;
 	@Autowired private MemberInterestPlaceMapper memberInterestPlaceMapper;
-	@Value("C:\\Users\\gd\\Documents\\sts-work2\\maven.1594356601737\\miniMarket\\src\\main\\resources\\static\\images\\")
+	@Value("/dk4750/tomcat/webapps/miniMarket/WEB-INF/classes/static/images/")
 	private String path;
 	
 	// 아이템 상세보기시 해당 회원의 아이템 몇개만 보여지게 출력
@@ -199,7 +199,7 @@ public class MemberItemService {
 		map.put("memberUniqueNo", memberUniqueNo);
 		// 리스트의 토탈 카운트 수 + 조건 검색값이 있으면 검색값 추가하여 글 토탈 수를 구함
 		int totalRow = 0;
-			totalRow = soldoutMapper.totalSoldout();
+			totalRow = soldoutMapper.totalSoldout(memberUniqueNo);
 		// 구매자의 구매완료 리스트
 		List<ItemSoldout> list = soldoutMapper.selectBuyListByMember(map);
 		System.out.println(list+"구매자의 구매완료 리스트 서비스");

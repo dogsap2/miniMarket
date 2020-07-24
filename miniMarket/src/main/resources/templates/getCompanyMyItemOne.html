@@ -42,18 +42,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
-			<p><a href="/about">About us</a></p>
+			<p><a th:href="@{about}">About us</a></p>
 			</div>
 			<div class="agile-login">
 				<ul>
 					
 					<li>
-						<a href="/logoutCompany">로그아웃</a>					
+						<a th:href="@{logoutCompany}">로그아웃</a>					
 					</li>
 					
 					
 					<li>
-						<a href="/companyMyPage">마이페이지(업체)</a>
+						<a th:href="@{companyMyPage}">마이페이지(업체)</a>
 					</li>					
 					
 					
@@ -62,8 +62,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="row">
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
-											<li><a href="/getQnaBoardMemberHtml">멤버 자주 묻는 질문</a></li>
-											<li><a href="/getQnaBoardCompany">업체 자주 묻는 질문</a></li>
+											<li><a th:href="@{getQnaBoardMemberHtml}">멤버 자주 묻는 질문</a></li>
+											<li><a th:href="@{getQnaBoardCompany}">업체 자주 묻는 질문</a></li>
 										</ul>
 									</div>
 								</div>
@@ -74,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="row">
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
-											<li><a href="/getNoticeList">공지사항</a></li>
+											<li><a th:href="@{getNoticeList}">공지사항</a></li>
 											<li></li>
 										</ul>
 									</div>
@@ -103,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="w3ls_logo_products_left">			
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="/index">Mini Market</a></h1>
+				<h1><a th:href="@{index}">Mini Market</a></h1>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -125,7 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="/index" class="act">Home</a></li>
+						<li class="active"><a th:href="@{index}" class="act">Home</a></li>
 						<!-- Mega Menu -->
 							
 							
@@ -137,7 +137,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="multi-gd-img">
 										<ul class="multi-column-dropdown">
 											<h6>업체 홍보 메뉴</h6>
-											<li><a href="/addCompanyItem">업체 홍보하기</a></li>
+											<li><a th:href="@{addCompanyItem}">업체 홍보하기</a></li>
 											<li></li>
 										</ul>
 									</div>

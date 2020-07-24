@@ -26,7 +26,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script>
 $(document).ready(function(){
 	$.ajax({
-		url:'/getBuyListByMember2',
+		url:'/miniMarket/getBuyListByMember2',
 		
 		type:'get',
 		
@@ -35,7 +35,7 @@ $(document).ready(function(){
 					
 					// manner 평가 했는지 check.
 					$.ajax({
-						url:'/mannerCheck',
+						url:'/miniMarket/mannerCheck',
 						data:{
 							memberUniqueNo:item.memberUniqueNoSale,
 							memberItemNo:item.memberItemNo
@@ -57,7 +57,7 @@ $(document).ready(function(){
 					
  					// review 작성 했는지 check
 					$.ajax({
-						url:'/reviewCheck',
+						url:'/miniMarket/reviewCheck',
 						data:{
 							memberItemNo:item.memberItemNo,
 							memberUniqueNo:item.memberUniqueNo,
@@ -326,10 +326,10 @@ $(document).ready(function(){
 										<button class="btn btn-warning" type="button"
 											th:id="${'mannerBtn'+list.memberItemNo}"
 											th:value="mannerBtn+${list.memberItemNo}"
-											th:onclick="window.open('/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">매너평가</button>
+											th:onclick="window.open('/miniMarket/addManner?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">매너평가</button>
 										<button class="btn btn-warning" type="button"
 											th:id="${'reviewBtn'+list.memberItemNo}"
-											th:onclick="window.open('/addReview?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">리뷰작성하기</button>
+											th:onclick="window.open('/miniMarket/addReview?memberItemNo=[[${list.memberItemNo}]]&memberUniqueNo=[[${list.memberUniqueNo}]]&memberUniqueNoSale=[[${list.memberUniqueNoSale}]]','매너평가','width=510,height=750,location=no,status=no,scrollbars=yes');">리뷰작성하기</button>
 									</div>
 								</div>
 								<hr>

@@ -536,7 +536,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			count = count+1;
 			console.log(count);
 			$.ajax({
-				url:'/CheckCompanyLike?count='+count+'&companyItemNo='+$('#companyItemNo').val(),
+				url:'/miniMarket/CheckCompanyLike?count='+count+'&companyItemNo='+$('#companyItemNo').val(),
 				type:'get',
 				success : function(data) {
 					console.log("0이면 좋아요취소, 1이면 좋아요 : " + data);

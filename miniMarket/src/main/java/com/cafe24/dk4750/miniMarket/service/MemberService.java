@@ -34,7 +34,7 @@ public class MemberService {
 	@Autowired private MannerMapper mannerMapper;
 	@Autowired private MemberReviewMapper memberReviewMapper;
 	@Autowired private JavaMailSender javaMailSender;//@Conponent	
-	@Value("C:\\Users\\gd\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1593420751967\\miniMarket\\src\\main\\resources\\static\\images\\")
+	@Value("/dk4750/tomcat/webapps/miniMarket/WEB-INF/classes/static/images/")
 	private String path;
 	
 	// 멤버 리뷰 리스트 가져오기

@@ -34,10 +34,10 @@ public class CompanyItemService {
 	@Autowired private CompanyItemPicMapper companyItemPicMapper;
 	@Autowired private MemberInterestPlaceMapper memberInterestPlaceMapper;
 	@Autowired private CompanyItemLikeMapper companyItemLikeMapper;
-	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1594275612256\\miniMarket\\src\\main\\resources\\static\\images\\")
+	@Value("/dk4750/tomcat/webapps/miniMarket/WEB-INF/classes/static/images/")
 	private String path;
 	
-	public int getCompanyItemNoOne(HttpSession session, CompanyItem companyItem) {
+	public Integer getCompanyItemNoOne(HttpSession session, CompanyItem companyItem) {
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
 		String companyUniqueNo = loginCompany.getCompanyUniqueNo();
 		companyItem.setCompanyUniqueNo(companyUniqueNo);
@@ -45,7 +45,6 @@ public class CompanyItemService {
 		System.out.println(companyItemMapper.selectCompanyItemNoOne(companyItem)+"<--컴퍼니 아이템 정보들");
 		return companyItemMapper.selectCompanyItemNoOne(companyItem);
 	}
-	
 	
 	// 나의 업체 아이템 상세보기
 	public CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic getCompanyMyItemOne(HttpSession session, String companyUniqueNo, int companyItemNo) {

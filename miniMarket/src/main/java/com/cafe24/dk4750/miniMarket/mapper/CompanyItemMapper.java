@@ -13,7 +13,7 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAnd
 public interface CompanyItemMapper {
 	
 	// 내 홍보중인 것의 아이템 넘버 값 가져오기
-	public int selectCompanyItemNoOne(CompanyItem companyItem);
+	public Integer selectCompanyItemNoOne(CompanyItem companyItem);
 	
 	// 글의 총 갯수
 	public int totalCompanyItem();

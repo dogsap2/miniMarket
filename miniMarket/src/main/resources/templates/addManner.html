@@ -157,8 +157,10 @@
 			console.log($('#goodManner').val());
 			$.ajax({
 				  method: "Post",
-				  url: "/goodAddManner",
-				  data: {memberItemNo : $("#memberItemNo").val(), memberUniqueNo : $("#memberUniqueNo").val(), goodManner : $("#goodManner").val() },
+				  url: "/miniMarket/goodAddManner",
+	              data: {memberItemNo : $("#memberItemNo").val(), memberUniqueNo : $("#memberUniqueNo").val(), goodManner : $("#goodManner").val(),
+	                  mannerContent1 : $("input:checkbox[name='mannerContent1']:checked").val(), mannerContent2 : $("input:checkbox[name='mannerContent2']:checked").val(), mannerContent3 : $("input:checkbox[name='mannerContent3']:checked").val(),
+	                  mannerContent4 : $("input:checkbox[name='mannerContent4']:checked").val(), mannerContent5 : $("input:checkbox[name='mannerContent5']:checked").val(), mannerContent6 : $("input:checkbox[name='mannerContent6']:checked").val()},
 					  success: function(data) {
 		                alert("평가가 완료되었습니다.");
 		                //평가 완료 후 부모창 새로 고침
@@ -178,8 +180,8 @@
 			console.log($('#badManner').val());
 			$.ajax({
 				  method: "Post",
-				  url: "/badAddManner",
-				  data: {memberItemNo : $("#memberItemNo").val(), memberUniqueNo : $("#memberUniqueNo").val(), badManner : $("#badManner").val() },
+				  url: "/miniMarket/badAddManner",
+				  data: {memberItemNo : $("#memberItemNo").val(), memberUniqueNo : $("#memberUniqueNo").val(), badManner : $("#badManner").val(), mannerContent1 : $("#mannerContent1").val() },
 					  success: function(data) {
 		                alert("평가가 완료되었습니다.");
 		                //평가 완료 후 부모창 새로 고침
@@ -310,7 +312,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="hidden" name="badManner" id="badManner">
 					<input type="hidden" name="memberItemNo" th:value="${memberItemNo}" id="memberItemNo">
 					<input type="hidden" name="memberUniqueNo" th:value="${memberUniqueNoSale}" id="memberUniqueNo">
-					<textarea name="mannerContent1" class="form-control" rows="13" placeholder="회원의 어떤점이 안좋으셨나요? 평가를 작성해주세요."></textarea>
+					<textarea name="mannerContent1" class="form-control" rows="13" id="mannerContent1" placeholder="회원의 어떤점이 안좋으셨나요? 평가를 작성해주세요."></textarea>
 				</div>
 				<div><br>
 					<button type="button" id="badbtn" class="btn btn-primary btn-block btn-lg">평가완료</button>

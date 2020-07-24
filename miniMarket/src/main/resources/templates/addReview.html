@@ -10,7 +10,7 @@
 		$('#btn').click(function() {
 			$.ajax({ 
 				method: "Post",
-				url: "/addReview",
+				url: "/miniMarket/addReview",
 				data: {memberUniqueNo : $("#memberUniqueNo").val(), memberUniqueNoSale : $("#memberUniqueNoSale").val(), memberItemNo : $("#memberItemNo").val(), memberReviewContent : $("#memberReviewContent").val(),  },
 					success: function(data) {
 						

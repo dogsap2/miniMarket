@@ -177,7 +177,7 @@ public class MemberController {
 	@PostMapping("/getFindMemberPw")
 	public String getFindMemberPw(HttpSession session, Member member, Model model) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginMember") != null) {
 			return "redirect:/loginMemberAndCompany";
 		}
 		int row = memberService.getFindMemberPw(member);
@@ -211,7 +211,7 @@ public class MemberController {
 	@PostMapping("/getFindMemberId")
 	public String findMemberId(HttpSession session,Model model ,Member member) {
 		// 로그인 안할시 로그인 창으로
-		if(session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginMember") != null) {
 			return "redirect:/loginMemberAndCompany";
 		}		
 		String memberIdPart= memberService.getFindMemberId(member);

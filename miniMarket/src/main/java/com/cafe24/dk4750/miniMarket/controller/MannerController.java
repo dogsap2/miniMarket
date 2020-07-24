@@ -64,7 +64,7 @@ public class MannerController {
 	@PostMapping("/goodAddManner")
 	@ResponseBody
 	public void goodAddManner(HttpSession session ,Manner manner) {
-		System.out.println();
+		System.out.println(manner + " <== manner 디버깅");
 		
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		String memberId = loginMember.getMemberId();

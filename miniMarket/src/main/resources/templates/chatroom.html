@@ -26,7 +26,7 @@ $(document).ready(function(){
         	 $.ajax({
                method: "Post",
                //url: "/miniMarket/soldOutComplete",
-                url: "/soldOutComplete",
+                url: "/miniMarket/soldOutComplete",
                data: {memberItemNo : $("#memberItemNo").val() , memberUniqueNo : $("#memberUniqueNo").val() , chatroomNo : $("#chatroomNo").val()},
                success: function(data) {
             	   alert("거래 완료");
@@ -46,7 +46,7 @@ $(document).ready(function(){
           $.ajax({
               method: "Post",
               //url: "/miniMarket/addMessage",
-               url: "/addMessage",
+               url: "/miniMarket/addMessage",
               data: {memberId : memberId , chatMessage : $("#chatMessage").val() , chatroomNo : chatroomNo},
               success: function(data) {
                  $("#chatMessage").val("");
@@ -63,7 +63,7 @@ $(document).ready(function(){
       $.ajax({
            method: "Get",
            //url: "/miniMarket/getAllMessages",
-            url: "/getAllMessages",
+            url: "/miniMarket/getAllMessages",
            data: {chatroomNo : chatroomNo},
            success: function(data) {
               console.log("리스트 출력");

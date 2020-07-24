@@ -123,7 +123,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   	  }else{
 	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
 	   		  $.ajax({
-	   			  url:'/checkId',
+	   			  url:'/miniMarket/checkId',
 	   			  type:'GET',
 	   		  	  data:{checkMemberId:$('#checkMemberId').val()},
 	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
@@ -148,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   	  }else{
 	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
 	   		  $.ajax({
-	   			  url:'/checkPhone',
+	   			  url:'/miniMarket/checkPhone',
 	   			  type:'GET',
 	   		  	  data:{checkMemberPhone:$('#checkMemberPhone').val()},
 	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 
@@ -173,7 +173,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   	  }else{
 	   		  //id를 사용가능한지 디비에 요청(비동기요청 : ajax)
 	   		  $.ajax({
-	   			  url:'/checkEmail',
+	   			  url:'/miniMarket/checkEmail',
 	   			  type:'GET',
 	   		  	  data:{checkMemberEmail:$('#checkMemberEmail').val()},
 	   		  	  success:function(data){//data == 사용가능 or 사용 불가뜸 

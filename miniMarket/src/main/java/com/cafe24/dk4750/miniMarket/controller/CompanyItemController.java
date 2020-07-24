@@ -285,7 +285,7 @@ public class CompanyItemController {
 		return "getMyLikeCompanyItem";
 	}
 	
-	// 업체 추가하기 겟매핑. 페이지요청. 폼
+	// 업체아이템 추가하기 겟매핑. 페이지요청. 폼
 	@GetMapping("/addCompanyItem")
 	public String addCompanyItem(HttpSession session, Model model) {
 		System.out.println("addCompanyItem 겟매핑 시작");
@@ -334,7 +334,7 @@ public class CompanyItemController {
 		System.out.println(companyItemForm.getCompanyUniqueNo()+"<---컴퍼니 아이템 포스트맵핑 컴퍼니 유니크 넘버가 제대로 넘어 오는지 확인");
 		companyItemService.addCompanyItem(session, companyItemForm);
 		// 리턴
-		return "index";
+		return "redirect:/index";
 	}
 	
 	// 업체 아이템 삭제(비활성화)

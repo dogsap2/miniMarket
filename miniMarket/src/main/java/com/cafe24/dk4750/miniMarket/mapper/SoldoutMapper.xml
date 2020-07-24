@@ -7,12 +7,13 @@
 	<select id="totalSoldout" resultType="int" parameterType="String">
 		SELECT
 			COUNT(*)
-		FROM mini_market_‪item_soldout	
+		FROM mini_market_item_soldout
+		WHERE member_unique_no = #{memberUniqueNo}
 	</select>
 	
 	<!-- 판매완료 상품 추가 -->
 	<insert id="insertSoldoutItem" parameterType="com.cafe24.dk4750.miniMarket.vo.ItemSoldout">
-		INSERT INTO mini_market_‪item_soldout
+		INSERT INTO mini_market_item_soldout
 			(
 				member_item_no,
 				member_unique_no,
@@ -37,19 +38,20 @@
 			i.member_unique_no AS memberUniqueNoSale,
 			i.member_item_date AS memberItemDate,
 			ip.member_item_pic1 AS memberItemPic1
-		FROM mini_market_‪item_soldout AS iso
+		FROM mini_market_item_soldout AS iso
 		INNER JOIN mini_market_member_item AS i
 		ON iso.member_item_no = i.member_item_no
 		INNER JOIN mini_market_member_item_pic AS ip
 		ON i.member_item_no = ip.member_item_no
 		WHERE iso.member_unique_no = #{memberUniqueNo}
 		ORDER BY iso.soldout_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 		
 	</select>
 	
 	<!-- 구매완료 상품 리스트에서 삭제 -->
 	<delete id="deleteBuyItem" parameterType="int">
-		DELETE FROM mini_market_‪item_soldout
+		DELETE FROM mini_market_item_soldout
 		WHERE soldout_no = #{soldoutNo}
 	</delete>
 </mapper>
