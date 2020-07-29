@@ -152,6 +152,7 @@ public class CompanyItemController {
 		companyItemOne = companyItemService.getCompanyItemOne(companyItemNo);
 		LoginMember loginMember = (LoginMember)session.getAttribute("loginMember");
 		
+		
 		// 현재 로그인한 유저의 유니크넘버값을 넘겨준다
 		CompanyItemLike companyItemLike = new CompanyItemLike();
 		String memberUniqueNo = loginMember.getMemberUniqueNo();
@@ -165,6 +166,10 @@ public class CompanyItemController {
 	    model.addAttribute("lastPage", map.get("lastPage"));
 	    model.addAttribute("currentPage", currentPage);
 	    model.addAttribute("companyItemNo", companyItemNo);
+	    
+	    int likeActive = companyItemService.getItemLike(companyItemLike);
+	    model.addAttribute("likeActive", likeActive);
+	    
 		// 내 현재 라이크 상태
 		Integer check = checkCompanyLikeService.defaultLike(companyItemLike);
 		System.out.println(check+"<======== 내 현재 라이크 상태값값값");

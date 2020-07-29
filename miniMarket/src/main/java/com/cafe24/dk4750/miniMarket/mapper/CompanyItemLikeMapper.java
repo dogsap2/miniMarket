@@ -3,9 +3,14 @@ package com.cafe24.dk4750.miniMarket.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemLike;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 
 @Mapper
 public interface CompanyItemLikeMapper {
+	
+	
+	// 업체 글 좋아요 수
+	public int selectItemLike(CompanyItemLike companyItemLike);
 	
 	// 내가 이 업체 아이템을 좋아요 했는지 확인하기 
 	public Integer CheckCompanyItemLike(CompanyItemLike companyItemLike);

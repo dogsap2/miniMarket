@@ -23,9 +23,11 @@ import com.cafe24.dk4750.miniMarket.vo.CompanyItem;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemAndCompanyAndCompanyItemPicAndCompanyItemLikeAndCompanyPic;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemForm;
+import com.cafe24.dk4750.miniMarket.vo.CompanyItemLike;
 import com.cafe24.dk4750.miniMarket.vo.CompanyItemPic;
 import com.cafe24.dk4750.miniMarket.vo.LoginCompany;
 import com.cafe24.dk4750.miniMarket.vo.LoginMember;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 
 @Service
 @Transactional
@@ -36,6 +38,11 @@ public class CompanyItemService {
 	@Autowired private CompanyItemLikeMapper companyItemLikeMapper;
 	@Value("/dk4750/tomcat/webapps/miniMarket/WEB-INF/classes/static/images/")
 	private String path;
+	
+	// 아이템 상세보기에 좋아요 수 출력
+		public int getItemLike(CompanyItemLike companyItemLike) {
+			return companyItemLikeMapper.selectItemLike(companyItemLike);
+		}
 	
 	public Integer getCompanyItemNoOne(HttpSession session, CompanyItem companyItem) {
 		LoginCompany loginCompany = (LoginCompany)session.getAttribute("loginCompany");
