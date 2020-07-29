@@ -202,7 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 		<td colspan="2"><br><br>
 			<hr>
-				<img class='rounded' src="/images/default.jpg" width="70" height="70">
+				<img class='rounded' th:src="@{'/images/'+${myCompanyItemOne.profilePic}}" width="70" height="70">
 				&nbsp;&nbsp;<span style="font-weight:bold; font-size:x-large" th:text="${myCompanyItemOne.companyName}"></span>
 				<span th:text="${myCompanyItemOne.companyBname}"></span>
 			<hr>
@@ -269,7 +269,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</tr>
 	<tr>
 		<td style="color:gray;">
-			<span style="color:gray;" th:text="${myCompanyItemOne.likeActive}"></span>명의 회원이 관심등록 했습니다.<br><br>
+			<span style="color:gray;" th:text="${likeActive}"></span>명의 회원이 관심등록 했습니다.<br><br>
 		</td>
 	</tr>
 	<tr>

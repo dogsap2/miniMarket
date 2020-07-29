@@ -11,6 +11,11 @@
 		WHERE company_item_no = #{companyItemNo}
 		AND like_active = 1
 	</select>
+	<!-- 홍보 등록시 홍보글의 좋아요 0으로 -->
+	<insert id="insertLike" parameterType="int">
+		INSERT INTO mini_market_company_item_like(like_active, member_unique_no, company_item_no, like_date)
+		VALUES(0, 'm999999', #{companyItemNo}, NOW())
+	</insert>
 	<!-- 내가 이 업체 아이템을 좋아요 했는지 확인하기 -->
 	<select id="CheckCompanyItemLike" parameterType="com.cafe24.dk4750.miniMarket.vo.CompanyItemLike" resultType="Integer">
 		SELECT like_active AS likeActive

@@ -8,7 +8,8 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 @Mapper
 public interface CompanyItemLikeMapper {
 	
-	
+	//업체 글 생성시 좋아요 최소
+	public int insertLike(int companyItemNo);
 	// 업체 글 좋아요 수
 	public int selectItemLike(CompanyItemLike companyItemLike);
 	

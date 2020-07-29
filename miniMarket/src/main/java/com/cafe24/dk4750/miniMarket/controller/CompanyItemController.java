@@ -127,6 +127,12 @@ public class CompanyItemController {
       myCompanyItemOne.setCompanyItemNo(companyItemNo);
       myCompanyItemOne = companyItemService.getCompanyMyItemOne(session, companyUniqueNo, companyItemNo);
       
+      CompanyItemLike companyItemLike = new CompanyItemLike();
+      companyItemLike.setCompanyItemNo(companyItemNo);
+      
+      int likeActive = companyItemService.getItemLike(companyItemLike);
+	  model.addAttribute("likeActive", likeActive);
+      
       model.addAttribute("myCompanyItemOne", myCompanyItemOne);
       System.out.println(companyUniqueNo+"<-==컴퍼니 유니크 넘버 번호");
       System.out.println(myCompanyItemOne+"<====해당업체의 정보들");

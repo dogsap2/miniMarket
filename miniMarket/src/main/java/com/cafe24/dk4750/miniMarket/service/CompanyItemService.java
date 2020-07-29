@@ -662,6 +662,10 @@ public class CompanyItemService {
 		companyItemPic.setCompanyItemPic5(companyItemPic5);
 		// 아이템 넘버를 받아와서 아이템 등록하기
 		companyItemMapper.insertCompanyItem(companyItem);
+		//좋아요 추가
+		
+		companyItemLikeMapper.insertLike(companyItemNo);
+		
 		
 		// 받아온 아이템 넘버에 해당하는 아이템 사진 등록하기
 		companyItemPicMapper.insertCompanyItemPic(companyItemPic);
