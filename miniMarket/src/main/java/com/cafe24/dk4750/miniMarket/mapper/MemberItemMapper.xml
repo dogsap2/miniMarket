@@ -150,7 +150,7 @@
 		INNER JOIN mini_market_member_temp_total AS mtt
 		ON m.member_unique_no = mtt.member_unique_no
 		INNER JOIN mini_market_member_item_like AS mil
-		ON mi.member_item_no = mil.member_item_no AND mil.like_active = 1
+		ON mi.member_item_no = mil.member_item_no
 		WHERE mi.member_item_no = #{memberItemNo}
 	</select>
 	
@@ -193,6 +193,7 @@
 	<!-- 판매중인 관심동네 아이템 리스트 출력 -->
 	<select id="selectItemListByPlace" parameterType="Map" resultType="com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberInterestPlaceAndMemberItemPic">
 		SELECT
+			 mi.member_item_no AS memberItemNo,
 			 mip.member_item_pic1 AS memberItemPic1,
 	         mi.member_item_title AS memberItemTitle,
 	         mi.member_item_price AS memberItemPrice,

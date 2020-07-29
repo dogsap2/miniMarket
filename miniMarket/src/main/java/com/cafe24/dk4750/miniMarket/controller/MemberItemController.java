@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -140,7 +139,6 @@ public class MemberItemController {
 		int chatRoomCheck = chatroomService.getChatroomCheck(chatroom);
 		System.out.println(chatRoomCheck+"<---chatroomCheck 채팅방 유무 체크");
 		
-		
 		// 내가 좋아요 한 적이 있는지 체크
 		MemberItemLike memberItemLike = new MemberItemLike();
 		memberItemLike.setMemberItemNo(memberItemNo);
@@ -159,12 +157,17 @@ public class MemberItemController {
 		// 아이템 상세보기창에서 해당 회원의 판매상품 몇개 출력하기
 		List<MemberItemAndMemberAndMemberItemPic> limitList = memberItemService.getItemListMyItemLimit(memberUniqueNoSale);
 		
+		// 좋아요수 출력
+		int likeActive = memberItemService.getItemLike(memberItemLike);
+		System.out.println(likeActive);
+		
 		// 모델에 담아주기
 		model.addAttribute("chatRoomCheck", chatRoomCheck);
 		model.addAttribute("getItemOne", getItemOne);
 		model.addAttribute("check", check);
 		model.addAttribute("LoginMemberId", memberId);
 		model.addAttribute("limitList", limitList);
+		model.addAttribute("likeActive", likeActive);
 		System.out.println(getItemOne + " <== getItemOne");
 		
 		// 거래완료, 리스트에서는 수정이 안나오게끔... 이유는 판매하고 정보를 바꿔버릴수도 있기 때문에
@@ -317,6 +320,9 @@ public class MemberItemController {
 			return "redirect:/";
 		}
 		
+		// 카테고리 목록 모델에담아서 포워딩 시켜주기
+		List<Category> categoryList = categoryService.getMemberCategory();
+		
 		// 기존 정보 불러오기
 		Map<String, Object> map = memberItemService.getMemberItemOneForUpdate(memberItemNo);
 		MemberItemPic memberItemPic = (MemberItemPic)map.get("memberItemPic");
@@ -328,6 +334,7 @@ public class MemberItemController {
 		// 모델에 값 담아서 페이지에 보내주기
 		model.addAttribute("memberItem", memberItem);
 		model.addAttribute("memberItemPic", memberItemPic);
+		model.addAttribute("categoryList", categoryList);
 		
 		// 페이지요청
 		return "modifyMemberItem";
@@ -351,7 +358,7 @@ public class MemberItemController {
 	    memberItemService.modifyMemberItem(memberItemForm);
 		 
 		// 페이지 요청
-		return "index";
+		return "redirect:/index";
 	}
 	
 	// 판매중인 동네 아이템 리스트 출력하기

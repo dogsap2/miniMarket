@@ -2,7 +2,6 @@ package com.cafe24.dk4750.miniMarket.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.dk4750.miniMarket.mapper.ChatroomMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberInterestPlaceMapper;
+import com.cafe24.dk4750.miniMarket.mapper.MemberItemLikeMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemMapper;
 import com.cafe24.dk4750.miniMarket.mapper.MemberItemPicMapper;
 import com.cafe24.dk4750.miniMarket.mapper.SoldoutMapper;
@@ -31,6 +31,7 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPic;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberItemPicAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemAndMemberAndMemberPicAndMemberItemPicAndMemberTempTotalAndMemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemForm;
+import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 import com.cafe24.dk4750.miniMarket.vo.MemberItemPic;
 
 @Service
@@ -40,9 +41,15 @@ public class MemberItemService {
 	@Autowired private MemberItemPicMapper memberItemPicMapper;
 	@Autowired private SoldoutMapper soldoutMapper;
 	@Autowired private ChatroomMapper chatroomMapper;
+	@Autowired private MemberItemLikeMapper memberItemLikeMapper;
 	@Autowired private MemberInterestPlaceMapper memberInterestPlaceMapper;
 	@Value("/dk4750/tomcat/webapps/miniMarket/WEB-INF/classes/static/images/")
 	private String path;
+	
+	// 아이템 상세보기에 좋아요 수 출력
+	public int getItemLike(MemberItemLike memberItemLike) {
+		return memberItemLikeMapper.selectItemLike(memberItemLike);
+	}
 	
 	// 아이템 상세보기시 해당 회원의 아이템 몇개만 보여지게 출력
 	public List<MemberItemAndMemberAndMemberItemPic> getItemListMyItemLimit(String memberUniqueNo) {
@@ -472,6 +479,13 @@ public class MemberItemService {
 		memberItemPic.setMemberItemPic3(memberItemPic3);
 		memberItemPic.setMemberItemPic4(memberItemPic4);
 		memberItemPic.setMemberItemPic5(memberItemPic5);
+		
+		// 좋아요 추가
+		MemberItemLike memberItemLike = new MemberItemLike();
+		memberItemLike.setMemberUniqueNo(memberItemForm.getMemberUniqueNo());
+		memberItemLike.setMemberItemNo(memberItemNo);
+		memberItemLikeMapper.insertLike(memberItemLike);
+		
 		// 받아온 아이템 넘버에 해당하는 아이템 사진 등록하기
 		memberItemPicMapper.insertMemberItemPic(memberItemPic);
 	}

@@ -266,8 +266,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
 				<form th:action="@{/loginCompany}" method="post">
-					<input type="text" placeholder="업체 ID를 입력하세요" required=" " name="companyId">
-					<input type="password" placeholder="Password" required=" " name="companyPw" >
+					<input type="text" placeholder="업체 ID를 입력하세요" value="company" required=" " name="companyId">
+					<input type="password" placeholder="Password" value="1234" required=" " name="companyPw" >
 					<div class="forgot">
 						<a th:href="@{/getFindCompanyId }">Forgot ID?</a>
 						<a th:href="@{/getFindCompanyPw}">Forgot Password?</a>

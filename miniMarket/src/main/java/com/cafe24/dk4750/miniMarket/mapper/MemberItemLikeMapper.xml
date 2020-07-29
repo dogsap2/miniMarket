@@ -4,6 +4,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.dk4750.miniMarket.mapper.MemberItemLikeMapper">
 	
+	<!-- 해당 상품의 좋아요 수 가져오기 -->
+	<select id="selectItemLike" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberItemLike" resultType="int">
+		SELECT COUNT(like_active)
+		FROM mini_market_member_item_like
+		WHERE member_item_no = #{memberItemNo}
+		AND like_active = 1
+	</select>
+	
+	<!-- 상품 등록시 판매자의 좋아요 0으로 -->
+	<insert id="insertLike" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberItemLike">
+		INSERT INTO mini_market_member_item_like(like_active, member_unique_no, member_item_no, like_date)
+		VALUES(0, #{memberUniqueNo}, #{memberItemNo}, NOW())
+	</insert>
+	
 	<!-- 내가 이 상품을 좋아요 했는지 확인하기 -->
 	<select id="CheckLike" parameterType="com.cafe24.dk4750.miniMarket.vo.MemberItemLike" resultType="Integer">
 		SELECT like_active AS likeActive

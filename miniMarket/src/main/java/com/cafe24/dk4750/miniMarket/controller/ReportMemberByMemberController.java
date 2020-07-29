@@ -94,6 +94,6 @@ public class ReportMemberByMemberController {
 		reportMemberByMember.setMemberId(memberId);
 		reportMemberByMemberService.addReportMemberByMember(reportMemberByMember);
 		
-		return "redirect:/getMemberItemList";
+		return "redirect:/index";
 	}
 }

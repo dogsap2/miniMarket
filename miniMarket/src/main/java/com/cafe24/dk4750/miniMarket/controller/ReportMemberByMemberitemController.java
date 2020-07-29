@@ -99,6 +99,6 @@ public class ReportMemberByMemberitemController {
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		reportMemberByMemberItem.setMemberId(memberId);
 		reportMemberByMemberItemService.addReportMemberByMemberItem(reportMemberByMemberItem);
-		return "redirect:getMemberItemList";
+		return "redirect:/index";
 	}
 }

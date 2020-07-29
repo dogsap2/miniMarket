@@ -40,6 +40,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script>
 	$(document).ready(function() {
 		$('#btn').click(function() {
+			if($('#categoryName').val() == ""){
+				alert("카테고리를 선택하세요");
+				return;
+			}
 			$('#modifyForm').submit();
 		});
 	});
@@ -263,75 +267,66 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				data-wow-delay=".5s">
 				<li><a th:href="@{/index}"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">업체 아이템 수정</li>
+				<li class="active">업체 홍보 수정</li>
 			</ol>
 		</div>
 	</div>
 <!-- //breadcrumbs -->
-	<form method="post" th:action="@{/modifyCompanyItem}" enctype="multipart/form-data" id="modifyForm">
-		<table border="1">
-			<tr>
-				<th>제목</th>
-				<th>카테고리 이름</th>
-				<th>가격</th>
-				<th>번호</th>
-				<th>내용</th>
-				<th>사진1</th>
-				<th>사진2</th>
-				<th>사진3</th>
-				<th>사진4</th>
-				<th>사진5</th>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" name="companyItemTitle" id="companyItemTitle" th:value="${companyItem.companyItemTitle}">
-				</td>
-				<td>
-					<select name="categoryName" id="categoryName">
-						<option selected value="">상품의 카테고리를 선택해주세요.</option>
-						<option th:each="categoryList : ${categoryList}" th:value="${categoryList.categoryName}" th:text="${categoryList.categoryName}">
-					</select>
-				</td>
-				<td>
-					<input type="text" name="companyItemPrice" id="companyItemPrice" th:value="${companyItem.companyItemPrice}">
-				</td>
-				<td>
-					<input type="text" name="companyPhone" id="companyPhone" th:value="${companyItem.companyPhone}">
-				</td>
-				<td>
-					<textarea rows="5" cols="10" name="companyItemContent" id="companyItemContent" th:value="${companyItem.companyItemContent}"></textarea>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${companyItemPic.companyItemPic1}}" width="300" height="150"></img><br>
-					<input type="file" name="companyItemPic1" id="companyItemPic1" th:value="${companyItemPic.companyItemPic1}"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${companyItemPic.companyItemPic2}}" width="300" height="150"><br>
-					<input type="file" name="companyItemPic2" id="companyItemPic2" th:value="${companyItemPic.companyItemPic2}"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${companyItemPic.companyItemPic3}}" width="300" height="150"><br>
-					<input type="file" name="companyItemPic3" id="companyItemPic3" th:value="${companyItemPic.companyItemPic3}"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${companyItemPic.companyItemPic4}}" width="300" height="150"><br>
-					<input type="file" name="companyItemPic4" id="companyItemPic4" th:value="${companyItemPic.companyItemPic4}"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${companyItemPic.companyItemPic5}}" width="300" height="150"><br>
-					<input type="file" name="companyItemPic5" id="companyItemPic5" th:value="${companyItemPic.companyItemPic5}"><br>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="submit" id="btn">수정</button>
-				</td>
-			</tr>
-		</table>
-		<div>
-			<input type="text" name="companyItemNo" th:value="${companyItem.companyItemNo}" id="companyItemNo">
-		</div>
+<div class="login">	 
+     <div class="container" align="center">
+      <h2>업체홍보 수정하기</h2>
+      <br>
+       <br>	
+		<form method="post" th:action="@{/modifyCompanyItem}" enctype="multipart/form-data" id="modifyForm">
+
+		<table border="1" class="table table-bordered" style="align: center; width: 1000px;">
+				<tr>
+					<th>
+						<input class="form-control" style="width: 980px; height: 45px;" type="text"
+						name="companyItemTitle" id="companyItemTitle" th:value="${companyItem.companyItemTitle}">
+					</th>
+				</tr>
+				<tr>
+					<th>카테고리 이름 
+						<select class="btn btn-warning dropdown-toggle"	data-toggle="dropdown" name="categoryName" id="categoryName">
+							<option selected value="">상품의 카테고리를 선택해주세요.</option>
+							<option th:each="list : ${categoryList}" th:value="${list.categoryName}" th:text="${list.categoryName}">
+						</select>
+					</th>
+				</tr>
+				<tr>
+					<th>사진 <br>
+						<div id="allInput"> 
+							<input style="display: inline;" type="file" name="companyItemPic1" id="companyItemPic1"> 
+							<input style="display: inline;" type="file" name="companyItemPic2" id="companyItemPic2"> 
+							<input style="display: inline;" type="file" name="companyItemPic3" id="companyItemPic3">
+							&emsp;<input style="display: inline;" type="file" name="companyItemPic4" id="companyItemPic4"> 
+							<input style="display: inline;" type="file" name="companyItemPic5" id="companyItemPic5">
+						</div>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<input style="width: 400px; height: 35px;" class="form-control" type="text" name="companyItemPrice" id="companyItemPrice" th:value="${companyItem.companyItemPrice}">
+						</th>
+					</tr>
+					<tr>
+						<td align="center">
+							<textarea class="form-control" rows="10" cols="120" name="companyItemContent" id="companyItemContent" th:text="${companyItem.companyItemContent}"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">							
+							<button type="button" class="btn btn-warning" id="btn">홍보 수정</button>							
+						</td>
+					</tr>
+				</table>				
+		<input type="hidden" name="companyItemNo" th:value="${companyItem.companyItemNo}">
 	</form>
+		</div>
+		<br>
+		<br>
+</div>
 <!-- //footer -->
 <div class="footer">		
 		<div class="footer-copy">

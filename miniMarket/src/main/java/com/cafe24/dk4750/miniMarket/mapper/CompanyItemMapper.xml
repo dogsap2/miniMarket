@@ -105,8 +105,7 @@
 		ON cil.company_item_no = ci.company_item_no 
 		INNER JOIN mini_market_company_pic AS cp
 		ON cp.company_id = c.company_id
-		WHERE ci.company_item_no = #{companyItemNo} 
-		AND cil.like_active = '1'
+		WHERE ci.company_item_no = #{companyItemNo}
 	</select>
 	
 	<!-- 업체아이템 끌어올리기 -->

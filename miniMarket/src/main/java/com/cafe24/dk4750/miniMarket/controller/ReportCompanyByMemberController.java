@@ -115,7 +115,7 @@ public class ReportCompanyByMemberController {
 	    }
 		
 		System.out.println(reportCompanyByMember);
-		return "redirect:/companyByMemberReport";
+		return "redirect:/index";
 	}
 	
 }

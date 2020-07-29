@@ -101,6 +101,6 @@ public class ReportMemeberByCompanyController {
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		reportMemberByCompany.setMemberId(memberId);
 		reportMemberByCompanyService.addReportMemberByCompany(reportMemberByCompany);
-		return "redirect:/getCompanyItemList";
+		return "redirect:/index";
 	}
 }

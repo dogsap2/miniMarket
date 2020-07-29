@@ -85,7 +85,7 @@ public class CompanyItemController {
 		companyItemService.modifyCompanyItem(companyItemForm);
 		
 		// 페이지 요청
-		return "redirect:/getCompanyItemList";
+		return "redirect:/index";
 	}
 	// 끌어 올리기
 	@GetMapping("/companyItemPullUp")

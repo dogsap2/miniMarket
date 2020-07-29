@@ -274,7 +274,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3> [<label th:text="${companyItemTitle}"></label>]업체 게시글을 신고하는 이유를 선택해주세요</h3>
 								<br><br>
-							<form method="post" action="/memberByCompanyItemReport" id="mByCReportForm">
+							<form method="post"  th:action="@{memberByCompanyItemReport}" id="mByCReportForm">
 							<div id="title">
                               <div id="title1">
                                  <button type="button" class="titlebtn btn btn-warning" value="사실과 다른 거짓/과장 광고예요" name="reportTitle">사실과 다른 거짓/과장 광고예요</button>
@@ -308,7 +308,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div align="center">
 								<h3>업체[<label th:text="${companyName}"></label>]를 신고하는 이유를 선택해주세요</h3>
 								<br><br>
-								<form method="post" action="/memberByCompanyReport" id="memberByMemberReportForm">
+								<form method="post"  th:action="@{memberByCompanyReport}" id="memberByMemberReportForm">
 									<div id="merberTitle">
                               			<div id="merberTitle1">
                                 			<button type="button" class="memberTitlebtn btn btn-warning " value="전문 판매업자 같아요" name="reportTitle">전문 판매업자 같아요</button>

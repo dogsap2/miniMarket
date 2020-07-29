@@ -282,9 +282,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                              <hr> 
                                           </div>
                                           <div>
-			<a class= "btn btn-warning" th:if="${currentPage} > 1" th:href="@{/getItemListByPlace(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
-			<a class= "btn btn-warning" th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListByPlace(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
-			</div>                                          
+										<a class= "btn btn-warning" th:if="${currentPage} > 1" th:href="@{/getItemListByPlace(currentPage=${currentPage-1},searchWord=${searchWord})}" >이전</a>
+										<a class= "btn btn-warning" th:if="${currentPage} < ${lastPage}" th:href="@{/getItemListByPlace(currentPage=${currentPage+1},searchWord=${searchWord})}">다음</a>
+										</div>                                          
                                        </div>
                                     </figure>
                                  </div>

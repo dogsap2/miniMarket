@@ -7,6 +7,12 @@ import com.cafe24.dk4750.miniMarket.vo.MemberItemLike;
 @Mapper
 public interface MemberItemLikeMapper {
 	
+	// 해당 상품의 좋아요 수
+	public int selectItemLike(MemberItemLike memberItemLike);
+	
+	// 상품 등록시 좋아요추가
+	public int insertLike(MemberItemLike memberItemLike);
+	
 	// 내가 이 상품을 좋아요 했는지 확인하기
 	public Integer CheckLike(MemberItemLike memberItemLike);
 	

@@ -525,11 +525,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		let check = Number($('#check').text());
 		console.log(check + " 검사한결과값")
 		if(check == 1) {
-			$('#img').attr('src', '/images/fh.png');
+			$('#img').attr('src', '/miniMarket/images/fh.png');
 			count = count + check;
 			console.log(count + "체크넘버가 1일시 count에 check 더해서 1으로 고정");
 		} else if(check == 0) {
-			$('#img').attr('src', '/images/h.png');
+			$('#img').attr('src', '/miniMarket/images/h.png');
 		}
 		console.log(check + " 검사한결과값")
 		$('#img').click(function() {
@@ -541,9 +541,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				success : function(data) {
 					console.log("0이면 좋아요취소, 1이면 좋아요 : " + data);
 					if(data == 1) {
-						$('#img').attr('src', '/images/fh.png');
+						$('#img').attr('src', '/miniMarket/images/fh.png');
 					} else {
-						$('#img').attr('src', '/images/h.png');
+						$('#img').attr('src', '/miniMarket/images/h.png');
 					}
 					count = data;
 				}

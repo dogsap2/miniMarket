@@ -35,6 +35,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
+		
+		$('#btn').click(function(){
+			if($('#categoryName').val() == ""){
+				alert("카테고리를 선택하세요");
+				return;
+			}
+	         $('#form').submit();
+	      });
 	});
 </script>
 </head>
@@ -248,71 +256,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 <!-- //navigation -->
-	<form method="post" th:action="@{/modifyMemberItem}" enctype="multipart/form-data">
-		<table border="1">
-			<tr>
-				<th>제목</th>
-				<th>카테고리 이름</th>
-				<th>가격</th>
-				<th>내용</th>
-				<th>사진1</th>
-				<th>사진2</th>
-				<th>사진3</th>
-				<th>사진4</th>
-				<th>사진5</th>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" name="memberItemTitle" id="memberItemTitle" th:value="${memberItem.memberItemTitle}">
-				</td>
-				<td>
-					<input type="text" name="categoryName" id="categoryName" th:value="${memberItem.categoryName}">
-				</td>
-				<td>
-					<input type="text" name="memberItemPrice" id="memberItemPrice" th:value="${memberItem.memberItemPrice}">
-				</td>
-				<td>
-					<textarea rows="5" cols="10" name="memberItemContent" id="memberItemContent" th:text="${memberItem.memberItemContent}"></textarea>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${memberItemPic.memberItemPic1}}" width="300" height="150"></img><br>
-					<input type="file" name="memberItemPic1" id="memberItemPic1"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${memberItemPic.memberItemPic2}}" width="300" height="150"><br>
-					<input type="file" name="memberItemPic2" id="memberItemPic2"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${memberItemPic.memberItemPic3}}" width="300" height="150"><br>
-					<input type="file" name="memberItemPic3" id="memberItemPic3"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${memberItemPic.memberItemPic4}}" width="300" height="150"><br>
-					<input type="file" name="memberItemPic4" id="memberItemPic4"><br>
-				</td>
-				<td>
-					<img th:src="@{'/images/'+${memberItemPic.memberItemPic5}}" width="300" height="150"><br>
-					<input type="file" name="memberItemPic5" id="memberItemPic5">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="submit">수정</button>
-				</td>
-			</tr>
-		</table>
+
+ <div class="breadcrumbs">
+      <div class="container">
+         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a th:href="@{/index}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li class="active">물품 수정하기</li>
+         </ol>
+      </div>
+   </div>
+<!-- //breadcrumbs -->
+<!-- 아이템 추가 -->
+<div class="login">	 
+      <div class="container" align="center">
+       <h2>물품 수정하기</h2>
+       <br>
+        <br>	
+			<form method="post" th:action="@{/modifyMemberItem}" enctype="multipart/form-data" id="form">
+
+		<table border="1" class="table table-bordered" style="align: center; width: 1000px;">
+					<tr>
+						<th>
+							<input class="form-control" style="width: 980px; height: 45px;" type="text"
+							name="memberItemTitle" id="memberItemTitle" th:value="${memberItem.memberItemTitle}">
+						</th>
+					</tr>
+					<tr>
+						<th>카테고리 이름 
+							<select class="btn btn-warning dropdown-toggle"	data-toggle="dropdown" name="categoryName" id="categoryName">
+								<option selected value="">상품의 카테고리를 선택해주세요.</option>
+								<option th:each="list : ${categoryList}" th:value="${list.categoryName}" th:text="${list.categoryName}">
+							</select>
+						</th>
+					</tr>
+					<tr>
+						<th>사진 <br>
+							<div id="allInput"> 
+								<input style="display: inline;" type="file" name="memberItemPic1" id="memberItemPic1"> 
+								<input style="display: inline;" type="file" name="memberItemPic2" id="memberItemPic2"> 
+								<input style="display: inline;" type="file" name="memberItemPic3" id="memberItemPic3">
+								&emsp;<input style="display: inline;" type="file" name="memberItemPic4" id="memberItemPic4"> 
+								<input style="display: inline;" type="file" name="memberItemPic5" id="memberItemPic5">
+							</div>
+						</th>
+					</tr>
+					<tr>
+						<th>
+							<input style="width: 400px; height: 35px;" class="form-control" type="text" name="memberItemPrice" id="memberItemPrice" th:value="${memberItem.memberItemPrice}">
+						</th>
+					</tr>
+					<tr>
+						<td align="center">
+							<textarea class="form-control" rows="10" cols="120" name="memberItemContent" id="memberItemContent" th:text="${memberItem.memberItemContent}"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">							
+							<button type="button" class="btn btn-warning" id="btn">물품 수정</button>							
+						</td>
+					</tr>
+				</table>				
 		<input type="hidden" name="memberItemNo" th:value="${memberItem.memberItemNo}">
 	</form>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+		</div>
+		<br>
+		<br>
+</div>
 <!-- //footer -->
 <div class="footer">		
 		<div class="footer-copy">

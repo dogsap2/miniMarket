@@ -110,6 +110,6 @@ public class ReportMemberByCompanyitemController {
 		reportMemberByCompanyItem.setMemberId(memberId);
 		reportMemberByCompanyItemService.addReportMemberByCompanyItem(reportMemberByCompanyItem);
 		
-		return "redirect:/getCompanyItemList";
+		return "redirect:/index";
 	}
 }
